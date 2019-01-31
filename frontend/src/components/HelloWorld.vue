@@ -87,6 +87,9 @@
           Baidu
         </a>
       </li>
+      <li>
+        <router-link to="/testvue"><a>testvue</a></router-link>
+      </li>
     </ul>
   </div>
 </template>

@@ -1,0 +1,27 @@
+<html>
+<head>
+  <style type="text/css">
+    p {
+      color: #a81d6d;
+    }
+  </style>
+</head>
+
+<body>
+<div id="app">
+  <p>[[ message ]]</p>
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+
+<script type="text/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  },
+  delimiters: ['[[',']]']
+})
+</script>
+</body>
+</html>
