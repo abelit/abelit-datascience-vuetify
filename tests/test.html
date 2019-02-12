@@ -5,12 +5,25 @@
       color: #a81d6d;
     }
   </style>
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
 <body>
 <div id="app">
-  <p>[[ message ]]</p>
+  <p> {{ message }} </p>
 </div>
+
+<div id="demo">{{ fullName }}</div>
+
+
+<div id='app1' v-bind:class="[activeClass, errorClass]">
+  <h1>dsafld hello abelit dchenying yanghui panpan </h1>
+
+  <button  type="button" name="button" v-bind:class="classButton">Button1</button>
+</div>
+
+<button id='app2' type="button" name="button" v-bind:class="classButton">Button2</button>
 
 <script src="https://unpkg.com/vue"></script>
 
@@ -19,9 +32,93 @@ var app = new Vue({
   el: '#app',
   data: {
     message: 'Hello Vue!'
+  }
+  // delimiters: ['[[',']]']
+});
+var app1 = new Vue({
+  el: '#app1',
+  data: {
+    activeClass: 'panel',
+    errorClass: 'panel-danger',
+    classButton: 'btn-primary'
+  }
+});
+
+var app2 = new Vue({
+  el: '#app2',
+  data: {
+    classButton: 'btn btn-primary'
+  }
+});
+
+// var vm = new Vue({
+//   el: '#demo',
+//   data: {
+//     firstName: 'Foo',
+//     lastName: 'Bar',
+//     fullName: 'Foo Bar'
+//   },
+//   watch: {
+//     firstName: function (val) {
+//       this.fullName = val + ' ' + this.lastName
+//     },
+//     lastName: function (val) {
+//       this.fullName = this.firstName + ' ' + val
+//     }
+//   }
+// });
+// var vm = new Vue({
+//   el: '#demo',
+//   data: {
+//     firstName: 'Foo',
+//     lastName: 'Bar'
+//   },
+//   computed: {
+//     fullName: function () {
+//       return this.firstName + ' ' + this.lastName
+//     }
+//   }
+// });
+
+var vm = new Vue({
+  el: '#demo',
+  data: {
+    firstName: 'Foo',
+    lastName: 'Bar'
   },
-  delimiters: ['[[',']]']
+  computed: {
+    fullName: {
+      // getter
+      get: function () {
+        return this.firstName + ' ' + this.lastName
+      },
+      // setter
+      set: function (newValue) {
+        var names = newValue.split(' ')
+        this.firstName = names[0]
+        this.lastName = names[names.length - 1]
+      }
+    }
+  }
 })
 </script>
+<!-- <script type="text/javascript">
+var vm = new Vue({
+  el: '#demo',
+  data: {
+    firstName: 'Foo',
+    lastName: 'Bar',
+    fullName: 'Foo Bar'
+  },
+  watch: {
+    firstName: function (val) {
+      this.fullName = val + ' ' + this.lastName
+    },
+    lastName: function (val) {
+      this.fullName = this.firstName + ' ' + val
+    }
+  }
+})
+</script> -->
 </body>
 </html>

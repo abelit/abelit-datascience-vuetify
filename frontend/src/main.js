@@ -9,6 +9,14 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'jquery/dist/jquery.js'
 import 'bootstrap/dist/js/bootstrap.js'
+// 引入echarts
+import echarts from 'echarts'
+// main.js
+// import http from 'http'
+// Vue.prototype.$http = http
+// import axios from 'axios'
+// Vue.prototype.$http = axios
+Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */

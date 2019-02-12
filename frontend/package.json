@@ -11,12 +11,21 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@amcharts/amcharts4": "^4.1.4",
+    "@amcharts/amcharts4-geodata": "^4.1.1",
+    "amcharts": "^3.14.5",
     "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
+    "echarts": "^4.1.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.7",
     "vue": "^2.5.2",
+    "vue-date-picker": "^2.1.0",
+    "vue-datepicker-local": "^1.0.19",
+    "vue-radial-menu": "^1.1.1",
     "vue-router": "^3.0.1",
+    "vue-sidebar-menu": "^3.4.0",
+    "vue2-datepicker": "^2.9.0",
     "vuex": "^3.1.0"
   },
   "devDependencies": {
