@@ -1,13 +1,13 @@
-const path = require('path')
+process.env.VUE_APP_VERSION = require('./package.json').version
 
 module.exports = {
-  build: {
-    // Template for index.html
-    index: path.resolve(__dirname, './dist/index.html'),
-
-    // Paths
-    assetsRoot: path.resolve(__dirname, './dist'),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/'
+  // config
+  assetsDir: 'static', // For simple configuration of static files in Flask (the "static_folder='client/dist/static'" part in app.py)
+  devServer: {
+    proxy: 'http://localhost:5000', // So that the client dev server can access your Flask routes
+    changeOrigin: true,
+    pathRewrite: {
+      '^/': ''
+    }
   }
 }
