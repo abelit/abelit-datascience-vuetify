@@ -81,6 +81,8 @@
         </v-layout>
       </v-flex>
     </v-layout>
+    <span><router-link to="/button">ButtonPage</router-link></span>
+
   </v-container>
 </template>
 
