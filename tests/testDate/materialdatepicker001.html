@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <input type="text" class="datepicker">
+    <button type="button" name="button" class="datepicker"></button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <!-- led and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="text/javascript">
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   var elems = document.querySelectorAll('.datepicker');
+    //   var instances = M.Datepicker.init(elems, options);
+    // });
+
+    // Or with jQuery
+
+    $(document).ready(function() {
+      $('.datepicker').datepicker({
+        selectMonths: true,
+        yearRange: 50,
+        format: 'yyyy-mm-dd',
+        i18n: {
+          today: '今天',
+          clear: '清除',
+          close: '关闭',
+          cancel: '取消',
+          done: '确认',
+          months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+          monthsShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+          weekdays: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+          weekdaysShort: ['日', '一', '二', '三', '四', '五', '六'],
+          weekdaysAbbrev: ['日', '一', '二', '三', '四', '五', '六'],
+        }
+        });
+      // $('.datepicker').datepicker();
+    });
+  </script>
+</body>
+
+</html>

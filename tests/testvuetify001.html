@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div id="app">
+  <v-app id="inspire">
+    <div>
+      <v-layout row wrap>
+        <v-flex xs12 sm3>
+          <v-checkbox v-model="landscape" hide-details label="Landscape"></v-checkbox>
+        </v-flex>
+        <v-flex xs12 sm3>
+          <v-checkbox v-model="reactive" hide-details label="Reactive"></v-checkbox>
+        </v-flex>
+      </v-layout>
+
+      <v-date-picker v-model="picker" :landscape="landscape" :reactive="reactive"></v-date-picker>
+    </div>
+  </v-app>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+  <script>
+    new Vue({
+  el: '#app',
+  data () {
+    return {
+      picker: new Date().toISOString().substr(0, 10),
+      landscape: false,
+      reactive: false
+    }
+  }
+})
+  </script>
+</body>
+</html>
