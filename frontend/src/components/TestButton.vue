@@ -581,8 +581,14 @@ div {
 }
 </style>
 
-<style scoped>
+<style lang="css" scoped>
+#countapp {
+  color: #dddddd;
+}
 #countapp p {
   font-size: 48px;
+}
+#countapp button {
+  color: #fdcabd;
 }
 </style>
