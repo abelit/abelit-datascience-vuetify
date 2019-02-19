@@ -1,6 +1,5 @@
 from flask import Flask, render_template, jsonify, redirect
 from flask_cors import CORS
-import requests
 
 app = Flask(__name__)
 
