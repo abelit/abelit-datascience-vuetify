@@ -173,7 +173,8 @@
             </v-btn>
           </v-card-title>
 
-          <v-card-actions class="grey darken-3 justify-center">&copy;2018 —
+          <v-card-actions class="grey darken-3 justify-center">
+            &copy;2018 —
             <strong>Vuetify</strong>
           </v-card-actions>
         </v-card>
@@ -319,7 +320,23 @@
 
     <div id="myamchart"></div>
 
+    <div>
+      <p>You favorite hero is {{ hname }}</p>
+      <button v-on:click="btnClick('A1')" class="btn btn-dark">A1</button>
+      <button v-on:click="btnClick('A2')" class="btn btn-dark">A2</button>
+      <button v-on:click="btnClick('A3')" class="btn btn-dark">A3</button>
+      <button v-on:click="btnClick('A4')" class="btn btn-dark">A4</button>
+    </div>
 
+    <div>
+      <div id="components-demo">
+        <h1>自定义组件 Custom components {{ hname | toupper}}</h1>
+       <button-counter></button-counter>
+       <button-counter></button-counter>
+       <button-counter></button-counter>
+       <ButtonCounter />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -338,6 +355,9 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_dataviz from "@amcharts/amcharts4/themes/dataviz";
 
+// 导入自定义组件
+import ButtonCounter from "./ButtonCounter.vue";
+
 
 // Themes begin
 am4core.useTheme(am4themes_dataviz);
@@ -345,6 +365,10 @@ am4core.useTheme(am4themes_animated);
 // Themes end
 
 export default {
+  name: 'TestButton',
+  components: {
+    ButtonCounter
+  },
   data() {
     return {
       activeBtn: 1,
@@ -377,8 +401,20 @@ export default {
           name: "D",
           value: 29491310
         }
-      ]
+      ],
+      hname: "Abelit",
+      games: [
+        {title: 'Game 1'},
+        {title: 'Game 2'},
+        {title: 'Game 3'}
+      ],
+      mcount: 0
     };
+  },
+  filters: {
+    toupper: function(value) {
+      return value.toUpperCase();
+    }
   },
   methods: {
     getBooks() {
@@ -477,6 +513,9 @@ export default {
     },
     decrement() {
       store.commit("decrement");
+    },
+    btnClick(name) {
+      this.hname = name;
     }
   },
   computed: {
@@ -835,19 +874,21 @@ export default {
 
 <style lang="css" scoped>
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 #myamchart {
   width: 100%;
-  height: 500px
+  height: 500px;
 }
 </style>
 
 
 <style lang="css" scoped>
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 #chartdiv {
@@ -943,6 +984,6 @@ div {
   font-size: 48px;
 }
 #countapp button {
-  color: #fdcabd;
+  color: 
 }
 </style>
