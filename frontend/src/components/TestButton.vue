@@ -88,6 +88,9 @@
         </v-flex>
       </v-layout>
     </div>
+    
+    
+
     <div class>
       <v-card class="hide-overflow" height="200px">
         <v-card-text class="text-xs-center">
@@ -118,6 +121,8 @@
         </v-bottom-nav>
       </v-card>
     </div>
+
+
 
     <div>
       <div class="container">
@@ -155,190 +160,248 @@
     </div>
   </div>
     </div>
+
+  <div>
+    <v-footer
+    dark
+    height="auto"
+  >
+    <v-card
+      class="flex"
+      flat
+      tile
+    >
+      <v-card-title class="teal">
+        <strong class="subheading">Get connected with us on social networks!</strong>
+
+        <v-spacer></v-spacer>
+
+        <v-btn
+          v-for="icon in icons"
+          :key="icon"
+          class="mx-3"
+          dark
+          icon
+        >
+          <v-icon size="24px">{{ icon }}</v-icon>
+        </v-btn>
+      </v-card-title>
+
+      <v-card-actions class="grey darken-3 justify-center">
+        &copy;2018 — <strong>Vuetify</strong>
+      </v-card-actions>
+    </v-card>
+  </v-footer>
+  </div>
+
+
+  <div>
+    <v-card
+    class="mx-auto"
+    max-width="400"
+  >
+    <v-card
+      dark
+      flat
+    >
+      <v-btn
+        absolute
+        bottom
+        color="pink"
+        right
+        fab
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+      <v-card-title class="pa-2 purple lighten-3">
+        <v-btn icon>
+          <v-icon>mdi-menu</v-icon>
+        </v-btn>
+        <h3 class="title font-weight-light text-xs-center grow">Timeline</h3>
+        <v-avatar>
+          <v-img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"></v-img>
+        </v-avatar>
+      </v-card-title>
+      <v-img
+        src="https://cdn.vuetifyjs.com/images/cards/forest.jpg"
+        gradient="to top, rgba(0,0,0,.44), rgba(0,0,0,.44)"
+      >
+        <v-container fill-height>
+          <v-layout align-center>
+            <strong class="display-4 font-weight-regular mr-4">8</strong>
+            <v-layout column justify-end>
+              <div class="headline font-weight-light">Monday</div>
+              <div class="text-uppercase font-weight-light">February 2015</div>
+            </v-layout>
+          </v-layout>
+        </v-container>
+      </v-img>
+    </v-card>
+    <v-card-text class="py-0">
+      <v-timeline
+        align-top
+        dense
+      >
+        <v-timeline-item
+          color="pink"
+          small
+        >
+          <v-layout pt-3>
+            <v-flex xs3>
+              <strong>5pm</strong>
+            </v-flex>
+            <v-flex>
+              <strong>New Icon</strong>
+              <div class="caption">Mobile App</div>
+            </v-flex>
+          </v-layout>
+        </v-timeline-item>
+
+        <v-timeline-item
+          color="teal lighten-3"
+          small
+        >
+          <v-layout wrap pt-3>
+            <v-flex xs3>
+              <strong>3-4pm</strong>
+            </v-flex>
+            <v-flex>
+              <strong>Design Stand Up</strong>
+              <div class="caption mb-2">Hangouts</div>
+              <v-avatar>
+                <v-img
+                  src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Kurt&hairColor=Red&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=GraphicShirt&clotheColor=Gray01&graphicType=Skull&eyeType=Wink&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=Brown"
+                ></v-img>
+              </v-avatar>
+              <v-avatar>
+
+                <v-img
+                  src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Prescription02&hairColor=Black&facialHairType=MoustacheMagnum&facialHairColor=BrownDark&clotheType=BlazerSweater&clotheColor=Black&eyeType=Default&eyebrowType=FlatNatural&mouthType=Default&skinColor=Tanned"
+                ></v-img>
+              </v-avatar>
+              <v-avatar>
+                <v-img
+                  src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairMiaWallace&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=Blank&clotheType=BlazerSweater&eyeType=Surprised&eyebrowType=RaisedExcited&mouthType=Smile&skinColor=Pale"
+                ></v-img>
+              </v-avatar>
+            </v-flex>
+          </v-layout>
+        </v-timeline-item>
+
+        <v-timeline-item
+          color="pink"
+          small
+        >
+          <v-layout pt-3>
+            <v-flex xs3>
+              <strong>12pm</strong>
+            </v-flex>
+            <v-flex>
+              <strong>Lunch break</strong>
+            </v-flex>
+          </v-layout>
+        </v-timeline-item>
+
+        <v-timeline-item
+          color="teal lighten-3"
+          small
+        >
+          <v-layout pt-3>
+            <v-flex xs3>
+              <strong>9-11am</strong>
+            </v-flex>
+            <v-flex>
+              <strong>Finish Home Screen</strong>
+              <div class="caption">Web App</div>
+            </v-flex>
+          </v-layout>
+        </v-timeline-item>
+      </v-timeline>
+    </v-card-text>
+  </v-card>
+  </div>
+
+
+  <div>
+    <v-layout row wrap>
+    <v-flex xs12 sm6>
+      <v-date-picker v-model="picker" color="green lighten-1"></v-date-picker>
+    </v-flex>
+    <v-flex xs12 sm6 class="hidden-xs-only">
+      <v-date-picker v-model="picker2" color="green lighten-1" header-color="primary" locale='zh-cn'></v-date-picker>
+    </v-flex>
+  </v-layout>
+  </div>
+
+  <div>
+    <div class="text-xs-center">
+    <v-pagination
+      v-model="page"
+      :length="6"
+    ></v-pagination>
+  </div>
+  </div>
+
+
+  <div>
+    <div id="helloword">
+  <h1>Test Vue ECharts Map</h1>
+  <div id="map"></div>
+</div>
+  </div>
+
+ <div id="countapp">
+  <p>{{ count }}</p>
+    <button @click="increment" type="button" class="btn btn-primary">+</button>
+    <button @click="decrement" type="button" class="btn btn-primary">-</button>
+</div>
+
+
+
   </div>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    activeBtn: 1,
-    showNav: true,
-    picker: new Date().toISOString().substr(0, 10),
-    picker2: new Date().toISOString().substr(0, 10),
-    today: "2019-01-08",
-    events: [
-      {
-        title: "Vacation",
-        details: "Going to the beach!",
-        date: "2018-12-30",
-        open: false
-      },
-      {
-        title: "Vacation",
-        details: "Going to the beach!",
-        date: "2018-12-31",
-        open: false
-      },
-      {
-        title: "Vacation",
-        details: "Going to the beach!",
-        date: "2019-01-01",
-        open: false
-      },
-      {
-        title: "Meeting",
-        details: "Spending time on how we do not have enough time",
-        date: "2019-01-07",
-        open: false
-      },
-      {
-        title: "30th Birthday",
-        details: "Celebrate responsibly",
-        date: "2019-01-03",
-        open: false
-      },
-      {
-        title: "New Year",
-        details: "Eat chocolate until you pass out",
-        date: "2019-01-01",
-        open: false
-      },
-      {
-        title: "Conference",
-        details: "Mute myself the whole time and wonder why I am on this call",
-        date: "2019-01-21",
-        open: false
-      },
-      {
-        title: "Hackathon",
-        details: "Code like there is no tommorrow",
-        date: "2019-02-01",
-        open: false
-      }
-    ],
-    labels: ["12am", "3am", "6am", "9am", "12pm", "3pm", "6pm", "9pm"],
-    value: [200, 675, 410, 390, 310, 460, 250, 240],
-    sheet: false,
-    tiles: [
-      { img: "keep.png", title: "Keep", url: "https://www.baidu.com" },
-      { img: "inbox.png", title: "Inbox" },
-      { img: "hangouts.png", title: "Hangouts" },
-      { img: "messenger.png", title: "Messenger" },
-      { img: "google.png", title: "Google+" }
-    ]
-  }),
-  computed: {
-    // convert the list of events into a map of lists keyed by date
-    eventsMap() {
-      const map = {};
-      this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e));
-      return map;
-    }
-  },
-  methods: {
-    open(event) {
-      alert(event.title);
-    }
-  }
-};
-</script>
 
 <script>
-export default {
-  data: () => ({
-    activeBtn: 1,
-    showNav: true,
-    picker: new Date().toISOString().substr(0, 10),
-    picker2: new Date().toISOString().substr(0, 10),
-    today: "2019-01-08",
-    events: [
-      {
-        title: "Vacation",
-        details: "Going to the beach!",
-        date: "2018-12-30",
-        open: false
-      },
-      {
-        title: "Vacation",
-        details: "Going to the beach!",
-        date: "2018-12-31",
-        open: false
-      },
-      {
-        title: "Vacation",
-        details: "Going to the beach!",
-        date: "2019-01-01",
-        open: false
-      },
-      {
-        title: "Meeting",
-        details: "Spending time on how we do not have enough time",
-        date: "2019-01-07",
-        open: false
-      },
-      {
-        title: "30th Birthday",
-        details: "Celebrate responsibly",
-        date: "2019-01-03",
-        open: false
-      },
-      {
-        title: "New Year",
-        details: "Eat chocolate until you pass out",
-        date: "2019-01-01",
-        open: false
-      },
-      {
-        title: "Conference",
-        details: "Mute myself the whole time and wonder why I am on this call",
-        date: "2019-01-21",
-        open: false
-      },
-      {
-        title: "Hackathon",
-        details: "Code like there is no tommorrow",
-        date: "2019-02-01",
-        open: false
-      }
-    ],
-    labels: ["12am", "3am", "6am", "9am", "12pm", "3pm", "6pm", "9pm"],
-    value: [200, 675, 410, 390, 310, 460, 250, 240],
-    sheet: false,
-    tiles: [
-      { img: "keep.png", title: "Keep", url: "https://www.baidu.com" },
-      { img: "inbox.png", title: "Inbox" },
-      { img: "hangouts.png", title: "Hangouts" },
-      { img: "messenger.png", title: "Messenger" },
-      { img: "google.png", title: "Google+" }
-    ]
-  }),
-  computed: {
-    // convert the list of events into a map of lists keyed by date
-    eventsMap() {
-      const map = {};
-      this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e));
-      return map;
-    }
-  },
-  methods: {
-    open(event) {
-      alert(event.title);
-    }
-  }
-};
-</script>
-
-
-<script>
-import 'bootstrap/dist/css/bootstrap.css'
-import 'jquery/dist/jquery.js'
-import 'bootstrap/dist/js/bootstrap.js'
 import axios from 'axios'
+// 导入自定义地图数据
+import cst001 from '../../static/map/cst001.json'
+// 导入Vuex中sore状态信息
+import store from '../store.js'
 
 export default {
   data () {
     return {
-      books: []
+      activeBtn: 1,
+      showNav: true,
+      icons: [
+        'fab fa-facebook',
+        'fab fa-twitter',
+        'fab fa-google-plus',
+        'fab fa-linkedin',
+        'fab fa-instagram'
+      ],
+      picker: new Date().toISOString().substr(0, 10),
+      picker2: new Date().toISOString().substr(0, 10),
+      page: 1,
+      books: [],
+      msg: [{
+        name: 'A',
+        value: 4822000
+      },
+      {
+        name: 'B',
+        value: 73144900
+      },
+      {
+        name: 'C',
+        value: 6553
+      },
+      {
+        name: 'D',
+        value: 29491310
+      }
+    ]
     }
   },
   methods: {
@@ -352,11 +415,90 @@ export default {
           // eslint-disable-next-line
           console.error(error)
         })
+    },
+    initEchart () {
+      let option = {
+        title: {
+          text: 'Custom Map 001 Demo',
+          subtext: 'Data from www.dataforum.org',
+          sublink: 'http://www.census.gov/popest/data/datasets.html',
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          showDelay: 0,
+          transitionDuration: 0.2,
+          formatter: function( params ) {
+            var value = (params.value + '').split('.')
+            value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,')
+            return params.seriesName + '<br/>' + params.name + ': ' + value
+          }
+        },
+        visualMap: {
+          left: 'right',
+          min: 500000,
+          max: 38000000,
+          inRange: {
+            color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+          },
+          text: ['High', 'Low'], // 文本，默认为数值文本
+          calculable: true
+        },
+        toolbox: {
+          show: true,
+          left: 'left',
+          top: 'top',
+          feature: {
+            dataView: {
+              readOnly: false
+            },
+            restore: {},
+            saveAsImage: {}
+          }
+        },
+        series: [{
+          name: 'Custom Map 001 PopEstimates',
+          type: 'map',
+          roam: true,
+          map: 'cstmap',
+          itemStyle: {
+            emphasis: {
+              label: {
+                show: true
+              }
+            }
+          },
+          // 文本位置修正
+          textFixed: {
+            A: [20, -20]
+          },
+          data: this.$data.msg
+        }]
+      }
+      let myChartMap = this.$echarts.init(document.getElementById('map'))
+      this.$echarts.registerMap('cstmap', cst001)
+      // myChartMap.showLoading()
+      myChartMap.setOption(option)
+      // myChartMap.hideLoading()
+    },
+    increment () {
+      store.commit('increment')
+    },
+    decrement () {
+    	store.commit('decrement')
+    }
+  },
+  computed: {
+    count () {
+	    return store.state.count
     }
   },
   created () {
     this.getBooks()
-  }
+  },
+  mounted() {
+    this.initEchart()
+  },
 }
 </script>
 
@@ -426,5 +568,21 @@ div {
 
 #create .v-btn--floating {
   position: relative;
+}
+</style>
+
+
+<style scoped>
+#map {
+  width: 100%;
+  height: 600px;
+  margin-top: 10px;
+  float: left;
+}
+</style>
+
+<style scoped>
+#countapp p {
+  font-size: 48px;
 }
 </style>
