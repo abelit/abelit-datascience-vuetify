@@ -984,6 +984,6 @@ div {
   font-size: 48px;
 }
 #countapp button {
-  color: 
+  color: #dddddd;
 }
 </style>
