@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
-import TestButton from "./components/TestButton.vue";
+import PageDemo from "./components/PageDemo.vue";
+import UIDemo from "@/components/UIDemo.vue";
 
 Vue.use(Router);
 
@@ -24,9 +25,14 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
-      path: "/button",
-      name: "button",
-      component: TestButton
+      path: "/demo",
+      name: "demo",
+      component: PageDemo
+    },
+    {
+      path: "/uidemo",
+      name: "uidemo",
+      component: UIDemo
     }
   ]
 });

@@ -336,7 +336,114 @@
        <button-counter></button-counter>
        <ButtonCounter />
       </div>
+    </div> 
+
+    <div>
+       <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+  >
+    <v-text-field
+      v-model="name"
+      :counter="10"
+      :rules="nameRules"
+      label="Name"
+      required
+    ></v-text-field>
+
+    <v-text-field
+      v-model="email"
+      :rules="emailRules"
+      label="E-mail"
+      required
+    ></v-text-field>
+
+    <v-select
+      v-model="select"
+      :items="items"
+      :rules="[v => !!v || 'Item is required']"
+      label="Item"
+      required
+    ></v-select>
+
+    <v-checkbox
+      v-model="checkbox"
+      :rules="[v => !!v || 'You must agree to continue!']"
+      label="Do you agree?"
+      required
+    ></v-checkbox>
+
+    <v-btn
+      :disabled="!valid"
+      color="success"
+      @click="validate"
+    >
+      Validate
+    </v-btn>
+
+    <v-btn
+      color="error"
+      @click="reset"
+    >
+      Reset Form
+    </v-btn>
+
+    <v-btn
+      color="warning"
+      @click="resetValidation"
+    >
+      Reset Validation
+    </v-btn>
+  </v-form>
     </div>
+
+
+  <div>
+<el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple>
+  <i class="el-icon-upload"></i>
+  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+  <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+</el-upload>
+</div>
+
+<div>
+  <el-button type="text" @click="outerVisible = true">点击打开外层 Dialog</el-button>
+  
+  <el-dialog title="外层 Dialog" :visible.sync="outerVisible">
+    <el-dialog
+      width="30%"
+      title="内层 Dialog"
+      :visible.sync="innerVisible"
+      append-to-body>
+    </el-dialog>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="outerVisible = false">取 消</el-button>
+      <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button>
+    </div>
+  </el-dialog>
+</div>
+<div>
+  <el-table
+    :data="tableData2"
+    style="width: 100%"
+    :row-class-name="tableRowClassName">
+    <el-table-column
+      prop="date"
+      label="日期"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="name"
+      label="姓名"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="address"
+      label="地址">
+    </el-table-column>
+  </el-table>
+</div>
   </div>
 </template>
 
@@ -344,7 +451,7 @@
 
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 // 导入自定义地图数据
 import cst001 from "../../static/map/cst001.json";
 // 导入Vuex中sore状态信息
@@ -408,7 +515,27 @@ export default {
         {title: 'Game 2'},
         {title: 'Game 3'}
       ],
-      mcount: 0
+      mcount: 0,
+      menuVisible: false,
+      outerVisible: false,
+      innerVisible: false,
+      tableData2: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄',
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄',
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }]
     };
   },
   filters: {
@@ -419,8 +546,8 @@ export default {
   methods: {
     getBooks() {
       const path = "http://localhost:5000/books";
-      axios
-        .get(path)
+      this.$axios
+        .get('/books')
         .then(res => {
           this.books = res.data.books;
         })
@@ -516,7 +643,15 @@ export default {
     },
     btnClick(name) {
       this.hname = name;
-    }
+    },
+    tableRowClassName({row, rowIndex}) {
+        if (rowIndex === 1) {
+          return 'warning-row';
+        } else if (rowIndex === 3) {
+          return 'success-row';
+        }
+        return '';
+      }
   },
   computed: {
     count() {
@@ -872,6 +1007,8 @@ export default {
 </script>
 
 
+
+
 <style lang="css" scoped>
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
@@ -986,4 +1123,14 @@ div {
 #countapp button {
   color: #dddddd;
 }
+</style>
+
+<style>
+  .el-table .warning-row {
+    background: oldlace;
+  }
+
+  .el-table .success-row {
+    background: #f0f9eb;
+  }
 </style>

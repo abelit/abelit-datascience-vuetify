@@ -61,7 +61,7 @@
     </v-layout>
 
     <span>
-      <router-link to="/button">ButtonPage</router-link>
+      <router-link to="/demo">PageDemo</router-link>
     </span>
   </v-container>
 </template>

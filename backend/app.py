@@ -52,6 +52,11 @@ def all_books():
             'title': 'Green Eggs and Ham',
             'author': 'Dr. Seuss',
             'read': True
+        },
+        {
+            'title': 'Data Science',
+            'author': 'Abelit',
+            'read': True
         }
     ]
     return jsonify({
