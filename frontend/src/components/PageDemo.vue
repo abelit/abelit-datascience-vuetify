@@ -1,8 +1,13 @@
 <template>
   <div class>
+    
     <div>
       <h1 class="abelit">Hi Abelit! Welcome to Vue and Vuetify!</h1>
     </div>
+    <span>
+      <router-link to="/">返回主页</router-link>
+    </span>
+    <button onclick="window.history.go(-1)">后退</button>
     <div class="text-xs-left m1">
       <v-btn color="success">Success</v-btn>
       <v-btn color="error">Error</v-btn>

@@ -1,5 +1,11 @@
 <template>
-  <div id="chartdiv"></div>
+  <div>
+    <div id="chartdiv"></div>
+    <span>
+      <router-link to="/">返回主页</router-link>
+    </span>
+    <button onclick="window.history.go(-1)">后退</button>
+  </div>
 </template>
 
 <script>
