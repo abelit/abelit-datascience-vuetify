@@ -457,6 +457,7 @@ import cst001 from "../../static/map/cst001.json";
 // 导入Vuex中sore状态信息
 import store from "../store.js";
 
+// 使用amcharts导入地图数据
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
