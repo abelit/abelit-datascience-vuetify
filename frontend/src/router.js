@@ -4,6 +4,8 @@ import Home from "./views/Home.vue";
 import PageDemo from "./components/PageDemo.vue";
 import UIDemo from "@/components/UIDemo.vue";
 
+import FullscreenDemo from "@/components/FullscreenDemo.vue";
+
 Vue.use(Router);
 
 export default new Router({
@@ -33,6 +35,11 @@ export default new Router({
       path: "/uidemo",
       name: "uidemo",
       component: UIDemo
+    },
+    {
+      path: "/fullscreen",
+      name: "fullscreen",
+      component: FullscreenDemo
     }
   ]
 });
