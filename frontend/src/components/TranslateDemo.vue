@@ -60,7 +60,7 @@
     export default {
         data () {
           return {
-            lang: 'zh-CN',
+            lang: 'zh_CN',
             errors:[],
             name:null,
             email:null,
@@ -77,11 +77,11 @@
                 cancelButtonText: this.$t('m.cancel'),
                 type: 'warning'
               }).then(() => {
-                if ( this.lang === 'zh-CN' ) {
-                  this.lang = 'en-US';
+                if ( this.lang === 'zh_CN' ) {
+                  this.lang = 'en_US';
                   this.$i18n.locale = this.lang;
                 }else {
-                  this.lang = 'zh-CN';
+                  this.lang = 'zh_CN';
                   this.$i18n.locale = this.lang;
                 }
               }).catch(() => {
