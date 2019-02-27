@@ -2,10 +2,7 @@
   "type": "FeatureCollection",
   "features": [{
     "type": "Feature",
-    "properties": {
-      "name": "A",
-      "id": "A"
-    },
+    "properties": {"name":"A"},
     "geometry": {
       "type": "Polygon",
       "coordinates": [
@@ -20,10 +17,7 @@
     }
   }, {
     "type": "Feature",
-    "properties": {
-      "name": "C",
-      "id": "C"
-    },
+    "properties": {"name":"C"},
     "geometry": {
       "type": "Polygon",
       "coordinates": [
@@ -38,10 +32,7 @@
     }
   }, {
     "type": "Feature",
-    "properties": {
-      "name": "B",
-      "id": "B"
-    },
+    "properties": {"name":"B"},
     "geometry": {
       "type": "Polygon",
       "coordinates": [
@@ -56,10 +47,7 @@
     }
   }, {
     "type": "Feature",
-    "properties": {
-      "name": "D",
-      "id": "D"
-    },
+    "properties": {"name":"D"},
     "geometry": {
       "type": "Polygon",
       "coordinates": [

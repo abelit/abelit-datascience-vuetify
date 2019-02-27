@@ -65,31 +65,37 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam, similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.</p>
       </md-app-content>
     </md-app>
+    <div>
+      <span>
+        <router-link to="/">返回主页</router-link>
+      </span>
+      <button onclick="window.history.go(-1)">后退</button>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-  .md-app {
-    max-height: 400px;
-    border: 1px solid rgba(#000, .12);
-  }
+.md-app {
+  max-height: 400px;
+  border: 1px solid rgba(#000, 0.12);
+}
 
-  .md-app-toolbar {
-    height: 196px;
-  }
+.md-app-toolbar {
+  height: 196px;
+}
 
-   // Demo purposes only
-  .md-drawer {
-    width: 230px;
-    max-width: calc(100vw - 125px);
-  }
+// Demo purposes only
+.md-drawer {
+  width: 230px;
+  max-width: calc(100vw - 125px);
+}
 </style>
 
 <script>
 export default {
-  name: 'Flexible',
+  name: "Flexible",
   data: () => ({
     menuVisible: false
   })
-}
+};
 </script>

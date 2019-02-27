@@ -63,6 +63,18 @@
     <span>
       <router-link to="/demo">PageDemo</router-link>
     </span>
+    <br>
+    <span>
+      <router-link to="/uidemo">UiDemo</router-link>
+    </span>
+    <br>
+    <span>
+      <router-link to="/mapdemo">MapDemo</router-link>
+    </span>
+     <br>
+    <span>
+      <router-link to="/trans">TranslateDemo</router-link>
+    </span>
   </v-container>
 </template>
 
