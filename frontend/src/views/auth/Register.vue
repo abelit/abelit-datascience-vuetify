@@ -2,7 +2,7 @@
  <div class="login-container container-fluid">
     <v-card
     class="mx-auto"
-    style="max-width: 500px; margin-top:15%;"
+    style="max-width: 500px; margin-top:5%;"
     color="#eaeaeaa1"
   >
     <v-toolbar
@@ -100,7 +100,7 @@
           label="Box style"
         ></v-select>
       </v-flex>
-      <v-icon size=36 color="#efefef" style="float: left;" class="df-icon">group</v-icon>
+      <v-icon size=36 color="#efefef"  class="df-icon">group</v-icon>
        <v-radio-group v-model="radios" :mandatory="false">
       <v-radio label="Radio 1" value="radio-1"></v-radio>
       <v-radio label="Radio 2" value="radio-2"></v-radio>
@@ -172,7 +172,7 @@
     min-width: 50px;
     text-align: center;
     margin-bottom: auto;
-    margin-left: 10px;
+    margin-left: 5px;
   }
 
   .df-input {
