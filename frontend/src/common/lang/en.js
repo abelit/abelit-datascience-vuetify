@@ -6,12 +6,19 @@ export const m = {
     musician: 'MUSICIAN',
     download: 'DOWNLOAD',
     translate: 'Translation',
-    cancel: 'Cancel',
-    confirm: 'Confirm',
-    hint: 'Hints?',
     hintContent: 'Change Language?',
     nameRequired: 'Name Required!',
     emailRequired: 'Email Required!',
+
+    cancel: 'Cancel',
+    confirm: 'Confirm',
+    hint: 'Hints?',
     email: 'Email Address',
-    name: 'User Name'
+    name: 'User Name',
+    login: 'Login',
+    register: 'Register',
+    loginPage: 'Login',
+    registerPage: 'Register',
+    password: 'Password',
+    repassword: 'Password Repeat'
 }

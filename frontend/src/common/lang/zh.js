@@ -6,12 +6,21 @@ export const m = {
     musician: '音乐人',
     download: '下载客户端',
     translate: '语言切换',
-    cancel: '取消',
-    confirm: '确定',
-    hint: '提示',
     hintContent: '需要切换语言吗？',
     nameRequired: '必须输入名字！',
     emailRequired: '必须输入邮箱！',
+
+    cancel: '取消',
+    confirm: '确定',
+    hint: '提示',
     email: '邮箱地址',
-    name: '用户名'
+    name: '用户名',
+    login: '登录',
+    register: '注册',
+    loginPage: '用户登录',
+    registerPage: '用户注册',
+    password: '输入密码',
+    repassword: '再一次输入密码',
+    clear: '清除',
+
 }

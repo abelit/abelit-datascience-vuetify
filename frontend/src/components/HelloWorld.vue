@@ -75,6 +75,14 @@
     <span>
       <router-link to="/trans">TranslateDemo</router-link>
     </span>
+     <br>
+    <span>
+      <router-link to="/form">FormDemo</router-link>
+    </span>
+     <br>
+    <span>
+      <router-link to="/login">LoginDemo</router-link>
+    </span>
   </v-container>
 </template>
 
