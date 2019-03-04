@@ -20,5 +20,9 @@ export const m = {
     loginPage: 'Login',
     registerPage: 'Register',
     password: 'Password',
-    repassword: 'Password Repeat'
+    repassword: 'Password Repeat',
+    male: 'Male',
+    female: 'Female',
+    department: 'Department',
+    position: 'Position',
 }

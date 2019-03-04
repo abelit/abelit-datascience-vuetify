@@ -22,5 +22,9 @@ export const m = {
     password: '输入密码',
     repassword: '再一次输入密码',
     clear: '清除',
+    male: '男',
+    female: '女',
+    department: '部门',
+    position: '职位',
 
 }
