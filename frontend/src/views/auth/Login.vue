@@ -15,7 +15,7 @@
           </template>
           <v-list>
             <v-list-tile v-for="(lang, index) in langs" :key="index">
-              <v-list-tile-avatar >
+              <v-list-tile-avatar>
                 <v-avatar size="32px" tile @click="changeLangEvent(lang.lang,index)">
                   <img :src="lang.img">
                 </v-avatar>
@@ -25,7 +25,7 @@
           </v-list>
         </v-menu>
       </v-toolbar>
-      <v-form ref="form" v-model="form" class="pa-3 pt-4">
+      <v-form ref="form" v-model="form" class="pa-3 pt-4" :disabled="!form">
         <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
         <v-text-field
           v-model="name"
@@ -61,19 +61,21 @@
 
       <v-card-actions>
         <v-btn flat class="title font-weight-regular">
-          <router-link to="/register">{{$t('m.register')}}?</router-link>
+          <router-link to="/user/register">{{$t('m.register')}}?</router-link>
         </v-btn>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-btn
-          :disabled="!form"
-          :loading="isLoading"
           class="white--text title font-weight-regular"
           color="#01074ccf"
           depressed
           @click="submit"
         >{{$t('m.login')}}</v-btn>
       </v-card-actions>
+      <div class="loading-overlay" v-if="isBtnLoading">
+        <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
+        <span>{{btnLoadingText}}</span>
+      </div>
     </v-card>
   </div>
 </template>
@@ -85,22 +87,57 @@ export default {
     name: undefined,
     email: undefined,
     form: false,
-    isLoading: false,
+    isBtnLoading: false,
     password: undefined,
-    lang: 'zh_CN',
+    lang: "zh_CN",
     langLogo: require("../../assets/images/cn.png"),
     langs: {
-      zh: { lang: "zh_CN", name: "简体中文", img: require("../../assets/images/cn.png") },
-      en: { lang: "en_US", name: "English", img: require("../../assets/images/us.png") }
+      zh: {
+        lang: "zh_CN",
+        name: "简体中文",
+        img: require("../../assets/images/cn.png")
+      },
+      en: {
+        lang: "en_US",
+        name: "English",
+        img: require("../../assets/images/us.png")
+      }
     },
     items: [],
     radios: []
   }),
   methods: {
-    submit() {
-      this.$validator.validateAll();
+    async submit() {
+      // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
+      await this.$validator.validateAll();
+      if ( this.$validator.errors.all().length === 0) {
+        this.isBtnLoading = true;
+        setTimeout(() => {
+          this.isBtnLoading = false;
+        }, 3000);
+        this.$axios
+        .post('/login',{
+          name: this.name,
+          password: this.password
+        })
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(error => {
+          // eslint-disable-next-line
+          console.error(error);
+        });
+      }
+    
     },
-    changeLangEvent(param_lang,param_index) {
+    clear() {
+      this.name = "";
+      this.email = "";
+      this.select = null;
+      this.checkbox = null;
+      this.$validator.reset();
+    },
+    changeLangEvent(param_lang, param_index) {
       if (param_lang != null) {
         this.lang = param_lang;
       }
@@ -110,7 +147,17 @@ export default {
       this.$i18n.locale = this.lang;
       this.$validator.locale = this.lang;
     }
-  }
+  },
+  computed: {
+    // function to add loading text form submit button
+    btnLoadingText() {
+      if (this.isBtnLoading) {
+        return this.$t('m.loginLoadingText');
+      } else {
+        return '';
+      }
+    }
+  },
 };
 </script>
 
@@ -132,5 +179,18 @@ export default {
 }
 .df-input {
   padding: 10px;
+}
+.loading-overlay {
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

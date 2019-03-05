@@ -1,6 +1,6 @@
 <template>
   <div class="headerComponent">
-      <a href="#/trans" class="h-logo" @click="changeLangEvent()">
+      <a href="#/demo/trans" class="h-logo" @click="changeLangEvent()">
         {{$t('m.translate')}}
       </a>
       <li> {{$t('m.music')}}</li>

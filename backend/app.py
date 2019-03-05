@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, redirect
+from flask import Flask, render_template, jsonify, redirect,request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -27,6 +27,24 @@ def ping():
 @app.route('/button')
 def button():
     return redirect('/button')
+
+
+@app.route('/login', methods=["POST","GET"])
+def login():
+    name="ychenid@live.com"
+    password="password"
+    userdata = request.get_json()
+    userdata.update({
+        "name1": name,
+        "password1": password
+    })
+    if request.method == 'POST':
+        return jsonify(userdata)
+    else:
+        return jsonify({
+            "name": name,
+            "password": password
+        })
 
 
 @app.route('/hello/')
