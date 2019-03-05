@@ -11,12 +11,27 @@ import D3Demo from "@/components/demo/D3Demo.vue";
 import TestVue from "@/components/demo/TestVue.vue";
 import TranslateDemo from "@/components/demo/TranslateDemo";
 import FormDemo from "@/components/demo/FormDemo";
+import TestPath from "@/components/demo/TestPath";
 
 // Dev
 import Login from "./views/auth/Login.vue";
 import Register from "./views/auth/Register.vue";
+// import auth from "./helpers/auth.js";
 
 Vue.use(Router);
+
+// function requireAuth(to, from, next) {
+//   if (!auth.loggedIn()) {
+//     next({
+//       path: "/user/login",
+//       query: {
+//         redirect: to.fullPath
+//       }
+//     });
+//   } else {
+//     next();
+//   }
+// }
 
 export default new Router({
   // mode: "history",
@@ -35,6 +50,7 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/About.vue")
+      //beforeEnter: requireAuth
     },
     {
       path: "/demo",
@@ -42,47 +58,52 @@ export default new Router({
       component: PageDemo
     },
     {
-      path: "/uidemo",
+      path: "/demo/uidemo",
       name: "uidemo",
       component: UIDemo
     },
     {
-      path: "/fullscreen",
+      path: "/demo/fullscreen",
       name: "fullscreen",
       component: FullscreenDemo
     },
     {
-      path: "/mapdemo",
+      path: "/demo/mapdemo",
       name: "mapdemo",
       component: AmchartsDemo
     },
     {
-      path: "/d3demo",
+      path: "/demo/d3demo",
       name: "d3demo",
       component: D3Demo
     },
     {
-      path: "/testvue",
+      path: "/demo/testvue",
       name: "testvue",
       component: TestVue
     },
     {
-      path: "/trans",
+      path: "/demo/trans",
       name: "trans",
       component: TranslateDemo
     },
     {
-      path: "/form",
+      path: "/demo/form",
       name: "form",
       component: FormDemo
     },
     {
-      path: "/login",
+      path: "/demo/testpath",
+      name: "testpath",
+      component: TestPath
+    },
+    {
+      path: "/user/login",
       name: "login",
       component: Login
     },
     {
-      path: "/register",
+      path: "/user/register",
       name: "register",
       component: Register
     }

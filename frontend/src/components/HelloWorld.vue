@@ -65,23 +65,27 @@
     </span>
     <br>
     <span>
-      <router-link to="/uidemo">UiDemo</router-link>
+      <router-link to="/demo/uidemo">UiDemo</router-link>
     </span>
     <br>
     <span>
-      <router-link to="/mapdemo">MapDemo</router-link>
+      <router-link to="/demo/mapdemo">MapDemo</router-link>
     </span>
      <br>
     <span>
-      <router-link to="/trans">TranslateDemo</router-link>
+      <router-link to="/demo/trans">TranslateDemo</router-link>
     </span>
      <br>
     <span>
-      <router-link to="/form">FormDemo</router-link>
+      <router-link to="/demo/form">FormDemo</router-link>
     </span>
      <br>
     <span>
-      <router-link to="/login">LoginDemo</router-link>
+      <router-link to="/user/login">LoginDemo</router-link>
+    </span>
+     <br>
+    <span>
+      <router-link to="/about">AboutPage</router-link>
     </span>
   </v-container>
 </template>

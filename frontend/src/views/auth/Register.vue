@@ -109,7 +109,7 @@
 
       <v-card-actions>
         <v-btn flat class="title font-weight-regular" @click="$refs.form.reset()">
-          <router-link to="/login">{{$t('m.login')}}?</router-link>
+          <router-link to="/user/login">{{$t('m.login')}}?</router-link>
         </v-btn>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
