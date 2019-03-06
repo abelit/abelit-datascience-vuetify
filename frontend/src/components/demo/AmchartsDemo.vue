@@ -21,7 +21,7 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4themes_dataviz from "@amcharts/amcharts4/themes/dataviz";
 import * as am4maps from "@amcharts/amcharts4/maps";
-import cst001 from "../../../static/map/cst001.json";
+import cst001 from "@/assets/map/cst001.json";
 
 am4core.useTheme(am4themes_dataviz);
 am4core.useTheme(am4themes_animated);

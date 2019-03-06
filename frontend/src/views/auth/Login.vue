@@ -116,7 +116,7 @@ export default {
           this.isBtnLoading = false;
         }, 3000);
         this.$axios
-        .post('/login',{
+        .post('/api/login',{
           name: this.name,
           password: this.password
         })

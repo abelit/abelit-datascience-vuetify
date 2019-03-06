@@ -29,7 +29,7 @@ def button():
     return redirect('/button')
 
 
-@app.route('/login', methods=["POST","GET"])
+@app.route('/api/login', methods=["POST"])
 def login():
     name="ychenid@live.com"
     password="password"
@@ -39,13 +39,7 @@ def login():
         "password1": password
     })
     if request.method == 'POST':
-        return jsonify(userdata)
-    else:
-        return jsonify({
-            "name": name,
-            "password": password
-        })
-
+        return jsonify(userdata.get('name'))
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
