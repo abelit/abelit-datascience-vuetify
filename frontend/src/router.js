@@ -49,8 +49,10 @@ const router = new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
-      //beforeEnter: requireAuth
+        import(/* webpackChunkName: "about" */ "./views/About.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/demo",
@@ -110,17 +112,30 @@ const router = new Router({
   ]
 });
 
+// // 拦截所有路由
+// router.beforeEach((to, from, next) => {
+//   // redirect to login page if not logged in and trying to access a restricted page
+//   const publicPages = ["/user/login"];
+//   const authRequired = !publicPages.includes(to.path);
+//   const loggedIn = localStorage.getItem("user");
+
+//   if (authRequired && !loggedIn) {
+//     return next("/user/login");
+//   }
+
+//   next();
+// });
+
 router.beforeEach((to, from, next) => {
-  // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ["/user/login"];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem("user");
-
-  if (authRequired && !loggedIn) {
-    return next("/user/login");
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (1 === 0) {
+      next();
+      return;
+    }
+    next("/user/login");
+  } else {
+    next();
   }
-
-  next();
 });
 
 export default router;

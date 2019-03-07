@@ -7,7 +7,7 @@
     <span>
       <router-link to="/">返回主页</router-link>
     </span>
-    <button onclick="window.history.go(-1)">后退</button>
+    <button @click="goBack">后退</button>
     <div class="text-xs-left m1">
       <v-btn color="success">Success</v-btn>
       <v-btn color="error">Error</v-btn>
@@ -550,6 +550,10 @@ export default {
     }
   },
   methods: {
+    goBack() {
+      window.history.go(-1);
+    },
+
     getBooks() {
       const path = "http://localhost:5000/books";
       this.$axios
