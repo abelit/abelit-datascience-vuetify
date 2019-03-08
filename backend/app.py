@@ -1,7 +1,14 @@
 from flask import Flask, render_template, jsonify, redirect,request
 from flask_cors import CORS
 
+from config import SQLALCHEMY_DATABASE_URI
+from flask_sqlalchemy import SQLAlchemy
+
+
 app = Flask(__name__)
+
+app.config.from_object('config')
+db = SQLAlchemy(app)
 
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -45,6 +52,10 @@ def login():
 @app.route('/hello/<name>')
 def hello(name=None):
     return render_template('hello.html', name=name)
+
+@app.route('/test')
+def test():
+    return SQLALCHEMY_DATABASE_URI
 
 
 @app.route('/books', methods=['GET'])

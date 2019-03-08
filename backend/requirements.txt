@@ -1,0 +1,8 @@
+flask
+flask-cors：flask跨域
+flask-sqlachemy: flask数据库orm
+flask-httpauth：flask的auth认证
+passlib: python密码解析库
+itsdangerous
+
+pip install psycopg2
