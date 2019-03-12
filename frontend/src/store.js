@@ -10,14 +10,18 @@ Vue.use(Vuex);
 // });
 
 
-export default new Vuex.Store({
-  state: {
-    count: 0
-  },
-  mutations: {
-    increment: state => state.count++,
-    decrement: state => state.count--
-  },
-  action: {}
-});
+const state = {
+  count: 0
+}
+const mutations = {
+  increment: state => state.count++,
+  decrement: state => state.count--
+}
+const actions = {}
 
+
+export default new Vuex.Store({
+  state,
+  mutations,
+  actions
+});

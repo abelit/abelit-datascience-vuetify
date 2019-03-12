@@ -51,7 +51,7 @@
           :append-icon="showPassword ? 'visibility_off' : 'visibility'"
           :type="showPassword ? 'text' : 'password'"
           @click:append="showPassword = !showPassword"
-          v-validate="'required|max:18|min:8'"
+          v-validate="'required|max:18|min:3'"
           :error-messages="errors.collect('password')"
           data-vv-name="password"
           required
@@ -116,12 +116,13 @@ export default {
           this.isBtnLoading = false;
         }, 3000);
         this.$axios
-        .post('/api/login',{
+        .post('/login',{
           name: this.name,
           password: this.password
         })
         .then(res => {
           console.log(res.data);
+          this.$router.push('/#/about');
         })
         .catch(error => {
           // eslint-disable-next-line
