@@ -110,26 +110,28 @@ export default {
     async submit() {
       // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
       await this.$validator.validateAll();
-      if ( this.$validator.errors.all().length === 0) {
+      if (this.$validator.errors.all().length === 0) {
         this.isBtnLoading = true;
         setTimeout(() => {
           this.isBtnLoading = false;
         }, 3000);
         this.$axios
-        .post('/login',{
-          name: this.name,
-          password: this.password
-        })
-        .then(res => {
-          console.log(res.data);
-          this.$router.push('/#/about');
-        })
-        .catch(error => {
-          // eslint-disable-next-line
-          console.error(error);
-        });
+          .post("/login", {
+            name: this.name,
+            password: this.password
+          })
+          .then(res => {
+            console.log("hello");
+            console.log(res.data);
+            this.$store.commit("set_token", res.data);
+            this.$router.push("/about");
+          })
+          .catch(error => {
+            // eslint-disable-next-line
+            console.error(error);
+            console.log("world");
+          });
       }
-    
     },
     clear() {
       this.name = "";
@@ -153,12 +155,12 @@ export default {
     // function to add loading text form submit button
     btnLoadingText() {
       if (this.isBtnLoading) {
-        return this.$t('m.loginLoadingText');
+        return this.$t("m.loginLoadingText");
       } else {
-        return '';
+        return "";
       }
     }
-  },
+  }
 };
 </script>
 

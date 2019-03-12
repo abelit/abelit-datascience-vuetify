@@ -36,8 +36,7 @@ Vue.use(Router);
 const router = new Router({
   // mode: "history",
   base: process.env.BASE_URL,
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "home",
       component: Home
@@ -49,7 +48,7 @@ const router = new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue"),
+        import( /* webpackChunkName: "about" */ "./views/About.vue"),
       meta: {
         requiresAuth: true
       }
@@ -128,7 +127,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (1 === 0) {
+    if (localStorage.token) {
       next();
       return;
     }
