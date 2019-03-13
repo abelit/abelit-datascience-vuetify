@@ -8,8 +8,11 @@ export const m = {
   translate: "语言切换",
   hintContent: "需要切换语言吗？",
   nameRequired: "必须输入名字！",
-  emailRequired: "必须输入邮箱！",
+  emailRequired: "必须输入邮箱！"
+};
 
+
+export const auth = {
   cancel: "取消",
   confirm: "确定",
   hint: "提示",
@@ -26,5 +29,6 @@ export const m = {
   female: "女",
   department: "部门",
   position: "职位",
-  loginLoadingText: "登录中 ... "
+  loginLoadingText: "登录中 ... ",
+  loginError: "用户名或邮箱与密码不匹配!"
 };

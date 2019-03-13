@@ -6,7 +6,7 @@
         <v-card-title
           class="title font-weight-regular"
           style="margin: 0 auto;"
-        >{{$t('m.loginPage')}}</v-card-title>
+        >{{$t('auth.loginPage')}}</v-card-title>
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <v-btn color="transparent" v-on="on" flat>
@@ -31,7 +31,7 @@
           v-model="name"
           box
           color="deep-purple"
-          :label="$t('m.email')+'/'+$t('m.name') "
+          :label="$t('auth.email')+'/'+$t('auth.name') "
           type="name"
           v-validate="'required'"
           :error-messages="errors.collect('name')"
@@ -46,7 +46,7 @@
           box
           color="deep-purple"
           counter="18"
-          :label="$t('m.password')"
+          :label="$t('auth.password')"
           style="min-height: 96px; "
           :append-icon="showPassword ? 'visibility_off' : 'visibility'"
           :type="showPassword ? 'text' : 'password'"
@@ -61,7 +61,7 @@
 
       <v-card-actions>
         <v-btn flat class="title font-weight-regular">
-          <router-link to="/user/register">{{$t('m.register')}}?</router-link>
+          <router-link to="/user/register">{{$t('auth.register')}}?</router-link>
         </v-btn>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -70,11 +70,15 @@
           color="#01074ccf"
           depressed
           @click="submit"
-        >{{$t('m.login')}}</v-btn>
+        >{{$t('auth.login')}}</v-btn>
       </v-card-actions>
       <div class="loading-overlay" v-if="isBtnLoading">
         <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
         <span>{{btnLoadingText}}</span>
+      </div>
+
+      <div class="loading-overlay" v-if="loginError">
+        <span style="color:red;font-size:18px;">{{loginError}}</span>
       </div>
     </v-card>
   </div>
@@ -104,7 +108,8 @@ export default {
       }
     },
     items: [],
-    radios: []
+    radios: [],
+    loginError: ''
   }),
   methods: {
     async submit() {
@@ -114,23 +119,25 @@ export default {
         this.isBtnLoading = true;
         setTimeout(() => {
           this.isBtnLoading = false;
-        }, 3000);
-        this.$axios
+          this.$axios
           .post("/login", {
             name: this.name,
             password: this.password
           })
           .then(res => {
-            console.log("hello");
-            console.log(res.data);
             this.$store.commit("set_token", res.data);
             this.$router.push("/about");
           })
           .catch(error => {
             // eslint-disable-next-line
             console.error(error);
-            console.log("world");
+            this.loginError = this.$t('auth.loginError');
+            setTimeout(() => {
+              this.loginError = false;
+            }, 2000);
           });
+        }, 2000);
+        
       }
     },
     clear() {
@@ -155,7 +162,7 @@ export default {
     // function to add loading text form submit button
     btnLoadingText() {
       if (this.isBtnLoading) {
-        return this.$t("m.loginLoadingText");
+        return this.$t("auth.loginLoadingText");
       } else {
         return "";
       }

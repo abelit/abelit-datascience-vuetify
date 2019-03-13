@@ -8,8 +8,11 @@ export const m = {
   translate: "Translation",
   hintContent: "Change Language?",
   nameRequired: "Name Required!",
-  emailRequired: "Email Required!",
+  emailRequired: "Email Required!"
+};
 
+
+export const auth = {
   cancel: "Cancel",
   confirm: "Confirm",
   hint: "Hints?",
@@ -25,5 +28,6 @@ export const m = {
   female: "Female",
   department: "Department",
   position: "Position",
-  loginLoadingText: "Logining ... "
+  loginLoadingText: "Logining ... ",
+  loginError: "Username or Email can not matched with Password!"
 };

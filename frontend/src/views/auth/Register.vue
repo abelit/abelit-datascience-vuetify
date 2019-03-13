@@ -6,7 +6,7 @@
         <v-card-title
           class="title font-weight-regular"
           style="margin: 0 auto;"
-        >{{$t('m.registerPage')}}</v-card-title>
+        >{{$t('auth.registerPage')}}</v-card-title>
 
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
@@ -32,7 +32,7 @@
           v-model="name"
           box
           color="deep-purple"
-          :label="$t('m.name')"
+          :label="$t('auth.name')"
           type="name"
           v-validate="'required|alpha_num|max:20|min:6'"
           :error-messages="errors.collect('name')"
@@ -46,7 +46,7 @@
           v-model="email"
           box
           color="deep-purple"
-          :label="$t('m.email')"
+          :label="$t('auth.email')"
           type="email"
           v-validate="'required|email'"
           :error-messages="errors.collect('email')"
@@ -61,7 +61,7 @@
           box
           color="deep-purple"
           counter="18"
-          :label="$t('m.password')"
+          :label="$t('auth.password')"
           style="min-height: 96px; "
           :append-icon="showPassword ? 'visibility_off' : 'visibility'"
           :type="showPassword ? 'text' : 'password'"
@@ -78,7 +78,7 @@
           box
           color="deep-purple"
           counter="18"
-          :label="$t('m.repassword')"
+          :label="$t('auth.repassword')"
           style="min-height: 96px; "
           :append-icon="showPassword ? 'visibility_off' : 'visibility'"
           :type="showPassword ? 'text' : 'password'"
@@ -91,25 +91,25 @@
         <v-layout wrap align-center>
           <!-- <v-flex xs12 sm6 d-flex> -->
             <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">work</v-icon>
-            <v-select v-model="selected_department" :items="items" box :label="$t('m.department')"  class="df-select"></v-select>
+            <v-select v-model="selected_department" :items="items" box :label="$t('auth.department')"  class="df-select"></v-select>
           <!-- </v-flex> -->
 
           <!-- <v-flex xs12 sm6 d-flex> -->
             <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">assignment_ind</v-icon>
-            <v-select v-model="selected_position" :items="items" box :label="$t('m.position')" class="df-select"></v-select>
+            <v-select v-model="selected_position" :items="items" box :label="$t('auth.position')" class="df-select"></v-select>
           <!-- </v-flex> -->
         </v-layout>
         <v-icon size="36" color="#efefef" class="df-icon" style="float:left">group</v-icon>
           <v-radio-group v-model="picked_gender" :mandatory="false" class="df-radio">
-            <v-radio :label="$t('m.male')" value="male"></v-radio>
-            <v-radio :label="$t('m.female')" value="female"></v-radio>
+            <v-radio :label="$t('auth.male')" value="male"></v-radio>
+            <v-radio :label="$t('auth.female')" value="female"></v-radio>
           </v-radio-group>
       </v-form>
       <v-divider></v-divider>
 
       <v-card-actions>
-        <v-btn flat class="title font-weight-regular" @click="$refs.form.reset()">
-          <router-link to="/user/login">{{$t('m.login')}}?</router-link>
+        <v-btn flat class="title font-weight-regular" @click="$refs.forauth.reset()">
+          <router-link to="/user/login">{{$t('auth.login')}}?</router-link>
         </v-btn>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -120,7 +120,7 @@
           color="#01074ccf"
           depressed
           @click="submit"
-        >{{$t('m.register')}}</v-btn>
+        >{{$t('auth.register')}}</v-btn>
       </v-card-actions>
     </v-card>
   </div>

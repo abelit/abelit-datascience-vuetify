@@ -10,8 +10,6 @@
     >
     <span>{{ errors.first('myinput') }}</span>
     <p>Message is: {{ message }}</p>
-    <p>{{mypath}}</p>
-    <img :src="mypath+'static/cn.png'" alt>
     <button class="btn-primary" @click="logout">退出</button>
   </div>
 </template>
