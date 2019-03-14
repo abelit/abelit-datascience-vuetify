@@ -18,7 +18,7 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:5000";
 Vue.prototype.$axios = axios;
 
-// // import Element
+// import Element UI
 // import ElementUI from "element-ui";
 // import "element-ui/lib/theme-chalk/index.css";
 // Vue.use(ElementUI);

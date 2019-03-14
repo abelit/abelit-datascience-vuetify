@@ -132,7 +132,7 @@ const router = new Router({
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.accessToken) {
+    if (localStorage.token) {
       return next()
     }
     next({path:'/user/login',query:{url: to.fullPath} });

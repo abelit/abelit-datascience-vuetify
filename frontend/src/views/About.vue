@@ -10,6 +10,8 @@
     >
     <span>{{ errors.first('myinput') }}</span>
     <p>Message is: {{ message }}</p>
+    <p v-if="loginUser">UserInfo is: {{loginUser}}</p>
+    <button class="btn-primary" @click="getUser">点击此通过token获取用户名</button> ||
     <button class="btn-primary" @click="logout">退出</button>
   </div>
 </template>
@@ -20,7 +22,7 @@ export default {
     return {
       p_name: "hello",
       m_name: "abelit",
-      message: "",
+      message: "test",
       bcss: "form-control",
       mypath: process.env.BASE_URL,
       loginUser: ''
@@ -32,8 +34,19 @@ export default {
       this.$router.push("/user/login");
     },
     getUser() {
-      this.$axios.get("/protected")
-      .then
+      // let token = JSON.parse(localStorage.token).access_token
+      let token = JSON.parse(localStorage.getItem('token')).access_token
+
+      this.$axios.get("/protected",{ headers: { Authorization: 'Bearer ' + token} })
+      .then(res => {
+        // 通过token获取用户名称
+        console.log(res.data);
+        this.loginUser = res.data.logged_in_as;
+      })
+      .catch(error => {
+        console.log('error abelit');
+        console.log(error);
+      })
     }
   }
 };

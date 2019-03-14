@@ -23,6 +23,7 @@ def index():
 def login():
     username = request.json.get('name', None)
     password = request.json.get('password', None)
+    # 在后台打印前端提交的数据
     print(username)
     print(password)
     if username != 'test' or password != 'test':

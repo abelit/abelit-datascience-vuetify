@@ -13,21 +13,25 @@ Vue.use(Vuex);
 
 const state = {
   count: 0,
-  accessToken: ''
+  token: localStorage.getItem('token') || ''
 }
 const mutations = {
   increment: state => state.count++,
   decrement: state => state.count--,
-  setToken(state, accessToken) {
-    state.accessToken = accessToken
-    localStorage.accessToken = accessToken
+
+  setToken(state, token) {
+    state.token = token;
+    // localStorage.token = JSON.stringify(token)
+    localStorage.setItem('token', JSON.stringify(token));
   },
   delToken(state) {
-    state.accessToken = ''
-    localStorage.removeItem('accessToken')
+    state.token = '';
+    localStorage.removeItem('token');
   }
 }
 const actions = {}
+
+// const getters = {}
 
 
 export default new Vuex.Store({
