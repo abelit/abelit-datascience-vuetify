@@ -61,6 +61,21 @@ Vue.use(VeeValidate, {
 
 Vue.config.productionTip = false;
 
+
+// axios拦截器，401状态时跳转登录页并清除token
+// axios.interceptors.response.use((response) => {
+//   return response;
+// }, (error) => {
+//   if (error.response) {
+//       switch (error.response.status) {
+//           case 401:
+//               store.commit('delToken')
+//               router.push('/user/login')
+//       }
+//   }
+//   return Promise.reject(error.response.data)
+// });
+
 // create Vue instance
 new Vue({
   i18n,

@@ -10,14 +10,15 @@
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <v-btn color="transparent" v-on="on" flat>
-              <img :src="langLogo" alt>
+              <img :src="require('@/assets/images/auth/'+langLogo)" alt>
             </v-btn>
           </template>
           <v-list>
             <v-list-tile v-for="(lang, index) in langs" :key="index">
               <v-list-tile-avatar>
                 <v-avatar size="32px" tile @click="changeLangEvent(lang.lang,index)">
-                  <img :src="lang.img">
+                  <!-- <img :src="lang.img"> -->
+                  <img :src="require('@/assets/images/auth/'+lang.img)" alt="lang">
                 </v-avatar>
               </v-list-tile-avatar>
               <v-list-tile-title @click="changeLangEvent(lang.lang)">{{ lang.name }}</v-list-tile-title>
@@ -94,21 +95,19 @@ export default {
     isBtnLoading: false,
     password: undefined,
     lang: "zh_CN",
-    langLogo: require("../../assets/images/cn.png"),
+    langLogo: 'cn.png',
     langs: {
       zh: {
         lang: "zh_CN",
         name: "简体中文",
-        img: require("../../assets/images/cn.png")
+        img: 'cn.png',
       },
       en: {
         lang: "en_US",
         name: "English",
-        img: require("../../assets/images/us.png")
+        img: "us.png",
       }
     },
-    items: [],
-    radios: [],
     loginError: ''
   }),
   methods: {
@@ -125,8 +124,15 @@ export default {
             password: this.password
           })
           .then(res => {
-            this.$store.commit("set_token", res.data);
-            this.$router.push("/about");
+            // 存储token信息
+            this.$store.commit("setToken", res.data);
+            // if (this.$router.currentRoute.query.url) {
+            //   this.$router.push(this.$router.currentRoute.query.url);
+            // } else {
+            //   this.$router.push('/');
+            // }
+            // 跳转上一请求页面或主页
+            this.$router.push(this.$router.currentRoute.query.url || '/');
           })
           .catch(error => {
             // eslint-disable-next-line
@@ -175,7 +181,7 @@ export default {
 .login-container {
   width: 100%;
   height: 100%;
-  background-image: url("../../assets/images/login/login_page_default.jpg");
+  background-image: url("../../assets/images/auth/login_page_default.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   -moz-background-size: 100% 100%;

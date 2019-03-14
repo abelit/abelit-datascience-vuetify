@@ -137,10 +137,10 @@ export default {
     password: undefined,
     repassword: undefined,
     lang: 'zh_CN',
-    langLogo: require("../../assets/images/cn.png"),
+    langLogo: require("../../assets/images/auth/cn.png"),
     langs: {
-      zh: { lang: "zh_CN", name: "简体中文", img: require("../../assets/images/cn.png") },
-      en: { lang: "en_US", name: "English", img: require("../../assets/images/us.png") }
+      zh: { lang: "zh_CN", name: "简体中文", img: require("../../assets/images/auth/cn.png") },
+      en: { lang: "en_US", name: "English", img: require("../../assets/images/auth/us.png") }
     }
   }),
   methods: {
@@ -165,7 +165,7 @@ export default {
 .login-container {
   width: 100%;
   height: 100%;
-  background-image: url("../../assets/images/login/login_page_default.jpg");
+  background-image: url("../../assets/images/auth/login_page_default.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   -moz-background-size: 100% 100%;

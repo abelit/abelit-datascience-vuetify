@@ -91,7 +91,10 @@ const router = new Router({
     {
       path: "/demo/form",
       name: "form",
-      component: FormDemo
+      component: FormDemo,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/demo/testpath",
@@ -125,13 +128,14 @@ const router = new Router({
 //   next();
 // });
 
-router.beforeEach((to, from, next) => {
+// let entryUrl = "/about";
+
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.token) {
-      next();
-      return;
+    if (localStorage.accessToken) {
+      return next()
     }
-    next("/user/login");
+    next({path:'/user/login',query:{url: to.fullPath} });
   } else {
     next();
   }

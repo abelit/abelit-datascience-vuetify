@@ -2,6 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
+
+
 // // default store config
 // export default new Vuex.Store({
 //   state: {},
@@ -9,21 +11,20 @@ Vue.use(Vuex);
 //   actions: {}
 // });
 
-
 const state = {
   count: 0,
-  token: ''
+  accessToken: ''
 }
 const mutations = {
   increment: state => state.count++,
   decrement: state => state.count--,
-  set_token(state, token) {
-    state.token = token
-    localStorage.token = token
+  setToken(state, accessToken) {
+    state.accessToken = accessToken
+    localStorage.accessToken = accessToken
   },
-  del_token(state) {
-    state.token = ''
-    localStorage.removeItem('token')
+  delToken(state) {
+    state.accessToken = ''
+    localStorage.removeItem('accessToken')
   }
 }
 const actions = {}

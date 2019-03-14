@@ -22,13 +22,18 @@ export default {
       m_name: "abelit",
       message: "",
       bcss: "form-control",
-      mypath: process.env.BASE_URL
+      mypath: process.env.BASE_URL,
+      loginUser: ''
     };
   },
   methods: {
     logout() {
-      this.$store.commit("del_token");
+      this.$store.commit("delToken");
       this.$router.push("/user/login");
+    },
+    getUser() {
+      this.$axios.get("/protected")
+      .then
     }
   }
 };
