@@ -126,19 +126,19 @@ export default {
           .then(res => {
             // 存储token信息
             this.$store.commit("setToken", res.data);
-            console.log(res.data);
-            console.log(this.$store.state.token);
+            
+            // console.log(this.$store.state.token);
             // if (this.$router.currentRoute.query.url) {
             //   this.$router.push(this.$router.currentRoute.query.url);
             // } else {
             //   this.$router.push('/');
             // }
             // 跳转上一请求页面或主页
+
             this.$router.push(this.$router.currentRoute.query.url || '/');
           })
           .catch(error => {
-            // eslint-disable-next-line
-            console.error(error.data);
+            console.log(error);
             this.loginError = this.$t('auth.loginError');
             setTimeout(() => {
               this.loginError = false;

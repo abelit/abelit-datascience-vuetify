@@ -20,23 +20,11 @@ import Register from "./views/auth/Register.vue";
 
 Vue.use(Router);
 
-// function requireAuth(to, from, next) {
-//   if (!auth.loggedIn()) {
-//     next({
-//       path: "/user/login",
-//       query: {
-//         redirect: to.fullPath
-//       }
-//     });
-//   } else {
-//     next();
-//   }
-// }
-
 const router = new Router({
   // mode: "history",
   base: process.env.BASE_URL,
-  routes: [{
+  routes: [
+    {
       path: "/",
       name: "home",
       component: Home
@@ -48,7 +36,7 @@ const router = new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () =>
-        import( /* webpackChunkName: "about" */ "./views/About.vue"),
+        import(/* webpackChunkName: "about" */ "./views/About.vue"),
       meta: {
         requiresAuth: true
       }
@@ -114,28 +102,12 @@ const router = new Router({
   ]
 });
 
-// // 拦截所有路由
-// router.beforeEach((to, from, next) => {
-//   // redirect to login page if not logged in and trying to access a restricted page
-//   const publicPages = ["/user/login"];
-//   const authRequired = !publicPages.includes(to.path);
-//   const loggedIn = localStorage.getItem("user");
-
-//   if (authRequired && !loggedIn) {
-//     return next("/user/login");
-//   }
-
-//   next();
-// });
-
-// let entryUrl = "/about";
-
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (localStorage.token) {
-      return next()
+    if (localStorage.getItem("token")) {
+      return next();
     }
-    next({path:'/user/login',query:{url: to.fullPath} });
+    next({ path: "/user/login", query: { url: to.fullPath } });
   } else {
     next();
   }

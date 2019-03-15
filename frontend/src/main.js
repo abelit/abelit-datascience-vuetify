@@ -61,20 +61,67 @@ Vue.use(VeeValidate, {
 
 Vue.config.productionTip = false;
 
+/* 请求拦截器 */
+axios.interceptors.request.use(
+  function(config) {
+    // 每次请求时会从localStorage中获取token
+    let token = localStorage.getItem("token");
 
-// axios拦截器，401状态时跳转登录页并清除token
-// axios.interceptors.response.use((response) => {
-//   return response;
-// }, (error) => {
-//   if (error.response) {
-//       switch (error.response.status) {
-//           case 401:
-//               store.commit('delToken')
-//               router.push('/user/login')
-//       }
-//   }
-//   return Promise.reject(error.response.data)
-// });
+    if (token) {
+      token = "bearer" + " " + token.replace(/'|"/g, "");
+      // 把token加入到默认请求参数中
+      config.headers.common["Authorization"] = token;
+    }
+
+    return config;
+  },
+  function(error) {
+    return Promise.reject(error);
+  }
+);
+
+// axios响应拦截器，401状态时跳转登录页并清除token
+axios.interceptors.response.use(
+  response => {
+    console.log("拦截器1");
+
+    return response;
+  },
+  error => {
+    console.log("拦截器2");
+    // console.log(error.response);
+    if (error.response) {
+      if (error.response.status === 401) {
+        // store.commit("delToken");
+        // router.push("/user/login");
+        // return
+        if (localStorage.getItem('token')) {
+          let rtoken = JSON.parse(localStorage.getItem('token')).refresh_token;
+          axios.post("/refresh", {}, {
+              headers: {
+                Authorization: 'Bearer ' + rtoken
+              }
+            })
+            .then(res => {
+              store.commit("setToken", {
+                access_token: res.data.access_token,
+                refresh_token: rtoken
+              });
+            })
+            .catch(error => {
+              store.commit("delToken");
+              router.push("/user/login");
+              console.log(error);
+            });
+        } else {
+          store.commit("delToken");
+          router.push("/user/login");
+        }
+         }
+        }
+    return Promise.reject(error.response);
+  }
+);
 
 // create Vue instance
 new Vue({

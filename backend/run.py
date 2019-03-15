@@ -6,6 +6,7 @@ from flask_jwt_extended import (
 )
 
 from flask_cors import CORS
+import datetime
 
 app = Flask(__name__)
 
@@ -31,9 +32,11 @@ def login():
 
     # Use create_access_token() and create_refresh_token() to create our
     # access and refresh tokens
+    access_expires = datetime.timedelta(seconds=60)
+    refresh_expires = datetime.timedelta(seconds=120)
     ret = {
-        'access_token': create_access_token(identity=username),
-        'refresh_token': create_refresh_token(identity=username)
+        'access_token': create_access_token(identity=username, expires_delta=access_expires),
+        'refresh_token': create_refresh_token(identity=username, expires_delta=refresh_expires)
     }
     return jsonify(ret), 200
 

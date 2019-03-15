@@ -11,6 +11,8 @@
     <span>{{ errors.first('myinput') }}</span>
     <p>Message is: {{ message }}</p>
     <p v-if="loginUser">UserInfo is: {{loginUser}}</p>
+    <p>Old Token: {{oldtoken}}</p>
+    <p>New Token: {{newtoken}}</p>
     <button class="btn-primary" @click="getUser">点击此通过token获取用户名</button> ||
     <button class="btn-primary" @click="logout">退出</button>
   </div>
@@ -25,7 +27,9 @@ export default {
       message: "test",
       bcss: "form-control",
       mypath: process.env.BASE_URL,
-      loginUser: ''
+      loginUser: '',
+      oldtoken: JSON.parse(localStorage.getItem('token')).access_token || '',
+      newtoken: ''
     };
   },
   methods: {
@@ -35,18 +39,35 @@ export default {
     },
     getUser() {
       // let token = JSON.parse(localStorage.token).access_token
-      let token = JSON.parse(localStorage.getItem('token')).access_token
+      let token = JSON.parse(localStorage.getItem('token')).access_token;
+      let rtoken = JSON.parse(localStorage.getItem('token')).refresh_token;
 
+      
       this.$axios.get("/protected",{ headers: { Authorization: 'Bearer ' + token} })
       .then(res => {
         // 通过token获取用户名称
-        console.log(res.data);
+        console.log('nnnnnnnnnnnnnnnnnnnn');
+        console.log(res);
         this.loginUser = res.data.logged_in_as;
+        this.oldtoken =  token;
       })
       .catch(error => {
-        console.log('error abelit');
         console.log(error);
-      })
+      });
+
+      // this.$axios.post("/refresh",{},{ headers: { Authorization: 'Bearer ' + rtoken} })
+      // .then(res => {
+      //   console.log('mmmmmmmmmmmmmmmmm');
+      //   console.log(res);
+      //   this.newtoken = res.data.access_token;
+      //   this.$store.commit("setToken", {access_token: res.data.access_token,refresh_token:rtoken});
+      // })
+      // .catch(error => {
+      //   console.log(error);
+      // });
+
+      // console.log('chenying');
+      // console.log(localStorage.getItem('token'));
     }
   }
 };
