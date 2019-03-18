@@ -84,7 +84,6 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     console.log("拦截器1");
-
     return response;
   },
   error => {
@@ -95,13 +94,18 @@ axios.interceptors.response.use(
         // store.commit("delToken");
         // router.push("/user/login");
         // return
-        if (localStorage.getItem('token')) {
-          let rtoken = JSON.parse(localStorage.getItem('token')).refresh_token;
-          axios.post("/refresh", {}, {
-              headers: {
-                Authorization: 'Bearer ' + rtoken
+        if (localStorage.getItem("token")) {
+          let rtoken = JSON.parse(localStorage.getItem("token")).refresh_token;
+          axios
+            .post(
+              "/refresh",
+              {},
+              {
+                headers: {
+                  Authorization: "Bearer " + rtoken
+                }
               }
-            })
+            )
             .then(res => {
               store.commit("setToken", {
                 access_token: res.data.access_token,
@@ -117,8 +121,8 @@ axios.interceptors.response.use(
           store.commit("delToken");
           router.push("/user/login");
         }
-         }
-        }
+      }
+    }
     return Promise.reject(error.response);
   }
 );

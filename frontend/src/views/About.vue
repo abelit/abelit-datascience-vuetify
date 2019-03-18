@@ -12,9 +12,17 @@
     <p>Message is: {{ message }}</p>
     <p v-if="loginUser">UserInfo is: {{loginUser}}</p>
     <p>Old Token: {{oldtoken}}</p>
-    <p>New Token: {{newtoken}}</p>
     <button class="btn-primary" @click="getUser">点击此通过token获取用户名</button> ||
     <button class="btn-primary" @click="logout">退出</button>
+    <div>
+      <h1>用户可访问的菜单</h1>
+      <!-- <ul>
+        <li v-for="(k,v) in menulst">
+          <router-link :to="k">{{v}}</router-link>
+        </li>
+      </ul> -->
+      <!-- {{getMenu()}} -->
+    </div>
   </div>
 </template>
 
@@ -29,7 +37,7 @@ export default {
       mypath: process.env.BASE_URL,
       loginUser: '',
       oldtoken: JSON.parse(localStorage.getItem('token')).access_token || '',
-      newtoken: ''
+      menulst: {}
     };
   },
   methods: {
@@ -40,8 +48,6 @@ export default {
     getUser() {
       // let token = JSON.parse(localStorage.token).access_token
       let token = JSON.parse(localStorage.getItem('token')).access_token;
-      let rtoken = JSON.parse(localStorage.getItem('token')).refresh_token;
-
       
       this.$axios.get("/protected",{ headers: { Authorization: 'Bearer ' + token} })
       .then(res => {
@@ -68,6 +74,16 @@ export default {
 
       // console.log('chenying');
       // console.log(localStorage.getItem('token'));
+    },
+    getMenu() {
+      let token = JSON.parse(localStorage.getItem('token')).access_token;
+      this.$axios.get("/menu",{headers: {Authorization: 'Bearer ' + token}})
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
   }
 };

@@ -139,6 +139,7 @@ export default {
           })
           .catch(error => {
             console.log(error);
+            console.log('hello');
             this.loginError = this.$t('auth.loginError');
             setTimeout(() => {
               this.loginError = false;
