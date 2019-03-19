@@ -27,7 +27,7 @@ def login():
     # 在后台打印前端提交的数据
     print(username)
     print(password)
-    if username != 'test' or password != 'test':
+    if (username != 'test' or password != 'test') and (username != 'abelit' or password != 'abelit'):
         return jsonify({"msg": "Bad username or password"}), 401
 
     # Use create_access_token() and create_refresh_token() to create our

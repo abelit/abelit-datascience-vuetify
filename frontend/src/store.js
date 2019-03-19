@@ -12,7 +12,7 @@ Vue.use(Vuex);
 
 const state = {
   count: 0,
-  token: localStorage.getItem("token") || ""
+  token: localStorage.getItem("token") || "",
 };
 const mutations = {
   increment: state => state.count++,

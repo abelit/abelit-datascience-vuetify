@@ -16,12 +16,12 @@
     <button class="btn-primary" @click="logout">退出</button>
     <div>
       <h1>用户可访问的菜单</h1>
-      <!-- <ul>
+      <ul>
         <li v-for="(k,v) in menulst">
           <router-link :to="k">{{v}}</router-link>
         </li>
-      </ul> -->
-      <!-- {{getMenu()}} -->
+      </ul>
+      <!-- <button class="btn-primary" @click="getMenu">点击查看可访问的菜单</button> -->
     </div>
   </div>
 </template>
@@ -35,8 +35,8 @@ export default {
       message: "test",
       bcss: "form-control",
       mypath: process.env.BASE_URL,
-      loginUser: '',
-      oldtoken: JSON.parse(localStorage.getItem('token')).access_token || '',
+      loginUser: "",
+      oldtoken: JSON.parse(localStorage.getItem("token")).access_token || "",
       menulst: {}
     };
   },
@@ -47,44 +47,59 @@ export default {
     },
     getUser() {
       // let token = JSON.parse(localStorage.token).access_token
-      let token = JSON.parse(localStorage.getItem('token')).access_token;
-      
-      this.$axios.get("/protected",{ headers: { Authorization: 'Bearer ' + token} })
-      .then(res => {
-        // 通过token获取用户名称
-        console.log('nnnnnnnnnnnnnnnnnnnn');
-        console.log(res);
-        this.loginUser = res.data.logged_in_as;
-        this.oldtoken =  token;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      let token = JSON.parse(localStorage.getItem("token")).access_token;
 
-      // this.$axios.post("/refresh",{},{ headers: { Authorization: 'Bearer ' + rtoken} })
-      // .then(res => {
-      //   console.log('mmmmmmmmmmmmmmmmm');
-      //   console.log(res);
-      //   this.newtoken = res.data.access_token;
-      //   this.$store.commit("setToken", {access_token: res.data.access_token,refresh_token:rtoken});
-      // })
-      // .catch(error => {
-      //   console.log(error);
-      // });
-
-      // console.log('chenying');
-      // console.log(localStorage.getItem('token'));
+      this.$axios
+        .get("/protected", { headers: { Authorization: "Bearer " + token } })
+        .then(res => {
+          // 通过token获取用户名称
+          console.log("nnnnnnnnnnnnnnnnnnnn");
+          console.log(res);
+          this.loginUser = res.data.logged_in_as;
+          this.oldtoken = token;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     getMenu() {
-      let token = JSON.parse(localStorage.getItem('token')).access_token;
-      this.$axios.get("/menu",{headers: {Authorization: 'Bearer ' + token}})
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      let token = JSON.parse(localStorage.getItem("token")).access_token;
+      this.$axios
+        .get("/menu", { headers: { Authorization: "Bearer " + token } })
+        .then(res => {
+          console.log(res.data);
+          this.menulst = res.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    addRoute() {
+      //watch here
+      let routes = [
+        {
+          path: "/demo/mapdemo",
+          name: "map",
+          component: (resolve) => require(["@/components/demo/AmchartsDemo.vue"], resolve)
+        },
+        {
+          path: "/demo/uidemo",
+          name: "uidemo",
+          component: (resolve) => require(["@/components/demo/UIDemo.vue"], resolve)
+        }
+      ];
+     
+      for (var rt in routes) {
+        this.$router.options.routes.push(routes[rt]);
+      }
+      // this.$router.options.routes.push(routes);
+      this.$router.addRoutes(routes);
+      console.log(this.$router.options.routes);
     }
+  },
+  mounted() {
+    this.getMenu();
+    this.addRoute();
   }
 };
 </script>

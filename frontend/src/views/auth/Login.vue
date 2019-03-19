@@ -95,20 +95,20 @@ export default {
     isBtnLoading: false,
     password: undefined,
     lang: "zh_CN",
-    langLogo: 'cn.png',
+    langLogo: "cn.png",
     langs: {
       zh: {
         lang: "zh_CN",
         name: "简体中文",
-        img: 'cn.png',
+        img: "cn.png"
       },
       en: {
         lang: "en_US",
         name: "English",
-        img: "us.png",
+        img: "us.png"
       }
     },
-    loginError: ''
+    loginError: ""
   }),
   methods: {
     async submit() {
@@ -119,34 +119,32 @@ export default {
         setTimeout(() => {
           this.isBtnLoading = false;
           this.$axios
-          .post("/login", {
-            name: this.name,
-            password: this.password
-          })
-          .then(res => {
-            // 存储token信息
-            this.$store.commit("setToken", res.data);
-            
-            // console.log(this.$store.state.token);
-            // if (this.$router.currentRoute.query.url) {
-            //   this.$router.push(this.$router.currentRoute.query.url);
-            // } else {
-            //   this.$router.push('/');
-            // }
-            // 跳转上一请求页面或主页
+            .post("/login", {
+              name: this.name,
+              password: this.password
+            })
+            .then(res => {
+              // 存储token信息
+              this.$store.commit("setToken", res.data);
 
-            this.$router.push(this.$router.currentRoute.query.url || '/');
-          })
-          .catch(error => {
-            console.log(error);
-            console.log('hello');
-            this.loginError = this.$t('auth.loginError');
-            setTimeout(() => {
-              this.loginError = false;
-            }, 2000);
-          });
+              // console.log(this.$store.state.token);
+              // if (this.$router.currentRoute.query.url) {
+              //   this.$router.push(this.$router.currentRoute.query.url);
+              // } else {
+              //   this.$router.push('/');
+              // }
+              // 跳转上一请求页面或主页
+              this.$router.push(this.$router.currentRoute.query.url || "/");
+            })
+            .catch(error => {
+              console.log(error);
+              console.log("hello");
+              this.loginError = this.$t("auth.loginError");
+              setTimeout(() => {
+                this.loginError = false;
+              }, 2000);
+            });
         }, 2000);
-        
       }
     },
     clear() {
@@ -165,6 +163,26 @@ export default {
       }
       this.$i18n.locale = this.lang;
       this.$validator.locale = this.lang;
+    },
+    addRouteList() {
+      //watch here
+      let routes = [
+        {
+          path: "/demo/mapdemo",
+          name: "map",
+          component: resolve =>
+            require(["@/components/demo/AmchartsDemo.vue"], resolve)
+        },
+        {
+          path: "/demo/uidemo",
+          name: "uidemo",
+          component: resolve =>
+            require(["@/components/demo/UIDemo.vue"], resolve)
+        }
+      ];
+
+      this.$store.commit("setMenu", routes);
+      // console.log(this.$router.options.routes);
     }
   },
   computed: {

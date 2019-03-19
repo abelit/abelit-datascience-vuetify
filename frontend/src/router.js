@@ -16,6 +16,7 @@ import TestPath from "@/components/demo/TestPath";
 // Dev
 import Login from "./views/auth/Login.vue";
 import Register from "./views/auth/Register.vue";
+import NotFound from "@/views/NotFound";
 // import auth from "./helpers/auth.js";
 
 Vue.use(Router);
@@ -46,21 +47,21 @@ const router = new Router({
       name: "demo",
       component: PageDemo
     },
-    {
-      path: "/demo/uidemo",
-      name: "uidemo",
-      component: UIDemo
-    },
+    // {
+    //   path: "/demo/uidemo",
+    //   name: "uidemo",
+    //   component: UIDemo
+    // },
     {
       path: "/demo/fullscreen",
       name: "fullscreen",
       component: FullscreenDemo
     },
-    {
-      path: "/demo/mapdemo",
-      name: "mapdemo",
-      component: AmchartsDemo
-    },
+    // {
+    //   path: "/demo/mapdemo",
+    //   name: "mapdemo",
+    //   component: AmchartsDemo
+    // },
     {
       path: "/demo/d3demo",
       name: "d3demo",
@@ -98,6 +99,11 @@ const router = new Router({
       path: "/user/register",
       name: "register",
       component: Register
+    },
+    {
+      path: '*',
+      name: "404",
+      component: NotFound
     }
   ]
 });
@@ -112,5 +118,6 @@ router.beforeEach(async (to, from, next) => {
     next();
   }
 });
+
 
 export default router;
