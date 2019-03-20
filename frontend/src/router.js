@@ -12,6 +12,7 @@ import TestVue from "@/components/demo/TestVue.vue";
 import TranslateDemo from "@/components/demo/TranslateDemo";
 import FormDemo from "@/components/demo/FormDemo";
 import TestPath from "@/components/demo/TestPath";
+import TestVuex from "@/components/demo/TestVuex";
 
 // Dev
 import Login from "./views/auth/Login.vue";
@@ -46,6 +47,11 @@ const router = new Router({
       path: "/demo",
       name: "demo",
       component: PageDemo
+    },
+    {
+      path: "/demo/vuex",
+      name: "vuex",
+      component: TestVuex
     },
     // {
     //   path: "/demo/uidemo",

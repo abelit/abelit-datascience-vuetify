@@ -28,7 +28,14 @@ const mutations = {
     localStorage.removeItem("token");
   }
 };
-const actions = {};
+const actions = {
+  aincrement(ctx) {
+    ctx.commit('increment')
+  },
+  adecrement(ctx) {
+    ctx.commit('decrement')
+  }
+};
 
 // const getters = {}
 

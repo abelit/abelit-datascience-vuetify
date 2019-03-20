@@ -17,7 +17,7 @@
     <div>
       <h1>用户可访问的菜单</h1>
       <ul>
-        <li v-for="(k,v) in menulst">
+        <li v-for="(k,v) in menulst" v-bind:key="v">
           <router-link :to="k">{{v}}</router-link>
         </li>
       </ul>
