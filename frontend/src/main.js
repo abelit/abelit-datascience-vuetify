@@ -72,7 +72,6 @@ axios.interceptors.request.use(
       // 把token加入到默认请求参数中
       config.headers.common["Authorization"] = token;
     }
-
     return config;
   },
   function(error) {
@@ -84,6 +83,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     console.log("拦截器1");
+    // getRoutes();
     return response;
   },
   error => {
@@ -126,6 +126,28 @@ axios.interceptors.response.use(
     return Promise.reject(error.response);
   }
 );
+
+// function getRoutes() {
+//   let routes = [
+//     {
+//       path: "/demo/mapdemo",
+//       name: "map",
+//       component: (resolve) => require(["@/components/demo/AmchartsDemo.vue"], resolve),
+//     },
+//     {
+//       path: "/demo/uidemo",
+//       name: "uidemo",
+//       component: (resolve) => require(["@/components/demo/UIDemo.vue"], resolve),
+//     }
+//   ];
+
+//   for (var rt in routes) {
+//     router.options.routes.push(routes[rt]);
+//   }
+//   // // this.$router.options.routes.push(routes);
+//   router.options.routes;
+//   router.addRoutes(routes);
+// }
 
 // create Vue instance
 new Vue({

@@ -154,7 +154,7 @@
   .login-container {
     width: 100%;
     height: 100%;
-    background-image:  url('../assets/login/login5.jpg');
+    /* background-image:  url('../assets/login/login5.jpg'); */
     background-repeat:no-repeat; 
     background-size:100% 100%;
     -moz-background-size:100% 100%;

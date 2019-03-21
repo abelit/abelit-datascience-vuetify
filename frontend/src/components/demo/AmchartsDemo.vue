@@ -27,7 +27,7 @@ am4core.useTheme(am4themes_dataviz);
 am4core.useTheme(am4themes_animated);
 // Themes end
 export default {
-  name: "HelloAmcharts",
+  name: "AmchartsDemo",
   mounted() {
     // Create map instance
     var chart = am4core.create("chartdiv", am4maps.MapChart);

@@ -93,7 +93,7 @@
 
 <script>
 export default {
-  name: "Flexible",
+  name: "UIDemo",
   data: () => ({
     menuVisible: false
   })

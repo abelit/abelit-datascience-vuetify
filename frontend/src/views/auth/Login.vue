@@ -134,6 +134,24 @@ export default {
               //   this.$router.push('/');
               // }
               // 跳转上一请求页面或主页
+              let rlist = [{"path":"/demo/mapdemo","name":"mapdemo","component":"ButtonCounter.vue"}]
+              let routes = []
+              for (var r in rlist) {
+                routes.push({
+                  path: rlist[r].path,
+                  name: rlist[r].name,
+                  component: resolve => require(["@/components/demo/"+rlist[r].component+""], resolve) 
+                })
+                console.log(rlist[r]);
+              }
+              // console.log(routes)
+
+              for (var rt in routes) {
+                this.$router.options.routes.push(routes[rt]);
+              }
+
+              this.$router.addRoutes(routes);
+
               this.$router.push(this.$router.currentRoute.query.url || "/");
             })
             .catch(error => {
@@ -164,26 +182,31 @@ export default {
       this.$i18n.locale = this.lang;
       this.$validator.locale = this.lang;
     },
-    addRouteList() {
-      //watch here
-      let routes = [
-        {
-          path: "/demo/mapdemo",
-          name: "map",
-          component: resolve =>
-            require(["@/components/demo/AmchartsDemo.vue"], resolve)
-        },
-        {
-          path: "/demo/uidemo",
-          name: "uidemo",
-          component: resolve =>
-            require(["@/components/demo/UIDemo.vue"], resolve)
-        }
-      ];
+    // getRoutes() {
+    //   console.log("babby");
+    //   let routes = [
+    //     {
+    //       path: "/demo/mapdemo",
+    //       name: "map",
+    //       component: resolve =>
+    //         require(["@/components/demo/AmchartsDemo.vue"], resolve)
+    //     },
+    //     {
+    //       path: "/demo/uidemo",
+    //       name: "uidemo",
+    //       component: resolve =>
+    //         require(["@/components/demo/UIDemo.vue"], resolve)
+    //     }
+    //   ];
 
-      this.$store.commit("setMenu", routes);
-      // console.log(this.$router.options.routes);
-    }
+    //   for (var rt in routes) {
+    //     this.$router.options.routes.push(routes[rt]);
+    //   }
+    //   // this.$router.options.routes.push(routes);
+    //   // router.options.routes;
+    //   this.$router.addRoutes(routes);
+    //   console.log(this.$router.options.routes);
+    // }
   },
   computed: {
     // function to add loading text form submit button

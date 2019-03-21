@@ -106,6 +106,7 @@ const router = new Router({
       name: "register",
       component: Register
     },
+    // ...genRouters(),
     {
       path: '*',
       name: "404",
@@ -124,6 +125,24 @@ router.beforeEach(async (to, from, next) => {
     next();
   }
 });
+
+// // 登录后要刷新才能进行动态添加路由
+// function genRouters() {
+//   if (localStorage.getItem("token")) {
+//     return [{
+//         path: "/demo/mapdemo",
+//         name: "map",
+//         component: (resolve) => require(["@/components/demo/AmchartsDemo.vue"], resolve),
+//       },
+//       {
+//         path: "/demo/uidemo",
+//         name: "uidemo",
+//         component: (resolve) => require(["@/components/demo/UIDemo.vue"], resolve),
+//       }
+//     ]
+//   }
+//   return '';
+// };
 
 
 export default router;

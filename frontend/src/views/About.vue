@@ -17,7 +17,7 @@
     <div>
       <h1>用户可访问的菜单</h1>
       <ul>
-        <li v-for="(k,v) in menulst" v-bind:key="v">
+        <li v-for="(k,v) in menulst" v-bind:key="k">
           <router-link :to="k">{{v}}</router-link>
         </li>
       </ul>
@@ -67,39 +67,43 @@ export default {
       this.$axios
         .get("/menu", { headers: { Authorization: "Bearer " + token } })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.menulst = res.data;
         })
         .catch(error => {
           console.log(error);
         });
     },
-    addRoute() {
-      //watch here
-      let routes = [
-        {
-          path: "/demo/mapdemo",
-          name: "map",
-          component: (resolve) => require(["@/components/demo/AmchartsDemo.vue"], resolve)
-        },
-        {
-          path: "/demo/uidemo",
-          name: "uidemo",
-          component: (resolve) => require(["@/components/demo/UIDemo.vue"], resolve)
-        }
-      ];
+    // addRoute() {
+    //   //watch here
+    //   let routes = [
+    //     {
+    //       path: "/demo/mapdemo",
+    //       name: "map",
+    //       component: (resolve) => require(["@/components/demo/AmchartsDemo.vue"], resolve)
+    //     },
+    //     {
+    //       path: "/demo/uidemo",
+    //       name: "uidemo",
+    //       component: (resolve) => require(["@/components/demo/UIDemo.vue"], resolve)
+    //     }
+    //   ];
      
-      for (var rt in routes) {
-        this.$router.options.routes.push(routes[rt]);
-      }
-      // this.$router.options.routes.push(routes);
-      this.$router.addRoutes(routes);
-      console.log(this.$router.options.routes);
-    }
+    //   // for (var rt in routes) {
+    //   //   this.$router.options.routes.push(routes[rt]);
+    //   // }
+    //   // this.$router.options.routes.push(routes);
+    //   this.$router.options.routes;
+    //   this.$router.addRoutes(routes);
+      
+    //   console.log(this.$router.options.routes);
+    // }
   },
   mounted() {
     this.getMenu();
-    this.addRoute();
+    // this.addRoute();
+    // console.log(this.$router.options.routes);
+    // console.log(localStorage.getItem('testRouter'));
   }
 };
 </script>
