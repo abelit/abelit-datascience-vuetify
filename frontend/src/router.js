@@ -68,21 +68,17 @@ const router = new Router({
     //   name: "mapdemo",
     //   component: AmchartsDemo
     // },
-    {
-      path: "/demo/d3demo",
-      name: "d3demo",
-      component: D3Demo
-    },
+   
     {
       path: "/demo/testvue",
       name: "testvue",
       component: TestVue
     },
-    {
-      path: "/demo/trans",
-      name: "trans",
-      component: TranslateDemo
-    },
+    // {
+    //   path: "/demo/trans",
+    //   name: "trans",
+    //   component: TranslateDemo
+    // },
     {
       path: "/demo/form",
       name: "form",

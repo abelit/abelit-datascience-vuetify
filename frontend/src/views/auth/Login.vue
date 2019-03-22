@@ -126,25 +126,21 @@ export default {
             .then(res => {
               // 存储token信息
               this.$store.commit("setToken", res.data);
-
-              // console.log(this.$store.state.token);
-              // if (this.$router.currentRoute.query.url) {
-              //   this.$router.push(this.$router.currentRoute.query.url);
-              // } else {
-              //   this.$router.push('/');
-              // }
+              
               // 跳转上一请求页面或主页
-              let rlist = [{"path":"/demo/mapdemo","name":"mapdemo","component":"ButtonCounter.vue"}]
+              let rlist = [
+                {"path":"/demo/mapdemo","name":"mapdemo","component":"AmchartsDemo"},
+                {"path":"/demo/uidemo","name":"uidemo","component":"UIDemo"},
+                {"path":"/demo/trans","name":"trans","component":"TranslateDemo"}]
               let routes = []
-              for (var r in rlist) {
+              for (let i=0; i<rlist.length; i++) {
                 routes.push({
-                  path: rlist[r].path,
-                  name: rlist[r].name,
-                  component: resolve => require(["@/components/demo/"+rlist[r].component+""], resolve) 
+                  path: rlist[i].path,
+                  name: rlist[i].name,
+                  component: () => import("@/components/demo/"+rlist[i].component) 
                 })
-                console.log(rlist[r]);
               }
-              // console.log(routes)
+              console.log(routes)
 
               for (var rt in routes) {
                 this.$router.options.routes.push(routes[rt]);
