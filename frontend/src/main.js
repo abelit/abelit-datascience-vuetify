@@ -127,27 +127,54 @@ axios.interceptors.response.use(
   }
 );
 
-// function getRoutes() {
-//   let routes = [
-//     {
-//       path: "/demo/mapdemo",
-//       name: "map",
-//       component: (resolve) => require(["@/components/demo/AmchartsDemo.vue"], resolve),
-//     },
-//     {
-//       path: "/demo/uidemo",
-//       name: "uidemo",
-//       component: (resolve) => require(["@/components/demo/UIDemo.vue"], resolve),
-//     }
-//   ];
+router.beforeEach(async (to, from, next) => {
+  // console.log('beforeEach ...');
+  if (localStorage.getItem('routeList')) {
+    let routeList = JSON.parse(localStorage.getItem('routeList'));
+    console.log(routeList);
+    localStorage.removeItem('routeList');
+    genRoutes(routeList);
+  } else {
+    next()
+  }
+  // console.log(to);
+  // console.log(from);
+  // if (to.matched.some(record => record.meta.requiresAuth)) {
+  //   if (localStorage.getItem("token")) {
+  //     return next();
+  //   }
+  //   next({
+  //     path: "/user/login",
+  //     query: {
+  //       url: to.fullPath
+  //     }
+  //   });
+  // } else {
+  //   next();
+  // }
+});
 
-//   for (var rt in routes) {
-//     router.options.routes.push(routes[rt]);
-//   }
-//   // // this.$router.options.routes.push(routes);
-//   router.options.routes;
-//   router.addRoutes(routes);
-// }
+function genRoutes(routeList) {
+  // 生成路由对象，使用 vue-cli开发时导入组件推荐使用import导入模块
+  let routes = [];
+  for (let i = 0; i < routeList.length; i++) {
+    routes.push({
+      path: routeList[i].path,
+      name: routeList[i].name,
+      component: () => import("@/components/demo/" + routeList[i].component)
+    });
+  }
+
+  // 把动态路由写入实列路由表
+  // for (var rt in routes) {
+  //   router.options.routes.push(routes[rt]);
+  // }
+  // add dynamic routes 添加动态路由
+  router.addRoutes(routes);
+  console.log(router.options.routes);
+  localStorage.setItem('routeList', JSON.stringify(routeList));
+
+}
 
 // create Vue instance
 new Vue({

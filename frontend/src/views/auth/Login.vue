@@ -111,8 +111,8 @@ export default {
     loginError: ""
   }),
   methods: {
+    // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
     async submit() {
-      // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
       await this.$validator.validateAll();
       if (this.$validator.errors.all().length === 0) {
         this.isBtnLoading = true;
@@ -126,28 +126,11 @@ export default {
             .then(res => {
               // 存储token信息
               this.$store.commit("setToken", res.data);
-              
+
+              // 生成动态路由
+              this.genRoutes();
+
               // 跳转上一请求页面或主页
-              let rlist = [
-                {"path":"/demo/mapdemo","name":"mapdemo","component":"AmchartsDemo"},
-                {"path":"/demo/uidemo","name":"uidemo","component":"UIDemo"},
-                {"path":"/demo/trans","name":"trans","component":"TranslateDemo"}]
-              let routes = []
-              for (let i=0; i<rlist.length; i++) {
-                routes.push({
-                  path: rlist[i].path,
-                  name: rlist[i].name,
-                  component: () => import("@/components/demo/"+rlist[i].component) 
-                })
-              }
-              console.log(routes)
-
-              for (var rt in routes) {
-                this.$router.options.routes.push(routes[rt]);
-              }
-
-              this.$router.addRoutes(routes);
-
               this.$router.push(this.$router.currentRoute.query.url || "/");
             })
             .catch(error => {
@@ -161,6 +144,7 @@ export default {
         }, 2000);
       }
     },
+    // 清除输入款内容和错误提示信息
     clear() {
       this.name = "";
       this.email = "";
@@ -168,6 +152,7 @@ export default {
       this.checkbox = null;
       this.$validator.reset();
     },
+    // 语言切换
     changeLangEvent(param_lang, param_index) {
       if (param_lang != null) {
         this.lang = param_lang;
@@ -178,34 +163,35 @@ export default {
       this.$i18n.locale = this.lang;
       this.$validator.locale = this.lang;
     },
-    // getRoutes() {
-    //   console.log("babby");
-    //   let routes = [
-    //     {
-    //       path: "/demo/mapdemo",
-    //       name: "map",
-    //       component: resolve =>
-    //         require(["@/components/demo/AmchartsDemo.vue"], resolve)
-    //     },
-    //     {
-    //       path: "/demo/uidemo",
-    //       name: "uidemo",
-    //       component: resolve =>
-    //         require(["@/components/demo/UIDemo.vue"], resolve)
-    //     }
-    //   ];
+    genRoutes() {
+      let routeList = [
+        { path: "/demo/mapdemo", name: "mapdemo", component: "AmchartsDemo" },
+        { path: "/demo/uidemo", name: "uidemo", component: "UIDemo" },
+        { path: "/demo/trans", name: "trans", component: "TranslateDemo" }
+      ];
+      // 生成路由对象，使用 vue-cli开发时导入组件推荐使用import导入模块
+      let routes = [];
+      for (let i = 0; i < routeList.length; i++) {
+        routes.push({
+          path: routeList[i].path,
+          name: routeList[i].name,
+          component: () => import("@/components/demo/" + routeList[i].component)
+        });
+      }
 
-    //   for (var rt in routes) {
-    //     this.$router.options.routes.push(routes[rt]);
-    //   }
-    //   // this.$router.options.routes.push(routes);
-    //   // router.options.routes;
-    //   this.$router.addRoutes(routes);
-    //   console.log(this.$router.options.routes);
-    // }
+      // 把动态路由写入实列路由表
+      for (var rt in routes) {
+        this.$router.options.routes.push(routes[rt]);
+      }
+      // add dynamic routes 添加动态路由
+      this.$router.addRoutes(routes);
+      console.log(this.$router.options.routes);
+
+      localStorage.setItem('routeList', JSON.stringify(routeList));
+    }
   },
   computed: {
-    // function to add loading text form submit button
+    // function to add loading text form submit button 登录加载时显示信息
     btnLoadingText() {
       if (this.isBtnLoading) {
         return this.$t("auth.loginLoadingText");
@@ -213,6 +199,8 @@ export default {
         return "";
       }
     }
+  },
+  mounted() {
   }
 };
 </script>

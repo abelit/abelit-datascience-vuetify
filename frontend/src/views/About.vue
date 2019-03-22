@@ -100,11 +100,7 @@ export default {
     // }
   },
   mounted() {
-    this.getMenu();
-    // this.addRoute();
-    // console.log(this.$router.options.routes);
-    // console.log(localStorage.getItem('testRouter'));
-  }
+    this.getMenu();  }
 };
 </script>
 
