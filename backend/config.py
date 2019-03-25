@@ -1,11 +1,31 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-SQLALCHEMY_DATABASE_URI = "postgresql://postgres:password@localhost/postgres"
-SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
-SQLALCHEMY_TRACK_MODIFICATIONS = True
-BASEDIR = basedir
 
-# 安全配置
-CSRF_ENABLED = True
-SECRET_KEY = 'jklklsadhfjkhwbii9/sdf\sdf'
+class Config(object):
+    DEBUG = False
+    TESTING = False
+    CSRF_ENABLED = True
+    SECRET_KEY = 'this-really-needs-to-be-changed'
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:password@localhost/dataforum"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+
+
+class StagingConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class DevelopmentConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class TestingConfig(Config):
+    TESTING = True
+
+

@@ -1,91 +1,96 @@
-from flask import Flask, render_template, jsonify, redirect,request
-from flask_cors import CORS
+from models import User
+from flask import Flask, jsonify, request
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token,
+    jwt_refresh_token_required, create_refresh_token,
+    get_jwt_identity
+)
 
-from config import SQLALCHEMY_DATABASE_URI
+from flask_cors import CORS
+import datetime
+
+import config
 from flask_sqlalchemy import SQLAlchemy
 
-
+# 创建flask实例对象
 app = Flask(__name__)
 
-app.config.from_object('config')
+# 从config.py中导入配置信息
+app.config.from_object(config.DevelopmentConfig)
+
+# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:password@localhost/dataforum"
+
+print(app.config)
+
+# 创建数据库实例对象
 db = SQLAlchemy(app)
 
+# 跨域设置
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-# 指定static的url地址使用static_url_path参数
-# app = Flask(__name__,static_url_path='')
+# 设置JWT认证加密密钥
+app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+# 创建JWT实例对象
+jwt = JWTManager(app)
 
 
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    return render_template("index.html")
+@app.route('/hello', methods=['GET'])
+def index():
+    return "hello world!"
 
-
-@app.route('/ping')
-def ping():
-    return 'Pong!'
-
-
-@app.route('/button')
-def button():
-    return redirect('/button')
-
-
-@app.route('/api/login', methods=["POST"])
+@app.route('/login', methods=['POST'])
 def login():
-    name="ychenid@live.com"
-    password="password"
-    userdata = request.get_json()
-    userdata.update({
-        "name1": name,
-        "password1": password
-    })
-    if request.method == 'POST':
-        return jsonify(userdata.get('name'))
+    username = request.json.get('name', None)
+    password = request.json.get('password', None)
+    # 在后台打印前端提交的数据
+    print(username)
+    print(password)
+    if (username != 'test' or password != 'test') and (username != 'abelit' or password != 'abelit'):
+        return jsonify({"msg": "Bad username or password"}), 401
 
-@app.route('/hello/')
-@app.route('/hello/<name>')
-def hello(name=None):
-    return render_template('hello.html', name=name)
+    # Use create_access_token() and create_refresh_token() to create our
+    # access and refresh tokens
+    access_expires = datetime.timedelta(seconds=3600)
+    refresh_expires = datetime.timedelta(seconds=86400)
+    ret = {
+        'access_token': create_access_token(identity=username, expires_delta=access_expires),
+        'refresh_token': create_refresh_token(identity=username, expires_delta=refresh_expires)
+    }
+    return jsonify(ret), 200
 
-@app.route('/test')
-def test():
-    return SQLALCHEMY_DATABASE_URI
+
+# The jwt_refresh_token_required decorator insures a valid refresh
+# token is present in the request before calling this endpoint. We
+# can use the get_jwt_identity() function to get the identity of
+# the refresh token, and use the create_access_token() function again
+# to make a new access token for this identity.
+@app.route('/refresh', methods=['POST'])
+@jwt_refresh_token_required
+def refresh():
+    current_user = get_jwt_identity()
+    access_expires = datetime.timedelta(seconds=3600)
+    ret = {
+        'access_token': create_access_token(identity=current_user, expires_delta=access_expires)
+    }
+    return jsonify(ret), 200
 
 
-@app.route('/books', methods=['GET'])
-def all_books():
-    BOOKS = [
-        {
-            'title': 'On the Road',
-            'author': 'Jack Kerouac',
-            'read': True
-        },
-        {
-            'title': 'Harry Potter and the Philosopher\'s Stone',
-            'author': 'J. K. Rowling',
-            'read': False
-        },
-        {
-            'title': 'Green Eggs and Ham',
-            'author': 'Dr. Seuss',
-            'read': True
-        },
-        {
-            'title': 'Data Science',
-            'author': 'Abelit',
-            'read': True
-        }
-    ]
-    return jsonify({
-        'status': 'success',
-        'books': BOOKS
-    })
+@app.route('/protected', methods=['GET'])
+@jwt_required
+def protected():
+    username = get_jwt_identity()
+    return jsonify(logged_in_as=username), 200
+
+
+@app.route('/menu', methods=['GET'])
+@jwt_required
+def menu():
+    username = get_jwt_identity()
+    if username == 'test':
+        return jsonify({'mapdemo': '/demo/mapdemo','uidemo':'/demo/uidemo'})
+    
+    return jsonify({'uidemo':'/demo/uidemo'})
 
 
 if __name__ == '__main__':
