@@ -133,25 +133,29 @@ router.beforeEach(async (to, from, next) => {
     let routeList = JSON.parse(localStorage.getItem('routeList'));
     console.log(routeList);
     localStorage.removeItem('routeList');
-    genRoutes(routeList);
+    // 使用router.onReady解决刷新时新增的动态路由无法生效
+    router.onReady(() => {
+      genRoutes(routeList)
+    });
+    next()
   } else {
     next()
   }
   // console.log(to);
   // console.log(from);
-  // if (to.matched.some(record => record.meta.requiresAuth)) {
-  //   if (localStorage.getItem("token")) {
-  //     return next();
-  //   }
-  //   next({
-  //     path: "/user/login",
-  //     query: {
-  //       url: to.fullPath
-  //     }
-  //   });
-  // } else {
-  //   next();
-  // }
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem("token")) {
+      return next();
+    }
+    next({
+      path: "/user/login",
+      query: {
+        url: to.fullPath
+      }
+    });
+  } else {
+    next();
+  }
 });
 
 function genRoutes(routeList) {
@@ -166,9 +170,9 @@ function genRoutes(routeList) {
   }
 
   // 把动态路由写入实列路由表
-  // for (var rt in routes) {
-  //   router.options.routes.push(routes[rt]);
-  // }
+  for (var rt in routes) {
+    router.options.routes.push(routes[rt]);
+  }
   // add dynamic routes 添加动态路由
   router.addRoutes(routes);
   console.log(router.options.routes);
