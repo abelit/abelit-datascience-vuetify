@@ -178,6 +178,11 @@ export default {
           component: () => import("@/components/demo/" + routeList[i].component)
         });
       }
+      routes.push({
+        path: "*",
+        name: "404",
+        component: () => import("@/views/NotFound")
+      });
 
       // 把动态路由写入实列路由表
       for (var rt in routes) {
@@ -187,7 +192,7 @@ export default {
       this.$router.addRoutes(routes);
       console.log(this.$router.options.routes);
 
-      localStorage.setItem('routeList', JSON.stringify(routeList));
+      localStorage.setItem("routeList", JSON.stringify(routeList));
     }
   },
   computed: {
@@ -200,8 +205,7 @@ export default {
       }
     }
   },
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 

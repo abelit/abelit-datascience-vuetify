@@ -44,6 +44,7 @@ export default {
     logout() {
       this.$store.commit("delToken");
       this.$router.push("/user/login");
+      localStorage.removeItem("routeList");
     },
     getUser() {
       // let token = JSON.parse(localStorage.token).access_token
@@ -53,7 +54,6 @@ export default {
         .get("/protected", { headers: { Authorization: "Bearer " + token } })
         .then(res => {
           // 通过token获取用户名称
-          console.log("nnnnnnnnnnnnnnnnnnnn");
           console.log(res);
           this.loginUser = res.data.logged_in_as;
           this.oldtoken = token;
@@ -74,30 +74,6 @@ export default {
           console.log(error);
         });
     },
-    // addRoute() {
-    //   //watch here
-    //   let routes = [
-    //     {
-    //       path: "/demo/mapdemo",
-    //       name: "map",
-    //       component: (resolve) => require(["@/components/demo/AmchartsDemo.vue"], resolve)
-    //     },
-    //     {
-    //       path: "/demo/uidemo",
-    //       name: "uidemo",
-    //       component: (resolve) => require(["@/components/demo/UIDemo.vue"], resolve)
-    //     }
-    //   ];
-     
-    //   // for (var rt in routes) {
-    //   //   this.$router.options.routes.push(routes[rt]);
-    //   // }
-    //   // this.$router.options.routes.push(routes);
-    //   this.$router.options.routes;
-    //   this.$router.addRoutes(routes);
-      
-    //   console.log(this.$router.options.routes);
-    // }
   },
   mounted() {
     this.getMenu();  }

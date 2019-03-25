@@ -63,7 +63,7 @@ Vue.config.productionTip = false;
 
 /* 请求拦截器 */
 axios.interceptors.request.use(
-  function(config) {
+  function (config) {
     // 每次请求时会从localStorage中获取token
     let token = localStorage.getItem("token");
 
@@ -74,7 +74,7 @@ axios.interceptors.request.use(
     }
     return config;
   },
-  function(error) {
+  function (error) {
     return Promise.reject(error);
   }
 );
@@ -98,9 +98,7 @@ axios.interceptors.response.use(
           let rtoken = JSON.parse(localStorage.getItem("token")).refresh_token;
           axios
             .post(
-              "/refresh",
-              {},
-              {
+              "/refresh", {}, {
                 headers: {
                   Authorization: "Bearer " + rtoken
                 }
@@ -129,32 +127,36 @@ axios.interceptors.response.use(
 
 router.beforeEach(async (to, from, next) => {
   // console.log('beforeEach ...');
-  if (localStorage.getItem('routeList')) {
-    let routeList = JSON.parse(localStorage.getItem('routeList'));
-    console.log(routeList);
-    localStorage.removeItem('routeList');
-    // 使用router.onReady解决刷新时新增的动态路由无法生效
-    router.onReady(() => {
-      genRoutes(routeList)
-    });
-    next()
-  } else {
-    next()
-  }
+
   // console.log(to);
   // console.log(from);
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (localStorage.getItem("token")) {
-      return next();
+      next();
+    } else {
+      next({
+        path: "/user/login",
+        query: {
+          url: to.fullPath
+        }
+      });
     }
-    next({
-      path: "/user/login",
-      query: {
-        url: to.fullPath
-      }
-    });
   } else {
     next();
+  }
+  if (localStorage.getItem("token")) {
+    if (localStorage.getItem('routeList')) {
+      let routeList = JSON.parse(localStorage.getItem('routeList'));
+      console.log(routeList);
+      localStorage.removeItem('routeList');
+      // 使用router.onReady解决刷新时新增的动态路由无法生效
+      router.onReady(() => {
+        genRoutes(routeList);
+      });
+      next();
+    } else {
+      next();
+    }
   }
 });
 
@@ -169,10 +171,16 @@ function genRoutes(routeList) {
     });
   }
 
+  routes.push({
+    path: '*',
+    name: "404",
+    component: () => import("@/views/NotFound")
+  });
+
   // 把动态路由写入实列路由表
-  for (var rt in routes) {
-    router.options.routes.push(routes[rt]);
-  }
+  // for (var rt in routes) {
+  //   router.options.routes.push(routes[rt]);
+  // }
   // add dynamic routes 添加动态路由
   router.addRoutes(routes);
   console.log(router.options.routes);

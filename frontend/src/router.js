@@ -101,11 +101,11 @@ const router = new Router({
       name: "register",
       component: Register
     },
-    {
-      path: '*',
-      name: "404",
-      component: NotFound
-    }
+    // {
+    //   path: '*',
+    //   name: "404",
+    //   component: NotFound
+    // }
   ]
 });
 
