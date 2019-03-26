@@ -1,4 +1,3 @@
-from models import User
 from flask import Flask, jsonify, request
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
@@ -14,16 +13,16 @@ from flask_sqlalchemy import SQLAlchemy
 
 # 创建flask实例对象
 app = Flask(__name__)
-
 # 从config.py中导入配置信息
 app.config.from_object(config.DevelopmentConfig)
 
 # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:password@localhost/dataforum"
 
-print(app.config)
-
 # 创建数据库实例对象
 db = SQLAlchemy(app)
+
+from models import User
+
 
 # 跨域设置
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -32,7 +31,6 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
 # 创建JWT实例对象
 jwt = JWTManager(app)
-
 
 
 @app.route('/hello', methods=['GET'])

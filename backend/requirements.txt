@@ -6,3 +6,11 @@ passlib: python密码解析库
 itsdangerous
 
 pip install psycopg2
+
+flask_script
+flask_migrate
+
+
+pip install flask_script
+pip install flask_migrate
+pip install psycopg2-binary
