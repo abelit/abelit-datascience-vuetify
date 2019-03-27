@@ -63,7 +63,7 @@ Vue.config.productionTip = false;
 
 /* 请求拦截器 */
 axios.interceptors.request.use(
-  function (config) {
+  function(config) {
     // 每次请求时会从localStorage中获取token
     let token = localStorage.getItem("token");
 
@@ -74,7 +74,7 @@ axios.interceptors.request.use(
     }
     return config;
   },
-  function (error) {
+  function(error) {
     return Promise.reject(error);
   }
 );
@@ -98,7 +98,9 @@ axios.interceptors.response.use(
           let rtoken = JSON.parse(localStorage.getItem("token")).refresh_token;
           axios
             .post(
-              "/refresh", {}, {
+              "/refresh",
+              {},
+              {
                 headers: {
                   Authorization: "Bearer " + rtoken
                 }
@@ -145,10 +147,10 @@ router.beforeEach(async (to, from, next) => {
     next();
   }
   if (localStorage.getItem("token")) {
-    if (localStorage.getItem('routeList')) {
-      let routeList = JSON.parse(localStorage.getItem('routeList'));
+    if (localStorage.getItem("routeList")) {
+      let routeList = JSON.parse(localStorage.getItem("routeList"));
       console.log(routeList);
-      localStorage.removeItem('routeList');
+      localStorage.removeItem("routeList");
       // 使用router.onReady解决刷新时新增的动态路由无法生效
       router.onReady(() => {
         genRoutes(routeList);
@@ -157,6 +159,14 @@ router.beforeEach(async (to, from, next) => {
     } else {
       next();
     }
+  } else {
+    router.addRoutes([
+      {
+        path: "*",
+        name: "404",
+        component: () => import("@/views/NotFound")
+      }
+    ]);
   }
 });
 
@@ -172,7 +182,7 @@ function genRoutes(routeList) {
   }
 
   routes.push({
-    path: '*',
+    path: "*",
     name: "404",
     component: () => import("@/views/NotFound")
   });
@@ -184,8 +194,7 @@ function genRoutes(routeList) {
   // add dynamic routes 添加动态路由
   router.addRoutes(routes);
   console.log(router.options.routes);
-  localStorage.setItem('routeList', JSON.stringify(routeList));
-
+  localStorage.setItem("routeList", JSON.stringify(routeList));
 }
 
 // create Vue instance

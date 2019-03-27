@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request,render_template
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
     jwt_refresh_token_required, create_refresh_token,
@@ -23,6 +23,10 @@ db = SQLAlchemy(app)
 
 from models import User
 
+from models import Role
+
+from models import Menu
+
 
 # 跨域设置
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -32,9 +36,13 @@ app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
 # 创建JWT实例对象
 jwt = JWTManager(app)
 
+# 入口文件，通过入口文件跳转到vue前端
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/hello', methods=['GET'])
-def index():
+def hello():
     return "hello world!"
 
 @app.route('/login', methods=['POST'])
