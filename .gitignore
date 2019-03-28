@@ -1,6 +1,9 @@
-frontend/node_modules/:
+backend/migrations/:
+backend/__pycache__/
 backend/env
-.DS_Store
+
+frontend/node_modules/:
+frontend/package-lock.json
 frontend/dist/:
 
 # local env files
@@ -20,9 +23,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-
-frontend/package-lock.json
-
-/backend/migrations/:
-
-/backend/__pycache__/
+.DS_Store
