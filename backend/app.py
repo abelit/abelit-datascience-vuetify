@@ -99,5 +99,41 @@ def menu():
     return jsonify({'uidemo':'/demo/uidemo'})
 
 
+@app.route('/books', methods=['GET'])
+def all_books():
+    BOOKS = [
+        {
+            'title': 'On the Road',
+            'author': 'Jack Kerouac',
+            'read': True
+        },
+        {
+            'title': 'Harry Potter and the Philosopher\'s Stone',
+            'author': 'J. K. Rowling',
+            'read': False
+        },
+        {
+            'title': 'Green Eggs and Ham',
+            'author': 'Dr. Seuss',
+            'read': True
+        },
+        {
+            'title': 'Data Science',
+            'author': 'Abelit',
+            'read': True
+        }
+    ]
+    return jsonify({
+        'status': 'success',
+        'books': BOOKS
+    })
+
+
+@app.route('/ping')
+def ping():
+    return 'Pong!'
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
