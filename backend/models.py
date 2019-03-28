@@ -75,10 +75,14 @@ class User(db.Model):
 class Menu(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
+    en_name = db.Column(db.String(80), unique=True, nullable=False)
     fid = db.Column(db.Integer, nullable=False)
     url = db.Column(db.String(500), unique=True, nullable=False)
+    component = db.Column(db.String(500), unique=True, nullable=False)
     icon = db.Column(db.String(50), unique=True)
     status = db.Column(db.Integer, nullable=False)
+    type = db.Column(db.Integer, nullable=False)
+    order = db.Column(db.Integer, nullable=False)
     created_time = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_time = db.Column(
