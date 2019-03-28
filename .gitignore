@@ -24,5 +24,6 @@ yarn-error.log*
 
 frontend/package-lock.json
 
-backend/migrations
-migrations
+/backend/migrations
+
+/backend/__pycache__
