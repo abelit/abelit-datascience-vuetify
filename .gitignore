@@ -1,5 +1,5 @@
-backend/migrations/:
-backend/__pycache__/
+#backend/migrations/:
+#backend/__pycache__/
 backend/env
 
 frontend/node_modules/:
