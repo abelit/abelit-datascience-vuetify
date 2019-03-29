@@ -449,7 +449,9 @@
     </el-table-column>
   </el-table>
 </div>
+<router-view></router-view>
   </div>
+  
 </template>
 
 

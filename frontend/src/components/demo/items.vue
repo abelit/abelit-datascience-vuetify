@@ -26,7 +26,7 @@
     },
     computed:{
       liClass() {
-        let _this = this;
+        // let _this = this;
         let option = `level_${this.model.level}`;
         let res = {};
         res[option] = true;

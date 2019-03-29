@@ -46,13 +46,16 @@ const router = new Router({
     {
       path: "/demo",
       name: "demo",
-      component: PageDemo
+      component: PageDemo,
+      children: [
+        {
+          path: "menu",
+          name: "menu",
+          component: PMenuDemo
+        }
+      ]
     },
-    {
-      path: "/demo/menu",
-      name: "menu",
-      component: PMenuDemo
-    },
+
     {
       path: "/demo/vuex",
       name: "vuex",

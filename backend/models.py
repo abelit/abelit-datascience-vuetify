@@ -1,4 +1,4 @@
-from app import db
+from db import db
 from datetime import datetime
 
 
@@ -99,3 +99,9 @@ class Role(db.Model):
         db.DateTime, nullable=False, default=datetime.now)
     role_menu = db.relationship('Menu', secondary=role_menu, lazy='subquery',
                                 backref=db.backref('roles', lazy=True))
+
+
+class Tmenu(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    fid = db.Column(db.Integer, nullable=False)

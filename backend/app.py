@@ -4,12 +4,13 @@ from flask_jwt_extended import (
     jwt_refresh_token_required, create_refresh_token,
     get_jwt_identity
 )
-
 from flask_cors import CORS
 import datetime
 
+
+from db import db
 import config
-from flask_sqlalchemy import SQLAlchemy
+from models import User, Role, Group, Position, Menu, Tmenu
 
 # 创建flask实例对象
 app = Flask(__name__)
@@ -19,14 +20,9 @@ app.config.from_object(config.DevelopmentConfig)
 # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:password@localhost/dataforum"
 
 # 创建数据库实例对象
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app) # 分离后新增db.py避免循环import
 
-from models import User
-
-from models import Role
-
-from models import Menu
-
+db.init_app(app)
 
 # 跨域设置
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -134,6 +130,33 @@ def ping():
     return 'Pong!'
 
 
+@app.route('/tmenu')
+def tmenu():
+    tm = Tmenu.query.all()
+    result = []
+
+    for i in tm:
+        result.append({"id": i.id, "name": i.name,"fid": i.fid})
+    
+    return jsonify(result)
+
+
+@app.route('/mmenu')
+def mmenu():
+    tm = db.engine.execute("""with RECURSIVE t(id, name, fid, depth, path, cycle) as
+                           (
+        select a.id, a.name, a.fid, 1, array[a.id], false from tmenu a where id=1
+        union all
+        select b.id, b.name, b.fid, c.depth+1, path ||b.id, b.id=any(path) from tmenu b, t c where c.id=b.fid and not cycle
+    )
+        select * from t
+        """)
+    result = []
+
+    for i in tm:
+        result.append({"id": i.id, "name": i.name, "fid": i.fid,"depth":i.depth,"path": i.path,"cycle":i.cycle})
+
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=True)
