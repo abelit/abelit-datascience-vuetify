@@ -17,7 +17,8 @@ export const auth = {
   confirm: "确定",
   hint: "提示",
   email: "邮箱地址",
-  name: "用户名",
+  username: "用户账号",
+  name: "用户姓名",
   login: "登录",
   register: "注册",
   loginPage: "用户登录",
@@ -30,5 +31,6 @@ export const auth = {
   department: "部门",
   position: "职位",
   loginLoadingText: "登录中 ... ",
-  loginError: "用户名或邮箱与密码不匹配!"
+  loginError: "用户名或邮箱与密码不匹配!",
+  registerError: "注册失败"
 };

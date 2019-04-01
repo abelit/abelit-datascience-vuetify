@@ -29,14 +29,14 @@
       <v-form ref="form" v-model="form" class="pa-3 pt-4" :disabled="!form">
         <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
         <v-text-field
-          v-model="name"
+          v-model="username"
           box
           color="deep-purple"
-          :label="$t('auth.email')+'/'+$t('auth.name') "
-          type="name"
+          :label="$t('auth.email')+'/'+$t('auth.username') "
+          type="username"
           v-validate="'required'"
-          :error-messages="errors.collect('name')"
-          data-vv-name="name"
+          :error-messages="errors.collect('username')"
+          data-vv-name="username"
           required
           class="df-input"
         ></v-text-field>
@@ -56,6 +56,7 @@
           :error-messages="errors.collect('password')"
           data-vv-name="password"
           required
+          @keyup.enter="submit"
         ></v-text-field>
       </v-form>
       <v-divider></v-divider>
@@ -89,7 +90,7 @@
 export default {
   data: () => ({
     showPassword: false,
-    name: undefined,
+    username: undefined,
     email: undefined,
     form: false,
     isBtnLoading: false,
@@ -120,7 +121,7 @@ export default {
           this.isBtnLoading = false;
           this.$axios
             .post("/login", {
-              name: this.name,
+              username: this.username,
               password: this.password
             })
             .then(res => {

@@ -17,6 +17,7 @@ export const auth = {
   confirm: "Confirm",
   hint: "Hints?",
   email: "Email Address",
+  username: "User Account",
   name: "User Name",
   login: "Login",
   register: "Register",
@@ -29,5 +30,6 @@ export const auth = {
   department: "Department",
   position: "Position",
   loginLoadingText: "Logining ... ",
-  loginError: "Username or Email can not matched with Password!"
+  loginError: "Username or Email can not matched with Password!",
+  registerError: "User Register Failed!"
 };

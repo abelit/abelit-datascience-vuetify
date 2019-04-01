@@ -1,5 +1,6 @@
 from db import db
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Group(db.Model):
@@ -49,11 +50,12 @@ user_role = db.Table('user_role',
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    name = db.Column(db.String(80), nullable=False)
+    username = db.Column(db.String(80), unique=True, nullable=False, doc="user account")
+    name = db.Column(db.String(80), nullable=False, doc="real username")
     email = db.Column(db.String(120), unique=True, nullable=False)
-    gender = db.Column(db.Integer, nullable=False)
-    status = db.Column(db.Integer, nullable=False)
+    password = db.Column(db.String(120), unique=True, nullable=False)
+    gender = db.Column(db.Integer, nullable=False, doc="1:male,0:female")
+    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
     position_id = db.Column(db.Integer, db.ForeignKey(
         'position.id'), nullable=False)
@@ -80,7 +82,7 @@ class Menu(db.Model):
     url = db.Column(db.String(500), unique=True, nullable=False)
     component = db.Column(db.String(500), unique=True, nullable=False)
     icon = db.Column(db.String(50), unique=True)
-    status = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
     type = db.Column(db.Integer, nullable=False)
     order = db.Column(db.Integer, nullable=False)
     created_time = db.Column(
@@ -92,7 +94,7 @@ class Menu(db.Model):
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    status = db.Column(db.Integer, nullable=False)
+    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
     created_time = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_time = db.Column(
