@@ -82,12 +82,12 @@ axios.interceptors.request.use(
 // axios响应拦截器，401状态时跳转登录页并清除token
 axios.interceptors.response.use(
   response => {
-    console.log("拦截器1");
+    // console.log("拦截器1");
     // getRoutes();
     return response;
   },
   error => {
-    console.log("拦截器2");
+    // console.log("拦截器2");
     // console.log(error.response);
     if (error.response) {
       if (error.response.status === 401) {

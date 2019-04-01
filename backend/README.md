@@ -35,3 +35,19 @@ select b.id,b.name,b.fid,c.depth+1,path||b.id,b.id=any(path) from tmenu b , t c 
 )
 select * from t;
 ```
+
+# 2. Flask环境部署
+```bash
+#flask
+#flask-cors：flask跨域
+#flask-sqlalchemy: flask数据库orm
+#flask-httpauth：flask的auth认证
+#passlib: python密码解析库
+#itsdangerous
+#flask_script
+#flask_migrate
+
+pip install flask flask-cors flask-sqlalchemy
+pip install psycopg2 psycopg2-binary
+pip install flask_script flask_migrate
+```
