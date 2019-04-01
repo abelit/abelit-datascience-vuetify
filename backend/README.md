@@ -36,6 +36,57 @@ select b.id,b.name,b.fid,c.depth+1,path||b.id,b.id=any(path) from tmenu b , t c 
 select * from t;
 ```
 
+## 1.3 通过docker运行postgresql
+#### 1) 通过docker启动postgresql实例
+```bash
+$ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+```
+
+#### 2) 通过docker启动psql
+```bash
+$ docker run -it --rm --network some-network postgres psql -h some-postgres -U postgres
+```
+
+#### 3) 使用docker stack deploy 或 docker-compose
+```bash
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+```
+
+```
+docker stack deploy -c stack.yml postgres
+```
+或
+```bash
+docker-compose -f stack.yml up
+```
+
+## 1.4 使用manage.py管理和迁移数据库
+进入Flask-sqlalchemy交互管理
+```bash
+python manage.py shell
+```
+
+```bash
+python manage.py db init
+python manage.py db migrate
+python manage.py db upgrade
+```
+
 # 2. Flask环境部署
 ```bash
 #flask
