@@ -1,8 +1,18 @@
+from flask.logging import default_handler
+from flask import request
 import os
 import logging
 from logging.handlers import RotatingFileHandler
+
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
+class RequestFormatter(logging.Formatter):
+    def format(self, record):
+        record.url = request.url
+        record.remote_addr = request.remote_addr
+        return super().format(record)
 
 class InfoFilter(logging.Filter):
     def filter(self, record):
@@ -48,9 +58,14 @@ class ProductionConfig(Config):
         import logging
         from logging.handlers import RotatingFileHandler
         # Formatter
-        formatter = logging.Formatter(
-            '%(asctime)s %(levelname)s %(process)d %(thread)d'
-            '%(module)s %(lineno)s %(message)s')
+        # formatter = logging.Formatter(
+        #     '%(asctime)s %(levelname)s %(process)d %(thread)d'
+        #     '%(module)s %(lineno)s %(message)s')
+
+        formatter = RequestFormatter(
+            '[%(asctime)s] %(remote_addr)s requested %(url)s'
+            ' --- %(levelname)s in %(module)s: %(message)s'
+        )
 
         # FileHandler Info
         file_handler_info = RotatingFileHandler(filename=cls.LOG_PATH_INFO)
@@ -85,9 +100,13 @@ class DevelopmentConfig(Config):
         import logging
         from logging.handlers import RotatingFileHandler
         # Formatter
-        formatter = logging.Formatter(
-            '%(asctime)s %(levelname)s %(process)d %(thread)d'
-            ' in %(module)s %(lineno)s %(message)s')
+        # formatter = logging.Formatter(
+        #     '%(asctime)s %(levelname)s %(process)d %(thread)d'
+        #     ' in %(module)s %(lineno)s %(message)s')
+        formatter = RequestFormatter(
+            '[%(asctime)s] %(remote_addr)s requested %(url)s'
+            ' --- %(levelname)s in %(module)s: %(message)s'
+        )
 
         # FileHandler Info
         file_handler_info = RotatingFileHandler(filename=cls.LOG_PATH_INFO)
