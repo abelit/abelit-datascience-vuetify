@@ -1,9 +1,11 @@
 # 1. 数据库环境部署及使用
 ## 1.1 安装Postgresql数据库
 ```bash
-apt-get install postgresql-10
-sudo su - postgres
-psql
+$ sudo apt-get install postgresql-10
+$ sudo service postgresql start/status/stop/restart
+$ sudo su - postgres
+$ psql
+ALTER USER postgres WITH PASSWORD 'password';
 pg> CREATE USER dataforum WITH PASSWORD 'password';
 ```
 
@@ -86,6 +88,37 @@ python manage.py db init
 python manage.py db migrate
 python manage.py db upgrade
 ```
+
+## 1.5 添加示例数据
+```python
+>>> from models import *
+>>> g1 = Group(name='信息部',status=1)
+>>> g2 = Group(name='财务部',status=1)
+>>> g3 = Group(name='客关部',status=1)
+>>> g4 = Group(name='营运部',status=0)
+>>>
+>>>
+>>> db.session.add(g1)
+>>> db.session.add(g2)
+>>> db.session.add(g3)
+>>> db.session.add(g4)
+>>> db.session.commit()
+
+>>> p1 = Position(name='员工',status=1)
+>>> p2 = Position(name='主管',status=1)
+>>> p3 = Position(name='经理',status=1)
+>>> p4 = Position(name='总监',status=1)
+>>> p5 = Position(name='总裁',status=0)
+>>>
+>>>
+>>> db.session.add(p1)
+>>> db.session.add(p2)
+>>> db.session.add(p3)
+>>> db.session.add(p4)
+>>> db.session.add(p5)
+>>> db.session.commit()
+```
+
 
 # 2. Flask环境部署
 ```bash

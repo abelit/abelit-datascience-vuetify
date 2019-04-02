@@ -13,15 +13,15 @@ from db import db
 import config
 from models import User, Role, Group, Position, Menu, Tmenu
 
+
+
 # 创建flask实例对象
 app = Flask(__name__)
 # 从config.py中导入配置信息
 app.config.from_object(config.DevelopmentConfig)
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:password@localhost/dataforum"
-
-# 创建数据库实例对象
-# db = SQLAlchemy(app) # 分离后新增db.py避免循环import
+# 导入日志配置信息
+config.DevelopmentConfig.init_app(app)
 
 db.init_app(app)
 
@@ -32,6 +32,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
 # 创建JWT实例对象
 jwt = JWTManager(app)
+
 
 # 入口文件，通过入口文件跳转到vue前端
 @app.route('/')
@@ -93,9 +94,11 @@ def register():
         db.session.add(user)
         db.session.commit()
         STATUSCODE = 200
-    except:
+    except Exception as err:
+        # print(err)
+        app.logger.info("hello abelit")
+        app.logger.error(err)
         STATUSCODE = 500
-
     return jsonify(STATUSCODE)
 
 @app.route('/login', methods=['POST'])
@@ -223,4 +226,6 @@ def mmenu():
     return jsonify(result)
 
 if __name__ == '__main__':
+    
     app.run(debug=True)
+  
