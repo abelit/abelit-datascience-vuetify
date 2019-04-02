@@ -1,3 +1,5 @@
+from logging.handlers import SMTPHandler
+import logging
 from flask import Flask, jsonify, request,render_template
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
@@ -32,7 +34,6 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
 # 创建JWT实例对象
 jwt = JWTManager(app)
-
 
 # 入口文件，通过入口文件跳转到vue前端
 @app.route('/')
@@ -87,7 +88,7 @@ def register():
     STATUSCODE = ''
     user = User(username=username, name=name, email=email, password=generate_password_hash(
     password), group_id=selected_department, position_id=selected_position, gender=picked_gender,status=status)
-    # print(user)
+
     # db.session.add(user)
     # db.session.commit()
     try:
@@ -96,9 +97,9 @@ def register():
         STATUSCODE = 200
     except Exception as err:
         # print(err)
-        app.logger.info("hello abelit")
         app.logger.error(err)
         STATUSCODE = 500
+        
     return jsonify(STATUSCODE)
 
 @app.route('/login', methods=['POST'])

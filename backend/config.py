@@ -41,6 +41,16 @@ class Config(object):
     LOG_PATH_ERROR = os.path.join(LOG_PATH, 'error.log')
     LOG_PATH_INFO = os.path.join(LOG_PATH, 'info.log')
 
+    # 配置邮件信息
+    MAIL_USERNAME = 'ychenid@163.com'
+    MAIL_PASSWORD = 'Chen15285649896.'
+    MAIL_SERVER = 'smtp.163.com'
+    MAIL_PORT = 25
+    CIRCULATE_MAIL_SENDER = 'ychenid@163.com'
+    CIRCULATE_ADMIN = '948640709@qq.com'
+    CIRCULATE_MAIL_SUBJECT_PREFIX = 'App Error '
+
+
     @staticmethod
     def init_app(app):
         pass
@@ -80,6 +90,25 @@ class ProductionConfig(Config):
         file_handler_error.setFormatter(formatter)
         file_handler_error.setLevel(logging.ERROR)
         app.logger.addHandler(file_handler_error)
+
+        # email errors to the administrators
+        import logging
+        from logging.handlers import SMTPHandler
+        credentials = None
+        secure = None
+        if getattr(cls, 'MAIL_USERNAME', None) is not None:
+            credentials = (cls.MAIL_USERNAME, cls.MAIL_PASSWORD)
+            if getattr(cls, 'MAIL_USE_TLS', None):
+                secure = ()
+        mail_handler = SMTPHandler(
+            mailhost=(cls.MAIL_SERVER, cls.MAIL_PORT),
+            fromaddr=cls.CIRCULATE_MAIL_SENDER,
+            toaddrs=[cls.CIRCULATE_ADMIN],
+            subject=cls.CIRCULATE_MAIL_SUBJECT_PREFIX + ' Application Error',
+            credentials=credentials,
+            secure=secure)
+        mail_handler.setLevel(logging.ERROR)
+        app.logger.addHandler(mail_handler)
 
 
 class StagingConfig(Config):
@@ -121,6 +150,25 @@ class DevelopmentConfig(Config):
         file_handler_error.setFormatter(formatter)
         file_handler_error.setLevel(logging.ERROR)
         app.logger.addHandler(file_handler_error)
+
+        # email errors to the administrators
+        import logging
+        from logging.handlers import SMTPHandler
+        credentials = None
+        secure = None
+        if getattr(cls, 'MAIL_USERNAME', None) is not None:
+            credentials = (cls.MAIL_USERNAME, cls.MAIL_PASSWORD)
+            if getattr(cls, 'MAIL_USE_TLS', None):
+                secure = ()
+        mail_handler = SMTPHandler(
+            mailhost=(cls.MAIL_SERVER, cls.MAIL_PORT),
+            fromaddr=cls.CIRCULATE_MAIL_SENDER,
+            toaddrs=[cls.CIRCULATE_ADMIN],
+            subject=cls.CIRCULATE_MAIL_SUBJECT_PREFIX + ' Application Error',
+            credentials=credentials,
+            secure=secure)
+        mail_handler.setLevel(logging.ERROR)
+        app.logger.addHandler(mail_handler)
 
 
 class TestingConfig(Config):
