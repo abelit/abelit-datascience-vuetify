@@ -6,11 +6,12 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 import datetime
-from app.db import db
-from app.models import User
-from . import auth
+from flask import Blueprint
 
-from app import app
+from db import db
+from models import User
+
+auth = Blueprint("auth", __name__)
 
 @auth.route('/')
 def authpage():
@@ -41,8 +42,7 @@ def register():
         db.session.commit()
         STATUSCODE = 200
     except Exception as err:
-        # print(err)
-        app.logger.error(err)
+        print(err)
         STATUSCODE = 500
         
     return jsonify(STATUSCODE)

@@ -1,5 +1,8 @@
 from flask import render_template
-from . import home
+from flask import Blueprint
+
+home = Blueprint("home", __name__)
+
 
 # 入口文件，通过入口文件跳转到vue前端
 @home.route('/')

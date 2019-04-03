@@ -1,6 +1,7 @@
 # coding:utf8
- 
-from . import admin 
+from flask import Blueprint
+
+admin = Blueprint("admin", __name__)
  
 @admin.route("/")
 def index():

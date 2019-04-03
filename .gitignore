@@ -25,3 +25,5 @@ yarn-error.log*
 *.sln
 *.sw*
 .DS_Store
+*.pyc
+__pycache__

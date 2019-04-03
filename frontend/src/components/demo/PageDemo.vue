@@ -559,7 +559,7 @@ export default {
     getBooks() {
       const path = "http://localhost:5000/books";
       this.$axios
-        .get('/books')
+        .get('/api/books')
         .then(res => {
           this.books = res.data.books;
         })

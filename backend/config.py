@@ -129,13 +129,13 @@ class DevelopmentConfig(Config):
         import logging
         from logging.handlers import RotatingFileHandler
         # Formatter
-        # formatter = logging.Formatter(
-        #     '%(asctime)s %(levelname)s %(process)d %(thread)d'
-        #     ' in %(module)s %(lineno)s %(message)s')
-        formatter = RequestFormatter(
-            '[%(asctime)s] %(remote_addr)s requested %(url)s'
-            ' --- %(levelname)s in %(module)s: %(message)s'
-        )
+        formatter = logging.Formatter(
+            '%(asctime)s %(levelname)s %(process)d %(thread)d'
+            ' in %(module)s %(lineno)s %(message)s')
+        # formatter = RequestFormatter(
+        #     '[%(asctime)s] %(remote_addr)s requested %(url)s'
+        #     ' --- %(levelname)s in %(module)s: %(message)s'
+        # )
 
         # FileHandler Info
         file_handler_info = RotatingFileHandler(filename=cls.LOG_PATH_INFO)
@@ -145,6 +145,18 @@ class DevelopmentConfig(Config):
         file_handler_info.addFilter(info_filter)
         app.logger.addHandler(file_handler_info)
 
+        stream_handler = logging.StreamHandler()
+        # stream_handler.setFormatter(Formatter)
+        stream_handler.setLevel(logging.DEBUG)
+        app.logger.addHandler(stream_handler)
+
+        loginfo = logging.getLogger('werkzeug')
+        loginfo.setLevel(logging.INFO)
+        loginfo.addHandler(file_handler_info)
+        loginfo.addHandler(stream_handler)
+
+
+
         # FileHandler Error
         file_handler_error = RotatingFileHandler(filename=cls.LOG_PATH_ERROR)
         file_handler_error.setFormatter(formatter)
@@ -152,23 +164,23 @@ class DevelopmentConfig(Config):
         app.logger.addHandler(file_handler_error)
 
         # email errors to the administrators
-        import logging
-        from logging.handlers import SMTPHandler
-        credentials = None
-        secure = None
-        if getattr(cls, 'MAIL_USERNAME', None) is not None:
-            credentials = (cls.MAIL_USERNAME, cls.MAIL_PASSWORD)
-            if getattr(cls, 'MAIL_USE_TLS', None):
-                secure = ()
-        mail_handler = SMTPHandler(
-            mailhost=(cls.MAIL_SERVER, cls.MAIL_PORT),
-            fromaddr=cls.CIRCULATE_MAIL_SENDER,
-            toaddrs=[cls.CIRCULATE_ADMIN],
-            subject=cls.CIRCULATE_MAIL_SUBJECT_PREFIX + ' Application Error',
-            credentials=credentials,
-            secure=secure)
-        mail_handler.setLevel(logging.ERROR)
-        app.logger.addHandler(mail_handler)
+        # import logging
+        # from logging.handlers import SMTPHandler
+        # credentials = None
+        # secure = None
+        # if getattr(cls, 'MAIL_USERNAME', None) is not None:
+        #     credentials = (cls.MAIL_USERNAME, cls.MAIL_PASSWORD)
+        #     if getattr(cls, 'MAIL_USE_TLS', None):
+        #         secure = ()
+        # mail_handler = SMTPHandler(
+        #     mailhost=(cls.MAIL_SERVER, cls.MAIL_PORT),
+        #     fromaddr=cls.CIRCULATE_MAIL_SENDER,
+        #     toaddrs=[cls.CIRCULATE_ADMIN],
+        #     subject=cls.CIRCULATE_MAIL_SUBJECT_PREFIX + ' Application Error',
+        #     credentials=credentials,
+        #     secure=secure)
+        # mail_handler.setLevel(logging.ERROR)
+        # app.logger.addHandler(mail_handler)
 
 
 class TestingConfig(Config):
