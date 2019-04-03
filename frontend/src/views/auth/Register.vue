@@ -39,7 +39,8 @@
           data-vv-name="username"
           required
           class="df-input"
-          @mouseout="checkUser"
+          @focus="checkUser"
+          @blur="checkUser"
         ></v-text-field>
         <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
         <v-text-field
