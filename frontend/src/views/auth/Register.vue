@@ -47,7 +47,7 @@
           color="deep-purple"
           :label="$t('auth.name')"
           type="name"
-          v-validate="'required|alpha_num|max:20|min:2'"
+          v-validate="'required|max:20|min:2'"
           :error-messages="errors.collect('name')"
           data-vv-name="name"
           required
@@ -106,12 +106,16 @@
           <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">work</v-icon>
           <v-select
             v-model="selected_department"
+             v-validate="'required'"
+             :error-messages="errors.collect('department')"
             :items="departments"
             item-text="name"
             item-value="id"
             box
             :label="$t('auth.department')"
             class="df-select"
+             data-vv-name="department"
+             required
           ></v-select>
           <!-- </v-flex> -->
 
@@ -119,17 +123,21 @@
           <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">assignment_ind</v-icon>
           <v-select
             v-model="selected_position"
+            v-validate="'required'"
+            :error-messages="errors.collect('position')"
             :items="positions"
             item-text="name"
             item-value="id"
             box
             :label="$t('auth.position')"
             class="df-select"
+            data-vv-name="position"
+            required
           ></v-select>
           <!-- </v-flex> -->
         </v-layout>
         <v-icon size="36" color="#efefef" class="df-icon" style="float:left">group</v-icon>
-        <v-radio-group v-model="picked_gender" :mandatory="false" class="df-radio">
+        <v-radio-group v-model="picked_gender" v-validate="'required'" :error-messages="errors.collect('gender')" :mandatory="false" class="df-radio" data-vv-name="gender" required>
           <v-radio :label="$t('auth.male')" value="1"></v-radio>
           <v-radio :label="$t('auth.female')" value="0"></v-radio>
         </v-radio-group>
