@@ -120,7 +120,7 @@ export default {
         setTimeout(() => {
           this.isBtnLoading = false;
           this.$axios
-            .post("/login", {
+            .post("/auth/login", {
               username: this.username,
               password: this.password
             })

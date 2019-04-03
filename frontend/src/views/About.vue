@@ -51,7 +51,7 @@ export default {
       let token = JSON.parse(localStorage.getItem("token")).access_token;
 
       this.$axios
-        .get("/protected", { headers: { Authorization: "Bearer " + token } })
+        .get("/auth/protected", { headers: { Authorization: "Bearer " + token } })
         .then(res => {
           // 通过token获取用户名称
           console.log(res);
@@ -65,7 +65,7 @@ export default {
     getMenu() {
       let token = JSON.parse(localStorage.getItem("token")).access_token;
       this.$axios
-        .get("/menu", { headers: { Authorization: "Bearer " + token } })
+        .get("/api/menu", { headers: { Authorization: "Bearer " + token } })
         .then(res => {
           // console.log(res.data);
           this.menulst = res.data;

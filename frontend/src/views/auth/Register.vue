@@ -203,7 +203,7 @@ export default {
         setTimeout(() => {
           this.isBtnLoading = false;
           this.$axios
-            .post("/register", {
+            .post("/auth/register", {
               username: this.username,
               name: this.name,
               email: this.email,
@@ -247,7 +247,7 @@ export default {
     },
     getDepartment() {
       this.$axios
-        .get("/group")
+        .get("/api/group")
         .then(res => {
           // console.log(res.data)
           for (var i = 0; i < res.data.length; i++) {
@@ -264,7 +264,7 @@ export default {
     },
     getPosition() {
       this.$axios
-        .get("/position")
+        .get("/api/position")
         .then(res => {
           // console.log(res.data)
           for (var i = 0; i < res.data.length; i++) {
