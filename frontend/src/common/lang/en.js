@@ -31,5 +31,6 @@ export const auth = {
   position: "Position",
   loginLoadingText: "Logining ... ",
   loginError: "Username or Email can not matched with Password!",
-  registerError: "User Register Failed!"
+  registerError: "User Register Failed!",
+  loginError500: "Login Failed!"
 };

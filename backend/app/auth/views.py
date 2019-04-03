@@ -38,6 +38,13 @@ def register():
     # db.session.add(user)
     # db.session.commit()
     try:
+          # 检测用户是否已经存在
+        isExistUser = User.query.filter_by(username=username).first()
+        # isExistEmail = User.query.filter_by(email=email).first()
+
+        if isExistUser:
+            return jsonify(600)
+
         db.session.add(user)
         db.session.commit()
         STATUSCODE = 200
@@ -53,9 +60,12 @@ def login():
     username = request.json.get('username', None)
     password = request.json.get('password', None)
 
-    # 获取用户信息
-    user_by_name = User.query.filter_by(username=username).first()
-    user_by_email = User.query.filter_by(email=username).first()
+    try:
+        # 获取用户信息
+        user_by_name = User.query.filter_by(username=username).first()
+        user_by_email = User.query.filter_by(email=username).first()
+    except:
+        return jsonify(500)
 
     # 组合使用用户名或邮箱进行登录
     user = user_by_name if user_by_name else user_by_email
@@ -96,3 +106,20 @@ def refresh():
 def protected():
     username = get_jwt_identity()
     return jsonify(logged_in_as=username), 200
+
+
+@auth.route('/checkuser', methods=['GET'])
+def checkUser():
+    # 从前端Ajax请求中获取用户名
+    username = request.args.get('username')
+    # email = request.json.get('email', None)
+
+    print(username)
+
+    isUsername = User.query.filter_by(username=username).first()
+    # isEmail = User.query.filter_by(email=email)
+
+    if isUsername:
+        return jsonify(600)
+    
+    return jsonify(200)

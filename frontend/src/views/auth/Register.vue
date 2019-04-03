@@ -35,10 +35,11 @@
           :label="$t('auth.username')"
           type="username"
           v-validate="'required|alpha_num|max:20|min:6'"
-          :error-messages="errors.collect('username')"
+          :error-messages="errors.collect('username')+checkUsername"
           data-vv-name="username"
           required
           class="df-input"
+          @mouseout="checkUser"
         ></v-text-field>
         <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
         <v-text-field
@@ -106,16 +107,16 @@
           <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">work</v-icon>
           <v-select
             v-model="selected_department"
-             v-validate="'required'"
-             :error-messages="errors.collect('department')"
+            v-validate="'required'"
+            :error-messages="errors.collect('department')"
             :items="departments"
             item-text="name"
             item-value="id"
             box
             :label="$t('auth.department')"
             class="df-select"
-             data-vv-name="department"
-             required
+            data-vv-name="department"
+            required
           ></v-select>
           <!-- </v-flex> -->
 
@@ -137,7 +138,15 @@
           <!-- </v-flex> -->
         </v-layout>
         <v-icon size="36" color="#efefef" class="df-icon" style="float:left">group</v-icon>
-        <v-radio-group v-model="picked_gender" v-validate="'required'" :error-messages="errors.collect('gender')" :mandatory="false" class="df-radio" data-vv-name="gender" required>
+        <v-radio-group
+          v-model="picked_gender"
+          v-validate="'required'"
+          :error-messages="errors.collect('gender')"
+          :mandatory="false"
+          class="df-radio"
+          data-vv-name="gender"
+          required
+        >
           <v-radio :label="$t('auth.male')" value="1"></v-radio>
           <v-radio :label="$t('auth.female')" value="0"></v-radio>
         </v-radio-group>
@@ -180,6 +189,8 @@ export default {
     form: false,
     isBtnLoading: false,
     ResiterError: undefined,
+    checkUsername: "",
+    checkEmail: "",
     password: undefined,
     repassword: undefined,
     selected_department: undefined,
@@ -206,6 +217,7 @@ export default {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
     async submit() {
       await this.$validator.validateAll();
+
       if (this.$validator.errors.all().length === 0) {
         this.isBtnLoading = true;
         setTimeout(() => {
@@ -222,14 +234,17 @@ export default {
             })
             .then(res => {
               // 跳转上一请求页面或主页
-              console.log(res.data)
+              console.log(res.data);
+              if (res.data === 600) {
+                this.checkUsername = "用户已存在";
+              }
               if (res.data === 500) {
                 this.ResiterError = this.$t("auth.registerError");
                 setTimeout(() => {
-                this.ResiterError = false;
-              }, 2000);
+                  this.ResiterError = false;
+                }, 2000);
               }
-              if (res.data === 200){
+              if (res.data === 200) {
                 this.$router.push(this.$router.currentRoute.query.url || "/");
               }
             })
@@ -260,11 +275,11 @@ export default {
           // console.log(res.data)
           for (var i = 0; i < res.data.length; i++) {
             this.departments.push({
-              "id": res.data[i].id,
-              "name": res.data[i].name
+              id: res.data[i].id,
+              name: res.data[i].name
             });
           }
-          console.log(this.departments)
+          console.log(this.departments);
         })
         .catch(error => {
           console.log(error);
@@ -277,19 +292,50 @@ export default {
           // console.log(res.data)
           for (var i = 0; i < res.data.length; i++) {
             this.positions.push({
-              "id": res.data[i].id,
-              "name": res.data[i].name
+              id: res.data[i].id,
+              name: res.data[i].name
             });
           }
         })
         .catch(error => {
           console.log(error);
         });
+    },
+    checkUser(){
+       this.$axios
+        .get("/auth/checkuser", {
+          params: {
+            username: this.username
+          }
+        })
+        .then(res => {
+          if (res.data === 600) {
+            this.checkUsername = "用户已存在";
+          } else {
+            this.checkUsername = "";
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    clear() {
+      this.name = "";
+      this.email = "";
+      this.select = null;
+      this.checkbox = null;
+      this.$validator.reset();
     }
   },
   mounted() {
     this.getDepartment();
     this.getPosition();
+  },
+  watch: {
+    username: function() {
+      // this.checkUsername = ''
+      // this.checkUser();
+    }
   }
 };
 </script>

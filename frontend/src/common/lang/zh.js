@@ -32,5 +32,6 @@ export const auth = {
   position: "职位",
   loginLoadingText: "登录中 ... ",
   loginError: "用户名或邮箱与密码不匹配!",
-  registerError: "注册失败"
+  registerError: "注册失败",
+  loginError500: "登录失败！"
 };

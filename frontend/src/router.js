@@ -18,8 +18,10 @@ import PMenuDemo from "@/components/demo/PMenuDemo";
 // Dev
 import Login from "./views/auth/Login.vue";
 import Register from "./views/auth/Register.vue";
-import NotFound from "@/views/NotFound";
+// import NotFound from "@/views/NotFound";
 // import auth from "./helpers/auth.js";
+import AddGroup from "@/components/admin/AddGroup";
+
 
 Vue.use(Router);
 
@@ -110,6 +112,11 @@ const router = new Router({
       name: "register",
       component: Register
     },
+    {
+      path: "/addgroup",
+      name: "addgroup",
+      component: AddGroup
+     },
     // {
     //   path: '*',
     //   name: "404",

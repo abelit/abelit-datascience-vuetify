@@ -125,6 +125,14 @@ export default {
               password: this.password
             })
             .then(res => {
+              // console.log(res.data);
+              if (res.data === 500){
+                this.loginError = this.$t("auth.loginError500");
+                setTimeout(() => {
+                  this.loginError = false;
+              }, 2000);
+              return;
+              }
               // 存储token信息
               this.$store.commit("setToken", res.data);
 
