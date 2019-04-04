@@ -64,10 +64,12 @@
           :label="$t('auth.email')"
           type="email"
           v-validate="'required|email'"
-          :error-messages="errors.collect('email')"
+          :error-messages="errors.collect('email') + checkEmail"
           data-vv-name="email"
           required
           class="df-input"
+          @focus="checkUser"
+          @blur="checkUser"
         ></v-text-field>
 
         <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon>
@@ -304,16 +306,22 @@ export default {
     },
     checkUser(){
        this.$axios
-        .get("/auth/checkuser", {
+        .get("/api/checkuser", {
           params: {
-            username: this.username
+            username: this.username,
+            email: this.email
           }
         })
         .then(res => {
-          if (res.data === 600) {
-            this.checkUsername = "用户已存在";
+          if (res.data.isUser) {
+            this.checkUsername = this.$t("api.checkUsername");
           } else {
-            this.checkUsername = "";
+            this.checkUsername = ''
+          }
+          if (res.data.isMail) {
+            this.checkEmail = this.$t("api.checkEmail");
+          } else {
+            this.checkEmail = ''
           }
         })
         .catch(error => {

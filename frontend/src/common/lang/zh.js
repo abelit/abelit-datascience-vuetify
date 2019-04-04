@@ -35,3 +35,9 @@ export const auth = {
   registerError: "注册失败",
   loginError500: "登录失败！"
 };
+
+
+export const api = {
+  checkUsername: "该用户名已经被注册！",
+  checkEmail: "该邮箱已经被注册！"
+};

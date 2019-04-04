@@ -34,3 +34,8 @@ export const auth = {
   registerError: "User Register Failed!",
   loginError500: "Login Failed!"
 };
+
+export const api = {
+  checkUsername: "The username has been registered!",
+  checkEmail: "The email has been registered!"
+};

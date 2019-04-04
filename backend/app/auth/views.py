@@ -1,4 +1,4 @@
-from flask import request,jsonify
+from flask import request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import (
     jwt_required, create_access_token,
@@ -12,6 +12,7 @@ from db import db
 from models import User
 
 auth = Blueprint("auth", __name__)
+
 
 @auth.route('/')
 def authpage():
@@ -33,7 +34,7 @@ def register():
     status = 0
     STATUSCODE = ''
     user = User(username=username, name=name, email=email, password=generate_password_hash(
-    password), group_id=selected_department, position_id=selected_position, gender=picked_gender,status=status)
+        password), group_id=selected_department, position_id=selected_position, gender=picked_gender, status=status)
 
     # db.session.add(user)
     # db.session.commit()
@@ -51,8 +52,9 @@ def register():
     except Exception as err:
         print(err)
         STATUSCODE = 500
-        
+
     return jsonify(STATUSCODE)
+
 
 @auth.route('/login', methods=['POST'])
 def login():
@@ -107,19 +109,3 @@ def protected():
     username = get_jwt_identity()
     return jsonify(logged_in_as=username), 200
 
-
-@auth.route('/checkuser', methods=['GET'])
-def checkUser():
-    # 从前端Ajax请求中获取用户名
-    username = request.args.get('username')
-    # email = request.json.get('email', None)
-
-    print(username)
-
-    isUsername = User.query.filter_by(username=username).first()
-    # isEmail = User.query.filter_by(email=email)
-
-    if isUsername:
-        return jsonify(600)
-    
-    return jsonify(200)

@@ -1,8 +1,7 @@
-from flask import jsonify
-from flask import Blueprint
+from flask import jsonify, request, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from models import Group, Position
+from models import Group, Position,User
 
 
 api = Blueprint("api", __name__)
@@ -130,3 +129,36 @@ def addGroup():
         STATUSCODE = 500
 
     return jsonify(STATUSCODE)
+
+
+@api.route('/checkuser', methods=['GET'])
+def checkUser():
+    # 从前端Ajax请求中获取用户名
+    username = request.args.get('username')
+    email = request.args.get('email')
+    isUser = False
+    isMail = False
+    result = {}
+
+    try:
+        user=User.query.filter_by(username=username).first()
+        mail=User.query.filter_by(email=email).first()
+
+        if user:
+            isUser = True
+        if mail:
+            isMail = True
+
+        result = {
+            "status": 200,
+            "isUser": isUser,
+            "isMail": isMail
+        }
+    except:
+        result = {
+            "status": 500,
+            "isUser": isUser,
+            "isMail": isMail
+        }
+
+    return jsonify(result)
