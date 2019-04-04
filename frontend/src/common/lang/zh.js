@@ -38,6 +38,21 @@ export const auth = {
 
 
 export const api = {
-  checkUsername: "该用户名已经被注册！",
-  checkEmail: "该邮箱已经被注册！"
+  existUsername: "该用户名已经被注册！",
+  existEmail: "该邮箱已经被注册！"
+};
+
+
+export const admin = {
+  addGroupPage: "添加用户组",
+  groupCNName: "组名",
+  groupENName: "英文组名",
+  groupDescription: "组详细信息介绍",
+  enableName: "启用"
+};
+
+
+export const button = {
+  addButton: "添加",
+  closeButton: "关闭"
 };

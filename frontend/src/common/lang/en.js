@@ -11,7 +11,6 @@ export const m = {
   emailRequired: "Email Required!"
 };
 
-
 export const auth = {
   cancel: "Cancel",
   confirm: "Confirm",
@@ -36,6 +35,20 @@ export const auth = {
 };
 
 export const api = {
-  checkUsername: "The username has been registered!",
-  checkEmail: "The email has been registered!"
+  existUsername: "The username has been registered!",
+  existEmail: "The email has been registered!"
+};
+
+export const admin = {
+  addGroupPage: "Add Group",
+  groupCNName: "Group Name",
+  groupENName: "English Group Name",
+  groupDescription: "Desciptions for Group",
+  enableName: "Enable"
+};
+
+
+export const button = {
+  addButton: "Add",
+  closeButton: "Close"
 };

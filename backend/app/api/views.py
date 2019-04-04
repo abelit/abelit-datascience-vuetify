@@ -110,34 +110,13 @@ def mmenu():
     return jsonify(result)
 
 
-@api.route("/addgroup", methods=["POST"])
-@jwt_required
-def addGroup():
-	 # 从前端Ajax请求中获取数据
-    name = request.json.get('name', None)
-    status = request.json.get('status', None)
-
-
-    group = Group(name=name, status=status)
-
-    try:
-        db.session.add(group)
-        db.session.commit()
-        STATUSCODE = 200
-    except Exception as err:
-        print(err)
-        STATUSCODE = 500
-
-    return jsonify(STATUSCODE)
-
-
 @api.route('/checkuser', methods=['GET'])
 def checkUser():
     # 从前端Ajax请求中获取用户名
     username = request.args.get('username')
     email = request.args.get('email')
-    isUser = False
-    isMail = False
+    existUsername = False
+    existEmail = False
     result = {}
 
     try:
@@ -145,20 +124,20 @@ def checkUser():
         mail=User.query.filter_by(email=email).first()
 
         if user:
-            isUser = True
+            existUsername = True
         if mail:
-            isMail = True
+            existEmail = True
 
         result = {
             "status": 200,
-            "isUser": isUser,
-            "isMail": isMail
+            "existUsername": existUsername,
+            "existEmail": existEmail
         }
     except:
         result = {
             "status": 500,
-            "isUser": isUser,
-            "isMail": isMail
+            "existUsername": existUsername,
+            "existEmail": existEmail
         }
 
     return jsonify(result)

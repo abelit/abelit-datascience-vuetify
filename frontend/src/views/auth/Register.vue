@@ -35,7 +35,7 @@
           :label="$t('auth.username')"
           type="username"
           v-validate="'required|alpha_num|max:20|min:6'"
-          :error-messages="errors.collect('username')+checkUsername"
+          :error-messages="errors.collect('username')+existUsername"
           data-vv-name="username"
           required
           class="df-input"
@@ -64,7 +64,7 @@
           :label="$t('auth.email')"
           type="email"
           v-validate="'required|email'"
-          :error-messages="errors.collect('email') + checkEmail"
+          :error-messages="errors.collect('email') + existEmail"
           data-vv-name="email"
           required
           class="df-input"
@@ -192,8 +192,8 @@ export default {
     form: false,
     isBtnLoading: false,
     ResiterError: undefined,
-    checkUsername: "",
-    checkEmail: "",
+    existUsername: "",
+    existEmail: "",
     password: undefined,
     repassword: undefined,
     selected_department: undefined,
@@ -239,7 +239,7 @@ export default {
               // 跳转上一请求页面或主页
               console.log(res.data);
               if (res.data === 600) {
-                this.checkUsername = "用户已存在";
+                this.existUsername = "用户已存在";
               }
               if (res.data === 500) {
                 this.ResiterError = this.$t("auth.registerError");
@@ -313,15 +313,15 @@ export default {
           }
         })
         .then(res => {
-          if (res.data.isUser) {
-            this.checkUsername = this.$t("api.checkUsername");
+          if (res.data.existUsername) {
+            this.existUsername = this.$t("api.existUsername");
           } else {
-            this.checkUsername = ''
+            this.existUsername = ''
           }
-          if (res.data.isMail) {
-            this.checkEmail = this.$t("api.checkEmail");
+          if (res.data.existEmail) {
+            this.existEmail = this.$t("api.existEmail");
           } else {
-            this.checkEmail = ''
+            this.existEmail = ''
           }
         })
         .catch(error => {
@@ -342,7 +342,7 @@ export default {
   },
   watch: {
     username: function() {
-      // this.checkUsername = ''
+      // this.existUsername = ''
       // this.checkUser();
     }
   }
