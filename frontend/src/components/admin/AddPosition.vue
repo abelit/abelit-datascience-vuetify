@@ -5,14 +5,14 @@
         <v-card-title
           class="title font-weight-regular"
           style="margin: 0 auto;"
-        >{{$t('admin.addGroupPage')}}</v-card-title>
+        >{{$t('admin.addPositionPage')}}</v-card-title>
       </v-toolbar>
       <v-form ref="form" v-model="form" class="pa-3 pt-4" :disabled="!form">
         <v-text-field
           v-model="name"
           box
           color="deep-purple"
-          :label="$t('admin.groupCNName')"
+          :label="$t('admin.positionCNName')"
           type="name"
           v-validate="'required'"
           :error-messages="errors.collect('name')"
@@ -25,7 +25,7 @@
           v-model="enname"
           box
           color="deep-purple"
-          :label="$t('admin.groupENName')"
+          :label="$t('admin.positionENName')"
           type="enname"
           v-validate="'required'"
           :error-messages="errors.collect('enname')"
@@ -39,7 +39,7 @@
         auto-grow
         box
         color="deep-purple"
-        :label="$t('admin.groupDescription')"
+        :label="$t('admin.positionDescription')"
         rows="5"
       ></v-textarea>
 
@@ -97,7 +97,7 @@ export default {
         setTimeout(() => {
           this.isBtnLoading = false;
           this.$axios
-            .post("/admin/group/add", {
+            .post("/admin/position/add", {
               name: this.name,
               enname: this.enname,
               status: this.status,

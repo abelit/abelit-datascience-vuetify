@@ -68,7 +68,7 @@
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-btn
-          class="white--text title font-weight-regular"
+          class="title font-weight-regular"
           color="#01074ccf"
           depressed
           @click="submit"
@@ -218,7 +218,7 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .login-container {
   width: 100%;
   height: 100%;

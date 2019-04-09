@@ -41,7 +41,7 @@ def register():
     try:
           # 检测用户是否已经存在
         isExistUser = User.query.filter_by(username=username).first()
-        # isExistEmail = User.query.filter_by(email=email).first()
+        # isExistEmail = User.query.fi lter_by(email=email).first()
 
         if isExistUser:
             return jsonify(600)

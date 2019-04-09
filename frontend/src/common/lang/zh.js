@@ -26,6 +26,7 @@ export const auth = {
   password: "输入密码",
   repassword: "再一次输入密码",
   clear: "清除",
+   gender: "性别",
   male: "男",
   female: "女",
   department: "部门",
@@ -44,11 +45,16 @@ export const api = {
 
 
 export const admin = {
-  addGroupPage: "添加用户组",
+  enableName: "启用",
+
+  addGroupPage: "添加用户组信息",
   groupCNName: "组名",
   groupENName: "英文组名",
-  groupDescription: "组详细信息介绍",
-  enableName: "启用"
+  groupDescription: "关于组的具体描述",
+  addPositionPage: "添加职位信息",
+  positionCNName: "职位名称",
+  positionENName: "职位英文名称",
+  positionDescription: "关于职位的具体描述",
 };
 
 

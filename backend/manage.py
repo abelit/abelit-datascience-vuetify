@@ -9,5 +9,15 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 
+@manager.option("-n","--name",dest="name", default="www.baidu.com")
+def hello(name):
+    print("hello world!")
+    print(name)
+
+@manager.option("-n", "--name", dest="name", default="www.baidu.com")
+def world(name):
+    print("haha")
+
+
 if __name__ == '__main__':
     manager.run()

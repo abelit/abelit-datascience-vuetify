@@ -27,7 +27,6 @@
         </v-menu>
       </v-toolbar>
       <v-form ref="form" v-model="form" class="pa-3 pt-4">
-        <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
         <v-text-field
           v-model="username"
           box
@@ -42,7 +41,6 @@
           @focus="checkUser"
           @blur="checkUser"
         ></v-text-field>
-        <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
         <v-text-field
           v-model="name"
           box
@@ -56,7 +54,6 @@
           class="df-input"
         ></v-text-field>
 
-        <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">email</v-icon>
         <v-text-field
           v-model="email"
           box
@@ -72,7 +69,6 @@
           @blur="checkUser"
         ></v-text-field>
 
-        <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon>
         <v-text-field
           v-model="password"
           box
@@ -89,25 +85,8 @@
           ref="password"
           required
         ></v-text-field>
-        <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon>
-        <v-text-field
-          v-model="repassword"
-          box
-          color="deep-purple"
-          counter="18"
-          :label="$t('auth.repassword')"
-          style="min-height: 96px; "
-          :append-icon="showPassword ? 'visibility_off' : 'visibility'"
-          :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"
-          v-validate="'required|confirmed:password'"
-          :error-messages="errors.collect('repassword')"
-          data-vv-name="repassword"
-          required
-        ></v-text-field>
         <v-layout wrap align-center>
           <!-- <v-flex xs12 sm6 d-flex> -->
-          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">work</v-icon>
           <v-select
             v-model="selected_department"
             v-validate="'required'"
@@ -124,7 +103,6 @@
           <!-- </v-flex> -->
 
           <!-- <v-flex xs12 sm6 d-flex> -->
-          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">assignment_ind</v-icon>
           <v-select
             v-model="selected_position"
             v-validate="'required'"
@@ -139,20 +117,29 @@
             required
           ></v-select>
           <!-- </v-flex> -->
+
+          <v-select
+            v-model="picked_gender"
+            v-validate="'required'"
+            :error-messages="errors.collect('gender')"
+            :items="genders"
+            item-text="name"
+            item-value="id"
+            box
+            :label="$t('auth.gender')"
+            class="df-select"
+            data-vv-name="gender"
+            required
+          ></v-select>
+          
         </v-layout>
-        <v-icon size="36" color="#efefef" class="df-icon" style="float:left">group</v-icon>
-        <v-radio-group
-          v-model="picked_gender"
-          v-validate="'required'"
-          :error-messages="errors.collect('gender')"
-          :mandatory="false"
-          class="df-radio"
-          data-vv-name="gender"
-          required
-        >
-          <v-radio :label="$t('auth.male')" value="1"></v-radio>
-          <v-radio :label="$t('auth.female')" value="0"></v-radio>
-        </v-radio-group>
+         <v-checkbox
+          v-model="status"
+          value="1"
+          :label="$t('admin.enableName')"
+          data-vv-name="status"
+          type="checkbox"
+        ></v-checkbox>
       </v-form>
       <v-divider></v-divider>
 
@@ -200,21 +187,10 @@ export default {
     selected_position: undefined,
     picked_gender: undefined,
     departments: [],
+    genders: [],
     positions: [],
-    lang: "zh_CN",
-    langLogo: require("../../assets/images/auth/cn.png"),
-    langs: {
-      zh: {
-        lang: "zh_CN",
-        name: "简体中文",
-        img: require("../../assets/images/auth/cn.png")
-      },
-      en: {
-        lang: "en_US",
-        name: "English",
-        img: require("../../assets/images/auth/us.png")
-      }
-    }
+    status: 0
+
   }),
   methods: {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
@@ -226,14 +202,15 @@ export default {
         setTimeout(() => {
           this.isBtnLoading = false;
           this.$axios
-            .post("/auth/register", {
+            .post("/admin/user/add", {
               username: this.username,
               name: this.name,
               email: this.email,
               password: this.password,
               selected_department: this.selected_department,
               selected_position: this.selected_position,
-              picked_gender: this.picked_gender
+              picked_gender: this.picked_gender,
+              status: this.status
             })
             .then(res => {
               // 跳转上一请求页面或主页
@@ -260,16 +237,6 @@ export default {
             });
         }, 2000);
       }
-    },
-    changeLangEvent(param_lang, param_index) {
-      if (param_lang != null) {
-        this.lang = param_lang;
-      }
-      if (param_index != null) {
-        this.langLogo = this.langs[param_index].img;
-      }
-      this.$i18n.locale = this.lang;
-      this.$validator.locale = this.lang;
     },
     getDepartment() {
       this.$axios
@@ -334,17 +301,26 @@ export default {
       this.select = null;
       this.checkbox = null;
       this.$validator.reset();
+    },
+    getGender() {
+        let male = this.$t("auth.male")
+        let female = this.$t("auth.female")
+        this.genders = [
+            {
+                id: 0,
+                name: male
+            },
+            {
+                id: 1,
+                name: female
+            }
+        ]
     }
   },
   mounted() {
     this.getDepartment();
     this.getPosition();
-  },
-  watch: {
-    username: function() {
-      // this.existUsername = ''
-      // this.checkUser();
-    }
+    this.getGender();
   }
 };
 </script>
@@ -353,7 +329,6 @@ export default {
 .login-container {
   width: 100%;
   height: 100%;
-  background-image: url("../../assets/images/auth/login_page_default.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   -moz-background-size: 100% 100%;

@@ -6,7 +6,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
+    enname = db.Column(db.String(80), unique=True, nullable=False)
     status = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.Text)
     created_time = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_time = db.Column(
@@ -16,7 +18,9 @@ class Group(db.Model):
 class Position(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
+    enname = db.Column(db.String(80), unique=True, nullable=False)
     status = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.Text)
     created_time = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_time = db.Column(

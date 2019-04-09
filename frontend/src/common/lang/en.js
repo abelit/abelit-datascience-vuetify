@@ -24,6 +24,7 @@ export const auth = {
   registerPage: "Register",
   password: "Password",
   repassword: "Password Repeat",
+  gender: "Gender",
   male: "Male",
   female: "Female",
   department: "Department",
@@ -44,7 +45,12 @@ export const admin = {
   groupCNName: "Group Name",
   groupENName: "English Group Name",
   groupDescription: "Desciptions for Group",
-  enableName: "Enable"
+  enableName: "Enable",
+  addPositionPage: "Add Group",
+  positionCNName: "Group Name",
+  positionENName: "English Group Name",
+  positionDescription: "Desciptions for Group",
+  enablePosition: "Enable"
 };
 
 

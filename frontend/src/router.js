@@ -21,6 +21,8 @@ import Register from "./views/auth/Register.vue";
 // import NotFound from "@/views/NotFound";
 // import auth from "./helpers/auth.js";
 import AddGroup from "@/components/admin/AddGroup";
+import AddPosition from "@/components/admin/AddPosition";
+import AddUser from "@/components/admin/AddUser";
 
 
 Vue.use(Router);
@@ -117,6 +119,16 @@ const router = new Router({
       name: "addgroup",
       component: AddGroup
      },
+     {
+       path: "/addposition",
+       name: "addposition",
+       component: AddPosition
+     },
+     {
+       path: "/adduser",
+       name: "adduser",
+       component: AddUser
+     }
     // {
     //   path: '*',
     //   name: "404",
