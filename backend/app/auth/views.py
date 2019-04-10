@@ -37,8 +37,6 @@ def register():
     user = User(username=username, name=name, email=email, password=generate_password_hash(
         password), group_id=selected_department, position_id=selected_position, gender=picked_gender, status=status)
 
-    # db.session.add(user)
-    # db.session.commit()
     try:
         db.session.add(user)
         db.session.commit()
