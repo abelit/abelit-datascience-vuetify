@@ -5,27 +5,29 @@
         <v-card-title
           class="title font-weight-regular"
           style="margin: 0 auto;"
-        >{{$t('admin.addPositionPage')}}</v-card-title>
+        >{{$t('admin.POSITION_ADD')}}</v-card-title>
       </v-toolbar>
       <v-form ref="form" v-model="form" class="pa-3 pt-4" :disabled="!form">
         <v-text-field
           v-model="name"
           box
           color="deep-purple"
-          :label="$t('admin.positionCNName')"
+          :label="$t('admin.POSITION_CNNAME')"
           type="name"
           v-validate="'required'"
-          :error-messages="errors.collect('name')"
+          :error-messages="errors.collect('name') + positionMessage"
           data-vv-name="name"
           required
           class="df-input"
+          @focus="checkPosition"
+          @blur="checkPosition"
         ></v-text-field>
 
-      <v-text-field
+        <v-text-field
           v-model="enname"
           box
           color="deep-purple"
-          :label="$t('admin.positionENName')"
+          :label="$t('admin.POSITION_ENNAME')"
           type="enname"
           v-validate="'required'"
           :error-messages="errors.collect('enname')"
@@ -34,19 +36,19 @@
           class="df-input"
         ></v-text-field>
 
-       <v-textarea
-        v-model="description"
-        auto-grow
-        box
-        color="deep-purple"
-        :label="$t('admin.positionDescription')"
-        rows="5"
-      ></v-textarea>
+        <v-textarea
+          v-model="description"
+          auto-grow
+          box
+          color="deep-purple"
+          :label="$t('admin.POSITION_DESCRIPTION')"
+          rows="5"
+        ></v-textarea>
 
         <v-checkbox
           v-model="status"
           value="1"
-          :label="$t('admin.enableName')"
+          :label="$t('button.ENABLE')"
           data-vv-name="status"
           type="checkbox"
         ></v-checkbox>
@@ -54,9 +56,7 @@
       <v-divider></v-divider>
 
       <v-card-actions>
-        <v-btn flat class="title font-weight-regular">
-          <router-link to="/user/register">{{$t('button.closeButton')}}?</router-link>
-        </v-btn>
+        <v-btn flat class="title font-weight-regular">{{$t('button.CLOSE')}}</v-btn>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
         <v-btn
@@ -64,15 +64,15 @@
           color="#01074ccf"
           depressed
           @click="submit"
-        >{{$t('button.addButton')}}</v-btn>
+        >{{$t('button.ADD')}}</v-btn>
       </v-card-actions>
-      <div class="loading-overlay" v-if="isBtnLoading">
+      <div class="loading-overlay" v-if="isButtonLoading">
         <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
-        <span>{{btnLoadingText}}</span>
+        <span>{{loadingMessage}}</span>
       </div>
 
-      <div class="loading-overlay" v-if="loginError">
-        <span style="color:red;font-size:18px;">{{loginError}}</span>
+      <div class="loading-overlay" v-if="message">
+        <span v-bind:class="[isActive?'activeClass':'errorClass']">{{message}}</span>
       </div>
     </v-card>
   </div>
@@ -86,64 +86,58 @@ export default {
     status: 0,
     description: undefined,
     form: false,
-    isBtnLoading: false
+    isButtonLoading: false,
+    loadingMessage: "",
+    positionMessage: "",
+    message: "",
+    isActive: false
   }),
   methods: {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
     async submit() {
       await this.$validator.validateAll();
       if (this.$validator.errors.all().length === 0) {
-        this.isBtnLoading = true;
+        this.isButtonLoading = true;
+        this.loadingMessage = this.$t("message.LOADING");
         setTimeout(() => {
-          this.isBtnLoading = false;
+          this.isButtonLoading = false;
           this.$axios
             .post("/admin/position/add", {
               name: this.name,
               enname: this.enname,
               status: this.status,
               description: this.description
-
             })
             .then(res => {
-              // console.log(res.data);
-              if (res.data === 500) {
-                this.loginError = this.$t("auth.loginError500");
-                setTimeout(() => {
-                  this.loginError = false;
-                }, 2000);
-                return;
-              }
-
-              // 跳转上一请求页面或主页
-              // this.$router.push(this.$router.currentRoute.query.url || "/");
+              this.isActive = true;
+              this.message = this.$t("message.SUCCESS_ADD");
+              setTimeout(() => {
+                this.message = "";
+              }, 2000);
             })
             .catch(error => {
-              console.log(error);
-              this.loginError = this.$t("auth.loginError");
+              this.isActive = false;
+              this.message = this.$t("message.ERROR_ADD");
               setTimeout(() => {
-                this.loginError = false;
+                this.message = "";
               }, 2000);
             });
         }, 2000);
       }
     },
-    // 清除输入款内容和错误提示信息
-    clear() {
-      this.name = "";
-      this.email = "";
-      this.select = null;
-      this.checkbox = null;
-      this.$validator.reset();
-    }
-  },
-  computed: {
-    // function to add loading text form submit button 登录加载时显示信息
-    btnLoadingText() {
-      if (this.isBtnLoading) {
-        return this.$t("auth.loginLoadingText");
-      } else {
-        return "";
-      }
+    checkPosition() {
+      this.$axios
+        .get("/api/checkposition", {
+          params: {
+            name: this.name
+          }
+        })
+        .then(res => {
+          this.positionMessage = "";
+        })
+        .catch(error => {
+          this.positionMessage = this.$t("api.POSITION_EXIST");
+        });
     }
   }
 };
@@ -179,5 +173,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.activeClass {
+  color: green;
+  font-size: 18px;
+}
+.errorClass {
+  color: red;
+  font-size: 18px;
 }
 </style>

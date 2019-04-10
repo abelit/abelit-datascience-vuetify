@@ -110,34 +110,74 @@ def mmenu():
     return jsonify(result)
 
 
-@api.route('/checkuser', methods=['GET'])
-def checkUser():
+@api.route('/checkusername', methods=['GET'])
+def check_username():
     # 从前端Ajax请求中获取用户名
     username = request.args.get('username')
-    email = request.args.get('email')
-    existUsername = False
-    existEmail = False
-    result = {}
+
+    status_code = None
 
     try:
-        user=User.query.filter_by(username=username).first()
-        mail=User.query.filter_by(email=email).first()
-
+        user = User.query.filter_by(username=username).first()
+        status_code = 200
         if user:
-            existUsername = True
-        if mail:
-            existEmail = True
-
-        result = {
-            "status": 200,
-            "existUsername": existUsername,
-            "existEmail": existEmail
-        }
+            status_code = 700        
     except:
-        result = {
-            "status": 500,
-            "existUsername": existUsername,
-            "existEmail": existEmail
-        }
+        status_code = 500
 
-    return jsonify(result)
+    return jsonify(), status_code
+
+
+@api.route('/checkemail', methods=['GET'])
+def check_email():
+    # 从前端Ajax请求中获取用户名
+    email = request.args.get('email')
+
+    status_code = None
+
+    try:
+        email = User.query.filter_by(email=email).first()
+        status_code = 200
+        if email:
+            status_code = 700
+    except:
+        status_code = 500
+
+    return jsonify(), status_code
+
+
+@api.route('/checkgroup', methods=['GET'])
+def check_group():
+    # 从前端Ajax请求中获取用户名
+    name = request.args.get('name')
+
+    status_code = None
+
+    try:
+        group = Group.query.filter_by(name=name).first()
+        status_code = 200
+        if group:
+            status_code = 700
+    except:
+        status_code = 500
+
+    return jsonify(), status_code
+
+
+@api.route('/checkposition', methods=['GET'])
+def check_position():
+    # 从前端Ajax请求中获取用户名
+    name = request.args.get('name')
+
+    status_code = None
+    is_position = False
+
+    try:
+        position = Position.query.filter_by(name=name).first()
+        status_code = 200
+        if position:
+            status_code = 700
+    except:
+        status_code = 500
+
+    return jsonify(), status_code

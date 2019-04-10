@@ -6,7 +6,7 @@
         <v-card-title
           class="title font-weight-regular"
           style="margin: 0 auto;"
-        >{{$t('auth.loginPage')}}</v-card-title>
+        >{{$t('auth.USER_LOGIN')}}</v-card-title>
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
             <v-btn color="transparent" v-on="on" flat>
@@ -16,12 +16,12 @@
           <v-list>
             <v-list-tile v-for="(lang, index) in langs" :key="index">
               <v-list-tile-avatar>
-                <v-avatar size="32px" tile @click="changeLangEvent(lang.lang,index)">
+                <v-avatar size="32px" tile @click="changeLang(lang.lang,index)">
                   <!-- <img :src="lang.img"> -->
                   <img :src="require('@/assets/images/auth/'+lang.img)" alt="lang">
                 </v-avatar>
               </v-list-tile-avatar>
-              <v-list-tile-title @click="changeLangEvent(lang.lang)">{{ lang.name }}</v-list-tile-title>
+              <v-list-tile-title @click="changeLang(lang.lang)">{{ lang.name }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -32,7 +32,7 @@
           v-model="username"
           box
           color="deep-purple"
-          :label="$t('auth.email')+'/'+$t('auth.username') "
+          :label="$t('auth.EMAIL')+'/'+$t('auth.USERNAME') "
           type="username"
           v-validate="'required'"
           :error-messages="errors.collect('username')"
@@ -47,11 +47,11 @@
           box
           color="deep-purple"
           counter="18"
-          :label="$t('auth.password')"
+          :label="$t('auth.PASSWORD')"
           style="min-height: 96px; "
-          :append-icon="showPassword ? 'visibility_off' : 'visibility'"
-          :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"
+          :append-icon="passwordShow ? 'visibility_off' : 'visibility'"
+          :type="passwordShow ? 'text' : 'password'"
+          @click:append="passwordShow = !passwordShow"
           v-validate="'required|max:18|min:3'"
           :error-messages="errors.collect('password')"
           data-vv-name="password"
@@ -63,7 +63,7 @@
 
       <v-card-actions>
         <v-btn flat class="title font-weight-regular">
-          <router-link to="/user/register">{{$t('auth.register')}}?</router-link>
+          <router-link to="/user/register">{{$t('button.REGISTER')}}?</router-link>
         </v-btn>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -72,15 +72,15 @@
           color="#01074ccf"
           depressed
           @click="submit"
-        >{{$t('auth.login')}}</v-btn>
+        >{{$t('button.LOGIN')}}</v-btn>
       </v-card-actions>
-      <div class="loading-overlay" v-if="isBtnLoading">
+      <div class="loading-overlay" v-if="isButtonLoading">
         <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
-        <span>{{btnLoadingText}}</span>
+        <span>{{loadingMessage}}</span>
       </div>
 
-      <div class="loading-overlay" v-if="loginError">
-        <span style="color:red;font-size:18px;">{{loginError}}</span>
+      <div class="loading-overlay" v-if="message">
+        <span v-bind:class="[isActive ? 'activeClass' : 'errorClass']">{{message}}</span>
       </div>
     </v-card>
   </div>
@@ -89,11 +89,12 @@
 <script>
 export default {
   data: () => ({
-    showPassword: false,
+    passwordShow: false,
     username: undefined,
     email: undefined,
     form: false,
-    isBtnLoading: false,
+    isButtonLoading: false,
+    loadingMessage: "",
     password: undefined,
     lang: "zh_CN",
     langLogo: "cn.png",
@@ -109,16 +110,18 @@ export default {
         img: "us.png"
       }
     },
-    loginError: ""
+    message: "",
+    isActive: true
   }),
   methods: {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
     async submit() {
       await this.$validator.validateAll();
       if (this.$validator.errors.all().length === 0) {
-        this.isBtnLoading = true;
+        this.isButtonLoading = true;
+        this.loadingMessage = this.$t("message.LOGINING");
         setTimeout(() => {
-          this.isBtnLoading = false;
+          this.isButtonLoading = false;
           this.$axios
             .post("/auth/login", {
               username: this.username,
@@ -126,28 +129,31 @@ export default {
             })
             .then(res => {
               // console.log(res.data);
-              if (res.data === 500){
-                this.loginError = this.$t("auth.loginError500");
-                setTimeout(() => {
-                  this.loginError = false;
-              }, 2000);
-              return;
-              }
-              // 存储token信息
-              this.$store.commit("setToken", res.data);
-
-              // 生成动态路由
-              this.genRoutes();
-
-              // 跳转上一请求页面或主页
-              this.$router.push(this.$router.currentRoute.query.url || "/");
+              // console.log(res.status);
+              this.message = this.$t("message.SUCCESS_LOGIN");
+              this.isActive = true;
+              setTimeout(() => {
+                this.message = "";
+                // 存储token信息
+                this.$store.commit("setToken", res.data);
+                // 生成动态路由
+                this.genRoutes();
+                // 跳转上一请求页面或主页
+                this.$router.push(this.$router.currentRoute.query.url || "/");
+              }, 3000);
             })
             .catch(error => {
-              console.log(error);
-              console.log("hello");
-              this.loginError = this.$t("auth.loginError");
+              // console.log(error.data);
+              // console.log(error.status);
+              // 接收后台返回错误状态，401表示登录用户授权错误，可能是用户名或密码不匹配造成的
+              this.isActive = false;
+              if (error.status === 401) {
+                this.message = this.$t("message.ERROR_LOGIN");
+              } else {
+                this.message = this.$t("message.ERROR_INTERNAL");
+              }
               setTimeout(() => {
-                this.loginError = false;
+                this.message = "";
               }, 2000);
             });
         }, 2000);
@@ -162,7 +168,7 @@ export default {
       this.$validator.reset();
     },
     // 语言切换
-    changeLangEvent(param_lang, param_index) {
+    changeLang(param_lang, param_index) {
       if (param_lang != null) {
         this.lang = param_lang;
       }
@@ -203,18 +209,7 @@ export default {
 
       localStorage.setItem("routeList", JSON.stringify(routeList));
     }
-  },
-  computed: {
-    // function to add loading text form submit button 登录加载时显示信息
-    btnLoadingText() {
-      if (this.isBtnLoading) {
-        return this.$t("auth.loginLoadingText");
-      } else {
-        return "";
-      }
-    }
-  },
-  mounted() {}
+  }
 };
 </script>
 
@@ -249,5 +244,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.activeClass {
+  color: green;
+  font-size: 18px;
+}
+.errorClass {
+  color: red;
+  font-size: 18px;
 }
 </style>

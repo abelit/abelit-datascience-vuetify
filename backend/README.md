@@ -135,3 +135,13 @@ pip install flask flask-cors flask-sqlalchemy
 pip install psycopg2 psycopg2-binary
 pip install flask_script flask_migrate
 ```
+
+
+# 后台错误代码及类型定义及说明
+
+
+| 错误代码 | 错误说明 |
+| ----- | -----  |
+| 200 | 请求成功 |
+| 500 | 内部错误 |
+| 7** | 值存在 |

@@ -62,29 +62,34 @@ def login():
     username = request.json.get('username', None)
     password = request.json.get('password', None)
 
+    status_code = None
+    result = None
+
     try:
         # 获取用户信息
         user_by_name = User.query.filter_by(username=username).first()
         user_by_email = User.query.filter_by(email=username).first()
+        # 组合使用用户名或邮箱进行登录
+        user = user_by_name if user_by_name else user_by_email
     except:
-        return jsonify(500)
+        status_code = 500
 
-    # 组合使用用户名或邮箱进行登录
-    user = user_by_name if user_by_name else user_by_email
 
     # 验证用户信息是否匹配
     if not user or not check_password_hash(user.password, password):
-        return jsonify({"msg": "Bad username or password"}), 401
+        status_code = 401
+    else:
+        # Use create_access_token() and create_refresh_token() to create our
+        # access and refresh tokens
+        access_expires = datetime.timedelta(seconds=3600)
+        refresh_expires = datetime.timedelta(seconds=86400)
+        result = {
+            'access_token': create_access_token(identity=user.username, expires_delta=access_expires),
+            'refresh_token': create_refresh_token(identity=user.username, expires_delta=refresh_expires)
+        }
+        status_code = 200
 
-    # Use create_access_token() and create_refresh_token() to create our
-    # access and refresh tokens
-    access_expires = datetime.timedelta(seconds=3600)
-    refresh_expires = datetime.timedelta(seconds=86400)
-    ret = {
-        'access_token': create_access_token(identity=user.username, expires_delta=access_expires),
-        'refresh_token': create_refresh_token(identity=user.username, expires_delta=refresh_expires)
-    }
-    return jsonify(ret), 200
+    return jsonify(result), status_code
 
 
 # The jwt_refresh_token_required decorator insures a valid refresh
@@ -97,10 +102,10 @@ def login():
 def refresh():
     current_user = get_jwt_identity()
     access_expires = datetime.timedelta(seconds=3600)
-    ret = {
+    result = {
         'access_token': create_access_token(identity=current_user, expires_delta=access_expires)
     }
-    return jsonify(ret), 200
+    return jsonify(result), 200
 
 
 @auth.route('/protected', methods=['GET'])

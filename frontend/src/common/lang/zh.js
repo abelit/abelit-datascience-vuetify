@@ -1,64 +1,59 @@
-export const m = {
-  music: "网易云音乐",
-  findMusic: "发现音乐",
-  myMusic: "我的音乐",
-  friend: "朋友",
-  musician: "音乐人",
-  download: "下载客户端",
-  translate: "语言切换",
-  hintContent: "需要切换语言吗？",
-  nameRequired: "必须输入名字！",
-  emailRequired: "必须输入邮箱！"
-};
-
-
 export const auth = {
-  cancel: "取消",
-  confirm: "确定",
-  hint: "提示",
-  email: "邮箱地址",
-  username: "用户账号",
-  name: "用户姓名",
-  login: "登录",
-  register: "注册",
-  loginPage: "用户登录",
-  registerPage: "用户注册",
-  password: "输入密码",
-  repassword: "再一次输入密码",
-  clear: "清除",
-   gender: "性别",
-  male: "男",
-  female: "女",
-  department: "部门",
-  position: "职位",
-  loginLoadingText: "登录中 ... ",
-  loginError: "用户名或邮箱与密码不匹配!",
-  registerError: "注册失败",
-  loginError500: "登录失败！"
+  HINT: "提示",
+  EMAIL: "邮箱地址",
+  USERNAME: "用户账号",
+  NAME: "用户姓名",
+  USER_LOGIN: "用户登录",
+  USER_REGISTER: "用户注册",
+  PASSWORD: "输入密码",
+  REPASSWORD: "再一次输入密码",
+  GENDER: "性别",
+  MALE: "男",
+  FEMALE: "女",
+  DEPARTMENT: "部门",
+  POSITION: "职位"
 };
-
 
 export const api = {
-  existUsername: "该用户名已经被注册！",
-  existEmail: "该邮箱已经被注册！"
+  USERNAME_EXIST: "该用户名已经被注册！",
+  EMAIL_EXIST: "该邮箱已经被注册！",
+  GROUP_EXIST: "组已经存在！",
+  POSITION_EXIST: "职位已经存在！"
 };
-
 
 export const admin = {
-  enableName: "启用",
-
-  addGroupPage: "添加用户组信息",
-  groupCNName: "组名",
-  groupENName: "英文组名",
-  groupDescription: "关于组的具体描述",
-  addPositionPage: "添加职位信息",
-  positionCNName: "职位名称",
-  positionENName: "职位英文名称",
-  positionDescription: "关于职位的具体描述",
+  GROUP_ADD: "添加用户组信息",
+  GROUP_CNNAME: "组名",
+  GROUP_ENNAME: "英文组名",
+  GROUP_DESCRIPTION: "关于组的具体描述",
+  POSITION_ADD: "添加职位信息",
+  POSITION_CNNAME: "职位名称",
+  POSITION_ENNAME: "职位英文名称",
+  POSITION_DESCRIPTION: "关于职位的具体描述",
+  USER_ADD: "添加用户"
 };
 
-
 export const button = {
-  addButton: "添加",
-  closeButton: "关闭"
+  ADD: "添加",
+  CLOSE: "关闭",
+  ENABLE: "启用",
+  CLEAR: "清除",
+  CANCEL: "取消",
+  CONFIRM: "确定",
+  LOGIN: "登录",
+  REGISTER: "注册",
+};
+
+export const message = {
+  ERROR_LOGIN: "用户与密码不匹配!",
+  SUCCESS_LOGIN: "登录成功!",
+  ERROR_REGISTER: "注册失败!",
+  SUCCESS_REGISTER: "注册成功!",
+  ERROR_ADD: "添加失败!",
+  SUCCESS_ADD: "添加成功!",
+
+  ERROR_INTERNAL: "内部错误!",
+
+  LOGINING: "登录中 ...",
+  LOADING: "正在加载 ..."
 };
