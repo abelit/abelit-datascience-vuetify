@@ -86,7 +86,7 @@ def add_user():
         db.session.add(user)
         db.session.commit()
         status_code = 200
-    except Exception as err:
+    except Exception:
         status_code = 500
 
     return jsonify(), status_code

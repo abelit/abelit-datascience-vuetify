@@ -29,31 +29,24 @@ def register():
     selected_department = request.json.get('selected_department', None)
     selected_position = request.json.get('selected_position', None)
     picked_gender = request.json.get('picked_gender', None)
-
     # 用户注册默认状态为0即不允许登录
     status = 0
-    STATUSCODE = ''
+
+    status_code = None
+
     user = User(username=username, name=name, email=email, password=generate_password_hash(
         password), group_id=selected_department, position_id=selected_position, gender=picked_gender, status=status)
 
     # db.session.add(user)
     # db.session.commit()
     try:
-          # 检测用户是否已经存在
-        isExistUser = User.query.filter_by(username=username).first()
-        # isExistEmail = User.query.fi lter_by(email=email).first()
-
-        if isExistUser:
-            return jsonify(600)
-
         db.session.add(user)
         db.session.commit()
-        STATUSCODE = 200
-    except Exception as err:
-        print(err)
-        STATUSCODE = 500
+        status_code = 200
+    except Exception:
+        status_code = 500
 
-    return jsonify(STATUSCODE)
+    return jsonify(), status_code
 
 
 @auth.route('/login', methods=['POST'])
@@ -71,23 +64,21 @@ def login():
         user_by_email = User.query.filter_by(email=username).first()
         # 组合使用用户名或邮箱进行登录
         user = user_by_name if user_by_name else user_by_email
+        # 验证用户信息是否匹配
+        if not user or not check_password_hash(user.password, password):
+            status_code = 401
+        else:
+            # Use create_access_token() and create_refresh_token() to create our
+            # access and refresh tokens
+            access_expires = datetime.timedelta(seconds=3600)
+            refresh_expires = datetime.timedelta(seconds=86400)
+            result = {
+                'access_token': create_access_token(identity=user.username, expires_delta=access_expires),
+                'refresh_token': create_refresh_token(identity=user.username, expires_delta=refresh_expires)
+            }
+            status_code = 200
     except:
         status_code = 500
-
-
-    # 验证用户信息是否匹配
-    if not user or not check_password_hash(user.password, password):
-        status_code = 401
-    else:
-        # Use create_access_token() and create_refresh_token() to create our
-        # access and refresh tokens
-        access_expires = datetime.timedelta(seconds=3600)
-        refresh_expires = datetime.timedelta(seconds=86400)
-        result = {
-            'access_token': create_access_token(identity=user.username, expires_delta=access_expires),
-            'refresh_token': create_refresh_token(identity=user.username, expires_delta=refresh_expires)
-        }
-        status_code = 200
 
     return jsonify(result), status_code
 
@@ -113,4 +104,3 @@ def refresh():
 def protected():
     username = get_jwt_identity()
     return jsonify(logged_in_as=username), 200
-

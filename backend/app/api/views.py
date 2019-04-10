@@ -1,7 +1,7 @@
 from flask import jsonify, request, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from models import Group, Position,User
+from models import Group, Position, User
 
 
 api = Blueprint("api", __name__)
@@ -10,15 +10,19 @@ api = Blueprint("api", __name__)
 @api.route('/group', methods=['GET'])
 def group():
     result = []
-    group = Group.query.all()
-    
-    for g in group:
-        result.append({
-            "id": g.id,
-            "name": g.name
-        })
+    status_code = None
+    try:
+        group = Group.query.all()
+        status_code = 200
+        for g in group:
+            result.append({
+                "id": g.id,
+                "name": g.name
+            })
+    except Exception:
+        status_code = 500
 
-    return jsonify(result)
+    return jsonify(result), status_code
 
 
 @api.route('/position', methods=['GET'])
@@ -32,7 +36,7 @@ def position():
             "name": p.name,
         })
 
-    return jsonify(result)
+    return jsonify(result), 200
 
 
 @api.route('/menu', methods=['GET'])
@@ -121,7 +125,7 @@ def check_username():
         user = User.query.filter_by(username=username).first()
         status_code = 200
         if user:
-            status_code = 700        
+            status_code = 700
     except:
         status_code = 500
 
@@ -170,7 +174,6 @@ def check_position():
     name = request.args.get('name')
 
     status_code = None
-    is_position = False
 
     try:
         position = Position.query.filter_by(name=name).first()

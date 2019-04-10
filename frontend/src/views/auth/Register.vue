@@ -6,7 +6,7 @@
         <v-card-title
           class="title font-weight-regular"
           style="margin: 0 auto;"
-        >{{$t('auth.registerPage')}}</v-card-title>
+        >{{$t('auth.USER_REGISTER')}}</v-card-title>
 
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
@@ -17,11 +17,11 @@
           <v-list>
             <v-list-tile v-for="(lang, index) in langs" :key="index">
               <v-list-tile-avatar>
-                <v-avatar size="32px" tile @click="changeLangEvent(lang.lang,index)">
+                <v-avatar size="32px" tile @click="changeLang(lang.lang,index)">
                   <img :src="lang.img">
                 </v-avatar>
               </v-list-tile-avatar>
-              <v-list-tile-title @click="changeLangEvent(lang.lang)">{{ lang.name }}</v-list-tile-title>
+              <v-list-tile-title @click="changeLang(lang.lang)">{{ lang.name }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -32,22 +32,22 @@
           v-model="username"
           box
           color="deep-purple"
-          :label="$t('auth.username')"
+          :label="$t('auth.USERNAME')"
           type="username"
           v-validate="'required|alpha_num|max:20|min:6'"
-          :error-messages="errors.collect('username')+existUsername"
+          :error-messages="errors.collect('username')+usernameMessage"
           data-vv-name="username"
           required
           class="df-input"
-          @focus="checkUser"
-          @blur="checkUser"
+          @focus="checkUsername"
+          @blur="checkUsername"
         ></v-text-field>
         <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
         <v-text-field
           v-model="name"
           box
           color="deep-purple"
-          :label="$t('auth.name')"
+          :label="$t('auth.NAME')"
           type="name"
           v-validate="'required|max:20|min:2'"
           :error-messages="errors.collect('name')"
@@ -61,15 +61,15 @@
           v-model="email"
           box
           color="deep-purple"
-          :label="$t('auth.email')"
+          :label="$t('auth.EMAIL')"
           type="email"
           v-validate="'required|email'"
-          :error-messages="errors.collect('email') + existEmail"
+          :error-messages="errors.collect('email') + emailMessage"
           data-vv-name="email"
           required
           class="df-input"
-          @focus="checkUser"
-          @blur="checkUser"
+          @focus="checkEmail"
+          @blur="checkEmail"
         ></v-text-field>
 
         <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon>
@@ -78,11 +78,11 @@
           box
           color="deep-purple"
           counter="18"
-          :label="$t('auth.password')"
+          :label="$t('auth.PASSWORD')"
           style="min-height: 96px; "
-          :append-icon="showPassword ? 'visibility_off' : 'visibility'"
-          :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"
+          :append-icon="passwordShow ? 'visibility_off' : 'visibility'"
+          :type="passwordShow ? 'text' : 'password'"
+          @click:append="passwordShow = !passwordShow"
           v-validate="'required|max:18|min:8'"
           :error-messages="errors.collect('password')"
           data-vv-name="password"
@@ -95,11 +95,11 @@
           box
           color="deep-purple"
           counter="18"
-          :label="$t('auth.repassword')"
+          :label="$t('auth.REPASSWORD')"
           style="min-height: 96px; "
-          :append-icon="showPassword ? 'visibility_off' : 'visibility'"
-          :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"
+          :append-icon="passwordShow ? 'visibility_off' : 'visibility'"
+          :type="passwordShow ? 'text' : 'password'"
+          @click:append="passwordShow = !passwordShow"
           v-validate="'required|confirmed:password'"
           :error-messages="errors.collect('repassword')"
           data-vv-name="repassword"
@@ -116,7 +116,7 @@
             item-text="name"
             item-value="id"
             box
-            :label="$t('auth.department')"
+            :label="$t('auth.DEPARTMENT')"
             class="df-select"
             data-vv-name="department"
             required
@@ -133,7 +133,7 @@
             item-text="name"
             item-value="id"
             box
-            :label="$t('auth.position')"
+            :label="$t('auth.POSITION')"
             class="df-select"
             data-vv-name="position"
             required
@@ -150,15 +150,15 @@
           data-vv-name="gender"
           required
         >
-          <v-radio :label="$t('auth.male')" value="1"></v-radio>
-          <v-radio :label="$t('auth.female')" value="0"></v-radio>
+          <v-radio :label="$t('auth.MALE')" value="1"></v-radio>
+          <v-radio :label="$t('auth.FEMALE')" value="0"></v-radio>
         </v-radio-group>
       </v-form>
       <v-divider></v-divider>
 
       <v-card-actions>
         <v-btn flat class="title font-weight-regular" @click="$refs.forauth.reset()">
-          <router-link to="/user/login">{{$t('auth.login')}}?</router-link>
+          <router-link to="/user/login">{{$t('button.LOGIN')}}?</router-link>
         </v-btn>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
@@ -168,15 +168,15 @@
           color="#01074ccf"
           depressed
           @click="submit"
-        >{{$t('auth.register')}}</v-btn>
+        >{{$t('button.REGISTER')}}</v-btn>
       </v-card-actions>
-      <div class="loading-overlay" v-if="isBtnLoading">
+      <div class="loading-overlay" v-if="isButtonLoading">
         <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
-        <span>{{btnLoadingText}}</span>
+        <span>{{loadingMessage}}</span>
       </div>
 
-      <div class="loading-overlay" v-if="ResiterError">
-        <span style="color:red;font-size:18px;">{{ResiterError}}</span>
+      <div class="loading-overlay" v-if="message">
+        <span v-bind:class="[isActive?'activeClass':'errorClass']">{{message}}</span>
       </div>
     </v-card>
   </div>
@@ -185,15 +185,16 @@
 <script>
 export default {
   data: () => ({
-    showPassword: false,
+    passwordShow: false,
     username: undefined,
     name: undefined,
     email: undefined,
     form: false,
-    isBtnLoading: false,
-    ResiterError: undefined,
-    existUsername: "",
-    existEmail: "",
+    isButtonLoading: false,
+    message: "",
+    loadingMessage: "",
+    usernameMessage: "",
+    emailMessage: "",
     password: undefined,
     repassword: undefined,
     selected_department: undefined,
@@ -201,6 +202,7 @@ export default {
     picked_gender: undefined,
     departments: [],
     positions: [],
+    isActive: false,
     lang: "zh_CN",
     langLogo: require("../../assets/images/auth/cn.png"),
     langs: {
@@ -220,11 +222,12 @@ export default {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
     async submit() {
       await this.$validator.validateAll();
-
+      // 如果用户输入的所有内容没有错误信息，然后发起后台请求
       if (this.$validator.errors.all().length === 0) {
-        this.isBtnLoading = true;
+        this.isButtonLoading = true;
+        this.loadingMessage = this.$t("message.LOADING");
         setTimeout(() => {
-          this.isBtnLoading = false;
+          this.isButtonLoading = false;
           this.$axios
             .post("/auth/register", {
               username: this.username,
@@ -236,32 +239,27 @@ export default {
               picked_gender: this.picked_gender
             })
             .then(res => {
-              // 跳转上一请求页面或主页
-              console.log(res.data);
-              if (res.data === 600) {
-                this.existUsername = "用户已存在";
-              }
-              if (res.data === 500) {
-                this.ResiterError = this.$t("auth.registerError");
-                setTimeout(() => {
-                  this.ResiterError = false;
-                }, 2000);
-              }
-              if (res.data === 200) {
-                this.$router.push(this.$router.currentRoute.query.url || "/");
-              }
+              this.isActive = true;
+              this.message = this.$t("message.SUCCESS_REGISTER");
+              setTimeout(() => {
+                this.message = "";
+                // 跳转上一请求页面或主页
+                this.$router.push(
+                  this.$router.currentRoute.query.url || "/user/login"
+                );
+              }, 2000);
             })
             .catch(error => {
-              console.log(error);
-              this.loginError = this.$t("auth.loginError");
+              this.isActive = false;
+              this.message = this.$t("message.ERROR_REGISTER");
               setTimeout(() => {
-                this.loginError = false;
+                this.message = "";
               }, 2000);
             });
         }, 2000);
       }
     },
-    changeLangEvent(param_lang, param_index) {
+    changeLang(param_lang, param_index) {
       if (param_lang != null) {
         this.lang = param_lang;
       }
@@ -282,7 +280,6 @@ export default {
               name: res.data[i].name
             });
           }
-          console.log(this.departments);
         })
         .catch(error => {
           console.log(error);
@@ -304,28 +301,40 @@ export default {
           console.log(error);
         });
     },
-    checkUser(){
-       this.$axios
-        .get("/api/checkuser", {
+    checkUsername() {
+      this.$axios
+        .get("/api/checkusername", {
           params: {
-            username: this.username,
+            username: this.username
+          }
+        })
+        .then(() => {
+          this.usernameMessage = "";
+        })
+        .catch(error => {
+          if (error.status === 700) {
+            this.usernameMessage = this.$t("api.USERNAME_EXIST");
+          } else {
+            this.usernameMessage = "";
+          }
+        });
+    },
+    checkEmail() {
+      this.$axios
+        .get("/api/checkemail", {
+          params: {
             email: this.email
           }
         })
-        .then(res => {
-          if (res.data.existUsername) {
-            this.existUsername = this.$t("api.existUsername");
-          } else {
-            this.existUsername = ''
-          }
-          if (res.data.existEmail) {
-            this.existEmail = this.$t("api.existEmail");
-          } else {
-            this.existEmail = ''
-          }
+        .then(() => {
+          this.emailMessage = "";
         })
         .catch(error => {
-          console.log(error);
+          if (error.status === 700) {
+            this.emailMessage = this.$t("api.EMAIL_EXIST");
+          } else {
+            this.emailMessage = "";
+          }
         });
     },
     clear() {
@@ -339,12 +348,6 @@ export default {
   mounted() {
     this.getDepartment();
     this.getPosition();
-  },
-  watch: {
-    username: function() {
-      // this.existUsername = ''
-      // this.checkUser();
-    }
   }
 };
 </script>
@@ -377,5 +380,13 @@ export default {
 .df-radio {
   margin-top: 0px;
   padding-top: 0px;
+}
+.activeClass {
+  color: green;
+  font-size: 18px;
+}
+.errorClass {
+  color: red;
+  font-size: 18px;
 }
 </style>
