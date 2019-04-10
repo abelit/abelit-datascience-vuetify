@@ -145,3 +145,57 @@ pip install flask_script flask_migrate
 | 200 | 请求成功 |
 | 500 | 内部错误 |
 | 7** | 值存在 |
+
+
+# 开发中遇到的问题与解答
+
+## 问题1  Instance of 'scoped_session' has no 'add' member
+问题示例：
+```
+  {
+	"resource": "/d:/Workspace/Code/abelit-DataScience/backend/app/auth/views.py",
+	"owner": "python",
+	"code": "no-member",
+	"severity": 8,
+	"message": "Instance of 'scoped_session' has no 'add' member",
+	"source": "pylint",
+	"startLineNumber": 41,
+	"startColumn": 9,
+	"endLineNumber": 41,
+	"endColumn": 9
+}
+  {
+	"resource": "/d:/Workspace/Code/abelit-DataScience/backend/models.py",
+	"owner": "python",
+	"code": "no-member",
+	"severity": 8,
+	"message": "Instance of 'SQLAlchemy' has no 'Column' member",
+	"source": "pylint",
+	"startLineNumber": 7,
+	"startColumn": 10,
+	"endLineNumber": 7,
+	"endColumn": 10
+}
+```
+
+解决办法：
+方法一：
+```
+pip install pylint-flask
+Load the installed plugin.
+
+For example, if you use VS code, please edit setting.json file as follows:
+
+"python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]
+```
+方法二：
+```
+pylint --generate-rcfile > pylintrc
+
+python -m pylint --generate-rcfile > ~/.config/pylintrc
+
+# 编辑 ~/.config/pylintrc
+ignored-modules=flask_sqlalchemy
+
+```
+参考地址：https://www.youtube.com/watch?v=n9jq_lkKeUU
