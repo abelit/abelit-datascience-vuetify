@@ -1,81 +1,90 @@
 <template>
-  <div class="login-container container-fluid">
-    <v-card class="mx-auto" style="max-width: 500px; margin-top:15%;" color="#eaeaeaa1">
-      <v-toolbar color="#01074ccf !important" cards dark flat>
-        <v-card-title
-          class="title font-weight-regular"
-          style="margin: 0 auto;"
-        >{{$t('admin.GROUP_ADD')}}</v-card-title>
-      </v-toolbar>
-      <v-form ref="form" v-model="form" class="pa-3 pt-4" :disabled="!form">
-        <v-text-field
-          v-model="name"
-          box
-          color="deep-purple"
-          :label="$t('admin.GROUP_CNNAME')"
-          type="name"
-          v-validate="'required'"
-          :error-messages="errors.collect('name') + groupMessage"
-          data-vv-name="name"
-          required
-          class="df-input"
-        ></v-text-field>
+  <v-layout row justify-center>
+    <v-dialog v-model="dialog" persistent max-width="500px">
+      <template v-slot:activator="{ on }">
+        <v-btn color="primary" dark v-on="on">{{$t('admin.GROUP_ADD')}}</v-btn>
+      </template>
+      <v-card class="mx-auto" style="max-width: 500px" color="#eaeaeaa1">
+        <v-toolbar color="#01074ccf !important" cards dark flat>
+          <v-card-title
+            class="title font-weight-regular"
+            style="margin: 0 auto;"
+          >{{$t('admin.GROUP_ADD')}}</v-card-title>
+          <v-btn icon dark @click="dialog = false">
+            <v-icon>close</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-form ref="form" v-model="form" class="pa-3 pt-4" :disabled="!form">
+          <v-text-field
+            v-model="name"
+            box
+            color="deep-purple"
+            :label="$t('admin.GROUP_CNNAME')"
+            type="name"
+            v-validate="'required'"
+            :error-messages="errors.collect('name') + groupMessage"
+            data-vv-name="name"
+            required
+            class="df-input"
+          ></v-text-field>
 
-        <v-text-field
-          v-model="enname"
-          box
-          color="deep-purple"
-          :label="$t('admin.GROUP_ENNAME')"
-          type="enname"
-          v-validate="'required'"
-          :error-messages="errors.collect('enname')"
-          data-vv-name="enname"
-          required
-          class="df-input"
-          @focus="checkGroup"
-          @blur="checkGroup"
-        ></v-text-field>
+          <v-text-field
+            v-model="enname"
+            box
+            color="deep-purple"
+            :label="$t('admin.GROUP_ENNAME')"
+            type="enname"
+            v-validate="'required'"
+            :error-messages="errors.collect('enname')"
+            data-vv-name="enname"
+            required
+            class="df-input"
+            @focus="checkGroup"
+            @blur="checkGroup"
+          ></v-text-field>
 
-        <v-textarea
-          v-model="description"
-          auto-grow
-          box
-          color="deep-purple"
-          :label="$t('admin.GROUP_DESCRIPTION')"
-          rows="5"
-        ></v-textarea>
+          <v-textarea
+            v-model="description"
+            auto-grow
+            box
+            color="deep-purple"
+            :label="$t('admin.GROUP_DESCRIPTION')"
+            rows="5"
+          ></v-textarea>
 
-        <v-checkbox
-          v-model="status"
-          value="1"
-          :label="$t('button.ENABLE')"
-          data-vv-name="status"
-          type="checkbox"
-        ></v-checkbox>
-      </v-form>
-      <v-divider></v-divider>
+          <v-checkbox
+            v-model="status"
+            value="1"
+            :label="$t('button.ENABLE')"
+            data-vv-name="status"
+            type="checkbox"
+          ></v-checkbox>
+        </v-form>
+        <v-divider></v-divider>
 
-      <v-card-actions>
-        <v-btn flat class="title font-weight-regular">{{$t('button.CLOSE')}}</v-btn>
-        <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
-        <v-btn
-          class="title font-weight-regular"
-          color="#01074ccf"
-          depressed
-          @click="submit"
-        >{{$t('button.ADD')}}</v-btn>
-      </v-card-actions>
-      <div class="loading-overlay" v-if="isButtonLoading">
-        <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
-        <span v-if="loadingMessage">{{loadingMessage}}</span>
-      </div>
+        <v-card-actions>
+          <v-btn
+            flat
+            class="title font-weight-regular"
+            @click="dialog = false"
+          >{{$t('button.CLOSE')}}</v-btn>
+          <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
+          <v-btn class="title font-weight-regular" color="#01074ccf" depressed @click="submit">
+            <span style="color: #efefef">{{$t('button.ADD')}}</span>
+          </v-btn>
+        </v-card-actions>
+        <div class="loading-overlay" v-if="isButtonLoading">
+          <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
+          <span v-if="loadingMessage">{{loadingMessage}}</span>
+        </div>
 
-      <div class="loading-overlay" v-if="message">
-        <span v-bind:class="[isActive?'activeClass':'errorClass']">{{message}}</span>
-      </div>
-    </v-card>
-  </div>
+        <div class="loading-overlay" v-if="message">
+          <span v-bind:class="[isActive?'activeClass':'errorClass']">{{message}}</span>
+        </div>
+      </v-card>
+    </v-dialog>
+  </v-layout>
 </template>
 
 <script>
@@ -90,7 +99,8 @@ export default {
     loadingMessage: "",
     groupMessage: "",
     message: "",
-    isActive: false
+    isActive: false,
+    dialog: false
   }),
   methods: {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
@@ -113,6 +123,7 @@ export default {
               this.message = this.$t("message.SUCCESS_ADD");
               setTimeout(() => {
                 this.message = "";
+                this.dialog = false;
               }, 2000);
             })
             .catch(error => {

@@ -138,7 +138,7 @@
           color="#01074ccf"
           depressed
           @click="submit"
-        >{{$t('button.ADD')}}</v-btn>
+        ><span  style="color: #efefef">{{$t('button.ADD')}}</span></v-btn>
       </v-card-actions>
       <div class="loading-overlay" v-if="isButtonLoading">
         <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>

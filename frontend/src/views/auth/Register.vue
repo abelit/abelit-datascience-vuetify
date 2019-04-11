@@ -168,7 +168,7 @@
           color="#01074ccf"
           depressed
           @click="submit"
-        >{{$t('button.REGISTER')}}</v-btn>
+        ><span  style="color: #efefef">{{$t('button.REGISTER')}}</span></v-btn>
       </v-card-actions>
       <div class="loading-overlay" v-if="isButtonLoading">
         <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
@@ -238,7 +238,7 @@ export default {
               selected_position: this.selected_position,
               picked_gender: this.picked_gender
             })
-            .then(res => {
+            .then(() => {
               this.isActive = true;
               this.message = this.$t("message.SUCCESS_REGISTER");
               setTimeout(() => {
@@ -249,7 +249,7 @@ export default {
                 );
               }, 2000);
             })
-            .catch(error => {
+            .catch(() => {
               this.isActive = false;
               this.message = this.$t("message.ERROR_REGISTER");
               setTimeout(() => {
@@ -372,7 +372,7 @@ export default {
 }
 
 .df-input {
-  padding: 10px;
+  /* padding: 10px; */
 }
 .df-select {
   width: 20px;

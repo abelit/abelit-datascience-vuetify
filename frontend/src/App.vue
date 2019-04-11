@@ -1,34 +1,39 @@
 <template>
   <v-app>
-    <!-- <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn flat href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank">
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-toolbar>-->
-    <!-- <v-content>
-      <HelloWorld/>
-    </v-content>-->
-    <router-view></router-view>
+     <!--登入动画-->
+    <transition name="rotate-fall">
+    <router-view class="app-router-view"></router-view>
+    </transition>
   </v-app>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld";
+import 'vue-transition.css';
 
 export default {
   name: "App",
   components: {
-    // HelloWorld
   },
   data() {
     return {
-      //
+      
     };
   }
 }
 </script>
+
+
+<style>
+  .app .app-router-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transform-style: preserve-3d;
+    visibility: visible;
+  }
+</style>

@@ -5,35 +5,35 @@
         <v-card-title
           class="title font-weight-regular"
           style="margin: 0 auto;"
-        >{{$t('admin.POSITION_ADD')}}</v-card-title>
+        >{{$t('admin.GROUP_ADD')}}</v-card-title>
       </v-toolbar>
       <v-form ref="form" v-model="form" class="pa-3 pt-4" :disabled="!form">
         <v-text-field
           v-model="name"
           box
           color="deep-purple"
-          :label="$t('admin.POSITION_CNNAME')"
+          :label="$t('admin.GROUP_CNNAME')"
           type="name"
           v-validate="'required'"
-          :error-messages="errors.collect('name') + positionMessage"
+          :error-messages="errors.collect('name') + groupMessage"
           data-vv-name="name"
           required
           class="df-input"
-          @focus="checkPosition"
-          @blur="checkPosition"
         ></v-text-field>
 
         <v-text-field
           v-model="enname"
           box
           color="deep-purple"
-          :label="$t('admin.POSITION_ENNAME')"
+          :label="$t('admin.GROUP_ENNAME')"
           type="enname"
           v-validate="'required'"
           :error-messages="errors.collect('enname')"
           data-vv-name="enname"
           required
           class="df-input"
+          @focus="checkGroup"
+          @blur="checkGroup"
         ></v-text-field>
 
         <v-textarea
@@ -41,7 +41,7 @@
           auto-grow
           box
           color="deep-purple"
-          :label="$t('admin.POSITION_DESCRIPTION')"
+          :label="$t('admin.GROUP_DESCRIPTION')"
           rows="5"
         ></v-textarea>
 
@@ -64,11 +64,11 @@
           color="#01074ccf"
           depressed
           @click="submit"
-        >{{$t('button.ADD')}}</v-btn>
+        ><span  style="color: #efefef">{{$t('button.ADD')}}</span></v-btn>
       </v-card-actions>
       <div class="loading-overlay" v-if="isButtonLoading">
         <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
-        <span>{{loadingMessage}}</span>
+        <span v-if="loadingMessage">{{loadingMessage}}</span>
       </div>
 
       <div class="loading-overlay" v-if="message">
@@ -88,7 +88,7 @@ export default {
     form: false,
     isButtonLoading: false,
     loadingMessage: "",
-    positionMessage: "",
+    groupMessage: "",
     message: "",
     isActive: false
   }),
@@ -102,7 +102,7 @@ export default {
         setTimeout(() => {
           this.isButtonLoading = false;
           this.$axios
-            .post("/admin/position/add", {
+            .post("/admin/group/add", {
               name: this.name,
               enname: this.enname,
               status: this.status,
@@ -116,6 +116,7 @@ export default {
               }, 2000);
             })
             .catch(error => {
+              console.log(error);
               this.isActive = false;
               this.message = this.$t("message.ERROR_ADD");
               setTimeout(() => {
@@ -125,18 +126,18 @@ export default {
         }, 2000);
       }
     },
-    checkPosition() {
+    checkGroup() {
       this.$axios
-        .get("/api/checkposition", {
+        .get("/api/checkgroup", {
           params: {
             name: this.name
           }
         })
         .then(res => {
-          this.positionMessage = "";
+          this.groupMessage = "";
         })
         .catch(error => {
-          this.positionMessage = this.$t("api.POSITION_EXIST");
+          this.groupMessage = this.$t("api.GROUP_EXIST");
         });
     }
   }

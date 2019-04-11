@@ -72,7 +72,7 @@
           color="#01074ccf"
           depressed
           @click="submit"
-        >{{$t('button.LOGIN')}}</v-btn>
+        ><span style="color: #efefef">{{$t('button.LOGIN')}}</span></v-btn>
       </v-card-actions>
       <div class="loading-overlay" v-if="isButtonLoading">
         <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
@@ -140,7 +140,7 @@ export default {
                 this.genRoutes();
                 // 跳转上一请求页面或主页
                 this.$router.push(this.$router.currentRoute.query.url || "/");
-              }, 3000);
+              }, 2000);
             })
             .catch(error => {
               // console.log(error.data);
@@ -230,7 +230,7 @@ export default {
   text-align: center;
 }
 .df-input {
-  padding: 10px;
+  /* padding: 10px; */
 }
 .loading-overlay {
   z-index: 10;

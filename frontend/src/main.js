@@ -9,6 +9,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import "jquery/dist/jquery.js";
 import "bootstrap/dist/js/bootstrap.js";
 
+// import "./plugins/vuetify"; 可以使用以下三行代码代替
+// import Vuetify from 'vuetify';
+// Vue.use(Vuetify);
+// import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+
 // import Echarts
 import echarts from "echarts";
 Vue.prototype.$echarts = echarts;
@@ -18,16 +23,17 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:5000";
 Vue.prototype.$axios = axios;
 
+// 以下是另外两个Vue UI前端框架
+// import element framwork and ui component
 // import Element UI
 // import ElementUI from "element-ui";
 // import "element-ui/lib/theme-chalk/index.css";
 // Vue.use(ElementUI);
-
 // import Vue Material UI frontend framwork
-import VueMaterial from "vue-material";
-import "vue-material/dist/vue-material.min.css";
-import "vue-material/dist/theme/default.css";
-Vue.use(VueMaterial);
+// import VueMaterial from "vue-material";
+// import "vue-material/dist/vue-material.min.css";
+// import "vue-material/dist/theme/default.css";
+// Vue.use(VueMaterial);
 
 // import fonts
 import "material-design-icons-iconfont/dist/material-design-icons.css";
@@ -129,7 +135,6 @@ axios.interceptors.response.use(
 
 router.beforeEach(async (to, from, next) => {
   // console.log('beforeEach ...');
-
   // console.log(to);
   // console.log(from);
   if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -197,6 +202,7 @@ function genRoutes(routeList) {
   localStorage.setItem("routeList", JSON.stringify(routeList));
 }
 
+// "#app"挂在的是public/index.html里面id=app
 // create Vue instance
 new Vue({
   i18n,

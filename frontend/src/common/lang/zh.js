@@ -22,7 +22,7 @@ export const api = {
 };
 
 export const admin = {
-  GROUP_ADD: "添加用户组信息",
+  GROUP_ADD: "添加组",
   GROUP_CNNAME: "组名",
   GROUP_ENNAME: "英文组名",
   GROUP_DESCRIPTION: "关于组的具体描述",
