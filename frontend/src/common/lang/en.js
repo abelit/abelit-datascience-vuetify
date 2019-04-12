@@ -46,7 +46,7 @@ export const button = {
 
 export const message = {
   ERROR_LOGIN: "Username or Email can not matched with Password!",
-  SUCCESS_LOGIN: "Login Successfylly!",
+  SUCCESS_LOGIN: "Login Successfully!",
   ERROR_REGISTER: "User Register Failed!",
   SUCCESS_REGISTER: "Register Successfully!",
   ERROR_ADD: "Add Error! Contact System Administrator to solve!",

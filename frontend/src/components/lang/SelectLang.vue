@@ -7,7 +7,11 @@
         </v-btn>
       </template>
       <v-list>
-        <v-list-tile v-for="(lang, index) in langList" :key="index">
+        <v-list-tile
+          v-for="(lang, index) in langList"
+          :key="index"
+          :disabled="language === lang.code"
+        >
           <v-list-tile-avatar>
             <v-avatar size="32px" tile @click="setLanguage(lang.code)">
               <img :src="require('@/assets/images/auth/'+lang.code+'.png')" alt="language">
