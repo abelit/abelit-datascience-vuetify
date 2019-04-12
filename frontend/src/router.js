@@ -65,7 +65,7 @@ const router = new Router({
       path: "/admin/dialog",
       name: "dialog",
       component: () => import("@/components/admin/AddGroup")
-    }
+    },
 
     // {
     //   path: '*',
@@ -161,6 +161,21 @@ const router = new Router({
     //   name: "cd2",
     //   component: () => import("@/views/CDb.vue")
     // },
+    {
+      path: "/demo/vueres",
+      name: "vueres",
+      component: () => import("@/components/demo/VueResponseDemo.vue")
+    },
+    {
+      path: "/demo/vueprop",
+      name: "vueprop",
+      component: () => import("@/components/demo/VuePropDemo")
+    },
+    {
+      path: "/demo/vueslot",
+      name: "vueslot",
+      component: () => import("@/components/demo/VueSlotDemo")
+    }
   ]
 });
 

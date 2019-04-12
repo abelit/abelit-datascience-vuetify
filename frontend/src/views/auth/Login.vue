@@ -1,89 +1,88 @@
 <template>
-  <div class="login-container container-fluid">
-    <v-card class="mx-auto" style="max-width: 500px; margin-top:15%;" color="#eaeaeaa1">
-      <v-toolbar color="#01074ccf !important" cards dark flat>
-        <v-icon size="36" color="#efefef">account_box</v-icon>
-        <v-card-title
-          class="title font-weight-regular"
-          style="margin: 0 auto;"
-        >{{$t('auth.USER_LOGIN')}}</v-card-title>
-        <v-menu offset-y>
-          <template v-slot:activator="{ on }">
-            <v-btn color="transparent" v-on="on" flat>
-              <img :src="require('@/assets/images/auth/'+langLogo)" alt>
-            </v-btn>
-          </template>
-          <v-list>
-            <v-list-tile v-for="(lang, index) in langs" :key="index">
-              <v-list-tile-avatar>
-                <v-avatar size="32px" tile @click="changeLang(lang.lang,index)">
-                  <!-- <img :src="lang.img"> -->
-                  <img :src="require('@/assets/images/auth/'+lang.img)" alt="lang">
-                </v-avatar>
-              </v-list-tile-avatar>
-              <v-list-tile-title @click="changeLang(lang.lang)">{{ lang.name }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
-      </v-toolbar>
-      <v-form ref="form" v-model="form" class="pa-3 pt-4" :disabled="!form">
-        <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
-        <v-text-field
-          v-model="username"
-          box
-          color="deep-purple"
-          :label="$t('auth.EMAIL')+'/'+$t('auth.USERNAME') "
-          type="username"
-          v-validate="'required'"
-          :error-messages="errors.collect('username')"
-          data-vv-name="username"
-          required
-          class="df-input"
-        ></v-text-field>
+  <transition name="rotate-fall">
+    <div class="login-container container-fluid">
+      <v-card class="mx-auto" style="max-width: 500px; margin-top:15%;" color="#eaeaeaa1">
+        <v-toolbar color="#01074ccf !important" cards dark flat>
+          <v-icon size="36" color="#efefef">account_box</v-icon>
+          <v-card-title
+            class="title font-weight-regular"
+            style="margin: 0 auto;"
+          >{{$t('auth.USER_LOGIN')}}</v-card-title>
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn color="transparent" v-on="on" flat>
+                <img :src="require('@/assets/images/auth/'+langLogo)" alt>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-tile v-for="(lang, index) in langs" :key="index">
+                <v-list-tile-avatar>
+                  <v-avatar size="32px" tile @click="changeLang(lang.lang,index)">
+                    <!-- <img :src="lang.img"> -->
+                    <img :src="require('@/assets/images/auth/'+lang.img)" alt="lang">
+                  </v-avatar>
+                </v-list-tile-avatar>
+                <v-list-tile-title @click="changeLang(lang.lang)">{{ lang.name }}</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
+        </v-toolbar>
+        <v-form ref="form" v-model="form" class="pa-3 pt-4" :disabled="!form">
+          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
+          <v-text-field
+            v-model="username"
+            box
+            color="deep-purple"
+            :label="$t('auth.EMAIL')+'/'+$t('auth.USERNAME') "
+            type="username"
+            v-validate="'required'"
+            :error-messages="errors.collect('username')"
+            data-vv-name="username"
+            required
+            class="df-input"
+          ></v-text-field>
 
-        <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon>
-        <v-text-field
-          v-model="password"
-          box
-          color="deep-purple"
-          counter="18"
-          :label="$t('auth.PASSWORD')"
-          style="min-height: 96px; "
-          :append-icon="passwordShow ? 'visibility_off' : 'visibility'"
-          :type="passwordShow ? 'text' : 'password'"
-          @click:append="passwordShow = !passwordShow"
-          v-validate="'required|max:18|min:3'"
-          :error-messages="errors.collect('password')"
-          data-vv-name="password"
-          required
-          @keyup.enter="submit"
-        ></v-text-field>
-      </v-form>
-      <v-divider></v-divider>
+          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon>
+          <v-text-field
+            v-model="password"
+            box
+            color="deep-purple"
+            counter="18"
+            :label="$t('auth.PASSWORD')"
+            style="min-height: 96px; "
+            :append-icon="passwordShow ? 'visibility_off' : 'visibility'"
+            :type="passwordShow ? 'text' : 'password'"
+            @click:append="passwordShow = !passwordShow"
+            v-validate="'required|max:18|min:3'"
+            :error-messages="errors.collect('password')"
+            data-vv-name="password"
+            required
+            @keyup.enter="submit"
+          ></v-text-field>
+        </v-form>
+        <v-divider></v-divider>
 
-      <v-card-actions>
-        <v-btn flat class="title font-weight-regular">
-          <router-link to="/user/register">{{$t('button.REGISTER')}}?</router-link>
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-spacer></v-spacer>
-        <v-btn
-          class="title font-weight-regular"
-          color="#01074ccf"
-          depressed
-          @click="submit"
-        ><span style="color: #efefef">{{$t('button.LOGIN')}}</span></v-btn>
-      </v-card-actions>
-      <div class="loading-overlay" v-if="isButtonLoading">
-        <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
-        <span>{{loadingMessage}}</span>
-      </div>
+        <v-card-actions>
+          <v-btn flat class="title font-weight-regular">
+            <router-link to="/user/register">{{$t('button.REGISTER')}}?</router-link>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
+          <v-btn class="title font-weight-regular" color="#01074ccf" depressed @click="submit">
+            <span style="color: #efefef">{{$t('button.LOGIN')}}</span>
+          </v-btn>
+        </v-card-actions>
+        <div class="loading-overlay" v-if="isButtonLoading">
+          <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
+          <span>{{loadingMessage}}</span>
+        </div>
 
-      <div class="loading-overlay" v-if="message">
-        <span v-bind:class="[isActive ? 'activeClass' : 'errorClass']">{{message}}</span>
-      </div>
-    </v-card>
-  </div>
+        <div class="loading-overlay" v-if="message">
+          <span v-bind:class="[isActive ? 'activeClass' : 'errorClass']">{{message}}</span>
+        </div>
+      </v-card>
+    </div>
+  </transition>
 </template>
 
 <script>

@@ -1,14 +1,11 @@
 <template>
   <v-app>
-     <!--登入动画-->
-    <transition name="rotate-fall">
     <router-view class="app-router-view"></router-view>
-    </transition>
   </v-app>
 </template>
 
 <script>
-import 'vue-transition.css';
+import "vue-transition.css";
 
 export default {
   name: "App",
@@ -24,7 +21,7 @@ export default {
 
 
 <style>
-  .app .app-router-view {
+  .app-router-view {
     position: absolute;
     top: 0;
     left: 0;
