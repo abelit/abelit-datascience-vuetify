@@ -8,10 +8,7 @@
             class="title font-weight-regular"
             style="margin: 0 auto;"
           >{{$t('auth.USER_REGISTER')}}</v-card-title>
-
-          <v-menu offset-y>
-          
-          </v-menu>
+          <select-lang></select-lang>
         </v-toolbar>
         <v-form ref="form" v-model="form" class="pa-3 pt-4">
           <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
@@ -173,7 +170,13 @@
 </template>
 
 <script>
+import SelectLang from "@/components/lang/SelectLang";
+
 export default {
+  name: "Register",
+  components: {
+    SelectLang
+  },
   data: () => ({
     passwordShow: false,
     username: undefined,
@@ -192,7 +195,7 @@ export default {
     picked_gender: undefined,
     departments: [],
     positions: [],
-    isActive: false,
+    isActive: false
   }),
   methods: {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
@@ -234,16 +237,6 @@ export default {
             });
         }, 2000);
       }
-    },
-    changeLang(param_lang, param_index) {
-      if (param_lang != null) {
-        this.lang = param_lang;
-      }
-      if (param_index != null) {
-        this.langLogo = this.langs[param_index].img;
-      }
-      this.$i18n.locale = this.lang;
-      this.$validator.locale = this.lang;
     },
     getDepartment() {
       this.$axios
