@@ -175,6 +175,11 @@ const router = new Router({
       path: "/demo/vueslot",
       name: "vueslot",
       component: () => import("@/components/demo/VueSlotDemo")
+    },
+    {
+      path: "/demo/vuex",
+      name: "vuex",
+      component: () => import("@/components/demo/VuexDemo")
     }
   ]
 });

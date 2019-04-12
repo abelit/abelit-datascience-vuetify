@@ -11,18 +11,17 @@
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
               <v-btn color="transparent" v-on="on" flat>
-                <img :src="require('@/assets/images/auth/'+langLogo)" alt>
+                <img v-if="language" :src="require('@/assets/images/auth/'+language+'.png')" alt>
               </v-btn>
             </template>
             <v-list>
-              <v-list-tile v-for="(lang, index) in langs" :key="index">
-                <v-list-tile-avatar>
-                  <v-avatar size="32px" tile @click="changeLang(lang.lang,index)">
-                    <!-- <img :src="lang.img"> -->
-                    <img :src="require('@/assets/images/auth/'+lang.img)" alt="lang">
+              <v-list-tile v-for="(lang, index) in langList" :key="index">
+                  <v-list-tile-avatar>
+                  <v-avatar size="32px" tile @click="setLanguage(lang.code)">
+                    <img :src="require('@/assets/images/auth/'+lang.code+'.png')" alt="language">
                   </v-avatar>
                 </v-list-tile-avatar>
-                <v-list-tile-title @click="changeLang(lang.lang)">{{ lang.name }}</v-list-tile-title>
+                <v-list-tile-title @click="setLanguage(lang.code)">{{ lang.name }}</v-list-tile-title>
               </v-list-tile>
             </v-list>
           </v-menu>
@@ -95,22 +94,19 @@ export default {
     isButtonLoading: false,
     loadingMessage: "",
     password: undefined,
-    lang: "zh_CN",
-    langLogo: "cn.png",
-    langs: {
-      zh: {
-        lang: "zh_CN",
-        name: "简体中文",
-        img: "cn.png"
-      },
-      en: {
-        lang: "en_US",
-        name: "English",
-        img: "us.png"
-      }
-    },
     message: "",
-    isActive: true
+    isActive: true,
+    language: '',
+    langList: [
+      {
+        code: "zh_CN",
+        name: "简体中文"
+      },
+      {
+        code: "en_US",
+        name: "English"
+      }
+    ]
   }),
   methods: {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
@@ -158,24 +154,18 @@ export default {
         }, 2000);
       }
     },
-    // 清除输入款内容和错误提示信息
-    clear() {
-      this.name = "";
-      this.email = "";
-      this.select = null;
-      this.checkbox = null;
-      this.$validator.reset();
-    },
     // 语言切换
-    changeLang(param_lang, param_index) {
-      if (param_lang != null) {
-        this.lang = param_lang;
-      }
-      if (param_index != null) {
-        this.langLogo = this.langs[param_index].img;
-      }
-      this.$i18n.locale = this.lang;
-      this.$validator.locale = this.lang;
+    setLanguage(lang) {
+      this.language = lang;
+      // 设置国际化语言信息
+      this.$i18n.locale = lang;
+      // 设置验证语言信息
+      this.$validator.locale = lang;
+
+      // 保存语言信息
+      this.$store.dispatch("setLanguage", lang);
+
+      console.log(this.language);
     },
     genRoutes() {
       let routeList = [
@@ -204,11 +194,15 @@ export default {
       }
       // add dynamic routes 添加动态路由
       this.$router.addRoutes(routes);
-      console.log(this.$router.options.routes);
+      // console.log(this.$router.options.routes);
 
       localStorage.setItem("routeList", JSON.stringify(routeList));
     }
-  }
+  },
+  mounted() {
+    // 从vuex中获取语言信息
+    this.language = this.$store.state.language;
+  },
 };
 </script>
 

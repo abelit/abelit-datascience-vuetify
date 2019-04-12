@@ -45,10 +45,13 @@ Vue.use(VueI18n);
 
 // Configure vue-i18n
 const i18n = new VueI18n({
-  locale: "zh_CN", // 语言标识
+  // 启动程序时从本地读取localStorage读取语言，如果没有找不到，则设置为"zh_CN"
+  locale: localStorage.getItem("language") || "zh_CN",
   messages: {
-    zh_CN: require("./common/lang/zh"), // 中文语言包
-    en_US: require("./common/lang/en") // 英文语言包
+    // 中文语言包
+    zh_CN: require("./common/lang/zh"),
+    // 英文语言包
+    en_US: require("./common/lang/en")
   }
 });
 

@@ -3,16 +3,10 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-// // default store config
-// export default new Vuex.Store({
-//   state: {},
-//   mutations: {},
-//   actions: {}
-// });
-
 const state = {
   count: 0,
   token: localStorage.getItem("token") || "",
+  language: localStorage.getItem("language") || "zh_CN"
 };
 const mutations = {
   increment: state => state.count++,
@@ -26,14 +20,23 @@ const mutations = {
   delToken(state) {
     state.token = "";
     localStorage.removeItem("token");
+  },
+  // 中英文切换
+  SET_LANGUAGE: (state, language) => {
+    state.language = language;
+    localStorage.setItem("language", language);
   }
 };
 const actions = {
   aincrement(ctx) {
-    ctx.commit('increment')
+    ctx.commit("increment");
   },
-  adecrement(ctx) {
-    ctx.commit('decrement')
+  // 使用ES2015语法简化代码
+  adecrement({ commit }) {
+    commit("decrement");
+  },
+  setLanguage({ commit }, language) {
+    commit("SET_LANGUAGE", language);
   }
 };
 

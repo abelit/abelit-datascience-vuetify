@@ -10,21 +10,7 @@
           >{{$t('auth.USER_REGISTER')}}</v-card-title>
 
           <v-menu offset-y>
-            <template v-slot:activator="{ on }">
-              <v-btn color="transparent" v-on="on" flat>
-                <img :src="langLogo" alt>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-tile v-for="(lang, index) in langs" :key="index">
-                <v-list-tile-avatar>
-                  <v-avatar size="32px" tile @click="changeLang(lang.lang,index)">
-                    <img :src="lang.img">
-                  </v-avatar>
-                </v-list-tile-avatar>
-                <v-list-tile-title @click="changeLang(lang.lang)">{{ lang.name }}</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
+          
           </v-menu>
         </v-toolbar>
         <v-form ref="form" v-model="form" class="pa-3 pt-4">
@@ -207,20 +193,6 @@ export default {
     departments: [],
     positions: [],
     isActive: false,
-    lang: "zh_CN",
-    langLogo: require("../../assets/images/auth/cn.png"),
-    langs: {
-      zh: {
-        lang: "zh_CN",
-        name: "简体中文",
-        img: require("../../assets/images/auth/cn.png")
-      },
-      en: {
-        lang: "en_US",
-        name: "English",
-        img: require("../../assets/images/auth/us.png")
-      }
-    }
   }),
   methods: {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字

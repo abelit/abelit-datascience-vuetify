@@ -12,17 +12,19 @@
 
 <script>
 import { mapActions,mapState,mapMutations } from 'vuex';
-import { map } from '@amcharts/amcharts4/.internal/core/utils/Array';
+
 export default {
     data() {
         return {
-
         }
     },
     computed: {
-        ...mapState({
-                count: state => state.count
-            }),
+        // ...mapState({
+        //         count: state => state.count
+        //     }),
+        ...mapState([
+            'count'
+        ]),
     },
     methods: {
       

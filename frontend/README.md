@@ -32,3 +32,10 @@ npm run test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### Vue前端开发指南
+#### 1.项目结构说明
+```
+
+```
