@@ -6,6 +6,7 @@
       </template>
       <v-card class="mx-auto" style="max-width: 500px" color="#eaeaeaa1">
         <v-toolbar color="#01074ccf !important" cards dark flat>
+          <v-icon>group_add</v-icon>
           <v-card-title
             class="title font-weight-regular"
             style="margin: 0 auto;"

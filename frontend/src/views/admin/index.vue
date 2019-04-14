@@ -38,11 +38,13 @@
       </v-navigation-drawer>
     </div>
     <add-group></add-group>
+    <top-lock></top-lock>
   </div>
 </template>
 
 <script>
 import AddGroup from "@/components/admin/AddGroup";
+import TopLock from "@/components/lock/TopLock";
 
 export default {
   data() {
@@ -57,7 +59,8 @@ export default {
     };
   },
   components: {
-    AddGroup
+    AddGroup,
+    TopLock
   }
 };
 </script>

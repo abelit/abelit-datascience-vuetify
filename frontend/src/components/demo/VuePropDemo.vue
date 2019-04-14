@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <h1>VuePropDemo 父组件</h1>
-        <vue-prop-demo-a pname="yanghui"></vue-prop-demo-a>
-    </div>
+  <div>
+    <h1>VuePropDemo 父组件</h1>
+    <vue-prop-demo-a :pname="yanghui"></vue-prop-demo-a>
+  </div>
 </template>
 
 
@@ -10,8 +10,13 @@
 import VuePropDemoA from "@/components/demo/VuePropDemoA";
 
 export default {
-    components: {
-        VuePropDemoA
-    }
-}
+  components: {
+    VuePropDemoA
+  },
+  data() {
+    return {
+      yanghui: "hahah"
+    };
+  }
+};
 </script>

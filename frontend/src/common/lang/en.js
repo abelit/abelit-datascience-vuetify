@@ -30,7 +30,8 @@ export const admin = {
   POSITION_CNNAME: "Group Name",
   POSITION_ENNAME: "English Group Name",
   POSITION_DESCRIPTION: "Desciptions for Group",
-  USER_ADD: "Add User"
+  USER_ADD: "Add User",
+  SCREEN_LOCK_PASSWORD_SET: "Set Screen Lock Password"
 };
 
 export const button = {
@@ -57,3 +58,8 @@ export const message = {
   LOGINING: "Logining ...",
   LOADING: "Loading ..."
 };
+
+export const toolbar = {
+  DATA_ANALYSIS: "Data Analysis",
+  DATA_EYE: "Data Eye"
+}

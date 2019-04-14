@@ -30,7 +30,8 @@ export const admin = {
   POSITION_CNNAME: "职位名称",
   POSITION_ENNAME: "职位英文名称",
   POSITION_DESCRIPTION: "关于职位的具体描述",
-  USER_ADD: "添加用户"
+  USER_ADD: "添加用户",
+  SCREEN_LOCK_PASSWORD_SET: "设置锁屏密码"
 };
 
 export const button = {
@@ -57,3 +58,8 @@ export const message = {
   LOGINING: "登录中 ...",
   LOADING: "正在加载 ..."
 };
+
+export const toolbar = {
+  DATA_ANALYSIS: "数据分析",
+  DATA_EYE: "数据视野"
+}

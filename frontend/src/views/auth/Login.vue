@@ -151,7 +151,7 @@ export default {
       routes.push({
         path: "*",
         name: "404",
-        component: () => import("@/views/NotFound")
+        component: () => import("@/views/error/NotFound")
       });
 
       // 把动态路由写入实列路由表

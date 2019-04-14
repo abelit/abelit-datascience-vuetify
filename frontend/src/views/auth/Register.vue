@@ -1,4 +1,5 @@
 <template>
+  <!-- 动画效果 -->
   <transition name="rotate-fall">
     <div class="login-container container-fluid">
       <v-card class="mx-auto" style="max-width: 500px; margin-top:5%;" color="#eaeaeaa1">

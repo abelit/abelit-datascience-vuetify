@@ -72,7 +72,7 @@ Vue.config.productionTip = false;
 
 /* 请求拦截器 */
 axios.interceptors.request.use(
-  function(config) {
+  function (config) {
     // 每次请求时会从localStorage中获取token
     let token = localStorage.getItem("token");
 
@@ -83,7 +83,7 @@ axios.interceptors.request.use(
     }
     return config;
   },
-  function(error) {
+  function (error) {
     return Promise.reject(error);
   }
 );
@@ -107,9 +107,7 @@ axios.interceptors.response.use(
           let rtoken = JSON.parse(localStorage.getItem("token")).refresh_token;
           axios
             .post(
-              "/refresh",
-              {},
-              {
+              "/refresh", {}, {
                 headers: {
                   Authorization: "Bearer " + rtoken
                 }
@@ -168,13 +166,11 @@ router.beforeEach(async (to, from, next) => {
       next();
     }
   } else {
-    router.addRoutes([
-      {
-        path: "*",
-        name: "404",
-        component: () => import("@/views/NotFound")
-      }
-    ]);
+    router.addRoutes([{
+      path: "*",
+      name: "404",
+      component: () => import("@/views/error/NotFound")
+    }]);
   }
 });
 
@@ -192,7 +188,7 @@ function genRoutes(routeList) {
   routes.push({
     path: "*",
     name: "404",
-    component: () => import("@/views/NotFound")
+    component: () => import("@/views/error/NotFound")
   });
 
   // 把动态路由写入实列路由表

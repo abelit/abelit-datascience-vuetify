@@ -21,6 +21,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Login from "./views/auth/Login.vue";
 import Register from "./views/auth/Register.vue";
+import Layout from "@/views/layout/Layout";
 
 // import NotFound from "@/views/NotFound";
 
@@ -33,6 +34,47 @@ const router = new Router({
       path: "/",
       name: "home",
       component: Home
+    },
+    {
+      path: "/layout",
+      name: "layout",
+      component: Layout
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      redirect: "/dashboard/main",
+      component: Layout,
+      children: [{
+          path: "main",
+          component: () => import("@/views/dashboard/MainDash")
+        },
+        {
+          path: "finance",
+          component: () => import("@/views/dashboard/FinanceDash.vue")
+        },
+        {
+          path: "sale",
+          component: () => import("@/views/dashboard/SaleDash.vue")
+        }
+      ]
+    },
+    {
+      path: "/report",
+      name: "report",
+      component: Layout,
+      redirect: "/report/finance",
+      children: [{
+          path: "finance",
+          name: "finance_report",
+          component: () => import("@/views/report/FinanceReport")
+        },
+        {
+          path: "sale",
+          name: "sale_report",
+          component: () => import("@/views/report/SaleReport")
+        }
+      ]
     },
     {
       path: "/about",
@@ -180,6 +222,11 @@ const router = new Router({
       path: "/demo/vuex",
       name: "vuex",
       component: () => import("@/components/demo/VuexDemo")
+    },
+    {
+      path: "/demo/vuetifygrid",
+      name: "vuetifygrid",
+      component: () => import("@/components/demo/VuetifyGridDemo")
     }
   ]
 });
