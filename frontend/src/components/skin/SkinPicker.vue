@@ -1,16 +1,21 @@
 <template>
-  <v-menu offset-y max-width="200" nudge-bottom="20" return-value="hello" @command="getSkin">
+  <v-menu offset-y max-width="200" nudge-bottom="20" return-value="hello">
     <template v-slot:activator="{ on }">
       <v-btn dark v-on="on" icon>
         <v-icon>camera</v-icon>
       </v-btn>
     </template>
     <v-list color="primary">
-      <v-list-tile v-for="(item, index) in items" :key="index" :command="item.name">
+      <v-list-tile
+        v-for="(item, index) in items"
+        :key="index"
+        :data-id="item.title"
+        @click="getSkin(dataId)"
+      >
         <v-card :class="item.class" class="mr-3">
-          <v-card-text></v-card-text>
+          <v-card-text :data-id="item.title" @click="getSkin(dataId)"></v-card-text>
         </v-card>
-        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        <v-list-tile-title :data-id="item.title" @click="getSkin(dataId)">{{ item.title }}</v-list-tile-title>
       </v-list-tile>
     </v-list>
   </v-menu>
@@ -36,8 +41,12 @@ export default {
     console.log("hi");
   },
   methods: {
-    getSkin(command) {
-      console.log(command);
+    getSkin(e) {
+      console.log("hello");
+      var target = event.target;
+      var dataid = e;
+      console.log(target);
+      console.log(target.getAttribute("data-id"));
     }
   }
 };
