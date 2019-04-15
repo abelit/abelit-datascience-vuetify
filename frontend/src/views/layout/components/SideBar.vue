@@ -1,24 +1,29 @@
 <template>
-  <v-layout wrap >
-    <v-navigation-drawer v-model="drawer" :mini-variant="mini" dark app >
-      <v-list class="pa-1 primary">
-        <v-list-tile avatar tag="div" >
+  <v-layout wrap>
+    <v-navigation-drawer
+      v-model="drawer"
+      :mini-variant="mini"
+      dark
+      app
+      class="deep-purple lighten-1"
+    >
+      <v-list class="pa-1 deep-purple lighten-1 darken-3">
+        <v-list-tile avatar tag="div">
           <v-list-tile-avatar>
-            <img src="../../../static/logo.png">
+            <img src="../../../../static/logo.png">
           </v-list-tile-avatar>
 
           <v-list-tile-content>
             <v-list-tile-title class="font-weight-bold text-uppercase">Data Visualiztion</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        
       </v-list>
 
       <v-list class="pt-0" dense>
-        <v-divider class="primary my-0"></v-divider>
+        <v-divider class="my-0"></v-divider>
         <v-list-group value="true" prepend-icon="dashboard" v-if="!mini">
           <template v-slot:activator>
-            <v-list-tile @click>
+            <v-list-tile @click.stop>
               <v-list-tile-content>
                 <v-list-tile-title>Dashboard</v-list-tile-title>
               </v-list-tile-content>
@@ -28,7 +33,7 @@
             class="pl-5"
             v-for="dash in dashboards"
             :key="dash.title"
-            @click
+            @click.stop
             router
             :to="dash.path"
           >
@@ -42,15 +47,15 @@
           <v-list-tile-action>
             <v-menu offset-x dark min-width="200">
               <template v-slot:activator="{ on }">
-                <v-btn color="primary" flat dark v-on="on">
+                <v-btn flat dark v-on="on">
                   <v-icon>dashboard</v-icon>
                 </v-btn>
               </template>
-              <v-list>
+              <v-list class="deep-purple lighten-1">
                 <v-list-tile
                   v-for="(item, index) in dashboards"
                   :key="index"
-                  @click
+                  @click.stop
                   router
                   :to="item.path"
                 >
@@ -76,7 +81,6 @@
             class="pl-5"
             v-for="dash in reports"
             :key="dash.title"
-        
             router
             :to="dash.path"
           >
@@ -91,15 +95,15 @@
           <v-list-tile-action>
             <v-menu offset-x dark min-width="200">
               <template v-slot:activator="{ on }">
-                <v-btn color="primary" flat dark v-on="on">
+                <v-btn flat dark v-on="on">
                   <v-icon>assessment</v-icon>
                 </v-btn>
               </template>
-              <v-list>
+              <v-list class="deep-purple lighten-1">
                 <v-list-tile
                   v-for="(item, index) in reports"
                   :key="index"
-                  @click
+                  @click.stop
                   router
                   :to="item.path"
                 >
@@ -112,7 +116,6 @@
             </v-menu>
           </v-list-tile-action>
         </v-list-tile>
-
       </v-list>
     </v-navigation-drawer>
   </v-layout>
@@ -124,7 +127,7 @@ export default {
   props: ["mini", "drawer"],
   data() {
     return {
-      drawer: true,
+      // drawer: true,
       items: [
         { title: "Dashboard", icon: "dashboard", path: "/dashboard" },
         { title: "Report", icon: "assessment", path: "/report" }

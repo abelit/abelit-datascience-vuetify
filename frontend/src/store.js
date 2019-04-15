@@ -25,6 +25,10 @@ const mutations = {
   SET_LANGUAGE: (state, language) => {
     state.language = language;
     localStorage.setItem("language", language);
+  },
+  SET_SKIN: (state, skin) => {
+    state.skin = skin;
+    localStorage.setItem("skin", skin);
   }
 };
 const actions = {
@@ -43,6 +47,9 @@ const actions = {
   },
   delToken({ commit }) {
     commit("DEL_TOKEN");
+  },
+  setSkin({ commit }, skin) {
+    commit("SET_SKIN", skin);
   }
 };
 
