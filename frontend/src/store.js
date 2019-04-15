@@ -12,12 +12,12 @@ const mutations = {
   increment: state => state.count++,
   decrement: state => state.count--,
 
-  setToken(state, token) {
+  SET_TOKEN(state, token) {
     state.token = token;
     // localStorage.token = JSON.stringify(token)
     localStorage.setItem("token", JSON.stringify(token));
   },
-  delToken(state) {
+  DEL_TOKEN(state) {
     state.token = "";
     localStorage.removeItem("token");
   },
@@ -37,6 +37,12 @@ const actions = {
   },
   setLanguage({ commit }, language) {
     commit("SET_LANGUAGE", language);
+  },
+  setToken({ commit }, token) {
+    commit("SET_TOKEN", token);
+  },
+  delToken({ commit }) {
+    commit("DEL_TOKEN");
   }
 };
 

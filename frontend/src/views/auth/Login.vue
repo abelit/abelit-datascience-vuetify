@@ -108,8 +108,8 @@ export default {
               this.isActive = true;
               setTimeout(() => {
                 this.message = "";
-                // 存储token信息
-                this.$store.commit("setToken", res.data);
+                // 异步调用store中action下setToken方法存储token信息
+                this.$store.dispatch("setToken", res.data);
                 // 生成动态路由
                 this.genRoutes();
                 // 跳转上一请求页面或主页

@@ -173,6 +173,7 @@ export default {
         wrap: false,
         callback: this.fullscreenChange
       });
+      console.log("fullscrenn o ooo");
     },
     fullscreenChange(fullscreen) {
       this.fullscreen = fullscreen;

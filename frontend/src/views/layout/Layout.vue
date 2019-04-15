@@ -1,7 +1,7 @@
 <template>
-  <div class="example">
+  <div class="pl-4">
     <side-bar :drawer="drawer" :mini="mini"></side-bar>
-    <nav-bar :drawer="drawer" @updateSidebarStatus="getSidebarStatus($event)"></nav-bar>
+    <nav-bar :drawer="drawer" @updateSidebarToggle="getSidebarToggleStatus($event)" @updateSidebarOpen="getSidebarOpenStatus($event)"></nav-bar>
     <app-main></app-main>
   </div>
 </template>
@@ -23,8 +23,11 @@ export default {
     mini: false
   }),
   methods: {
-    getSidebarStatus: function(getSidebarStatus) {
-      this.mini = getSidebarStatus;
+    getSidebarToggleStatus: function(getSidebarToggleStatus) {
+      this.mini = getSidebarToggleStatus;
+    },
+    getSidebarOpenStatus: function(getSidebarOpenStatus) {
+      this.drawer = getSidebarOpenStatus;
     }
   }
 };

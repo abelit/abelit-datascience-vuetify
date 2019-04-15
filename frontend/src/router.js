@@ -227,6 +227,10 @@ const router = new Router({
       path: "/demo/vuetifygrid",
       name: "vuetifygrid",
       component: () => import("@/components/demo/VuetifyGridDemo")
+    },
+    {
+      path: "/demo/fullscreen",
+      component: () => import("@/components/demo/FullscreenDemo")
     }
   ]
 });

@@ -49,7 +49,7 @@ export default {
       // 设置验证语言信息
       this.$validator.locale = lang;
 
-      // 保存语言信息
+      // 通过异步方式调用store中setLanguage方法，保存语言信息
       this.$store.dispatch("setLanguage", lang);
 
       console.log(this.language);

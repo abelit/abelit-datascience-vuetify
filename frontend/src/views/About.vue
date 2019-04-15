@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit("delToken");
+      this.$store.dispatch("delToken");
       this.$router.push("/user/login");
       localStorage.removeItem("routeList");
     },

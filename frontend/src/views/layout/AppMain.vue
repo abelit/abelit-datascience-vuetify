@@ -2,7 +2,9 @@
   <section class="app-main">
     <transition name="fade" mode="out-in">
       <keep-alive :include="cachedViews">
-        <router-view :key="key"></router-view>
+        <v-content id="content">
+          <router-view :key="key"></router-view>
+        </v-content>
       </keep-alive>
     </transition>
   </section>
