@@ -48,7 +48,7 @@
 
 <script>
 export default {
-  name: "dfTopLock",
+  name: "TopLock",
   data: () => ({
     dialog: false,
     passwordDisplay: false,

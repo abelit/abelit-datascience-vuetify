@@ -16,7 +16,6 @@ import NavBar from "@/views/layout/components/NavBar";
 import SideBar from "@/views/layout/components/SideBar";
 
 export default {
-  name: "Layout",
   components: {
     NavBar,
     AppMain,

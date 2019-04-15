@@ -6,7 +6,8 @@ Vue.use(Vuex);
 const state = {
   count: 0,
   token: localStorage.getItem("token") || "",
-  language: localStorage.getItem("language") || "zh_CN"
+  language: localStorage.getItem("language") || "zh_CN",
+  skin: localStorage.getItem("skin") || ""
 };
 const mutations = {
   increment: state => state.count++,
@@ -28,7 +29,7 @@ const mutations = {
   },
   SET_SKIN: (state, skin) => {
     state.skin = skin;
-    localStorage.setItem("skin", skin);
+    localStorage.setItem("skin", JSON.stringify(skin));
   }
 };
 const actions = {
@@ -36,27 +37,42 @@ const actions = {
     ctx.commit("increment");
   },
   // 使用ES2015语法简化代码
-  adecrement({ commit }) {
+  adecrement({
+    commit
+  }) {
     commit("decrement");
   },
-  setLanguage({ commit }, language) {
+  setLanguage({
+    commit
+  }, language) {
     commit("SET_LANGUAGE", language);
   },
-  setToken({ commit }, token) {
+  setToken({
+    commit
+  }, token) {
     commit("SET_TOKEN", token);
   },
-  delToken({ commit }) {
+  delToken({
+    commit
+  }) {
     commit("DEL_TOKEN");
   },
-  setSkin({ commit }, skin) {
+  setSkin({
+    commit
+  }, skin) {
     commit("SET_SKIN", skin);
   }
 };
 
-// const getters = {}
+const getters = {
+  skin: state => {
+    return state.skin;
+  }
+}
 
 export default new Vuex.Store({
   state,
   mutations,
-  actions
+  actions,
+  getters
 });
