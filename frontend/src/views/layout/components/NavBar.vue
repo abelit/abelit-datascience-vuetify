@@ -2,16 +2,17 @@
   <nav>
     <v-toolbar flat app class="indigo" dark>
       <v-toolbar-side-icon v-if="!isSidebarToggle" @click="updateSidebarToggle"></v-toolbar-side-icon>
-      <v-toolbar-side-icon v-else @click="updateSidebarToggle">
-        <v-icon>view_column</v-icon>
-      </v-toolbar-side-icon>
+      <v-toolbar-side-icon v-else @click="updateSidebarToggle" style="transform: rotate(90deg)"></v-toolbar-side-icon>
 
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>contact_support</v-icon>
       </v-btn>
-      <v-btn icon @click="updateSidebarOpen">
+      <v-btn icon @click="updateSidebarOpen" v-if="isSidebarOpen">
         <v-icon>fullscreen</v-icon>
+      </v-btn>
+      <v-btn icon @click="updateSidebarOpen" v-else>
+        <v-icon>fullscreen_exit</v-icon>
       </v-btn>
       <df-top-lock></df-top-lock>
       <df-skin-picker></df-skin-picker>
@@ -27,11 +28,6 @@
 import dfTopLock from "@/components/lock/TopLock";
 import dfSkinPicker from "@/components/skin/SkinPicker";
 
-import fullscreen from "vue-fullscreen";
-
-import Vue from "vue";
-Vue.use(fullscreen);
-
 export default {
   components: {
     dfTopLock,
@@ -40,25 +36,15 @@ export default {
   data: () => ({
     isSidebarOpen: true,
     isSidebarToggle: false,
-    fullscreen: false
   }),
   methods: {
     updateSidebarOpen() {
       this.isSidebarOpen = !this.isSidebarOpen;
       this.$emit("updateSidebarOpen", this.isSidebarOpen);
-      this.toggle();
-      console.log("fullscrenn o ooo");
     },
     updateSidebarToggle() {
       this.isSidebarToggle = !this.isSidebarToggle;
       this.$emit("updateSidebarToggle", this.isSidebarToggle);
-    },
-    toggle() {
-      console.log("before full scrren oooo");
-      this.$fullscreen.toggle(this.$el.querySelector(".content"), {
-        wrap: false,
-        callback: (this.fullscreen = !this.fullscreen)
-      });
     }
   }
 };

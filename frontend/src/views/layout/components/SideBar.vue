@@ -17,7 +17,7 @@
         <v-divider class="my-0"></v-divider>
         <v-list-group value="true" prepend-icon="dashboard" v-if="!mini">
           <template v-slot:activator>
-            <v-list-tile @click.stop>
+            <v-list-tile @click>
               <v-list-tile-content>
                 <v-list-tile-title>Dashboard</v-list-tile-title>
               </v-list-tile-content>
@@ -27,7 +27,7 @@
             class="pl-5"
             v-for="dash in dashboards"
             :key="dash.title"
-            @click.stop
+            @click
             router
             :to="dash.path"
           >
@@ -49,7 +49,7 @@
                 <v-list-tile
                   v-for="(item, index) in dashboards"
                   :key="index"
-                  @click.stop
+                  @click
                   router
                   :to="item.path"
                   avatar
@@ -98,7 +98,7 @@
                 <v-list-tile
                   v-for="(item, index) in reports"
                   :key="index"
-                  @click.stop
+                  @click
                   router
                   :to="item.path"
                   avatar

@@ -33,7 +33,7 @@ export default {
   }),
   methods: {
     getSkin(value) {
-      this.$store.commit("SET_SKIN", value);
+      this.$store.dispatch("setSkin", value);
       console.log(this.$store.getters.skin.class);
     }
   }
