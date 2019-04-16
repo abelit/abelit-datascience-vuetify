@@ -1,6 +1,6 @@
 <template class="pl-0">
   <nav>
-    <v-toolbar flat app class="grey darken-3" dark v-if="device !== 'small'"  >
+    <v-toolbar flat app class="grey darken-3" dark v-if="!isMobile">
       <v-toolbar-side-icon v-if="!mini" @click="updateSidebarToggle"></v-toolbar-side-icon>
       <v-toolbar-side-icon v-else @click="updateSidebarToggle" style="transform: rotate(90deg)"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
@@ -19,7 +19,7 @@
         <v-icon>account_circle</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-toolbar flat app class="grey  darken-3" dark v-else>
+    <v-toolbar flat app class="grey darken-3" dark v-else>
       <v-toolbar-side-icon @click="updateSidebarOpen"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
       <v-btn icon>
@@ -46,7 +46,7 @@ import dfTopLock from "@/components/lock/TopLock";
 import dfSkinPicker from "@/components/skin/SkinPicker";
 
 export default {
-  props: ["device"],
+  props: ["isMobile"],
   components: {
     dfTopLock,
     dfSkinPicker
@@ -60,7 +60,7 @@ export default {
     updateSidebarOpen() {
       this.drawer = !this.drawer;
       this.mini = true;
-      this.$emit("updateSidebarOpenA", {
+      this.$emit("updateSidebarOpen", {
         drawer: this.drawer,
         mini: this.mini
       });

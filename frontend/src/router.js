@@ -235,6 +235,10 @@ const router = new Router({
     {
       path: "/demo/allpage",
       component: () => import("@/components/demo/AllPageDemo")
+    },
+    {
+      path: "/demo/pagelayout",
+      component: () => import("@/components/demo/PageLayoutDemo")
     }
   ]
 });

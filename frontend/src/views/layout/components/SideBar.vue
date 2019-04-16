@@ -9,6 +9,7 @@
       :class="color_sidebar"
       stateless
       value="true"
+      v-resize="onResize"
     >
       <v-list class="pa-1 darken-3" :class="color_sidebar">
         <v-list-tile avatar tag="div">
@@ -24,7 +25,7 @@
 
       <v-list class="pt-0" :class="color_sidebar" dense>
         <v-divider class="my-0"></v-divider>
-        <v-list-group prepend-icon="dashboard" v-if="!mini"  class="pt-1">
+        <v-list-group prepend-icon="dashboard" v-if="!mini" class="pt-1">
           <template v-slot:activator>
             <v-list-tile @click>
               <v-list-tile-content>
@@ -63,7 +64,7 @@
                   :to="item.path"
                   avatar
                 >
-                  <v-list-tile-action-avatar class="mr-1" >
+                  <v-list-tile-action-avatar class="mr-1">
                     <v-icon>{{item.icon}}</v-icon>
                   </v-list-tile-action-avatar>
                   <v-list-tile-title>{{ item.title }}</v-list-tile-title>
@@ -73,7 +74,7 @@
           </v-list-tile-action>
         </v-list-tile>
 
-        <v-list-group  prepend-icon="assessment" v-if="!mini" class="pt-3">
+        <v-list-group prepend-icon="assessment" v-if="!mini" class="pt-3">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-content>
@@ -115,7 +116,7 @@
                   <v-list-tile-action-avatar class="mr-1">
                     <v-icon>{{item.icon}}</v-icon>
                   </v-list-tile-action-avatar>
-                  <v-list-tile-title >{{ item.title }}</v-list-tile-title>
+                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -138,7 +139,7 @@
             :to="dash.path"
           >
             <v-list-tile-action>
-                <v-icon v-text="dash.icon"></v-icon>
+              <v-icon v-text="dash.icon"></v-icon>
             </v-list-tile-action>
             <v-list-tile-title v-text="dash.title" class="body-2 font-weight-bold"></v-list-tile-title>
           </v-list-tile>
@@ -164,7 +165,7 @@
                   <v-list-tile-action-avatar class="mr-1">
                     <v-icon>{{item.icon}}</v-icon>
                   </v-list-tile-action-avatar>
-                  <v-list-tile-title >{{ item.title }}</v-list-tile-title>
+                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -179,7 +180,7 @@
 <script>
 export default {
   name: "SideBar",
-  props: ["mini", "drawer"],
+  props: ["mini", "drawer", "onResize"],
   data() {
     return {
       // drawer: true,
