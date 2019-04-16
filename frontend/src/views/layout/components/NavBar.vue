@@ -1,23 +1,40 @@
 <template class="pl-0">
   <nav>
-    <v-toolbar flat app class="indigo" dark>
-      <v-toolbar-side-icon v-if="!isSidebarToggle" @click="updateSidebarToggle"></v-toolbar-side-icon>
+    <v-toolbar flat app class="grey darken-3" dark v-if="device !== 'small'"  >
+      <v-toolbar-side-icon v-if="!mini" @click="updateSidebarToggle"></v-toolbar-side-icon>
       <v-toolbar-side-icon v-else @click="updateSidebarToggle" style="transform: rotate(90deg)"></v-toolbar-side-icon>
-
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>contact_support</v-icon>
       </v-btn>
-      <v-btn icon @click="updateSidebarOpen" v-if="isSidebarOpen">
+      <v-btn icon v-if="!isFullSceen">
         <v-icon>fullscreen</v-icon>
       </v-btn>
-      <v-btn icon @click="updateSidebarOpen" v-else>
+      <v-btn icon v-else>
+        <v-icon>fullscreen_exit</v-icon>
+      </v-btn>
+      <df-top-lock></df-top-lock>
+      <df-skin-picker></df-skin-picker>
+      <v-btn icon class="indigo">
+        <v-icon>account_circle</v-icon>
+      </v-btn>
+    </v-toolbar>
+    <v-toolbar flat app class="grey  darken-3" dark v-else>
+      <v-toolbar-side-icon @click="updateSidebarOpen"></v-toolbar-side-icon>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>contact_support</v-icon>
+      </v-btn>
+      <v-btn icon v-if="!isFullSceen">
+        <v-icon>fullscreen</v-icon>
+      </v-btn>
+      <v-btn icon v-else>
         <v-icon>fullscreen_exit</v-icon>
       </v-btn>
       <df-top-lock></df-top-lock>
       <df-skin-picker></df-skin-picker>
       <v-btn icon>
-        <v-icon>account_box</v-icon>
+        <v-icon>account_circle</v-icon>
       </v-btn>
     </v-toolbar>
   </nav>
@@ -29,22 +46,28 @@ import dfTopLock from "@/components/lock/TopLock";
 import dfSkinPicker from "@/components/skin/SkinPicker";
 
 export default {
+  props: ["device"],
   components: {
     dfTopLock,
     dfSkinPicker
   },
   data: () => ({
-    isSidebarOpen: true,
-    isSidebarToggle: false,
+    drawer: true,
+    mini: false,
+    isFullSceen: false
   }),
   methods: {
     updateSidebarOpen() {
-      this.isSidebarOpen = !this.isSidebarOpen;
-      this.$emit("updateSidebarOpen", this.isSidebarOpen);
+      this.drawer = !this.drawer;
+      this.mini = true;
+      this.$emit("updateSidebarOpenA", {
+        drawer: this.drawer,
+        mini: this.mini
+      });
     },
     updateSidebarToggle() {
-      this.isSidebarToggle = !this.isSidebarToggle;
-      this.$emit("updateSidebarToggle", this.isSidebarToggle);
+      this.mini = !this.mini;
+      this.$emit("updateSidebarToggle", this.mini);
     }
   }
 };

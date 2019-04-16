@@ -231,6 +231,10 @@ const router = new Router({
     {
       path: "/demo/fullscreen",
       component: () => import("@/components/demo/FullscreenDemo")
+    },
+    {
+      path: "/demo/allpage",
+      component: () => import("@/components/demo/AllPageDemo")
     }
   ]
 });

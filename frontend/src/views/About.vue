@@ -51,7 +51,9 @@ export default {
       let token = JSON.parse(localStorage.getItem("token")).access_token;
 
       this.$axios
-        .get("/auth/protected", { headers: { Authorization: "Bearer " + token } })
+        .get("/auth/protected", {
+          headers: { Authorization: "Bearer " + token }
+        })
         .then(res => {
           // 通过token获取用户名称
           console.log(res);
@@ -73,10 +75,11 @@ export default {
         .catch(error => {
           console.log(error);
         });
-    },
+    }
   },
   mounted() {
-    this.getMenu();  }
+    this.getMenu();
+  }
 };
 </script>
 

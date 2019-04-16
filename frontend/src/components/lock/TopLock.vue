@@ -5,7 +5,7 @@
           <v-icon>lock</v-icon>
         </v-btn>
       </template>
-      <v-flex xs-12 md-4 sm-6>
+      <v-flex xs-12 sm-6 md-4>
         <v-toolbar color="indigo" dark>
           <v-toolbar-title>{{ $t("admin.SCREEN_LOCK_PASSWORD_SET") }}</v-toolbar-title>
           <v-spacer></v-spacer>
