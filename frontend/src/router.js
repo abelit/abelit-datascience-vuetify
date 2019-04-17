@@ -239,6 +239,10 @@ const router = new Router({
     {
       path: "/demo/pagelayout",
       component: () => import("@/components/demo/PageLayoutDemo")
+    },
+    {
+      path: "/demo/navdemo",
+      component: () => import("@/components/demo/NavDemo")
     }
   ]
 });
