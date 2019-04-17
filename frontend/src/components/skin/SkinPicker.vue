@@ -24,7 +24,7 @@ export default {
     items: [
       { title: "Black", color: "#000000", class: "black" },
       { title: "Grey", color: "#9E9E9E", class: "grey" },
-      { title: "Grey Darken", color: "#424242", class: "grey darken-3"},
+      { title: "Grey Darken", color: "#424242", class: "grey darken-3" },
       { title: "Indigo", color: "#3F51B5", class: "indigo" },
       { title: "Light Blue", clolor: "#03A9F4", class: "light-blue" },
       { title: "Teal", color: "#009688", class: "teal" },

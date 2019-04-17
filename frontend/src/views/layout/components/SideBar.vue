@@ -49,12 +49,20 @@
           </v-list-group>
           <v-list-tile v-else>
             <v-list-tile-action>
-              <v-menu offset-x dark min-width="200">
+              <v-menu offset-x dark min-width="200" nudge-left="15">
                 <template v-slot:activator="{ on }">
-                  <v-btn flat dark v-on="on" right>
-                    <v-icon>dashboard</v-icon>
-                  </v-btn>
+                  <div v-on="on">
+                    <v-tooltip right nudge-left="10">
+                      <template v-slot:activator="{ on }">
+                        <v-btn flat dark v-on="on" right>
+                          <v-icon>dashboard</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>Dashboard</span>
+                    </v-tooltip>
+                  </div>
                 </template>
+
                 <v-list class>
                   <v-list-tile
                     v-for="(item, index) in dashboards"
@@ -159,15 +167,15 @@ export default {
       // mini: false,
       // right: null
       color_sidebar: "",
-      image:
-        "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
+      image: "",
+      // "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
       logo: "./static/logo.png",
       value: false
     };
   },
   mounted() {
-    // this.color_sidebar = JSON.parse(this.$store.getters.skin).class;
-    this.color_sidebar = "";
+    this.color_sidebar = JSON.parse(this.$store.getters.skin).class;
+    // this.color_sidebar = "";
   }
   // watch: {
   //   color_sidebar: () => {

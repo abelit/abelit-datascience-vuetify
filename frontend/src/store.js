@@ -7,7 +7,8 @@ const state = {
   count: 0,
   token: localStorage.getItem("token") || "",
   language: localStorage.getItem("language") || "zh_CN",
-  skin: localStorage.getItem("skin") || ""
+  skin: localStorage.getItem("skin") || "",
+  color: "success"
 };
 const mutations = {
   increment: state => state.count++,

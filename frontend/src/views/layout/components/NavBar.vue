@@ -15,6 +15,7 @@
       </v-btn>
       <df-top-lock></df-top-lock>
       <df-skin-picker></df-skin-picker>
+      <df-select-skin></df-select-skin>
       <v-btn icon class="indigo">
         <v-icon>account_circle</v-icon>
       </v-btn>
@@ -33,6 +34,7 @@
       </v-btn>
       <df-top-lock></df-top-lock>
       <df-skin-picker></df-skin-picker>
+      <df-select-skin></df-select-skin>
       <v-btn icon>
         <v-icon>account_circle</v-icon>
       </v-btn>
@@ -44,12 +46,14 @@
 <script>
 import dfTopLock from "@/components/lock/TopLock";
 import dfSkinPicker from "@/components/skin/SkinPicker";
+import dfSelectSkin from "@/components/skin/SelectSkin";
 
 export default {
   props: ["isMobile"],
   components: {
     dfTopLock,
-    dfSkinPicker
+    dfSkinPicker,
+    dfSelectSkin
   },
   data: () => ({
     drawer: true,
