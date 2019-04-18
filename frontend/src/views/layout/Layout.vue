@@ -1,7 +1,13 @@
 <template>
   <div class="pl-4" v-resize="onResize">
     <side-bar :drawer="drawer" :isSmallScreen="isSmallScreen" :mini="mini"></side-bar>
-    <nav-bar :drawer="drawer" :isSmallScreen="isSmallScreen" :mini="mini" @click.stop.toggleSidebar="getToggleStatus($event)" @click.stop:miniSidebar.stop="getOpenStatus($event)"></nav-bar>
+    <nav-bar
+      :drawer="drawer"
+      :isSmallScreen="isSmallScreen"
+      :mini="mini"
+      @toggleSidebar="getToggleStatus($event)"
+      @miniSidebar="getOpenStatus($event)"
+    ></nav-bar>
     <app-main></app-main>
     <df-footer></df-footer>
   </div>
@@ -47,15 +53,13 @@ export default {
         this.mini = false;
         this.drawer = true;
       }
-      console.log("layout "+window.innerWidth);
+      console.log("layout " + window.innerWidth);
       console.log("layout isSmallScreen: " + this.isSmallScreen);
-      
     }
   },
   mounted() {
     console.log("layout mount");
     // this.onResize();
-    
   }
 };
 </script>

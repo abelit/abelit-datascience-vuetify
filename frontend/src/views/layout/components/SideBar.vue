@@ -1,5 +1,5 @@
 <template>
-  <v-layout wrap >
+  <v-layout wrap>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="mini"
@@ -40,6 +40,7 @@
               @click
               router
               :to="dash.path"
+              :active-class="color"
             >
               <v-list-tile-action>
                 <v-icon v-text="dash.icon"></v-icon>
@@ -137,9 +138,11 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+
 export default {
   name: "SideBar",
-  props: ["isSmallScreen", "drawer","mini"],
+  props: ["isSmallScreen", "drawer", "mini"],
   data() {
     return {
       // drawer: true,
@@ -167,20 +170,20 @@ export default {
       // mini: false,
       // right: null
       sidebarColor: "",
-      image: "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
+      image:
+        "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
       logo: "./static/logo.png",
-      value: false,
+      value: false
     };
-  },  
-  methods: {
   },
+  methods: {},
   mounted() {
     // this.sidebarColor = JSON.parse(this.$store.getters.skin).class;
     console.log("side bar mini: " + this.mini);
     console.log("side bar drawer " + this.drawer);
   },
   computed: {
-  
+    ...mapState(["color"])
   }
 };
 </script>
