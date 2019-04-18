@@ -243,6 +243,10 @@ const router = new Router({
     {
       path: "/demo/navdemo",
       component: () => import("@/components/demo/NavDemo")
+    },
+    {
+      path: "/demo/winsize",
+      component: () => import("@/components/demo/WindowResizeDemo")
     }
   ]
 });

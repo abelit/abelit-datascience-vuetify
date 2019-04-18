@@ -1,16 +1,16 @@
 <template>
-  <v-layout wrap>
+  <v-layout wrap >
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="mini"
       dark
       app
-      :class="color_sidebar"
+      :class="sidebarColor"
       stateless
     >
       <v-img :src="image" height="100%">
         <v-toolbar flat class="transparent">
-          <v-list class="pa-1 darken-3" :class="color_sidebar">
+          <v-list class="pa-1 darken-3" :class="sidebarColor">
             <v-list-tile avatar tag="div">
               <v-list-tile-avatar>
                 <img :src="logo">
@@ -23,7 +23,7 @@
           </v-list>
         </v-toolbar>
 
-        <v-list class="pt-0" :class="color_sidebar" dense>
+        <v-list class="pt-0" :class="sidebarColor" dense>
           <v-divider class="my-0"></v-divider>
           <v-list-group prepend-icon="dashboard" v-if="!mini">
             <template v-slot:activator>
@@ -72,9 +72,9 @@
                     :to="item.path"
                     avatar
                   >
-                    <v-list-tile-action-avatar class="mr-1" :class="color_sidebar">
+                    <v-list-tile-action class="mr-1" :class="sidebarColor">
                       <v-icon>{{item.icon}}</v-icon>
-                    </v-list-tile-action-avatar>
+                    </v-list-tile-action>
                     <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                   </v-list-tile>
                 </v-list>
@@ -121,9 +121,9 @@
                     :to="item.path"
                     avatar
                   >
-                    <v-list-tile-action-avatar class="mr-1" :class="color_sidebar">
+                    <v-list-tile-action class="mr-1" :class="sidebarColor">
                       <v-icon>{{item.icon}}</v-icon>
-                    </v-list-tile-action-avatar>
+                    </v-list-tile-action>
                     <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                   </v-list-tile>
                 </v-list>
@@ -139,7 +139,7 @@
 <script>
 export default {
   name: "SideBar",
-  props: ["mini", "drawer", "onResize"],
+  props: ["isSmallScreen", "drawer","mini"],
   data() {
     return {
       // drawer: true,
@@ -166,21 +166,21 @@ export default {
       ],
       // mini: false,
       // right: null
-      color_sidebar: "",
-      image: "",
-      // "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
+      sidebarColor: "",
+      image: "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
       logo: "./static/logo.png",
-      value: false
+      value: false,
     };
+  },  
+  methods: {
   },
   mounted() {
-    this.color_sidebar = JSON.parse(this.$store.getters.skin).class;
-    // this.color_sidebar = "";
+    // this.sidebarColor = JSON.parse(this.$store.getters.skin).class;
+    console.log("side bar mini: " + this.mini);
+    console.log("side bar drawer " + this.drawer);
+  },
+  computed: {
+  
   }
-  // watch: {
-  //   color_sidebar: () => {
-  //     this.color_sidebar = JSON.parse(this.$store.getters.skin).class;
-  //   }
-  // }
 };
 </script>

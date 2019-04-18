@@ -1,11 +1,7 @@
 <template>
-  <div class="pl-4">
-    <side-bar :drawer="drawer" :mini="mini" :onResize="onResize"></side-bar>
-    <nav-bar
-      :isMobile="isMobile"
-      @updateSidebarToggle="getSidebarToggleStatus($event)"
-      @updateSidebarOpen="getSidebarOpenStatus($event)"
-    ></nav-bar>
+  <div class="pl-4" v-resize="onResize">
+    <side-bar :drawer="drawer" :isSmallScreen="isSmallScreen" :mini="mini"></side-bar>
+    <nav-bar :drawer="drawer" :isSmallScreen="isSmallScreen" :mini="mini" @click.stop.toggleSidebar="getToggleStatus($event)" @click.stop:miniSidebar.stop="getOpenStatus($event)"></nav-bar>
     <app-main></app-main>
     <df-footer></df-footer>
   </div>
@@ -25,40 +21,41 @@ export default {
     dfFooter
   },
   data: () => ({
-    drawer: true,
+    drawer: false,
     mini: false,
-    isMobile: undefined
+    responseSize: 991,
+    isSmallScreen: false
   }),
   methods: {
-    getSidebarToggleStatus: function(event) {
-      this.mini = event;
-    },
-    getSidebarOpenStatus: function(event) {
+    getToggleStatus: function(event) {
       this.drawer = event.drawer;
       this.mini = event.mini;
+      console.log("layout gettogglestatus");
     },
-    // getMini() {
-    //   if (window.innerWidth <= 991) {
-    //     this.isMobile = "small";
-    //     this.mini = true;
-    //   } else {
-    //     this.mini = false;
-    //   }
-    // },
+    getOpenStatus: function(event) {
+      this.drawer = event.drawer;
+      this.mini = event.mini;
+      console.log("layout getopenstatus");
+    },
     onResize() {
-      this.isMobile = window.innerWidth < 600;
+      if (window.innerWidth < this.responseSize) {
+        this.isSmallScreen = true;
+        this.mini = false;
+        this.drawer = false;
+      } else {
+        this.isSmallScreen = false;
+        this.mini = false;
+        this.drawer = true;
+      }
+      console.log("layout "+window.innerWidth);
+      console.log("layout isSmallScreen: " + this.isSmallScreen);
+      
     }
   },
   mounted() {
-    // this.getMini();
-
-    this.onResize();
-    window.addEventListener("resize", this.onResize, { passive: true });
-  },
-  beforeDestroy() {
-    if (typeof window !== "undefined") {
-      window.removeEventListener("resize", this.onResize, { passive: true });
-    }
+    console.log("layout mount");
+    // this.onResize();
+    
   }
 };
 </script>
