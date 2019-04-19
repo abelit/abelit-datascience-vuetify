@@ -170,8 +170,7 @@ export default {
       // mini: false,
       // right: null
       sidebarColor: "",
-      image:
-        "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
+      iamge: "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
       logo: "./static/logo.png",
       value: false
     };
@@ -181,9 +180,11 @@ export default {
     // this.sidebarColor = JSON.parse(this.$store.getters.skin).class;
     console.log("side bar mini: " + this.mini);
     console.log("side bar drawer " + this.drawer);
+    console.log(this.image)
   },
   computed: {
-    ...mapState(["color"])
+    ...mapState(["color", "image"])
+    
   }
 };
 </script>

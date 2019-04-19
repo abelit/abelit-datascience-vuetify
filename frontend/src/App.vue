@@ -18,7 +18,7 @@ export default {
 
 
 <style>
-.app-router-view {
+/* .app-router-view {
   position: absolute;
   top: 0;
   left: 0;
@@ -29,16 +29,5 @@ export default {
   transform: translate3d(0, 0, 0);
   transform-style: preserve-3d;
   visibility: visible;
-}
-</style>
-
-
-<style lang="scss">
-// @import "@/styles/index.scss";
-
-// /* Remove in 1.2 */
-// .v-datatable thead th.column.sortable i {
-//   vertical-align: unset;
-// }
-//
+} */
 </style>

@@ -22,9 +22,11 @@
               <v-avatar
                 v-for="c in colors"
                 :key="c"
-                :class="[c === color ? 'color-active ' + c + ' color-'+c: c]"
+      
+                class="color-active  deep-purple"
+    
                 size="23"
-                @click="setColor(c)"
+                @click="setSidebarColor(c)"
               />
             </v-layout>
             <v-divider class="mt-3"/>
@@ -37,39 +39,8 @@
               :class="[image === img ? 'image-active' : '']"
               :src="img"
               height="120"
-              @click.native="setImage(img)"
+              @click.native="setSidebarImage(img)"
             />
-          </v-flex>
-          <v-flex xs12>
-            <v-btn
-              href="https://www.creative-tim.com/product/vuetify-material-dashboard"
-              target="_blank"
-              color="success"
-              block
-            >Free Download</v-btn>
-          </v-flex>
-          <v-flex xs12>
-            <v-btn
-              href="https://demos.creative-tim.com/vuetify-material-dashboard/documentation"
-              target="_blank"
-              class="white--text"
-              color="primary"
-              block
-            >Documentation</v-btn>
-          </v-flex>
-          <v-flex xs12>
-            <div class="text-xs-center body-2 text-uppercase">
-              <div class="sidebar-filter">Thank You for Sharing!</div>
-
-              <div>
-                <v-btn color="indigo" class="mr-2 v-btn-facebook" fab icon small round>
-                  <v-icon>mdi-facebook</v-icon>
-                </v-btn>
-                <v-btn color="cyan" class="v-btn-twitter" fab icon small round>
-                  <v-icon>mdi-twitter</v-icon>
-                </v-btn>
-              </div>
-            </div>
           </v-flex>
         </v-layout>
       </v-container>
@@ -79,7 +50,7 @@
 
 <script>
 // Utilities
-import { mapMutations, mapState } from "vuex";
+import { mapMutations, mapState, mapActions } from "vuex";
 
 export default {
   data: () => ({
@@ -93,24 +64,61 @@ export default {
   }),
 
   computed: {
-    ...mapState(["color"]),
-    color() {
-      return this.$store.state.color;
-    }
+    ...mapState(["color","image"]),
+    // color() {
+    //   return this.$store.state.color;
+    // }
   },
 
   methods: {
-    // ...mapMutations("app", ["setImage"]),
-    setColor(color) {
-      this.$store.state.color = color;
-    }
+    ...mapActions(["setSidebarImage","setSidebarColor"])
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .v-avatar,
 .v-responsive {
   cursor: pointer;
+}
+
+
+.v-menu__content {
+  border-radius: 10px;
+  box-shadow:  0 2px 5px 0 rgba(#000000, .26);
+
+  .sidebar-filter {
+    height: 30px;
+    line-height: 25px;
+    font-size: 12px !important;
+    font-weight: 500 + 100;
+    color: #000000;
+  }
+
+  .v-responsive {
+    max-height: 100px;
+    border-radius: 10px;
+    max-width: 50px;
+    margin: 0 auto;
+  }
+
+  .container.grid-list-xl .layout .flex {
+    padding: 10px - 5;
+  }
+
+  .v-avatar,
+  .v-responsive {
+    border: 3px solid #808080;
+    transition: all .34s;
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    &.image-active,
+    &.color-active {
+      border-color: rgb(139, 60, 60);
+    }
+  }
 }
 </style>

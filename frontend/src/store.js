@@ -8,8 +8,8 @@ const state = {
   token: localStorage.getItem('token') || '',
   language: localStorage.getItem('language') || 'zh_CN',
   skin: localStorage.getItem('skin') || '',
-  color: 'success',
-  image: 'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg'
+  color: localStorage.getItem('sidebar_color') || 'indigo',
+  image: localStorage.getItem('sidebar_image') || 'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg'
 }
 const mutations = {
   increment: state => state.count++,
@@ -35,7 +35,11 @@ const mutations = {
   },
   SET_SIDEBAR_COLOR: (state, color) => {
     state.color = color
-    localStorage.setItem('sidebar_color', state.color)
+    localStorage.setItem('sidebar_color', color)
+  },
+  SET_SIDEBAR_IMAGE: (state, image) => {
+    state.image = image
+    localStorage.setItem('sidebar_image', image)
   }
 }
 const actions = {
@@ -72,6 +76,9 @@ const actions = {
     commit
   }, color) {
     commit('SET_SIDEBAR_COLOR', color)
+  },
+  setSidebarImage({commit}, image) {
+    commit('SET_SIDEBAR_IMAGE', image)
   }
 }
 
