@@ -8,7 +8,7 @@ const state = {
   token: localStorage.getItem('token') || '',
   language: localStorage.getItem('language') || 'zh_CN',
   skin: localStorage.getItem('skin') || '',
-  color: localStorage.getItem('sidebar_color') || 'indigo',
+  color: localStorage.getItem('sidebar_color') || '',
   image: localStorage.getItem('sidebar_image') || 'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg'
 }
 const mutations = {

@@ -23,7 +23,7 @@
           </v-list>
         </v-toolbar>
 
-        <v-list class="pt-0" :class="sidebarColor" dense>
+        <v-list class="pt-0" :class="sidebarColor" dense :color="sidebarColor">
           <v-divider class="my-0"></v-divider>
           <v-list-group prepend-icon="dashboard" v-if="!mini">
             <template v-slot:activator>

@@ -49,30 +49,27 @@
 <script>
 // Utilities
 import { mapMutations, mapState, mapActions } from "vuex";
-
 export default {
   data: () => ({
-    // colors: ["black", "indigo", "deep-purple", "grey", "light-blue"],
-     colors: [
+    colors: [
       'primary',
       'info',
       'success',
       'warning',
-      'danger'
+      'danger',
+      'test'
     ],
     images: [
-      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-1.23832d31.jpg",
-      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg",
-      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
-      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-4.3b7e38ed.jpg"
+      'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-1.23832d31.jpg',
+      'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg',
+      'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg',
+      'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-4.3b7e38ed.jpg'
     ]
   }),
 
+
   computed: {
     ...mapState(["color","image"]),
-    // color() {
-    //   return this.$store.state.color;
-    // }
   },
 
   methods: {
@@ -82,49 +79,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/index.scss';
 .v-avatar,
 .v-responsive {
   cursor: pointer;
-}
-
-
-.v-menu__content {
-  border-radius: 10px;
-  box-shadow:  0 2px 5px 0 rgba(#000000, .26);
-
-  .sidebar-filter {
-    height: 30px;
-    line-height: 25px;
-    font-size: 12px !important;
-    font-weight: 500 + 100;
-    color: #000000;
-  }
-
-  .v-responsive {
-    max-height: 100px;
-    border-radius: 10px;
-    max-width: 50px;
-    margin: 0 auto;
-  }
-
-  .container.grid-list-xl .layout .flex {
-    padding: 10px - 5;
-  }
-
-  .v-avatar,
-  .v-responsive {
-    border: 3px solid #f5f5e417;
-    transition: all .34s;
-
-    &:not(:last-child) {
-      margin-right: 5px;
-    }
-
-    &.image-active,
-    &.color-active {
-      border-color: #13b9cd;
-    }
-  }
-
 }
 </style>
