@@ -5,12 +5,12 @@
     left
     min-width="300"
     max-width="300"
-    nudge-left="12"
-    offset-x
+    nudge-bottom="20"
+    offset-y
     transition="slide-y-transition"
   >
-    <v-btn slot="activator" class="elevation-0" color="grey" dark fab fixed style="top: 96px;" top>
-      <v-icon>mdi-settings</v-icon>
+    <v-btn slot="activator" class="elevation-0"  dark  icon app >
+      <v-icon>camera</v-icon>
     </v-btn>
     <v-card>
       <v-container grid-list-xl>
@@ -22,9 +22,7 @@
               <v-avatar
                 v-for="c in colors"
                 :key="c"
-      
-                class="color-active  deep-purple"
-    
+                :class="[c === color?'color-active color-' + c:'color-'+c]"
                 size="23"
                 @click="setSidebarColor(c)"
               />
@@ -54,7 +52,14 @@ import { mapMutations, mapState, mapActions } from "vuex";
 
 export default {
   data: () => ({
-    colors: ["black", "indigo", "deep-purple", "grey", "light-blue"],
+    // colors: ["black", "indigo", "deep-purple", "grey", "light-blue"],
+     colors: [
+      'primary',
+      'info',
+      'success',
+      'warning',
+      'danger'
+    ],
     images: [
       "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-1.23832d31.jpg",
       "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg",
@@ -108,7 +113,7 @@ export default {
 
   .v-avatar,
   .v-responsive {
-    border: 3px solid #808080;
+    border: 3px solid #f5f5e417;
     transition: all .34s;
 
     &:not(:last-child) {
@@ -117,8 +122,9 @@ export default {
 
     &.image-active,
     &.color-active {
-      border-color: rgb(139, 60, 60);
+      border-color: #13b9cd;
     }
   }
+
 }
 </style>

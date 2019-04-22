@@ -33,7 +33,7 @@
         <v-icon>fullscreen_exit</v-icon>
       </v-btn>
       <df-top-lock></df-top-lock>
-      <df-skin-picker></df-skin-picker>
+      <!-- <df-skin-picker></df-skin-picker> -->
       <df-select-skin></df-select-skin>
       <v-btn icon>
         <v-icon>account_circle</v-icon>
@@ -45,13 +45,13 @@
 
 <script>
 import dfTopLock from "@/components/lock/TopLock";
-import dfSkinPicker from "@/components/skin/SkinPicker";
+// import dfSkinPicker from "@/components/skin/SkinPicker";
 import dfSelectSkin from "@/components/skin/SelectSkin";
 
 export default {
   components: {
     dfTopLock,
-    dfSkinPicker,
+    // dfSkinPicker,
     dfSelectSkin
   },
   props: ["isSmallScreen"],
