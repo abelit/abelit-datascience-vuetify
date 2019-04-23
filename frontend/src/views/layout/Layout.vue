@@ -13,7 +13,7 @@ import NavBar from "@/views/layout/components/NavBar";
 import SideBar from "@/views/layout/components/SideBar";
 import dfFooter from "@/components/footer/Footer";
 
-import {mapActions} from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -29,7 +29,7 @@ export default {
     isSmallScreen: false
   }),
   methods: {
-    ...mapActions(["setDrawer","setMini","setSmallScreen"]),
+    ...mapActions(["setDrawer", "setMini", "setSmallScreen"]),
     onResize() {
       if (window.innerWidth < this.responseSize) {
         this.isSmallScreen = true;
@@ -40,14 +40,33 @@ export default {
         // this.mini = false;
         // this.drawer = true;
       }
-      
+
       // 把当前的mini和drawer值保存到store中
       // this.setDrawer(this.drawer);
       // this.setMini(this.mini);
+      console.log("layout smallscreen: "+this.isSmallScreen)
+      console.log("layout store smallscreen: "+this.$store.state.isSmallScreen)
+
+
+      if (
+        this.isSmallScreen != this.$store.state.isSmallScreen &&
+        this.isSmallScreen === true
+      ) {
+        this.setMini(false);
+        this.setDrawer(false);
+      }
+
+      if (
+        this.isSmallScreen != this.$store.state.isSmallScreen &&
+        this.isSmallScreen === false
+      ) {
+        this.setMini(false);
+        this.setDrawer(true);
+      }
+
       this.setSmallScreen(this.isSmallScreen);
 
-      console.log("layout state: "+this.$store.state.isSmallScreen)
-
+      console.log("layout state: " + this.$store.state.isSmallScreen);
     }
   },
   mounted() {
