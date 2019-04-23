@@ -12,6 +12,12 @@
 
 <script>
 export default {
-  name: "AppMain"
+  name: "AppMain",
+  data() {
+    return {
+      cachedViews: "",
+  key: ""
+    }
+  }
 };
 </script>

@@ -1,4 +1,4 @@
-<template class="pl-0" v-resize="onResize">
+<template class="pl-0">
   <nav>
     <v-toolbar flat app class="grey darken-3" dark v-if="!isSmallScreen">
       <v-toolbar-side-icon v-if="!mini" @click="miniSidebar"></v-toolbar-side-icon>
@@ -14,12 +14,12 @@
         <v-icon>fullscreen_exit</v-icon>
       </v-btn>
       <df-top-lock></df-top-lock>
-      <df-skin-picker></df-skin-picker>
       <df-select-skin></df-select-skin>
       <v-btn icon class="indigo">
         <v-icon>account_circle</v-icon>
       </v-btn>
     </v-toolbar>
+    <!-- 当屏幕为小屏时，显示这里的工具条 -->
     <v-toolbar flat app class="indigo" dark v-else>
       <v-toolbar-side-icon @click.stop="toggleSidebar"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
@@ -33,7 +33,6 @@
         <v-icon>fullscreen_exit</v-icon>
       </v-btn>
       <df-top-lock></df-top-lock>
-      <!-- <df-skin-picker></df-skin-picker> -->
       <df-select-skin></df-select-skin>
       <v-btn icon>
         <v-icon>account_circle</v-icon>
@@ -45,51 +44,52 @@
 
 <script>
 import dfTopLock from "@/components/lock/TopLock";
-// import dfSkinPicker from "@/components/skin/SkinPicker";
 import dfSelectSkin from "@/components/skin/SelectSkin";
+import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
     dfTopLock,
-    // dfSkinPicker,
     dfSelectSkin
   },
-  props: ["isSmallScreen"],
   data: () => ({
     isFullSceen: false,
-    mini: true,
+    mini: false,
     drawer: true,
-    isSmallScreen: false
+    // isSmallScreen: false
   }),
   methods: {
-    toggleSidebar() {
-      this.drawer = !this.drawer;
-      this.mini = false;
-      console.log("nav togglesidebar")
-      this.$emit("toggleSidebar", {drawer: this.drawer, mini: this.mini});
-      
-    },
+    ...mapActions(["setDrawer","setMini"]),
     miniSidebar() {
-      this.mini = !this.mini;
-      this.drawer = true;
-      console.log("nav minisidevbar")
-
-      this.$emit("miniSidebar",  {drawer: this.drawer, mini: this.mini});
+      console.log("navbar 3: "+this.mini)
+      this.mini = !this.mini
+      this.setMini(this.mini)
+       console.log("navbar 4: "+this.mini)
     },
-    initSidebar() {
-      if (this.isSmallScreen) {
-        this.mini = false;
-        this.drawer = false;
-      } else {
-        this.mini = false;
-        this.drawer = true;
-      }
+    toggleSidebar() {
+      console.log("navbar 1: "+this.drawer)
+      this.drawer = !this.drawer
+      this.setDrawer(this.drawer)
+      console.log("navbar 2: "+this.drawer)
     }
-  
   },
-  mounted() {
-    this.initSidebar();
-    console.log("Nava bar oooo ");
+  computed: {
+    // ...mapState(["drawer"])
+    ...mapState(["isSmallScreen"])
+  },
+  mounted: {
+  },
+  watch: {
+    // isSmallScreen: () => {
+    //   if (this.isSmallScreen) {
+    //     this.setMini(false)
+    //     this.setDrawer(false)
+    //   } else {
+    //     this.setMini(false)
+    //     this.setDrawer(true)
+    //   }
+    // }
   }
+
 };
 </script>

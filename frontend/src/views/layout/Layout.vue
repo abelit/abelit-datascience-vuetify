@@ -1,13 +1,7 @@
-<template>
+<template >
   <div class="pl-4" v-resize="onResize">
-    <side-bar :drawer="drawer" :isSmallScreen="isSmallScreen" :mini="mini"></side-bar>
-    <nav-bar
-      :drawer="drawer"
-      :isSmallScreen="isSmallScreen"
-      :mini="mini"
-      @toggleSidebar="getToggleStatus($event)"
-      @miniSidebar="getOpenStatus($event)"
-    ></nav-bar>
+    <side-bar></side-bar>
+    <nav-bar></nav-bar>
     <app-main></app-main>
     <df-footer></df-footer>
   </div>
@@ -18,6 +12,8 @@ import AppMain from "@/views/layout/components/AppMain";
 import NavBar from "@/views/layout/components/NavBar";
 import SideBar from "@/views/layout/components/SideBar";
 import dfFooter from "@/components/footer/Footer";
+
+import {mapActions} from "vuex";
 
 export default {
   components: {
@@ -33,33 +29,30 @@ export default {
     isSmallScreen: false
   }),
   methods: {
-    getToggleStatus: function(event) {
-      this.drawer = event.drawer;
-      this.mini = event.mini;
-      console.log("layout gettogglestatus");
-    },
-    getOpenStatus: function(event) {
-      this.drawer = event.drawer;
-      this.mini = event.mini;
-      console.log("layout getopenstatus");
-    },
+    ...mapActions(["setDrawer","setMini","setSmallScreen"]),
     onResize() {
       if (window.innerWidth < this.responseSize) {
         this.isSmallScreen = true;
-        this.mini = false;
-        this.drawer = false;
+        // this.mini = false;
+        // this.drawer = false;
       } else {
         this.isSmallScreen = false;
-        this.mini = false;
-        this.drawer = true;
+        // this.mini = false;
+        // this.drawer = true;
       }
-      console.log("layout " + window.innerWidth);
-      console.log("layout isSmallScreen: " + this.isSmallScreen);
+      
+      // 把当前的mini和drawer值保存到store中
+      // this.setDrawer(this.drawer);
+      // this.setMini(this.mini);
+      this.setSmallScreen(this.isSmallScreen);
+
+      console.log("layout state: "+this.$store.state.isSmallScreen)
+
     }
   },
   mounted() {
+    // this.onResize()
     console.log("layout mount");
-    // this.onResize();
   }
 };
 </script>

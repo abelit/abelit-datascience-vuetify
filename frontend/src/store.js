@@ -9,7 +9,10 @@ const state = {
   language: localStorage.getItem('language') || 'zh_CN',
   skin: localStorage.getItem('skin') || '',
   color: localStorage.getItem('sidebar_color') || '',
-  image: localStorage.getItem('sidebar_image') || 'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg'
+  image: localStorage.getItem('sidebar_image') || 'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg',
+  drawer: true,
+  mini: false,
+  isSmallScreen: false
 }
 const mutations = {
   increment: state => state.count++,
@@ -40,6 +43,15 @@ const mutations = {
   SET_SIDEBAR_IMAGE: (state, image) => {
     state.image = image
     localStorage.setItem('sidebar_image', image)
+  },
+  SET_MINI: (state, mini) => {
+    state.mini = mini
+  },
+  SET_DRAWER: (state, drawer) => {
+    state.drawer = drawer
+  },
+  SET_SMALLSCREEN: (state, isSmallScreen) => {
+    state.isSmallScreen = isSmallScreen
   }
 }
 const actions = {
@@ -52,6 +64,8 @@ const actions = {
   }) {
     commit('decrement')
   },
+
+
   setLanguage({
     commit
   }, language) {
@@ -77,8 +91,23 @@ const actions = {
   }, color) {
     commit('SET_SIDEBAR_COLOR', color)
   },
-  setSidebarImage({commit}, image) {
+  setSidebarImage({
+    commit
+  }, image) {
     commit('SET_SIDEBAR_IMAGE', image)
+  },
+  setMini({
+    commit
+  }, mini) {
+    commit('SET_MINI', mini)
+  },
+  setDrawer({
+    commit
+  }, drawer) {
+    commit('SET_DRAWER', drawer)
+  },
+  setSmallScreen({commit}, isSmallScreen) {
+    commit('SET_SMALLSCREEN', isSmallScreen)
   }
 }
 

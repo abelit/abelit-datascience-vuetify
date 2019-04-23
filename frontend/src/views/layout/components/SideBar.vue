@@ -1,7 +1,7 @@
 <template>
   <v-layout wrap>
     <v-navigation-drawer
-      v-model="drawer"
+      v-model="getDrawerStatus"
       :mini-variant="mini"
       dark
       app
@@ -142,10 +142,8 @@ import { mapActions, mapState } from "vuex";
 
 export default {
   name: "SideBar",
-  props: ["isSmallScreen", "drawer", "mini"],
   data() {
     return {
-      // drawer: true,
       items: [
         { title: "Dashboard", icon: "dashboard", path: "/dashboard" },
         { title: "Report", icon: "assessment", path: "/report" }
@@ -167,24 +165,28 @@ export default {
         },
         { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" }
       ],
-      // mini: false,
-      // right: null
       sidebarColor: "",
       iamge: "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
       logo: "./static/logo.png",
-      value: false
+      value: false,
     };
   },
-  methods: {},
+  methods: {
+    ...mapActions(["setDrawer"])
+  },
   mounted() {
-    // this.sidebarColor = JSON.parse(this.$store.getters.skin).class;
-    console.log("side bar mini: " + this.mini);
-    console.log("side bar drawer " + this.drawer);
-    console.log(this.image)
+  
   },
   computed: {
-    ...mapState(["color", "image"])
-    
+    ...mapState(["color","image", "mini","drawer","isSmallScreen"]),
+    getDrawerStatus: {
+      get () {
+        return this.drawer
+      },
+      set (val) {
+        this.setDrawer(val)
+      }
+    },
   }
 };
 </script>
