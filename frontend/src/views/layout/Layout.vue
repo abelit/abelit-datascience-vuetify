@@ -60,18 +60,21 @@ export default {
 
       console.log("layout store mini: "+this.$store.state.mini)
       console.log("layout store drawer: "+this.$store.state.drawer)
-    }
-  },
-  mounted() {
-    console.log("hah"+this.isSmallScreen)
-    // Init mini, drawer in store
-    if (!this.isSmallScreen) {
+    },
+    initValue() {
+      if (!this.isSmallScreen) {
       this.setDrawer(true)
       this.setMini(false)
     } else {
       this.setMini(false)
       this.setDrawer(false)
     }
+    }
+  },
+  mounted() {
+    console.log("hah"+this.isSmallScreen)
+    // Init mini, drawer in store
+    this.initValue();
   }
 };
 </script>

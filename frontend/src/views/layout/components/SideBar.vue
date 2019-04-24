@@ -25,7 +25,7 @@
 
         <v-list class="pt-0" :class="sidebarColor" dense :color="sidebarColor">
           <v-divider class="my-0"></v-divider>
-          <v-list-group prepend-icon="dashboard">
+          <v-list-group prepend-icon="dashboard" v-if="!mini">
             <template v-slot:activator>
               <v-list-tile>
                 <v-list-tile-content>
@@ -48,7 +48,89 @@
               <v-list-tile-title v-text="dash.title"></v-list-tile-title>
             </v-list-tile>
           </v-list-group>
-        
+        <v-list-tile v-else>
+            <v-list-tile-action>
+              <v-menu offset-x dark min-width="200" nudge-left="15">
+                <template v-slot:activator="{ on }">
+                  <div v-on="on">
+                    <v-tooltip right nudge-left="10">
+                      <template v-slot:activator="{ on }">
+                        <v-btn flat dark v-on="on" right>
+                          <v-icon>dashboard</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>Dashboard</span>
+                    </v-tooltip>
+                  </div>
+                </template>
+
+                <v-list class>
+                  <v-list-tile
+                    v-for="(item, index) in dashboards"
+                    :key="index"
+                    @click.stop
+                    router
+                    :to="item.path"
+                    avatar
+                  >
+                    <v-list-tile-action class="mr-1" :class="sidebarColor">
+                      <v-icon>{{item.icon}}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </v-list-tile-action>
+          </v-list-tile>
+
+          <v-list-group :value="value" prepend-icon="assessment" v-if="!mini">
+            <template v-slot:activator>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>Report</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </template>
+            <v-list-tile
+              class="pl-5"
+              v-for="dash in reports"
+              :key="dash.title"
+              router
+              :to="dash.path"
+            >
+              <v-list-tile-action>
+                <v-icon v-text="dash.icon"></v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title v-text="dash.title"></v-list-tile-title>
+            </v-list-tile>
+          </v-list-group>
+
+          <v-list-tile v-else>
+            <v-list-tile-action>
+              <v-menu offset-x dark min-width="200">
+                <template v-slot:activator="{ on }">
+                  <v-btn flat dark v-on="on" right>
+                    <v-icon>assessment</v-icon>
+                  </v-btn>
+                </template>
+                <v-list class>
+                  <v-list-tile
+                    v-for="(item, index) in reports"
+                    :key="index"
+                    @click.stop
+                    router
+                    :to="item.path"
+                    avatar
+                  >
+                    <v-list-tile-action class="mr-1" :class="sidebarColor">
+                      <v-icon>{{item.icon}}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </v-list-tile-action>
+          </v-list-tile>
         </v-list>
       </v-img>
     </v-navigation-drawer>
