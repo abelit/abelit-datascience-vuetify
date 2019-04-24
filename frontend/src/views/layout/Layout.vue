@@ -64,8 +64,13 @@ export default {
   },
   mounted() {
     console.log("hah"+this.isSmallScreen)
+    // Init mini, drawer in store
     if (!this.isSmallScreen) {
       this.setDrawer(true)
+      this.setMini(false)
+    } else {
+      this.setMini(false)
+      this.setDrawer(false)
     }
   }
 };
