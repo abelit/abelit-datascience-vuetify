@@ -10,7 +10,7 @@ const state = {
   skin: localStorage.getItem('skin') || '',
   color: localStorage.getItem('sidebar_color') || '',
   image: localStorage.getItem('sidebar_image') || 'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg',
-  drawer: true,
+  drawer: false,
   mini: false,
   isSmallScreen: false
 }

@@ -63,7 +63,10 @@ export default {
     }
   },
   mounted() {
-    console.log("layout mount");
+    console.log("hah"+this.isSmallScreen)
+    if (!this.isSmallScreen) {
+      this.setDrawer(true)
+    }
   }
 };
 </script>
