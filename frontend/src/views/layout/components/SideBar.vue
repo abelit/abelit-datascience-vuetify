@@ -27,7 +27,7 @@
           <v-divider class="my-0"></v-divider>
           <v-list-group prepend-icon="dashboard" v-if="!mini">
             <template v-slot:activator>
-              <v-list-tile @click>
+              <v-list-tile>
                 <v-list-tile-content>
                   <v-list-tile-title>Dashboard</v-list-tile-title>
                 </v-list-tile-content>
@@ -37,7 +37,7 @@
               class="pl-5"
               v-for="dash in dashboards"
               :key="dash.title"
-              @click
+              @click.stop
               router
               :to="dash.path"
               :active-class="color"
@@ -68,7 +68,7 @@
                   <v-list-tile
                     v-for="(item, index) in dashboards"
                     :key="index"
-                    @click
+                    @click.stop
                     router
                     :to="item.path"
                     avatar
@@ -117,7 +117,7 @@
                   <v-list-tile
                     v-for="(item, index) in reports"
                     :key="index"
-                    @click
+                    @click.stop
                     router
                     :to="item.path"
                     avatar
@@ -166,27 +166,46 @@ export default {
         { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" }
       ],
       sidebarColor: "",
-      iamge: "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
+      iamge:
+        "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
       logo: "./static/logo.png",
-      value: false,
+      value: false
     };
   },
   methods: {
     ...mapActions(["setDrawer"])
   },
-  mounted() {
-  
-  },
   computed: {
-    ...mapState(["color","image", "mini","drawer","isSmallScreen"]),
+    ...mapState(["color", "image", "mini", "drawer", "isSmallScreen"]),
     getDrawerStatus: {
-      get () {
-        return this.drawer
+      get() {
+        console.log(
+          "sidebar  compute store isSmallScreen: " +
+            this.$store.state.isSmallScreen
+        );
+        console.log(
+          "sidebar drawer compute store mini: " + this.$store.state.mini
+        );
+        console.log(
+          "sidebar drawer compute store drawer: " + this.$store.state.drawer
+        );
+        console.log("sidebar drawer compute: " + this.drawer);
+        return this.drawer;
       },
-      set (val) {
-        this.setDrawer(val)
+      set(val) {
+        console.log("sidebar getdrawerstatus set method: " + val);
+        // newval = !val;
+        this.setDrawer(val);
       }
-    },
+    }
+  },
+  mounted() {
+    console.log(
+      "sidebar mount store issamllscreen: " + this.$store.state.isSmallScreen
+    );
+
+    console.log("sidebar mount store mini: " + this.$store.state.mini);
+    console.log("sidebar mount store drawer: " + this.$store.state.drawer);
   }
 };
 </script>

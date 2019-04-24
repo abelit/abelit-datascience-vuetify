@@ -33,24 +33,16 @@ export default {
     onResize() {
       if (window.innerWidth < this.responseSize) {
         this.isSmallScreen = true;
-        // this.mini = false;
-        // this.drawer = false;
       } else {
         this.isSmallScreen = false;
-        // this.mini = false;
-        // this.drawer = true;
       }
 
-      // 把当前的mini和drawer值保存到store中
-      // this.setDrawer(this.drawer);
-      // this.setMini(this.mini);
       console.log("layout smallscreen: "+this.isSmallScreen)
       console.log("layout store smallscreen: "+this.$store.state.isSmallScreen)
 
-
       if (
         this.isSmallScreen != this.$store.state.isSmallScreen &&
-        this.isSmallScreen === true
+        this.isSmallScreen
       ) {
         this.setMini(false);
         this.setDrawer(false);
@@ -58,7 +50,7 @@ export default {
 
       if (
         this.isSmallScreen != this.$store.state.isSmallScreen &&
-        this.isSmallScreen === false
+        !this.isSmallScreen 
       ) {
         this.setMini(false);
         this.setDrawer(true);
@@ -66,11 +58,11 @@ export default {
 
       this.setSmallScreen(this.isSmallScreen);
 
-      console.log("layout state: " + this.$store.state.isSmallScreen);
+      console.log("layout store mini: "+this.$store.state.mini)
+      console.log("layout store drawer: "+this.$store.state.drawer)
     }
   },
   mounted() {
-    // this.onResize()
     console.log("layout mount");
   }
 };

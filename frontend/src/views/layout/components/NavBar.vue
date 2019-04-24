@@ -2,7 +2,7 @@
   <nav>
     <v-toolbar flat app class="grey darken-3" dark v-if="!isSmallScreen">
       <v-toolbar-side-icon v-if="!mini" @click="miniSidebar"></v-toolbar-side-icon>
-      <v-toolbar-side-icon v-else style="transform: rotate(90deg)"  @click="miniSidebar"></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-else style="transform: rotate(90deg)" @click="miniSidebar"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>contact_support</v-icon>
@@ -21,7 +21,7 @@
     </v-toolbar>
     <!-- 当屏幕为小屏时，显示这里的工具条 -->
     <v-toolbar flat app class="indigo" dark v-else>
-      <v-toolbar-side-icon @click.stop="toggleSidebar"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click="toggleSidebar"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>contact_support</v-icon>
@@ -45,7 +45,7 @@
 <script>
 import dfTopLock from "@/components/lock/TopLock";
 import dfSelectSkin from "@/components/skin/SelectSkin";
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
@@ -55,41 +55,28 @@ export default {
   data: () => ({
     isFullSceen: false,
     mini: false,
-    drawer: true,
-    // isSmallScreen: false
+    drawer: false
   }),
   methods: {
-    ...mapActions(["setDrawer","setMini"]),
+    ...mapActions(["setDrawer", "setMini"]),
     miniSidebar() {
-      console.log("navbar 3: "+this.mini)
-      this.mini = !this.mini
-      this.setMini(this.mini)
-       console.log("navbar 4: "+this.mini)
+      console.log("navbar 3: " + this.mini);
+      this.mini = !this.mini;
+      this.setMini(this.mini);
+      console.log("navbar 4: " + this.mini);
     },
     toggleSidebar() {
-      console.log("navbar 1: "+this.drawer)
-      this.drawer = !this.drawer
-      this.setDrawer(this.drawer)
-      console.log("navbar 2: "+this.drawer)
+      console.log("navbar 1: " + this.drawer);
+      this.drawer = !this.drawer;
+      this.setDrawer(this.drawer);
+      console.log("navbar 2: " + this.drawer);
     }
   },
   computed: {
-    // ...mapState(["drawer"])
     ...mapState(["isSmallScreen"])
   },
-  mounted: {
-  },
-  watch: {
-    // isSmallScreen: () => {
-    //   if (this.isSmallScreen) {
-    //     this.setMini(false)
-    //     this.setDrawer(false)
-    //   } else {
-    //     this.setMini(false)
-    //     this.setDrawer(true)
-    //   }
-    // }
+  mounted() {
+    console.log("NavBar mount ....")
   }
-
 };
 </script>
