@@ -40,6 +40,7 @@ export default {
       console.log("layout smallscreen: "+this.isSmallScreen)
       console.log("layout store smallscreen: "+this.$store.state.isSmallScreen)
 
+      // 当屏幕尺寸在大小两个值变化时，设置vuex中mini,drawer的值
       if (
         this.isSmallScreen != this.$store.state.isSmallScreen &&
         this.isSmallScreen
@@ -56,11 +57,13 @@ export default {
         this.setDrawer(true);
       }
 
+      // 设置vuex中isSmallScreen的值
       this.setSmallScreen(this.isSmallScreen);
 
       console.log("layout store mini: "+this.$store.state.mini)
       console.log("layout store drawer: "+this.$store.state.drawer)
     },
+    // 根据屏幕大小设置mini, drawer的值
     initValue() {
       if (!this.isSmallScreen) {
       this.setDrawer(true)
