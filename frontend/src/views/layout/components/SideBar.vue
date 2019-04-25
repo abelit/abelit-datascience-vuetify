@@ -68,7 +68,7 @@
                   <v-list-tile
                     v-for="(item, index) in dashboards"
                     :key="index"
-                    @click.stop
+                    @click=""
                     router
                     :to="item.path"
                     avatar
@@ -117,7 +117,7 @@
                   <v-list-tile
                     v-for="(item, index) in reports"
                     :key="index"
-                    @click.stop
+                    @click=""
                     router
                     :to="item.path"
                     avatar
