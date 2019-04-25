@@ -56,3 +56,31 @@ export default {
 }
 </script>
 ```
+
+## Git&Github使用手册
+### 1.Git分支
+```bash
+# 创建分支company
+git branch company
+
+# 切换到company分支
+git checkout company
+
+# 在company分支中合并master分支的内容
+git merge master
+```
+
+### 2.Git Tag
+```bash
+# -a后面指定版本号，-m后面跟说明信息
+git tag -a v0.1.alpha  -m "base frontend and backend structure"
+
+# 提交tag版本到远程git仓库
+git push origin --tags
+
+# 删除本地仓库tag
+git tag -d v0.1.alpha
+
+# 删除远程仓库tag
+git push origin :refs/tags/v0.1.alpha
+```
