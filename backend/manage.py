@@ -6,6 +6,7 @@ from main import app, db
 migrate = Migrate(app, db)
 manager = Manager(app)
 
+# 添加迁移交互命令
 manager.add_command('db', MigrateCommand)
 
 

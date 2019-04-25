@@ -169,7 +169,7 @@ export default {
       sidebarColor: "",
       iamge:
         "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
-      logo: "./static/logo.png",
+      logo: "./static/datascience_logo.png",
       value: false
     };
   },
