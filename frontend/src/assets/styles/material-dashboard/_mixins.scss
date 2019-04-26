@@ -60,6 +60,13 @@
   }
 }
 
+
+@mixin fixed-plugin-btncolors($color-name, $color) {
+  &.color-btn-#{$color-name} {
+    background-color: $color;
+  }
+}
+
 @mixin notifications-color($color-name, $color) {
   .v-snack__wrapper.#{$color-name} {
     background-color: $color !important;

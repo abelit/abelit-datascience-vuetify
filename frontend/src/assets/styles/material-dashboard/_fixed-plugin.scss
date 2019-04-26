@@ -31,16 +31,26 @@
     }
 
     &.image-active,
-    &.color-active {
+    &.color-active,
+    &.color-btn-active {
       border-color: $brand-info;
     }
   }
 
   .v-avatar {
-    @include fixed-plugin-colors('primary', $brand-primary);
-    @include fixed-plugin-colors('info', $brand-info);
-    @include fixed-plugin-colors('danger', $brand-danger);
-    @include fixed-plugin-colors('warning', $brand-warning); 
-    @include fixed-plugin-colors('test', $brand-test);
+    @include fixed-plugin-btncolors('deep-purple', $brand-primary);
+    @include fixed-plugin-btncolors('green', $brand-success);
+    @include fixed-plugin-btncolors('cyan', $brand-info);
+    @include fixed-plugin-btncolors('orange', $brand-warning);
+    @include fixed-plugin-btncolors('red', $brand-danger); 
   }
+
+   .v-responsive {
+     @include fixed-plugin-colors('deep-purple', $brand-primary);
+     @include fixed-plugin-colors('cyan', $brand-info);
+     @include fixed-plugin-colors('orange', $brand-warning);
+     @include fixed-plugin-colors('grey-darken-3', $brand-dark);
+   }
+
+ 
 }

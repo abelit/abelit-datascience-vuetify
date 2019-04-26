@@ -5,12 +5,12 @@
       :mini-variant="mini"
       dark
       app
-      :class="sidebarColor"
+      :class="color"
       stateless
     >
       <v-img :src="image" height="100%">
         <v-toolbar flat class="transparent">
-          <v-list class="pa-1 darken-3" :class="sidebarColor">
+          <v-list class="pa-1 darken-3" :class="color">
             <v-list-tile avatar tag="div">
               <v-list-tile-avatar>
                 <img :src="logo">
@@ -23,7 +23,7 @@
           </v-list>
         </v-toolbar>
 
-        <v-list class="pt-0" :class="sidebarColor" dense :color="sidebarColor">
+        <v-list class="pt-0" :class="color" dense :color="color">
           <v-divider class="my-0"></v-divider>
           <v-list-group prepend-icon="dashboard" v-if="!mini">
             <template v-slot:activator>
@@ -40,7 +40,7 @@
               @click.stop
               router
               :to="dash.path"
-              :active-class="color"
+              :active-class="btncolor"
             >
               <v-list-tile-action>
                 <v-icon v-text="dash.icon"></v-icon>
@@ -73,7 +73,7 @@
                     :to="item.path"
                     avatar
                   >
-                    <v-list-tile-action class="mr-1" :class="sidebarColor">
+                    <v-list-tile-action class="mr-1" :class="color">
                       <v-icon>{{item.icon}}</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-title>{{ item.title }}</v-list-tile-title>
@@ -97,6 +97,7 @@
               :key="dash.title"
               router
               :to="dash.path"
+              active-class="abelit"
             >
               <v-list-tile-action>
                 <v-icon v-text="dash.icon"></v-icon>
@@ -122,7 +123,7 @@
                     :to="item.path"
                     avatar
                   >
-                    <v-list-tile-action class="mr-1" :class="sidebarColor">
+                    <v-list-tile-action class="mr-1" :class="color">
                       <v-icon>{{item.icon}}</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-title>{{ item.title }}</v-list-tile-title>
@@ -166,9 +167,6 @@ export default {
         },
         { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" }
       ],
-      sidebarColor: "",
-      iamge:
-        "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
       logo: "./static/datascience_logo.png",
       value: false
     };
@@ -177,7 +175,7 @@ export default {
     ...mapActions(["setDrawer"])
   },
   computed: {
-    ...mapState(["color", "image", "mini", "drawer", "isSmallScreen"]),
+    ...mapState(["color","btncolor", "image", "mini", "drawer", "isSmallScreen"]),
     getDrawerStatus: {
       get() {
         console.log(
@@ -209,3 +207,8 @@ export default {
   }
 };
 </script>
+
+
+<style lang="scss" scoped>
+
+</style>

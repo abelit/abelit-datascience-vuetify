@@ -1,6 +1,6 @@
 <template class="pl-0">
   <nav>
-    <v-toolbar flat app class="grey darken-3" dark v-if="!isSmallScreen">
+    <v-toolbar flat app :class="tbcolor" dark v-if="!isSmallScreen">
       <!-- 根据mini值显示icon的样式，正常与旋转90° -->
       <v-toolbar-side-icon v-if="!mini" @click="miniSidebar"></v-toolbar-side-icon>
       <v-toolbar-side-icon v-else style="transform: rotate(90deg)" @click="miniSidebar"></v-toolbar-side-icon>
@@ -42,9 +42,14 @@
       </v-btn>
       <d-screen-lock></d-screen-lock>
       <d-skin-picker></d-skin-picker>
-      <v-btn icon>
-        <v-icon>account_circle</v-icon>
-      </v-btn>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon>account_circle</v-icon>
+          </v-btn>
+        </template>
+        <span>User Profile</span>
+      </v-tooltip>
     </v-toolbar>
   </nav>
 </template>
@@ -81,7 +86,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["isSmallScreen"])
+    ...mapState(["isSmallScreen", "tbcolor"])
   },
   mounted() {
     console.log("NavBar mount ....");
