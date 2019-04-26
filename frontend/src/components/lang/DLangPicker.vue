@@ -2,9 +2,16 @@
   <div>
     <v-menu offset-y>
       <template v-slot:activator="{ on }">
+        <div v-on="on">
+          <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
         <v-btn color="transparent" v-on="on" flat>
           <img v-if="language" :src="require('@/assets/images/auth/'+language+'.png')" alt>
         </v-btn>
+      </template>
+      <span>语言切换</span>
+      </v-tooltip>
+        </div>
       </template>
       <v-list>
         <v-list-tile

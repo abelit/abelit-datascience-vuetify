@@ -1,6 +1,7 @@
 <template class="pl-0">
   <nav>
     <v-toolbar flat app class="grey darken-3" dark v-if="!isSmallScreen">
+      <!-- 根据mini值显示icon的样式，正常与旋转90° -->
       <v-toolbar-side-icon v-if="!mini" @click="miniSidebar"></v-toolbar-side-icon>
       <v-toolbar-side-icon v-else style="transform: rotate(90deg)" @click="miniSidebar"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
@@ -13,11 +14,18 @@
       <v-btn icon v-else>
         <v-icon>fullscreen_exit</v-icon>
       </v-btn>
-      <df-top-lock></df-top-lock>
-      <df-select-skin></df-select-skin>
-      <v-btn icon class="indigo">
-        <v-icon>account_circle</v-icon>
-      </v-btn>
+      <d-screen-lock></d-screen-lock>
+      
+      <d-skin-picker></d-skin-picker>
+    
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn icon v-on="on">
+            <v-icon>account_circle</v-icon>
+          </v-btn>
+        </template>
+        <span>User Profile</span>
+      </v-tooltip>
     </v-toolbar>
     <!-- 当屏幕为小屏时，显示这里的工具条 -->
     <v-toolbar flat app class="indigo" dark v-else>
@@ -32,8 +40,8 @@
       <v-btn icon v-else>
         <v-icon>fullscreen_exit</v-icon>
       </v-btn>
-      <df-top-lock></df-top-lock>
-      <df-select-skin></df-select-skin>
+      <d-screen-lock></d-screen-lock>
+      <d-skin-picker></d-skin-picker>
       <v-btn icon>
         <v-icon>account_circle</v-icon>
       </v-btn>
@@ -43,14 +51,14 @@
 
 
 <script>
-import dfTopLock from "@/components/lock/TopLock";
-import dfSelectSkin from "@/components/skin/SelectSkin";
+import DScreenLock from "@/components/lock/DScreenLock";
+import DSkinPicker from "@/components/skin/DSkinPicker";
 import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
-    dfTopLock,
-    dfSelectSkin
+    DScreenLock,
+    DSkinPicker
   },
   data: () => ({
     isFullSceen: false,
@@ -76,7 +84,7 @@ export default {
     ...mapState(["isSmallScreen"])
   },
   mounted() {
-    console.log("NavBar mount ....")
+    console.log("NavBar mount ....");
   }
 };
 </script>

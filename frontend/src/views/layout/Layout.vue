@@ -1,26 +1,26 @@
 <template >
   <div class="pl-4" v-resize="onResize">
-    <side-bar></side-bar>
-    <nav-bar></nav-bar>
-    <app-main></app-main>
-    <df-footer></df-footer>
+    <d-side-bar></d-side-bar>
+    <d-nav-bar></d-nav-bar>
+    <d-app-main></d-app-main>
+    <d-footer></d-footer>
   </div>
 </template>
 
 <script>
-import AppMain from "@/views/layout/components/AppMain";
-import NavBar from "@/views/layout/components/NavBar";
-import SideBar from "@/views/layout/components/SideBar";
-import dfFooter from "@/components/footer/Footer";
+import DAppMain from "@/views/layout/components/DAppMain";
+import DNavBar from "@/views/layout/components/DNavBar";
+import DSideBar from "@/views/layout/components/DSideBar";
+import DFooter from "@/components/footer/DFooter";
 
 import { mapActions } from "vuex";
 
 export default {
   components: {
-    NavBar,
-    AppMain,
-    SideBar,
-    dfFooter
+    DNavBar,
+    DAppMain,
+    DSideBar,
+    DFooter
   },
   data: () => ({
     drawer: false,

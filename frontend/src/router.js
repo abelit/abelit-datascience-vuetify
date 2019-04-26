@@ -106,7 +106,7 @@ const router = new Router({
     {
       path: "/admin/dialog",
       name: "dialog",
-      component: () => import("@/components/admin/AddGroup")
+      component: () => import("@/components/admin/DGroupAdd")
     },
 
     // {

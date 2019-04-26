@@ -1,18 +1,25 @@
 <template>
-    <v-dialog v-model="dialog" max-width="500">
-      <template v-slot:activator="{ on }">
-        <v-btn icon dark v-on="on">
-          <v-icon>lock</v-icon>
-        </v-btn>
-      </template>
-      <v-flex xs-12 sm-6 md-4>
-        <v-toolbar color="indigo" dark>
-          <v-toolbar-title>{{ $t("admin.SCREEN_LOCK_PASSWORD_SET") }}</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon dark @click="dialog = false">
-            <v-icon>close</v-icon>
+  <v-dialog v-model="dialog" max-width="500">
+    <template v-slot:activator="{ on }">
+      <div v-on="on">
+        <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn icon dark v-on="on">
+            <v-icon>lock</v-icon>
           </v-btn>
-        </v-toolbar>
+        </template>
+        <span>Screen Lock</span>
+      </v-tooltip>
+      </div>
+    </template>
+    <v-flex xs-12 sm-6 md-4>
+      <v-toolbar color="indigo" dark>
+        <v-toolbar-title>{{ $t("admin.SCREEN_LOCK_PASSWORD_SET") }}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn icon dark @click="dialog = false">
+          <v-icon>close</v-icon>
+        </v-btn>
+      </v-toolbar>
       <v-card>
         <v-card-title class="headline lighten-2" color="blue-grey darken-2" primary-title></v-card-title>
         <v-card-text>
@@ -36,14 +43,14 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <div class="pr-2">
-            <v-btn color="indigo" @click="submit" dark>
+            <v-btn color="indigo" @click="submit" dark v-on="on">
               <span class="font-weight-bold">{{$t("button.CONFIRM") }}</span>
             </v-btn>
           </div>
         </v-card-actions>
       </v-card>
-       </v-flex>
-    </v-dialog>
+    </v-flex>
+  </v-dialog>
 </template>
 
 

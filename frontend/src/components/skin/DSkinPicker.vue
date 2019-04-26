@@ -9,9 +9,19 @@
     offset-y
     transition="slide-y-transition"
   >
-    <v-btn slot="activator" class="elevation-0"  dark  icon app >
-      <v-icon>camera</v-icon>
-    </v-btn>
+    <template v-slot:activator="{ on }">
+      <div v-on="on">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn dark icon v-on="on">
+              <v-icon>camera</v-icon>
+            </v-btn>
+          </template>
+          <span>Theme</span>
+        </v-tooltip>
+      </div>
+    </template>
+
     <v-card>
       <v-container grid-list-xl>
         <v-layout wrap>
@@ -51,38 +61,31 @@
 import { mapState, mapActions } from "vuex";
 export default {
   data: () => ({
-    colors: [
-      'primary',
-      'info',
-      'success',
-      'warning',
-      'danger',
-    ],
+    colors: ["primary", "info", "success", "warning", "danger"],
     images: [
-      'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-1.23832d31.jpg',
-      'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg',
-      'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg',
-      'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-4.3b7e38ed.jpg'
+      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-1.23832d31.jpg",
+      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg",
+      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
+      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-4.3b7e38ed.jpg"
     ]
   }),
 
-
   computed: {
-    ...mapState(["color","image"]),
+    ...mapState(["color", "image"])
   },
 
   methods: {
-    ...mapActions(["setSidebarImage","setSidebarColor"])
+    ...mapActions(["setSidebarImage", "setSidebarColor"])
   }
 };
 </script>
 
 <style lang="scss" scoped>
-// @import '@/assets/styles/index.scss';
-// .v-avatar,
-// .v-responsive {
-//   cursor: pointer;
-// }
+@import "@/assets/styles/index.scss";
+.v-avatar,
+.v-responsive {
+  cursor: pointer;
+}
 </style>
 
 
@@ -104,7 +107,6 @@ export default {
 // $green-500: #4caf50 !default;
 // $green: $green-500 !default;
 
-
 // $orange-500: #ff9800 !default;
 // $orange: $orange-500 !default;
 // $black: #000000;
@@ -117,7 +119,6 @@ export default {
 // $brand-warning:                    $orange !default;
 // $brand-info:                       $cyan !default;
 
-
 // $font-size-small:                   12px !default;
 // $border-radius-dropdown:            10px !default;
 // $font-weight-bolder:                500 !default;
@@ -125,13 +126,12 @@ export default {
 // $padding-small:                     10px !default;
 // $box-shadow-general:                0 2px 5px 0 rgba($black, .26);
 
-
 // @mixin fixed-plugin-colors($color-name, $color) {
 //   &.color-#{$color-name}{
 //     background-color: $color;
 //   }
 // }
- 
+
 // .v-menu__content {
 //   border-radius: $border-radius-dropdown;
 //   box-shadow: $box-shadow-general;
@@ -174,17 +174,8 @@ export default {
 //     @include fixed-plugin-colors('primary', $brand-primary);
 //     @include fixed-plugin-colors('info', $brand-info);
 //     @include fixed-plugin-colors('danger', $brand-danger);
-//     @include fixed-plugin-colors('warning', $brand-warning); 
-//     @include fixed-plugin-colors('success', $brand-success); 
+//     @include fixed-plugin-colors('warning', $brand-warning);
+//     @include fixed-plugin-colors('success', $brand-success);
 //   }
 // }
-
-</style>
-
-
-<style lang="stylus" scoped>
-.v-avatar,
-.v-responsive
-  cursor: pointer
-  color: #ddffaa
 </style>

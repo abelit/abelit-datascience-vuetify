@@ -37,14 +37,14 @@
         </v-list>
       </v-navigation-drawer>
     </div>
-    <add-group></add-group>
-    <top-lock></top-lock>
+    <d-group-add></d-group-add>
+    <d-screen-lock></d-screen-lock>
   </div>
 </template>
 
 <script>
-import AddGroup from "@/components/admin/AddGroup";
-import TopLock from "@/components/lock/TopLock";
+import DGroupAdd from "@/components/admin/DGroupAdd";
+import DScreenLock from "@/components/lock/DScreenLock";
 
 export default {
   data() {
@@ -59,8 +59,8 @@ export default {
     };
   },
   components: {
-    AddGroup,
-    TopLock
+    DGroupAdd,
+    DScreenLock
   }
 };
 </script>

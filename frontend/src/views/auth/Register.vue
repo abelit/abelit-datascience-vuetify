@@ -9,7 +9,7 @@
             class="title font-weight-regular"
             style="margin: 0 auto;"
           >{{$t('auth.USER_REGISTER')}}</v-card-title>
-          <select-lang></select-lang>
+          <d-lang-picker></d-lang-picker>
         </v-toolbar>
         <v-form ref="form" v-model="form" class="pa-3 pt-4">
           <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
@@ -171,12 +171,12 @@
 </template>
 
 <script>
-import SelectLang from "@/components/lang/SelectLang";
+import DLangPicker from "@/components/lang/DLangPicker";
 
 export default {
   name: "Register",
   components: {
-    SelectLang
+    DLangPicker
   },
   data: () => ({
     passwordShow: false,
