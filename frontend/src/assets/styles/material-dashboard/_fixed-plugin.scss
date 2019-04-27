@@ -32,6 +32,7 @@
 
     &.image-active,
     &.color-active,
+    &.color-tb-active,
     &.color-btn-active {
       border-color: $brand-info;
     }
@@ -42,15 +43,26 @@
     @include fixed-plugin-btncolors('green', $brand-success);
     @include fixed-plugin-btncolors('cyan', $brand-info);
     @include fixed-plugin-btncolors('orange', $brand-warning);
-    @include fixed-plugin-btncolors('red', $brand-danger); 
+    @include fixed-plugin-btncolors('red', $brand-danger);
+    @include fixed-plugin-btncolors('grey-darken-3', $brand-dark);
   }
 
-   .v-responsive {
-     @include fixed-plugin-colors('deep-purple', $brand-primary);
-     @include fixed-plugin-colors('cyan', $brand-info);
-     @include fixed-plugin-colors('orange', $brand-warning);
-     @include fixed-plugin-colors('grey-darken-3', $brand-dark);
-   }
+  .v-avatar {
+    @include fixed-plugin-tbcolors('deep-purple', $brand-primary);
+    @include fixed-plugin-tbcolors('green', $brand-success);
+    @include fixed-plugin-tbcolors('cyan', $brand-info);
+    @include fixed-plugin-tbcolors('orange', $brand-warning);
+    @include fixed-plugin-tbcolors('red', $brand-danger);
+    @include fixed-plugin-tbcolors('grey-darken-3', $brand-dark);
+  }
 
- 
+
+  .v-responsive {
+    @include fixed-plugin-colors('deep-purple', $brand-primary);
+    @include fixed-plugin-colors('cyan', $brand-info);
+    @include fixed-plugin-colors('orange', $brand-warning);
+    @include fixed-plugin-colors('grey-darken-3', $brand-dark);
+  }
+
+
 }

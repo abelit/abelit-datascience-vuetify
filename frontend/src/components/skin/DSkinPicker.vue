@@ -30,7 +30,7 @@
 
             <v-layout justify-center>
               <v-avatar
-                v-for="c in btncolors"
+                v-for="c in tbcolors"
                 :key="c"
                 :class="[c === tbcolor?'color-tb-active color-tb-' + c:'color-tb-'+c]"
                 size="23"
@@ -40,7 +40,7 @@
             <v-divider class="mt-3"/>
           </v-flex>
 
- <v-flex xs12>
+          <v-flex xs12>
             <div class="text-xs-center body-2 text-uppercase sidebar-filter">Sidebar Filters</div>
 
             <v-layout justify-center>
@@ -84,27 +84,42 @@
 import { mapState, mapActions } from "vuex";
 export default {
   data: () => ({
-    btncolors: ["deep-purple", "green", "cyan", "orange", "red"],
+    colors: ["deep-purple", "orange", "grey-darken-3", "cyan"],
+    btncolors: [
+      "deep-purple",
+      "green",
+      "cyan",
+      "orange",
+      "red",
+      "grey-darken-3"
+    ],
+    tbcolors: [
+      "deep-purple",
+      "green",
+      "cyan",
+      "orange",
+      "red",
+      "grey-darken-3"
+    ],
     images: [
       "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-1.23832d31.jpg",
       "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg",
       "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
-      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-4.3b7e38ed.jpg",
-    ],
-    colors: [
-      "deep-purple",
-      "orange",
-      "grey-darken-3",
-      "cyan"
+      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-4.3b7e38ed.jpg"
     ]
   }),
 
   computed: {
-    ...mapState(["color", "image","btncolor"])
+    ...mapState(["color", "image", "btncolor", "tbcolor"])
   },
 
   methods: {
-    ...mapActions(["setSidebarImage", "setSidebarButtonColor", "setSidebarColor", "setToolbarColor"]),
+    ...mapActions([
+      "setSidebarImage",
+      "setSidebarButtonColor",
+      "setSidebarColor",
+      "setToolbarColor"
+    ]),
     setSidebarImageNew(val) {
       this.setSidebarColor("");
       this.setSidebarImage(val);

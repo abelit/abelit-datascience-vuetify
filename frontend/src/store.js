@@ -10,9 +10,8 @@ const state = {
   skin: localStorage.getItem("skin") || "",
   btncolor: localStorage.getItem("sidebar_btncolor") || "",
   color: localStorage.getItem("sidebar_color") || "",
-  tbcolor: localStorage.getItem("toobar_color") || "grey darken-3",
-  image:
-    localStorage.getItem("sidebar_image") ||
+  tbcolor: localStorage.getItem("toolbar_color") || "",
+  image: localStorage.getItem("sidebar_image") ||
     "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg",
   drawer: false,
   mini: false,
@@ -72,41 +71,65 @@ const actions = {
     ctx.commit("increment");
   },
   // 使用ES2015语法简化代码
-  adecrement({ commit }) {
+  adecrement({
+    commit
+  }) {
     commit("decrement");
   },
 
-  setLanguage({ commit }, language) {
+  setLanguage({
+    commit
+  }, language) {
     commit("SET_LANGUAGE", language);
   },
-  setToken({ commit }, token) {
+  setToken({
+    commit
+  }, token) {
     commit("SET_TOKEN", token);
   },
-  delToken({ commit }) {
+  delToken({
+    commit
+  }) {
     commit("DEL_TOKEN");
   },
-  setSkin({ commit }, skin) {
+  setSkin({
+    commit
+  }, skin) {
     commit("SET_SKIN", skin);
   },
-  setSidebarButtonColor({ commit }, btncolor) {
+  setSidebarButtonColor({
+    commit
+  }, btncolor) {
     commit("SET_SIDEBAR_BUTTON_COLOR", btncolor);
   },
-  setSidebarImage({ commit }, image) {
+  setSidebarImage({
+    commit
+  }, image) {
     commit("SET_SIDEBAR_IMAGE", image);
   },
-  setSidebarColor({ commit }, color) {
+  setSidebarColor({
+    commit
+  }, color) {
     commit("SET_SIDEBAR_COLOR", color);
   },
-  setToolbarColor({ commit }, tbcolor) {
+  setToolbarColor({
+    commit
+  }, tbcolor) {
     commit("SET_TOOLBAR_COLOR", tbcolor);
   },
-  setMini({ commit }, mini) {
+  setMini({
+    commit
+  }, mini) {
     commit("SET_MINI", mini);
   },
-  setDrawer({ commit }, drawer) {
+  setDrawer({
+    commit
+  }, drawer) {
     commit("SET_DRAWER", drawer);
   },
-  setSmallScreen({ commit }, isSmallScreen) {
+  setSmallScreen({
+    commit
+  }, isSmallScreen) {
     commit("SET_SMALLSCREEN", isSmallScreen);
   }
 };

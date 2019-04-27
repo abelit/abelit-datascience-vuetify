@@ -1,5 +1,5 @@
 <template >
-  <div class="pl-4" v-resize="onResize">
+  <div v-resize="onResize">
     <d-side-bar></d-side-bar>
     <d-nav-bar></d-nav-bar>
     <d-app-main></d-app-main>
@@ -37,8 +37,10 @@ export default {
         this.isSmallScreen = false;
       }
 
-      console.log("layout smallscreen: "+this.isSmallScreen)
-      console.log("layout store smallscreen: "+this.$store.state.isSmallScreen)
+      console.log("layout smallscreen: " + this.isSmallScreen);
+      console.log(
+        "layout store smallscreen: " + this.$store.state.isSmallScreen
+      );
 
       // 当屏幕尺寸在大小两个值变化时，设置vuex中mini,drawer的值
       if (
@@ -51,7 +53,7 @@ export default {
 
       if (
         this.isSmallScreen != this.$store.state.isSmallScreen &&
-        !this.isSmallScreen 
+        !this.isSmallScreen
       ) {
         this.setMini(false);
         this.setDrawer(true);
@@ -60,22 +62,22 @@ export default {
       // 设置vuex中isSmallScreen的值
       this.setSmallScreen(this.isSmallScreen);
 
-      console.log("layout store mini: "+this.$store.state.mini)
-      console.log("layout store drawer: "+this.$store.state.drawer)
+      console.log("layout store mini: " + this.$store.state.mini);
+      console.log("layout store drawer: " + this.$store.state.drawer);
     },
     // 根据屏幕大小设置mini, drawer的值
     initValue() {
       if (!this.isSmallScreen) {
-      this.setDrawer(true)
-      this.setMini(false)
-    } else {
-      this.setMini(false)
-      this.setDrawer(false)
-    }
+        this.setDrawer(true);
+        this.setMini(false);
+      } else {
+        this.setMini(false);
+        this.setDrawer(false);
+      }
     }
   },
   mounted() {
-    console.log("hah"+this.isSmallScreen)
+    console.log("hah" + this.isSmallScreen);
     // Init mini, drawer in store
     this.initValue();
   }

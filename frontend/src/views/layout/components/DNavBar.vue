@@ -8,16 +8,11 @@
       <v-btn icon>
         <v-icon>contact_support</v-icon>
       </v-btn>
-      <v-btn icon v-if="!isFullSceen">
-        <v-icon>fullscreen</v-icon>
-      </v-btn>
-      <v-btn icon v-else>
-        <v-icon>fullscreen_exit</v-icon>
-      </v-btn>
+
+      <d-screen-display></d-screen-display>
       <d-screen-lock></d-screen-lock>
-      
       <d-skin-picker></d-skin-picker>
-    
+
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
@@ -34,12 +29,7 @@
       <v-btn icon>
         <v-icon>contact_support</v-icon>
       </v-btn>
-      <v-btn icon v-if="!isFullSceen">
-        <v-icon>fullscreen</v-icon>
-      </v-btn>
-      <v-btn icon v-else>
-        <v-icon>fullscreen_exit</v-icon>
-      </v-btn>
+      <d-screen-display></d-screen-display>
       <d-screen-lock></d-screen-lock>
       <d-skin-picker></d-skin-picker>
       <v-tooltip bottom>
@@ -58,15 +48,16 @@
 <script>
 import DScreenLock from "@/components/lock/DScreenLock";
 import DSkinPicker from "@/components/skin/DSkinPicker";
+import DScreenDisplay from "@/components/fullscreen/DScreenDisplay";
 import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
     DScreenLock,
-    DSkinPicker
+    DSkinPicker,
+    DScreenDisplay
   },
   data: () => ({
-    isFullSceen: false,
     mini: false,
     drawer: false
   }),

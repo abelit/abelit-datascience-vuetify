@@ -10,7 +10,7 @@
     >
       <v-img :src="image" height="100%">
         <v-toolbar flat class="transparent">
-          <v-list class="pa-1 darken-3" :class="color">
+          <v-list class="pa-1 darken-3">
             <v-list-tile avatar tag="div">
               <v-list-tile-avatar>
                 <img :src="logo">
@@ -23,7 +23,7 @@
           </v-list>
         </v-toolbar>
 
-        <v-list class="pt-0" :class="color" dense :color="color">
+        <v-list class="pt-0" dense>
           <v-divider class="my-0"></v-divider>
           <v-list-group prepend-icon="dashboard" v-if="!mini">
             <template v-slot:activator>
@@ -48,7 +48,7 @@
               <v-list-tile-title v-text="dash.title"></v-list-tile-title>
             </v-list-tile>
           </v-list-group>
-        <v-list-tile v-else>
+          <v-list-tile v-else>
             <v-list-tile-action>
               <v-menu offset-x dark min-width="200" nudge-left="15">
                 <template v-slot:activator="{ on }">
@@ -68,12 +68,12 @@
                   <v-list-tile
                     v-for="(item, index) in dashboards"
                     :key="index"
-                    @click=""
+                    @click
                     router
                     :to="item.path"
                     avatar
                   >
-                    <v-list-tile-action class="mr-1" :class="color">
+                    <v-list-tile-action class="mr-1">
                       <v-icon>{{item.icon}}</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-title>{{ item.title }}</v-list-tile-title>
@@ -118,12 +118,12 @@
                   <v-list-tile
                     v-for="(item, index) in reports"
                     :key="index"
-                    @click=""
+                    @click
                     router
                     :to="item.path"
                     avatar
                   >
-                    <v-list-tile-action class="mr-1" :class="color">
+                    <v-list-tile-action class="mr-1">
                       <v-icon>{{item.icon}}</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-title>{{ item.title }}</v-list-tile-title>
@@ -141,7 +141,7 @@
 <script>
 import { mapActions, mapState } from "vuex";
 
-const newLocal=false;
+const newLocal = false;
 export default {
   name: "SideBar",
   data() {
@@ -175,7 +175,14 @@ export default {
     ...mapActions(["setDrawer"])
   },
   computed: {
-    ...mapState(["color","btncolor", "image", "mini", "drawer", "isSmallScreen"]),
+    ...mapState([
+      "color",
+      "btncolor",
+      "image",
+      "mini",
+      "drawer",
+      "isSmallScreen"
+    ]),
     getDrawerStatus: {
       get() {
         console.log(
@@ -210,5 +217,4 @@ export default {
 
 
 <style lang="scss" scoped>
-
 </style>

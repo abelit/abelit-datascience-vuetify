@@ -7,7 +7,6 @@
 <script>
 import "vue-transition.css";
 
-
 export default {
   name: "App",
   components: {},
