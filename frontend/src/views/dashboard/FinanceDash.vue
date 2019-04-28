@@ -1,13 +1,13 @@
 <template>
-<v-container fluid fill-height class="scroll-y">
-  <v-flex  text-xs-center>
-  <h1>Finance Dashboard</h1>
-    <table-demo></table-demo>
-    <table-two-demo></table-two-demo>
-    <table-one-demo></table-one-demo>
-    <table-three-demo></table-three-demo>
-  </v-flex>
-</v-container>
+  <v-container fluid style="height: 900px">
+    <v-flex>
+      <h1>Finance Dashboard</h1>
+      <table-demo></table-demo>
+      <table-two-demo></table-two-demo>
+      <table-one-demo></table-one-demo>
+      <table-three-demo></table-three-demo>
+    </v-flex>
+  </v-container>
 </template>
 
 <script>
