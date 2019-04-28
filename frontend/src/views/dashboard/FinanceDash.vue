@@ -1,22 +1,27 @@
 <template>
-  <v-container grid-list-xl fluid>
-    <h1>Finance Dashboard</h1>
+<v-container fluid fill-height class="scroll-y">
+  <v-flex  text-xs-center>
+  <h1>Finance Dashboard</h1>
     <table-demo></table-demo>
     <table-two-demo></table-two-demo>
     <table-one-demo></table-one-demo>
-  </v-container>
+    <table-three-demo></table-three-demo>
+  </v-flex>
+</v-container>
 </template>
 
 <script>
 import TableDemo from "@/components/tables/TableDemo";
 import TableTwoDemo from "@/components/tables/TableTwoDemo";
 import TableOneDemo from "@/components/tables/TableOneDemo";
+import TableThreeDemo from "@/components/tables/TableThreeDemo";
 export default {
   name: "Report",
   components: {
     TableDemo,
     TableTwoDemo,
-    TableOneDemo
+    TableOneDemo,
+    TableThreeDemo
   }
 };
 </script>

@@ -3,7 +3,7 @@
     <d-side-bar></d-side-bar>
     <d-nav-bar></d-nav-bar>
     <d-app-main></d-app-main>
-    <d-footer></d-footer>
+    <!-- <d-footer></d-footer> -->
   </div>
 </template>
 

@@ -8,9 +8,9 @@
       <!-- -->
     </v-toolbar>
 
-    <v-content class="indigo">
+    <v-content>
       <v-container fluid>
-        <!-- If using vue-router -->
+          <!-- If using vue-router -->
         <h1>Finance Dashboard</h1>
         <table-demo></table-demo>
         <table-two-demo></table-two-demo>

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <div>
     <v-sparkline
       :value="value"
       :gradient="gradient"
@@ -72,7 +72,7 @@
         <v-slider v-model="padding" label="Padding" min="0" max="25" thumb-label></v-slider>
       </v-flex>
     </v-layout>
-  </v-container>
+  </div>
 </template>
 
 

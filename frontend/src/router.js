@@ -247,6 +247,14 @@ const router = new Router({
     {
       path: "/demo/winsize",
       component: () => import("@/components/demo/WindowResizeDemo")
+    },
+    {
+      path: "/demo/scroll",
+      component: () => import("@/components/demo/ScrollDemo")
+    },
+    {
+      path: "/demo",
+      component: () => import("@/components/demo/PageDemo")
     }
   ]
 });
