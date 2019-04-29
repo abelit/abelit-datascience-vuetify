@@ -1,10 +1,10 @@
 <template>
   <v-tooltip bottom>
     <template v-slot:activator="{ on }">
-      <v-btn icon v-if="!isFullScreen" v-on="on">
+      <v-btn icon v-if="!isFullScreen" v-on="on"  @click="handleFullScreen()">
         <v-icon>fullscreen</v-icon>
       </v-btn>
-      <v-btn icon v-else v-on="on">
+      <v-btn icon v-else v-on="on"  @click="handleFullScreen()">
         <v-icon>fullscreen_exit</v-icon>
       </v-btn>
     </template>
@@ -15,9 +15,16 @@
 
 
 <script>
+import Utils from "@/utils";
 export default {
   data: () => ({
     isFullScreen: false
-  })
+  }),
+  methods: {
+     handleFullScreen () {
+      Utils.toggleFullScreen();
+      this.isFullScreen=true;
+    }
+  }
 };
 </script>
