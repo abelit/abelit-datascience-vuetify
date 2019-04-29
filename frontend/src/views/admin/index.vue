@@ -38,13 +38,13 @@
       </v-navigation-drawer>
     </div>
     <d-group-add></d-group-add>
-    <d-screen-lock></d-screen-lock>
+    <d-app-lock></d-app-lock>
   </div>
 </template>
 
 <script>
 import DGroupAdd from "@/components/admin/DGroupAdd";
-import DScreenLock from "@/components/lock/DScreenLock";
+import DAppLock from "@/components/lock/DAppLock";
 
 export default {
   data() {
@@ -60,7 +60,7 @@ export default {
   },
   components: {
     DGroupAdd,
-    DScreenLock
+    DAppLock
   }
 };
 </script>

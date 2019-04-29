@@ -5,11 +5,11 @@
         <div v-on="on">
           <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-        <v-btn color="transparent" v-on="on" flat>
+        <v-btn color="transparent" v-on="on" icon>
           <img v-if="language" :src="require('@/assets/images/auth/'+language+'.png')" alt>
         </v-btn>
       </template>
-      <span>语言切换</span>
+      <span>{{ $t("tooltip.LANG_SWITCH") }}</span>
       </v-tooltip>
         </div>
       </template>

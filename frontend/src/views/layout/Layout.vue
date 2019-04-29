@@ -29,8 +29,14 @@ export default {
     isSmallScreen: false
   }),
   methods: {
-    ...mapActions(["setDrawer", "setMini", "setSmallScreen"]),
+    ...mapActions(["setDrawer", "setMini", "setSmallScreen", "setWindowSize"]),
     onResize() {
+      let windowSize = {
+        windowHeight: window.innerHeight,
+        windowWidth: window.innerWidth
+      };
+      this.setWindowSize(windowSize);
+      console.log(windowSize);
       if (window.innerWidth < this.responseSize) {
         this.isSmallScreen = true;
       } else {

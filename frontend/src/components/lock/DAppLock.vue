@@ -8,7 +8,7 @@
             <v-icon>lock</v-icon>
           </v-btn>
         </template>
-        <span>Screen Lock</span>
+        <span>{{ $t("tooltip.APP_LOCK") }}</span>
       </v-tooltip>
       </div>
     </template>
@@ -43,7 +43,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <div class="pr-2">
-            <v-btn color="indigo" @click="submit" dark v-on="on">
+            <v-btn color="indigo" @click="submit" dark>
               <span class="font-weight-bold">{{$t("button.CONFIRM") }}</span>
             </v-btn>
           </div>
@@ -56,7 +56,6 @@
 
 <script>
 export default {
-  name: "TopLock",
   data: () => ({
     dialog: false,
     passwordDisplay: false,

@@ -1,16 +1,15 @@
 <template class="pl-0">
   <nav>
-    <v-toolbar flat app :class="tbcolor" dark v-if="!isSmallScreen" absolute fixed>
+    <v-toolbar flat app :class="[tbcolor==='grey'?tbcolor+' darken-3':tbcolor]" dark v-if="!isSmallScreen" absolute fixed>
       <!-- 根据mini值显示icon的样式，正常与旋转90° -->
       <v-toolbar-side-icon v-if="!mini" @click="miniSidebar"></v-toolbar-side-icon>
       <v-toolbar-side-icon v-else style="transform: rotate(90deg)" @click="miniSidebar"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>contact_support</v-icon>
-      </v-btn>
-
+      <d-help-question></d-help-question>
+      <d-lang-picker></d-lang-picker>
       <d-screen-display></d-screen-display>
-      <d-screen-lock></d-screen-lock>
+      <d-app-lock></d-app-lock>
+
       <d-skin-picker></d-skin-picker>
 
       <v-tooltip bottom>
@@ -19,18 +18,18 @@
             <v-icon>account_circle</v-icon>
           </v-btn>
         </template>
-        <span>User Profile</span>
+        <span>{{$t("tooltip.USER_PROFILE")}}</span>
       </v-tooltip>
     </v-toolbar>
     <!-- 当屏幕为小屏时，显示这里的工具条 -->
-    <v-toolbar flat app class="indigo" dark v-else>
+    <v-toolbar flat app class="indigo" dark v-else :class="tbcolor">
       <v-toolbar-side-icon @click="toggleSidebar"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>contact_support</v-icon>
-      </v-btn>
+      <d-help-question></d-help-question>
+      <d-lang-picker></d-lang-picker>
       <d-screen-display></d-screen-display>
-      <d-screen-lock></d-screen-lock>
+      <d-app-lock></d-app-lock>
+
       <d-skin-picker></d-skin-picker>
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
@@ -38,7 +37,7 @@
             <v-icon>account_circle</v-icon>
           </v-btn>
         </template>
-        <span>User Profile</span>
+        <span>{{$t("tooltip.USER_PROFILE")}}</span>
       </v-tooltip>
     </v-toolbar>
   </nav>
@@ -46,16 +45,21 @@
 
 
 <script>
-import DScreenLock from "@/components/lock/DScreenLock";
+import DAppLock from "@/components/lock/DAppLock";
 import DSkinPicker from "@/components/skin/DSkinPicker";
 import DScreenDisplay from "@/components/fullscreen/DScreenDisplay";
+import DLangPicker from "@/components/lang/DLangPicker";
+import DHelpQuestion from "@/components/support/DHelpQuestion";
+
 import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
-    DScreenLock,
+    DAppLock,
     DSkinPicker,
-    DScreenDisplay
+    DScreenDisplay,
+    DLangPicker,
+    DHelpQuestion
   },
   data: () => ({
     mini: false,

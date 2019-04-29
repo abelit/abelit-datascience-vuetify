@@ -15,7 +15,8 @@ const state = {
     "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg",
   drawer: false,
   mini: false,
-  isSmallScreen: false
+  isSmallScreen: false,
+  windowSize: ""
 };
 const mutations = {
   increment: state => state.count++,
@@ -64,6 +65,9 @@ const mutations = {
   },
   SET_SMALLSCREEN: (state, isSmallScreen) => {
     state.isSmallScreen = isSmallScreen;
+  },
+  SET_WINDOWSIZE: (state, windowSize) => {
+    state.windowSize = windowSize;
   }
 };
 const actions = {
@@ -131,6 +135,11 @@ const actions = {
     commit
   }, isSmallScreen) {
     commit("SET_SMALLSCREEN", isSmallScreen);
+  },
+  setWindowSize({
+    commit
+  }, windowSize) {
+    commit("SET_WINDOWSIZE", windowSize)
   }
 };
 

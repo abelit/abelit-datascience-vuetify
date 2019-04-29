@@ -62,4 +62,20 @@ export const message = {
 export const toolbar = {
   DATA_ANALYSIS: "Data Analysis",
   DATA_EYE: "Data Eye"
-}
+};
+
+export const theme = {
+  NAVBAR_THEME: "Navigation Theme",
+  SIDEBAR_THEME: "Menu Theme",
+  BUTTON_THEME: "Button Theme"
+};
+
+export const tooltip = {
+  LANG_SWITCH: "Dynamic Language Switch",
+  QUESTION_SUPPORT: "Questions？ & Answer!",
+  FULLSCREEN_EXIT: "Exit Fullscreen?",
+  FULLSCREEN_ENTER: "Enter Fullscreen?",
+  APP_LOCK: "Application Lock",
+  THEME_PICKER: "Theme Picker",
+  USER_PROFILE: "User Profile"
+};

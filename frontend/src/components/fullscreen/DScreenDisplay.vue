@@ -8,8 +8,8 @@
         <v-icon>fullscreen_exit</v-icon>
       </v-btn>
     </template>
-    <span v-if="!isFullScreen">enter fullscreen</span>
-    <span v-else>exit fullscreen</span>
+    <span v-if="!isFullScreen">{{ $t("tooltip.FULLSCREEN_ENTER") }}</span>
+    <span v-else>{{ $t("tooltip.FULLSCREEN_EXIT") }}</span>
   </v-tooltip>
 </template>
 

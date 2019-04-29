@@ -17,7 +17,7 @@
               <v-icon>camera</v-icon>
             </v-btn>
           </template>
-          <span>Theme</span>
+          <span>{{$t("tooltip.THEME_PICKER")}}</span>
         </v-tooltip>
       </div>
     </template>
@@ -26,7 +26,7 @@
       <v-container grid-list-xl>
         <v-layout wrap>
           <v-flex xs12>
-            <div class="text-xs-center body-2 text-uppercase sidebar-filter">Toolbar Filters</div>
+            <div class="text-xs-center body-2 text-uppercase sidebar-filter">{{ $t("theme.NAVBAR_THEME") }}</div>
 
             <v-layout justify-center>
               <v-avatar
@@ -41,7 +41,7 @@
           </v-flex>
 
           <v-flex xs12>
-            <div class="text-xs-center body-2 text-uppercase sidebar-filter">Sidebar Filters</div>
+            <div class="text-xs-center body-2 text-uppercase sidebar-filter">{{ $t("theme.BUTTON_THEME") }}</div>
 
             <v-layout justify-center>
               <v-avatar
@@ -56,7 +56,7 @@
           </v-flex>
 
           <v-flex xs12>
-            <div class="text-xs-center body-2 text-uppercase sidebar-filter">Images</div>
+            <div class="text-xs-center body-2 text-uppercase sidebar-filter">{{ $t("theme.SIDEBAR_THEME") }}</div>
           </v-flex>
           <v-flex v-for="img in images" :key="img" xs3>
             <v-img
@@ -84,14 +84,14 @@
 import { mapState, mapActions } from "vuex";
 export default {
   data: () => ({
-    colors: ["deep-purple", "orange", "grey-darken-3", "cyan"],
+    colors: ["deep-purple", "orange", "grey", "cyan"],
     btncolors: [
       "deep-purple",
       "green",
       "cyan",
       "orange",
       "red",
-      "grey-darken-3"
+      "grey"
     ],
     tbcolors: [
       "deep-purple",
@@ -99,13 +99,13 @@ export default {
       "cyan",
       "orange",
       "red",
-      "grey-darken-3"
+      "grey"
     ],
     images: [
-      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-1.23832d31.jpg",
-      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg",
-      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-3.3a54f533.jpg",
-      "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-4.3b7e38ed.jpg"
+      "./static/theme/sidebar001.jpg",
+      "./static/theme/sidebar002.jpg",
+      "./static/theme/sidebar005.jpg",
+      "./static/theme/sidebar007.jpg"
     ]
   }),
 

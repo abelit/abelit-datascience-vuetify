@@ -5,11 +5,13 @@
       :mini-variant="mini"
       dark
       app
-      :class="color"
+      :class="[color==='grey'?color+' darken-3': color]"
       stateless
+      width="280"
+      style="background-color: red"
     >
       <v-img :src="image" height="100%">
-        <v-toolbar flat class="transparent">
+        <v-toolbar flat class="mb-0  darken-3" :class="color">
           <v-list class="pa-1 darken-3">
             <v-list-tile avatar tag="div">
               <v-list-tile-avatar>
@@ -23,7 +25,7 @@
           </v-list>
         </v-toolbar>
 
-        <v-list class="pt-0" dense>
+        <v-list class="pt-0 d-list" dense>
           <v-divider class="my-0"></v-divider>
           <v-list-group prepend-icon="dashboard" v-if="!mini">
             <template v-slot:activator>
@@ -40,7 +42,7 @@
               @click.stop
               router
               :to="dash.path"
-              :active-class="btncolor"
+              :active-class="[btncolor==='grey'?btncolor+' darken-3': btncolor]"
             >
               <v-list-tile-action>
                 <v-icon v-text="dash.icon"></v-icon>
@@ -50,10 +52,10 @@
           </v-list-group>
           <v-list-tile v-else>
             <v-list-tile-action>
-              <v-menu offset-x dark min-width="200" nudge-left="15">
+              <v-menu offset-x dark min-width="200" nudge-left="20">
                 <template v-slot:activator="{ on }">
                   <div v-on="on">
-                    <v-tooltip right nudge-left="10">
+                    <v-tooltip right nudge-left="15">
                       <template v-slot:activator="{ on }">
                         <v-btn flat dark v-on="on" right>
                           <v-icon>dashboard</v-icon>
@@ -97,7 +99,7 @@
               :key="dash.title"
               router
               :to="dash.path"
-              active-class="abelit"
+              active-class="btncolor"
             >
               <v-list-tile-action>
                 <v-icon v-text="dash.icon"></v-icon>
@@ -108,7 +110,7 @@
 
           <v-list-tile v-else>
             <v-list-tile-action>
-              <v-menu offset-x dark min-width="200">
+              <v-menu offset-x dark min-width="200" >
                 <template v-slot:activator="{ on }">
                   <v-btn flat dark v-on="on" right>
                     <v-icon>assessment</v-icon>
@@ -217,4 +219,11 @@ export default {
 
 
 <style lang="scss" scoped>
+@import "@/assets/styles/index.scss";
+$sidebar-bg: #29292927;
+.d-list,
+.v-toolbar {
+  background: $sidebar-bg;
+}
+
 </style>

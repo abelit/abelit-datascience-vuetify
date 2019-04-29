@@ -62,4 +62,20 @@ export const message = {
 export const toolbar = {
   DATA_ANALYSIS: "数据分析",
   DATA_EYE: "数据视野"
-}
+};
+
+export const theme = {
+  NAVBAR_THEME: "导航栏主题",
+  SIDEBAR_THEME: "菜单栏主题",
+  BUTTON_THEME: "按钮主题"
+};
+
+export const tooltip = {
+  LANG_SWITCH: "语言切换",
+  QUESTION_SUPPORT: "问题帮助",
+  FULLSCREEN_EXIT: "退出全屏?",
+  FULLSCREEN_ENTER: "全屏?",
+  APP_LOCK: "应用锁",
+  THEME_PICKER: "主题选择器",
+  USER_PROFILE: "用户概要"
+};
