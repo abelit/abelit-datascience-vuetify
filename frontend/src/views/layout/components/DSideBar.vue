@@ -8,7 +8,6 @@
       :class="[color==='grey'?color+' darken-3': color]"
       stateless
       width="280"
-      style="background-color: red"
     >
       <v-img :src="image" height="100%">
         <v-toolbar flat class="mb-0  darken-3" :class="color">

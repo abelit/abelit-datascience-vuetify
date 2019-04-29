@@ -102,10 +102,10 @@ export default {
       "grey"
     ],
     images: [
-      "./static/theme/sidebar001.jpg",
-      "./static/theme/sidebar002.jpg",
-      "./static/theme/sidebar005.jpg",
-      "./static/theme/sidebar007.jpg"
+      "/static/theme/sidebar001.jpg",
+      "/static/theme/sidebar002.jpg",
+      "/static/theme/sidebar005.jpg",
+      "/static/theme/sidebar007.jpg"
     ]
   }),
 

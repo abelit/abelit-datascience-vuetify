@@ -11,8 +11,7 @@ const state = {
   btncolor: localStorage.getItem("sidebar_btncolor") || "",
   color: localStorage.getItem("sidebar_color") || "",
   tbcolor: localStorage.getItem("toolbar_color") || "",
-  image: localStorage.getItem("sidebar_image") ||
-    "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg",
+  image: localStorage.getItem("sidebar_image") || "./static/theme/sidebar001",
   drawer: false,
   mini: false,
   isSmallScreen: false,
