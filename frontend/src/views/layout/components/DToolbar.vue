@@ -1,35 +1,19 @@
-<template class="pl-0">
+<template>
   <nav>
-    <v-toolbar flat app :class="[tbcolor==='grey'?tbcolor+' darken-3':tbcolor]" dark v-if="!isSmallScreen" absolute fixed>
+    <v-toolbar flat app :class="[tbcolor==='grey'?tbcolor+' darken-3':tbcolor]" dark absolute fixed>
       <!-- 根据mini值显示icon的样式，正常与旋转90° -->
-      <v-toolbar-side-icon v-if="!mini" @click="miniSidebar"></v-toolbar-side-icon>
-      <v-toolbar-side-icon v-else style="transform: rotate(90deg)" @click="miniSidebar"></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-if="!mini && !isSmallScreen" @click="miniSidebar"></v-toolbar-side-icon>
+      <v-toolbar-side-icon
+        v-else-if="mini && !isSmallScreen"
+        style="transform: rotate(90deg)"
+        @click="miniSidebar"
+      ></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-else @click="toggleSidebar"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
       <d-help-question></d-help-question>
       <d-lang-picker></d-lang-picker>
       <d-screen-display></d-screen-display>
       <d-app-lock></d-app-lock>
-
-      <d-skin-picker></d-skin-picker>
-
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn icon v-on="on">
-            <v-icon>account_circle</v-icon>
-          </v-btn>
-        </template>
-        <span>{{$t("tooltip.USER_PROFILE")}}</span>
-      </v-tooltip>
-    </v-toolbar>
-    <!-- 当屏幕为小屏时，显示这里的工具条 -->
-    <v-toolbar flat app class="indigo" dark v-else :class="tbcolor">
-      <v-toolbar-side-icon @click="toggleSidebar"></v-toolbar-side-icon>
-      <v-spacer></v-spacer>
-      <d-help-question></d-help-question>
-      <d-lang-picker></d-lang-picker>
-      <d-screen-display></d-screen-display>
-      <d-app-lock></d-app-lock>
-
       <d-skin-picker></d-skin-picker>
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
@@ -63,7 +47,7 @@ export default {
   },
   data: () => ({
     mini: false,
-    drawer: false
+    drawer: true
   }),
   methods: {
     ...mapActions(["setDrawer", "setMini"]),
@@ -75,8 +59,8 @@ export default {
     },
     toggleSidebar() {
       console.log("navbar 1: " + this.drawer);
-      this.drawer = !this.drawer;
-      this.setDrawer(this.drawer);
+      this.drawer = this.$store.state.drawer;
+      this.setDrawer(!this.drawer);
       console.log("navbar 2: " + this.drawer);
     }
   },

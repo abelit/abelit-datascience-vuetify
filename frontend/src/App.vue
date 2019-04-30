@@ -18,7 +18,7 @@ export default {
 
 
 <style>
-.app-router-view {
+/* .app-router-view {
   position: absolute;
   top: 0;
   left: 0;
@@ -29,9 +29,6 @@ export default {
   transform: translate3d(0, 0, 0);
   transform-style: preserve-3d;
   visibility: visible;
-}
-/* html {
-  overflow-y: scroll;
 } */
 </style>
 

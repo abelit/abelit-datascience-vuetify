@@ -1,25 +1,25 @@
 <template >
   <div v-resize="onResize">
-    <d-side-bar></d-side-bar>
-    <d-nav-bar></d-nav-bar>
-    <d-app-main></d-app-main>
+    <d-drawer></d-drawer>
+    <d-toolbar></d-toolbar>
+    <d-app></d-app>
     <d-footer></d-footer>
   </div>
 </template>
 
 <script>
-import DAppMain from "@/views/layout/components/DAppMain";
-import DNavBar from "@/views/layout/components/DNavBar";
-import DSideBar from "@/views/layout/components/DSideBar";
+import DApp from "@/views/layout/components/DApp";
+import DToolbar from "@/views/layout/components/DToolbar";
+import DDrawer from "@/views/layout/components/DDrawer";
 import DFooter from "@/components/footer/DFooter";
 
 import { mapActions } from "vuex";
 
 export default {
   components: {
-    DNavBar,
-    DAppMain,
-    DSideBar,
+    DToolbar,
+    DApp,
+    DDrawer,
     DFooter
   },
   data: () => ({
