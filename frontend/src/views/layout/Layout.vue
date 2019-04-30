@@ -2,13 +2,19 @@
   <div v-resize="onResize">
     <d-drawer></d-drawer>
     <d-toolbar></d-toolbar>
-    <d-app></d-app>
-    <d-footer></d-footer>
+    <d-content></d-content>
+    <!-- <d-footer></d-footer> -->
+    <!-- App Footer -->
+          <v-footer height="auto" class="white pa-3 app--footer" >
+            <span class="caption">isocked.com Design &copy; {{ new Date().getFullYear() }}</span>
+            <v-spacer></v-spacer>
+            <span class="caption mr-1"> Make With Love </span> <v-icon color="pink" small>favorite</v-icon>
+          </v-footer>
   </div>
 </template>
 
 <script>
-import DApp from "@/views/layout/components/DApp";
+import DContent from "@/views/layout/components/DContent";
 import DToolbar from "@/views/layout/components/DToolbar";
 import DDrawer from "@/views/layout/components/DDrawer";
 import DFooter from "@/components/footer/DFooter";
@@ -18,7 +24,7 @@ import { mapActions } from "vuex";
 export default {
   components: {
     DToolbar,
-    DApp,
+    DContent,
     DDrawer,
     DFooter
   },

@@ -10,7 +10,7 @@
       width="260"
     >
       <v-img :src="image" height="100%">
-        <v-toolbar flat class="mb-0 darken-3" :class="color">
+        <v-toolbar flat class="mb-0 darken-3" :class="tbcolor">
           <v-list class="pa-1 darken-3">
             <v-list-tile avatar tag="div">
               <v-list-tile-avatar>
@@ -236,7 +236,8 @@ export default {
       "image",
       "mini",
       "drawer",
-      "isSmallScreen"
+      "isSmallScreen",
+      "tbcolor"
     ]),
     getDrawerStatus: {
       get() {
