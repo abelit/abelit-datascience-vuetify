@@ -23,7 +23,7 @@ export default {
   methods: {
      handleFullScreen () {
       Utils.toggleFullScreen();
-      this.isFullScreen=true;
+      this.isFullScreen=!this.isFullScreen;
     }
   }
 };
