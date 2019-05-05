@@ -15,7 +15,7 @@
           <v-list class="pa-1 darken-3">
             <v-list-tile avatar tag="div">
               <v-list-tile-avatar>
-                <v-img :src="logo" width="120" height="60"> </v-img>
+                <v-img :src="logo" height="80" width="110"></v-img>
               </v-list-tile-avatar>
 
               <v-list-tile-content>

@@ -145,7 +145,7 @@
       <label for="two">Two</label>
       <br>
       <span>Picked: {{ picked }}</span>
-      
+
       <input v-model="message" placeholder="edit me">
       <p>Message is: {{ message }}</p>
     </div>
@@ -155,7 +155,7 @@
   </div>
 </template>
 <script>
-import fullscreen from "vue-fullscreen";
+// import fullscreen from "vue-fullscreen";
 import Vue from "vue";
 Vue.use(fullscreen);
 const gradients = [

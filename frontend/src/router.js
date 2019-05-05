@@ -228,14 +228,14 @@ const router = new Router({
       name: "vuetifygrid",
       component: () => import("@/components/demo/VuetifyGridDemo")
     },
-    {
-      path: "/demo/fullscreen",
-      component: () => import("@/components/demo/FullscreenDemo")
-    },
-    {
-      path: "/demo/allpage",
-      component: () => import("@/components/demo/AllPageDemo")
-    },
+    // {
+    //   path: "/demo/fullscreen",
+    //   component: () => import("@/components/demo/FullscreenDemo")
+    // },
+    // {
+    //   path: "/demo/allpage",
+    //   component: () => import("@/components/demo/AllPageDemo")
+    // },
     {
       path: "/demo/pagelayout",
       component: () => import("@/components/demo/PageLayoutDemo")
