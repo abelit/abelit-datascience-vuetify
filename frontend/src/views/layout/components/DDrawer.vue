@@ -5,6 +5,7 @@
       v-model="getDrawerStatus"
       :mini-variant.sync="mini"
       dark
+      fixed
       app
       :class="[color==='grey'?color+' darken-3': color]"
       width="260"
@@ -14,7 +15,7 @@
           <v-list class="pa-1 darken-3">
             <v-list-tile avatar tag="div">
               <v-list-tile-avatar>
-                <img :src="logo">
+                <v-img :src="logo" width="120" height="60"> </v-img>
               </v-list-tile-avatar>
 
               <v-list-tile-content>
@@ -222,7 +223,7 @@ export default {
         { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
         { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" }
       ],
-      logo: "./static/datascience_logo.png",
+      logo: "./static/DataScience.svg",
       value: false
     };
   },

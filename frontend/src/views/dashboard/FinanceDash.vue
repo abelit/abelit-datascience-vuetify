@@ -1,12 +1,14 @@
 <template>
-  <v-container fluid>
-    <v-flex>
+  <v-container grid-list-xl fluid>
+    <v-layout row wrap>
+      <v-flex>
       <h1>Finance Dashboard</h1>
       <table-demo></table-demo>
       <table-two-demo></table-two-demo>
       <table-one-demo></table-one-demo>
       <table-three-demo></table-three-demo>
     </v-flex>
+    </v-layout>
   </v-container>
 </template>
 

@@ -26,8 +26,8 @@ export default {
   right: 0;
   overflow: auto;
   backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  transform-style: preserve-3d;
+  /* transform: translate3d(0, 0, 0); */
+  /* transform-style: preserve-3d; */
   visibility: visible;
 }
 </style>

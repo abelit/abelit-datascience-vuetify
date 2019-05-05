@@ -6,6 +6,7 @@
         <div  class="page-wrapper">
         <router-view :key="key"></router-view>
         </div>
+        <!-- <d-footer></d-footer> -->
       </v-content>
     </keep-alive>
   </transition>
@@ -13,8 +14,11 @@
 </template>
 
 <script>
+import DFooter from "@/components/footer/DFooter";
 export default {
-  name: "AppMain",
+  components: {
+    DFooter
+  },
   data() {
     return {
       cachedViews: "",
@@ -32,5 +36,4 @@ export default {
     border-radius:0  
   .page-wrapper
     min-height:calc(100vh - 64px - 50px - 81px );  
-
 </style>

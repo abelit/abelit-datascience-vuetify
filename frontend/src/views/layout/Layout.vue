@@ -3,13 +3,13 @@
     <d-drawer></d-drawer>
     <d-toolbar></d-toolbar>
     <d-content></d-content>
-    <!-- <d-footer></d-footer> -->
+    <d-footer></d-footer>
     <!-- App Footer -->
-          <v-footer height="auto" class="white pa-3 app--footer" >
+          <!-- <v-footer height="auto" class="white pa-3 app--footer" >
             <span class="caption">isocked.com Design &copy; {{ new Date().getFullYear() }}</span>
             <v-spacer></v-spacer>
             <span class="caption mr-1"> Make With Love </span> <v-icon color="pink" small>favorite</v-icon>
-          </v-footer>
+          </v-footer> -->
   </div>
 </template>
 
