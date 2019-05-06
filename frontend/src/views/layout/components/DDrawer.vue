@@ -15,7 +15,7 @@
           <v-list class="pa-1 darken-3">
             <v-list-tile avatar tag="div">
               <v-list-tile-avatar>
-                <v-img :src="logo" height="80" width="110"></v-img>
+                <v-img :src="logo" height="70" width="100"></v-img>
               </v-list-tile-avatar>
 
               <v-list-tile-content>
@@ -187,7 +187,8 @@ export default {
         { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
         { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
         { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" }
+        { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
+        { title: "NotPermission", icon: "add_shopping_cart", path: "/dashboard/notpermission" }
       ],
       reports: [
         {
@@ -283,7 +284,7 @@ $sidebar-bg: #29292927;
 </style>
 
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 // @import '../../node_modules/vuetify/src/stylus/settings/_elevations.styl';
 #appDrawer {
   overflow: hidden;

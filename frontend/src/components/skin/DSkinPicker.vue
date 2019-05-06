@@ -8,12 +8,13 @@
     nudge-bottom="20"
     offset-y
     transition="slide-y-transition"
+    
   >
     <template v-slot:activator="{ on }">
       <div v-on="on">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn dark icon v-on="on">
+            <v-btn dark icon v-on="on" class="setting-fab">
               <v-icon>camera</v-icon>
             </v-btn>
           </template>
@@ -138,4 +139,12 @@ export default {
 .v-responsive {
   cursor: pointer;
 }
+</style>
+
+
+<style lang="stylus">
+  .setting-fab 
+    top:50%!important; 
+    right:0;
+    border-radius:0  
 </style>

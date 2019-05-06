@@ -15,6 +15,7 @@
       <d-screen-display></d-screen-display>
       <d-app-lock></d-app-lock>
       <d-skin-picker></d-skin-picker>
+      <d-notification class="setting-fab"></d-notification>
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
@@ -34,6 +35,7 @@ import DSkinPicker from "@/components/skin/DSkinPicker";
 import DScreenDisplay from "@/components/fullscreen/DScreenDisplay";
 import DLangPicker from "@/components/lang/DLangPicker";
 import DHelpQuestion from "@/components/support/DHelpQuestion";
+import DNotification from "@/components/notification/DNotification";
 
 import { mapActions, mapState } from "vuex";
 
@@ -43,7 +45,8 @@ export default {
     DSkinPicker,
     DScreenDisplay,
     DLangPicker,
-    DHelpQuestion
+    DHelpQuestion,
+    DNotification
   },
   data: () => ({
     mini: false,

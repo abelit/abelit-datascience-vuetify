@@ -9,13 +9,12 @@
     </v-toolbar>
 
     <v-content>
-      <v-container fluid>
-          <!-- If using vue-router -->
-        <h1>Finance Dashboard</h1>
-        <table-demo></table-demo>
-        <table-two-demo></table-two-demo>
-        <table-one-demo></table-one-demo>
-        <router-view></router-view>
+    <v-container fill-height class="red" fluid>
+        <v-layout justify-center align-center>
+          <v-flex shrink>
+            <p>dfadfa</p>
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-content>
 

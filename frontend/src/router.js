@@ -56,6 +56,10 @@ const router = new Router({
         {
           path: "sale",
           component: () => import("@/views/dashboard/SaleDash.vue")
+        },
+        {
+          path: "notpermission",
+          component: () => import("@/views/error/NotPermission")
         }
       ]
     },
@@ -255,6 +259,16 @@ const router = new Router({
     {
       path: "/demo",
       component: () => import("@/components/demo/PageDemo")
+    },
+    {
+      path: "/test/layout",
+      component: () => import("@/components/demo/LayoutDemo"),
+      children: [
+        {
+          path: "a",
+          component: () => import("@/components/demo/ContentADemo")
+        }
+      ]
     }
   ]
 });

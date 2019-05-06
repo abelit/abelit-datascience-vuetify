@@ -1,16 +1,14 @@
 <template>
-  <!-- <section class="app-main"> -->
   <transition name="fade" mode="out-in">
     <keep-alive :include="cachedViews">
       <v-content>
         <div  class="page-wrapper">
-        <router-view :key="key"></router-view>
+        <router-view></router-view>
         </div>
         <!-- <d-footer></d-footer> -->
       </v-content>
     </keep-alive>
-  </transition>
-  <!-- </section> -->
+  </transition> 
 </template>
 
 <script>
