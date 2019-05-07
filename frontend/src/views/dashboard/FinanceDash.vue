@@ -2,12 +2,12 @@
   <v-container grid-list-xl fluid>
     <v-layout row wrap>
       <v-flex>
-      <h1>Finance Dashboard</h1>
-      <table-demo></table-demo>
-      <table-two-demo></table-two-demo>
-      <table-one-demo></table-one-demo>
-      <table-three-demo></table-three-demo>
-    </v-flex>
+        <h1>Finance Dashboard</h1>
+        <table-demo></table-demo>
+        <table-two-demo></table-two-demo>
+        <table-one-demo></table-one-demo>
+        <table-three-demo></table-three-demo>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -17,12 +17,11 @@ import TableDemo from "@/components/tables/TableDemo";
 import TableTwoDemo from "@/components/tables/TableTwoDemo";
 import TableOneDemo from "@/components/tables/TableOneDemo";
 import TableThreeDemo from "@/components/tables/TableThreeDemo";
-import {mapState} from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "Report",
-  data: () => ({
-  }),
+  data: () => ({}),
   components: {
     TableDemo,
     TableTwoDemo,
@@ -30,21 +29,21 @@ export default {
     TableThreeDemo
   },
   computed: {
-    ...mapState(["windowSize"]),
+    ...mapState(["windowSize"])
   },
-  mounted() {
-    
-  }
+  mounted() {}
 };
 </script>
 
 
 <style lang="stylus">
-  .setting-fab 
-    top:50%!important; 
-    right:0;
-    border-radius:0  
-  .page-wrapper
-    min-height:calc(100vh - 64px - 50px - 81px );  
+.setting-fab {
+  top: 50% !important;
+  right: 0;
+  border-radius: 0;
+}
 
+.page-wrapper {
+  min-height: calc(100vh - 64px - 50px - 81px);
+}
 </style>
