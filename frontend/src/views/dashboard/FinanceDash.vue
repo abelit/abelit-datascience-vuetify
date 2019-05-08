@@ -1,5 +1,6 @@
 <template>
   <v-container grid-list-xl fluid>
+    <not-permission></not-permission>
     <v-layout row wrap>
       <v-flex>
         <h1>Finance Dashboard</h1>
@@ -17,6 +18,7 @@ import TableDemo from "@/components/tables/TableDemo";
 import TableTwoDemo from "@/components/tables/TableTwoDemo";
 import TableOneDemo from "@/components/tables/TableOneDemo";
 import TableThreeDemo from "@/components/tables/TableThreeDemo";
+import NotPermission from "@/views/error/NotPermission";
 import { mapState } from "vuex";
 
 export default {
@@ -26,7 +28,8 @@ export default {
     TableDemo,
     TableTwoDemo,
     TableOneDemo,
-    TableThreeDemo
+    TableThreeDemo,
+    NotPermission
   },
   computed: {
     ...mapState(["windowSize"])

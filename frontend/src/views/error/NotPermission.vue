@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height fluid style="height: 89vh">
+<v-container fill-height fluid style="height: 89vh; position: absolute;">
     <v-layout justify-center align-center>
       <v-flex text-xs-center shrink>
         <v-alert
@@ -10,7 +10,8 @@
       </v-flex>
     </v-layout>
     <v-layout justify-center align-center class="d-forbidden-page">
-      <v-flex text-xs-center shrink></v-flex>
+      <v-flex text-xs-center shrink>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -25,17 +26,17 @@ export default {
 
 <style scoped>
 .mover {
-  z-index: 1;
+  z-index: 5;
   animation: move 4s linear infinite alternate;
 }
 
 @keyframes move {
   from {
-    z-index: 1;
+    z-index: 5;
     transform: scale(1);
   }
   to {
-    z-index: 3;
+    z-index: 8;
     transform: scale(1.5);
   }
 }
@@ -55,11 +56,11 @@ export default {
   from {
     -webkit-filter: blur(1px);
     filter: blur(1px);
-    background-color: #49424231;
+    background-color: #4942427c;
   }
   to {
-    -webkit-filter: blur(5px);
-    filter: blur(5px);
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
     background-color: #242121c4;
   }
 }
