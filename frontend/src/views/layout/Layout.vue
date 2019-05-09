@@ -1,11 +1,9 @@
 <template >
   <div v-resize="onResize">
-    <d-drawer></d-drawer>
-    <d-toolbar></d-toolbar>
-        <!-- <d-skin-picker></d-skin-picker> -->
-
+    <d-drawer v-if="!isFullScreen"></d-drawer>
+    <d-toolbar v-if="!isFullScreen"></d-toolbar>
     <d-content></d-content>
-    <d-footer></d-footer>
+    <d-footer v-if="!isFullScreen"></d-footer>
   </div>
 </template>
 
@@ -16,8 +14,7 @@ import DDrawer from "@/views/layout/components/DDrawer";
 import DFooter from "@/components/footer/DFooter";
 import DSkinPicker from "@/components/skin/DSkinPicker";
 
-
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   components: {
@@ -31,7 +28,8 @@ export default {
     drawer: false,
     mini: false,
     responseSize: 991,
-    isSmallScreen: false
+    isSmallScreen: false,
+    isFullScreen: false
   }),
   methods: {
     ...mapActions(["setDrawer", "setMini", "setSmallScreen", "setWindowSize"]),
@@ -41,17 +39,17 @@ export default {
         windowWidth: window.innerWidth
       };
       this.setWindowSize(windowSize);
-      console.log(windowSize);
+      // console.log(windowSize);
       if (window.innerWidth < this.responseSize) {
         this.isSmallScreen = true;
       } else {
         this.isSmallScreen = false;
       }
 
-      console.log("layout smallscreen: " + this.isSmallScreen);
-      console.log(
-        "layout store smallscreen: " + this.$store.state.isSmallScreen
-      );
+      // console.log("layout smallscreen: " + this.isSmallScreen);
+      // console.log(
+      //   "layout store smallscreen: " + this.$store.state.isSmallScreen
+      // );
 
       // 当屏幕尺寸在大小两个值变化时，设置vuex中mini,drawer的值
       if (
@@ -73,8 +71,8 @@ export default {
       // 设置vuex中isSmallScreen的值
       this.setSmallScreen(this.isSmallScreen);
 
-      console.log("layout store mini: " + this.$store.state.mini);
-      console.log("layout store drawer: " + this.$store.state.drawer);
+      // console.log("layout store mini: " + this.$store.state.mini);
+      // console.log("layout store drawer: " + this.$store.state.drawer);
     },
     // 根据屏幕大小设置mini, drawer的值
     initValue() {
@@ -88,9 +86,13 @@ export default {
     }
   },
   mounted() {
-    console.log("hah" + this.isSmallScreen);
+    // console.log("hah" + this.isSmallScreen);
     // Init mini, drawer in store
     this.initValue();
+    // console.log(this.$store.state.isFullScreen);
+  },
+  computed: {
+  //  ...mapState(["isFullScreen"])
   }
 };
 </script>

@@ -15,7 +15,8 @@ const state = {
   drawer: false,
   mini: false,
   isSmallScreen: false,
-  windowSize: ""
+  windowSize: "",
+  isFullScreen: false
 };
 const mutations = {
   increment: state => state.count++,
@@ -67,6 +68,9 @@ const mutations = {
   },
   SET_WINDOWSIZE: (state, windowSize) => {
     state.windowSize = windowSize;
+  },
+  SET_FULLSCREEN: (state, isFullScreen) => {
+    state.isFullScreen = isFullScreen;
   }
 };
 const actions = {
@@ -139,6 +143,9 @@ const actions = {
     commit
   }, windowSize) {
     commit("SET_WINDOWSIZE", windowSize)
+  },
+  setFullScreen({ commit }, isFullScreen) {
+    commit("SET_FULLSCREEN", isFullScreen)
   }
 };
 

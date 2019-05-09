@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-xl fluid>
-    <not-permission></not-permission>
+    <!-- <not-permission></not-permission> -->
     <v-layout row wrap>
       <v-flex>
         <h1>Finance Dashboard</h1>

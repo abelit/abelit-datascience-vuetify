@@ -55,23 +55,23 @@ export default {
   methods: {
     ...mapActions(["setDrawer", "setMini"]),
     miniSidebar() {
-      console.log("navbar 3: " + this.mini);
+      // console.log("navbar 3: " + this.mini);
       this.mini = !this.mini;
       this.setMini(this.mini);
-      console.log("navbar 4: " + this.mini);
+      // console.log("navbar 4: " + this.mini);
     },
     toggleSidebar() {
-      console.log("navbar 1: " + this.drawer);
+      // console.log("navbar 1: " + this.drawer);
       this.drawer = this.$store.state.drawer;
       this.setDrawer(!this.drawer);
-      console.log("navbar 2: " + this.drawer);
+      // console.log("navbar 2: " + this.drawer);
     }
   },
   computed: {
     ...mapState(["isSmallScreen", "tbcolor"])
   },
   mounted() {
-    console.log("NavBar mount ....");
+    // console.log("NavBar mount ....");
   }
 };
 </script>

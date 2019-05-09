@@ -2,10 +2,9 @@
   <v-menu
     :close-on-content-click="false"
     bottom
-    left
     min-width="300"
     max-width="300"
-    nudge-bottom="20"
+    nudge-bottom="10"
     offset-y
     transition="slide-y-transition"
     
@@ -103,7 +102,7 @@ export default {
       "grey"
     ],
     images: [
-      "/static/theme/sidebar001.jpg",
+      "/static/theme/sidebar003.jpg",
       "/static/theme/sidebar002.jpg",
       "/static/theme/sidebar005.jpg",
       "/static/theme/sidebar007.jpg"

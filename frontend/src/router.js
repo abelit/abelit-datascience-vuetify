@@ -112,7 +112,10 @@ const router = new Router({
       name: "dialog",
       component: () => import("@/components/admin/DGroupAdd")
     },
-
+    {
+      path: "/lock",
+      component: () => import("@/views/layout/Lock")
+    },
     // {
     //   path: '*',
     //   name: "404",
@@ -232,10 +235,10 @@ const router = new Router({
       name: "vuetifygrid",
       component: () => import("@/components/demo/VuetifyGridDemo")
     },
-    // {
-    //   path: "/demo/fullscreen",
-    //   component: () => import("@/components/demo/FullscreenDemo")
-    // },
+    {
+      path: "/demo/fullscreen",
+      component: () => import("@/components/demo/FullscreenDemo")
+    },
     // {
     //   path: "/demo/allpage",
     //   component: () => import("@/components/demo/AllPageDemo")
@@ -269,6 +272,10 @@ const router = new Router({
           component: () => import("@/components/demo/ContentADemo")
         }
       ]
+    },
+    {
+      path: "/demo/grid",
+      component: () => import("@/components/demo/GridDemo")
     }
   ]
 });

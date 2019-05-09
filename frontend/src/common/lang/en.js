@@ -79,3 +79,7 @@ export const tooltip = {
   THEME_PICKER: "Theme Picker",
   USER_PROFILE: "User Profile"
 };
+
+export const content = {
+  UNAUTHORIZED: "Sorry! No permission to access this page!"
+};

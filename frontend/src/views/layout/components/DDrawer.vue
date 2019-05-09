@@ -43,7 +43,7 @@
                 @click.stop
                 router
                 :to="dash.path"
-                :active-class="[btncolor==='grey'?btncolor+' darken-3': btncolor]"
+                :active-class="btncolor==='grey'?btncolor+' darken-3':btncolor"
               >
                 <v-list-tile-action>
                   <v-icon v-text="dash.icon"></v-icon>
@@ -107,7 +107,7 @@
                 :key="dash.title"
                 router
                 :to="dash.path"
-                :active-class="btncolor"
+                :active-class="btncolor==='grey'?btncolor+' darken-3':btncolor"
               >
                 <v-list-tile-action>
                   <v-icon v-text="dash.icon"></v-icon>
@@ -155,7 +155,6 @@ import VuePerfectScrollbar from "vue-perfect-scrollbar";
 
 const newLocal = false;
 export default {
-  name: "SideBar",
   components: {
     VuePerfectScrollbar
   },
@@ -167,6 +166,7 @@ export default {
   },
   data() {
     return {
+      // btncolor: "cyan",
       scrollSettings: {
         maxScrollbarLength: 160
       },
@@ -182,12 +182,6 @@ export default {
           path: "/dashboard/finance"
         },
         { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/dashboard/sale" },
         { title: "NotPermission", icon: "add_shopping_cart", path: "/dashboard/notpermission" }
       ],
       reports: [
@@ -196,32 +190,6 @@ export default {
           icon: "account_balance",
           path: "/report/finance"
         },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
-        { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" },
         { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" }
       ],
       logo: "./static/DataScience.svg",
@@ -243,32 +211,34 @@ export default {
     ]),
     getDrawerStatus: {
       get() {
-        console.log(
-          "sidebar  compute store isSmallScreen: " +
-            this.$store.state.isSmallScreen
-        );
-        console.log(
-          "sidebar drawer compute store mini: " + this.$store.state.mini
-        );
-        console.log(
-          "sidebar drawer compute store drawer: " + this.$store.state.drawer
-        );
-        console.log("sidebar drawer compute: " + this.drawer);
+        // console.log(
+        //   "sidebar  compute store isSmallScreen: " +
+        //     this.$store.state.isSmallScreen
+        // );
+        // console.log(
+        //   "sidebar drawer compute store mini: " + this.$store.state.mini
+        // );
+        // console.log(
+        //   "sidebar drawer compute store drawer: " + this.$store.state.drawer
+        // );
+        // console.log("sidebar drawer compute: " + this.drawer);
         return this.drawer;
       },
       set(val) {
-        console.log("sidebar getdrawerstatus set method: " + val);
+        // console.log("sidebar getdrawerstatus set method: " + val);
         this.setDrawer(val);
       }
     }
   },
   mounted() {
-    console.log(
-      "sidebar mount store issamllscreen: " + this.$store.state.isSmallScreen
-    );
+    // console.log(
+    //   "sidebar mount store issamllscreen: " + this.$store.state.isSmallScreen
+    // );
 
-    console.log("sidebar mount store mini: " + this.$store.state.mini);
-    console.log("sidebar mount store drawer: " + this.$store.state.drawer);
+    // console.log("sidebar mount store mini: " + this.$store.state.mini);
+    // console.log("sidebar mount store drawer: " + this.$store.state.drawer);
+
+    // console.log(this.btncolor)
   }
 };
 </script>

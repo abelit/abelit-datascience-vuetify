@@ -79,3 +79,7 @@ export const tooltip = {
   THEME_PICKER: "主题选择器",
   USER_PROFILE: "用户概要"
 };
+
+export const content = {
+  UNAUTHORIZED: "亲， 您无权访问此页面！"
+};

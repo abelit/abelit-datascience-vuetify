@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <button type="button" @click="toggle">Fullscreen</button>
-    <div class="example">
-      <div>
+  <div id="app" >
+    
+    <div >
+      <div class="example">
         <v-carousel>
           <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
         </v-carousel>
@@ -152,10 +152,12 @@
     <div>
       <button v-on:mouseover="btnClick">点击此在后台控制台看到信息</button>
     </div>
+    <button type="button" @click="toggle">Fullscreen</button>
   </div>
+  
 </template>
 <script>
-// import fullscreen from "vue-fullscreen";
+import fullscreen from "vue-fullscreen";
 import Vue from "vue";
 Vue.use(fullscreen);
 const gradients = [
