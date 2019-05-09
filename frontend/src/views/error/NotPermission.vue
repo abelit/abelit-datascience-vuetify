@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height fluid text-xs-center style="height: 89vh">
+  <v-container fill-height fluid text-xs-center align-content-center style="height: 89vh">
     <v-layout justify-center align-center row wrap>
       <v-flex shrink xs-12>
         <v-alert :value="true" type="warning" class="mover">{{ $t("content.UNAUTHORIZED") }}</v-alert>
