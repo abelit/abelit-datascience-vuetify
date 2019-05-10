@@ -37,7 +37,7 @@
             :type="passwordShow ? 'text' : 'password'"
             @click:append="passwordShow = !passwordShow"
             v-validate="'required|max:18|min:3'"
-            :error-messages="errors.collect('password')"
+            :error-messages="errors.collect('password') + 'hello'"
             data-vv-name="password"
             required
             @keyup.enter="submit"

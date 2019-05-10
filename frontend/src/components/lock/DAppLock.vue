@@ -3,13 +3,13 @@
     <template v-slot:activator="{ on }">
       <div v-on="on">
         <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn icon dark v-on="on">
-            <v-icon>lock</v-icon>
-          </v-btn>
-        </template>
-        <span>{{ $t("tooltip.APP_LOCK") }}</span>
-      </v-tooltip>
+          <template v-slot:activator="{ on }">
+            <v-btn icon dark v-on="on">
+              <v-icon>lock</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ $t("tooltip.APP_LOCK") }}</span>
+        </v-tooltip>
       </div>
     </template>
     <v-flex xs-12 sm-6 md-4>
@@ -43,7 +43,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <div class="pr-2">
-            <v-btn color="indigo" @click="submit" dark>
+            <v-btn color="indigo" @click="handLock" dark>
               <span class="font-weight-bold">{{$t("button.CONFIRM") }}</span>
             </v-btn>
           </div>
@@ -62,8 +62,15 @@ export default {
     password: undefined
   }),
   methods: {
-    async submit() {
+    async handLock() {
       await this.$validator.validateAll();
+      if (this.$validator.errors.all().length === 0) {
+        this.$store.commit("SET_LOCK_PASSWORD", this.password);
+        this.$store.commit("SET_LOCK", true);
+        setTimeout(() => {
+          this.$router.push({ path: "/lock" });
+        }, 100);
+      }
     }
   }
 };

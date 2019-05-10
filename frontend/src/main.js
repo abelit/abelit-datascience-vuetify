@@ -68,6 +68,10 @@ Vue.use(VeeValidate, {
   }
 });
 
+// 设置浏览器头部标题
+import { setTitle } from '@/utils' 
+
+
 Vue.config.productionTip = false;
 
 /* 请求拦截器 */
@@ -138,8 +142,17 @@ router.beforeEach(async (to, from, next) => {
   // console.log('beforeEach ...');
   // console.log(to);
   // console.log(from);
+  if (store.state.isLock && to.path !== '/lock') {
+    next({
+      path: '/lock'
+    })
+  } else {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (localStorage.getItem("token")) {
+       const browserHeaderTitle = to.name
+      store.commit('SET_BROWSERHEADERTITLE', {
+        browserHeaderTitle: browserHeaderTitle
+      })
       next();
     } else {
       next({
@@ -172,7 +185,15 @@ router.beforeEach(async (to, from, next) => {
       component: () => import("@/views/error/NotFound")
     }]);
   }
+}
 });
+
+router.afterEach(() => {
+  setTimeout(() => {
+    const browserHeaderTitle = store.state.browserHeaderTitle
+    setTitle(browserHeaderTitle)
+  }, 0)
+})
 
 function genRoutes(routeList) {
   // 生成路由对象，使用 vue-cli开发时导入组件推荐使用import导入模块

@@ -21,8 +21,18 @@ const toggleFullScreen = () => {
   }
 };
 
+/**
+ * 设置浏览器头部标题
+ */
+const setTitle = function(title) {
+  title = title ? `${title}` : 'DataAV'
+  window.document.title = title + '-DataAV'
+}
+
+
 export default {
   randomElement,
   toggleFullScreen,
-  kebab
+  kebab,
+  setTitle
 };

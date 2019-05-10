@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height fluid text-xs-center align-content-center style="height: 89vh">
+  <v-container fill-height fluid align-center justify-center align-content-center style="height: 89vh" class="d-permission-container">
     <v-layout justify-center align-center row wrap>
       <v-flex shrink xs-12>
         <v-alert :value="true" type="warning" class="mover">{{ $t("content.UNAUTHORIZED") }}</v-alert>
@@ -22,7 +22,7 @@ export default {
 <style scoped>
 .mover {
   z-index: 1;
-  animation: move 4s linear infinite alternate;
+  animation: move 3s linear infinite alternate;
   max-width: 80vw;
 }
 
@@ -33,7 +33,7 @@ export default {
   }
   to {
     z-index: 3;
-    transform: scale(1.15);
+    transform: scale(1.2);
   }
 }
 
@@ -59,5 +59,11 @@ export default {
     filter: blur(10px);
     background-color: #242121c4;
   }
+}
+
+.d-permission-container {
+  background-image: url("../../assets/images/dpermission.jpg");
+  height: 100%;
+  width: 100%;
 }
 </style>

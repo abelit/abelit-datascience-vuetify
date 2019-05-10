@@ -16,7 +16,10 @@ const state = {
   mini: false,
   isSmallScreen: false,
   windowSize: "",
-  isFullScreen: false
+  isFullScreen: false,
+  isLock: localStorage.getItem("is_lock") || false,
+  lockPassword:  localStorage.getItem("lock_password") || "",
+  browserHeaderTitle: "DataAV"
 };
 const mutations = {
   increment: state => state.count++,
@@ -71,7 +74,24 @@ const mutations = {
   },
   SET_FULLSCREEN: (state, isFullScreen) => {
     state.isFullScreen = isFullScreen;
-  }
+  },
+  SET_LOCK_PASSWORD: (state, lockPassword) => {
+    state.lockPassword = lockPassword;
+    localStorage.setItem("lock_password", lockPassword);
+  },
+  SET_LOCK: (state, isLock) => {
+    state.isLock = isLock;
+    localStorage.setItem("is_lock", isLock);
+  },
+  CLEAR_LOCK: (state) => {
+    state.isLock = false;
+    state.lockPassword = "";
+    localStorage.removeItem("is_lock");
+    localStorage.removeItem("lock_password");
+  },
+   SET_BROWSERHEADERTITLE: (state, browserHeaderTitle) => {
+      state.browserHeaderTitle = browserHeaderTitle
+    }
 };
 const actions = {
   aincrement(ctx) {
@@ -142,10 +162,19 @@ const actions = {
   setWindowSize({
     commit
   }, windowSize) {
-    commit("SET_WINDOWSIZE", windowSize)
+    commit("SET_WINDOWSIZE", windowSize);
   },
   setFullScreen({ commit }, isFullScreen) {
-    commit("SET_FULLSCREEN", isFullScreen)
+    commit("SET_FULLSCREEN", isFullScreen);
+  },
+  setLockPassword({ commit }, lockPassword) {
+    commit("SET_LOCK_PASSWORD", lockPassword);
+  },
+  setLock({ commit }, isLock) {
+    commit("SET_LOCK", isLock);
+  },
+  clearLock({ commit }) {
+    commit("CLEAR_LOCK");
   }
 };
 
