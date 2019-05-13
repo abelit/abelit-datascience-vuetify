@@ -30,9 +30,9 @@
 
             <v-layout justify-center>
               <v-avatar
-                v-for="c in tbcolors"
+                v-for="c in toolbarColors"
                 :key="c"
-                :class="[c === tbcolor?'color-tb-active color-tb-' + c:'color-tb-'+c]"
+                :class="[c === toolbarColor?'color-tb-active color-tb-' + c:'color-tb-'+c]"
                 size="23"
                 @click="setToolbarColor(c)"
               />
@@ -45,9 +45,9 @@
 
             <v-layout justify-center>
               <v-avatar
-                v-for="c in btncolors"
+                v-for="c in buttonColors"
                 :key="c"
-                :class="[c === btncolor?'color-btn-active color-btn-' + c:'color-btn-'+c]"
+                :class="[c === buttonColor?'color-btn-active color-btn-' + c:'color-btn-'+c]"
                 size="23"
                 @click="setSidebarButtonColor(c)"
               />
@@ -85,7 +85,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   data: () => ({
     colors: ["deep-purple", "orange", "grey", "cyan"],
-    btncolors: [
+    buttonColors: [
       "deep-purple",
       "green",
       "cyan",
@@ -93,7 +93,7 @@ export default {
       "red",
       "grey"
     ],
-    tbcolors: [
+    toolbarColors: [
       "deep-purple",
       "green",
       "cyan",
@@ -110,7 +110,7 @@ export default {
   }),
 
   computed: {
-    ...mapState(["color", "image", "btncolor", "tbcolor"])
+    ...mapState(["color", "image", "buttonColor", "toolbarColor"])
   },
 
   methods: {

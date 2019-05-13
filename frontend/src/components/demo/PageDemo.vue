@@ -460,7 +460,7 @@
 <script>
 // import axios from "axios";
 // 导入自定义地图数据
-import cst001 from "../../../static/map/cst001.json";
+import cst001 from "@/assets/map/cst001.json";
 // 导入Vuex中sore状态信息
 import store from "../../store.js";
 

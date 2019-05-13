@@ -56,7 +56,8 @@ export const message = {
   ERROR_INTERNAL: "Internal Error!",
 
   LOGINING: "Logining ...",
-  LOADING: "Loading ..."
+  LOADING: "Loading ...",
+  ERROR_UNLOCK: "Unlock password error!"
 };
 
 export const toolbar = {

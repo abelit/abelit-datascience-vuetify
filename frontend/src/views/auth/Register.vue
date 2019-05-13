@@ -3,7 +3,7 @@
   <transition name="rotate-fall">
     <div class="login-container container-fluid">
       <v-card class="mx-auto" style="max-width: 500px; margin-top:5%;" color="#eaeaeaa1">
-        <v-toolbar color="#01074ccf !important" cards dark flat>
+        <v-toolbar :color="toolbarColor" cards dark flat>
           <v-icon size="36" color="#efefef">account_box</v-icon>
           <v-card-title
             class="title font-weight-regular"
@@ -12,10 +12,11 @@
           <d-lang-picker></d-lang-picker>
         </v-toolbar>
         <v-form ref="form" v-model="form" class="pa-3 pt-4">
-          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
+          <!-- <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon> -->
           <v-text-field
             v-model.trim="username"
-            box
+            prepend-inner-icon="person"
+            outline
             color="deep-purple"
             :label="$t('auth.USERNAME')"
             type="username"
@@ -27,10 +28,11 @@
             @focus="checkUsername"
             @blur="checkUsername"
           ></v-text-field>
-          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
+          <!-- <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon> -->
           <v-text-field
             v-model.trim="name"
-            box
+            prepend-inner-icon="person"
+            outline
             color="deep-purple"
             :label="$t('auth.NAME')"
             type="name"
@@ -40,11 +42,12 @@
             required
             class="df-input"
           ></v-text-field>
-
-          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">email</v-icon>
+<!-- 
+          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">email</v-icon> -->
           <v-text-field
             v-model.trim="email"
-            box
+            prepend-inner-icon="email"
+            outline
             color="deep-purple"
             :label="$t('auth.EMAIL')"
             type="email"
@@ -57,10 +60,11 @@
             @blur="checkEmail"
           ></v-text-field>
 
-          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon>
+          <!-- <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon> -->
           <v-text-field
             v-model.trim="password"
-            box
+            prepend-inner-icon="lock"
+            outline
             color="deep-purple"
             counter="18"
             :label="$t('auth.PASSWORD')"
@@ -74,10 +78,11 @@
             ref="password"
             required
           ></v-text-field>
-          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon>
+          <!-- <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon> -->
           <v-text-field
             v-model.trim="repassword"
-            box
+            prepend-inner-icon="lock"
+            outline
             color="deep-purple"
             counter="18"
             :label="$t('auth.REPASSWORD')"
@@ -92,8 +97,10 @@
           ></v-text-field>
           <v-layout wrap align-center>
             <!-- <v-flex xs12 sm6 d-flex> -->
-            <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">work</v-icon>
+            <!-- <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">work</v-icon> -->
             <v-select
+              prepend-inner-icon="work"
+              outline
               v-model="selected_department"
               v-validate="'required'"
               :error-messages="errors.collect('department')"
@@ -109,8 +116,10 @@
             <!-- </v-flex> -->
 
             <!-- <v-flex xs12 sm6 d-flex> -->
-            <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">assignment_ind</v-icon>
+            <!-- <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">assignment_ind</v-icon> -->
             <v-select
+              prepend-inner-icon="assignment_ind"
+              outline
               v-model="selected_position"
               v-validate="'required'"
               :error-messages="errors.collect('position')"
@@ -125,7 +134,7 @@
             ></v-select>
             <!-- </v-flex> -->
           </v-layout>
-          <v-icon size="36" color="#efefef" class="df-icon" style="float:left">group</v-icon>
+          <!-- <v-icon size="36" color="#efefef" class="df-icon" style="float:left">group</v-icon> -->
           <v-radio-group
             v-model="picked_gender"
             v-validate="'required'"
@@ -150,7 +159,7 @@
           <v-btn
             :disabled="!form"
             class="title font-weight-regular"
-            color="#01074ccf"
+            :color="toolbarColor"
             depressed
             @click="submit"
           >
@@ -172,6 +181,8 @@
 
 <script>
 import DLangPicker from "@/components/lang/DLangPicker";
+
+import { mapState } from "vuex";
 
 export default {
   name: "Register",
@@ -318,6 +329,9 @@ export default {
   mounted() {
     this.getDepartment();
     this.getPosition();
+  },
+  computed: {
+    ...mapState(["toolbarColor"])
   }
 };
 </script>
@@ -326,7 +340,7 @@ export default {
 .login-container {
   width: 100%;
   height: 100%;
-  background-image: url("../../assets/images/auth/login_page_default.jpg");
+  background-image: url("/static/images/page/background001.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   -moz-background-size: 100% 100%;

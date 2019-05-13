@@ -2,9 +2,9 @@
   <transition name="fade" mode="out-in">
     <keep-alive :include="cachedViews">
       <v-content>
-        <div  class="page-wrapper">
+        <!-- <div  class="page-wrapper"> -->
         <router-view></router-view>
-        </div>
+        <!-- </div> -->
         <!-- <d-footer></d-footer> -->
       </v-content>
     </keep-alive>

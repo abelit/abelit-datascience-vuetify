@@ -11,7 +11,7 @@
       width="260"
     >
       <v-img :src="image" height="100%">
-        <v-toolbar flat class="mb-0 darken-3" :class="tbcolor">
+        <v-toolbar flat class="mb-0 darken-3" :class="toolbarColor">
           <v-list class="pa-1 darken-3">
             <v-list-tile avatar tag="div">
               <v-list-tile-avatar>
@@ -43,7 +43,7 @@
                 @click.stop
                 router
                 :to="dash.path"
-                :active-class="btncolor==='grey'?btncolor+' darken-3':btncolor"
+                :active-class="buttonColor==='grey'?buttonColor+' darken-3':buttonColor"
               >
                 <v-list-tile-action>
                   <v-icon v-text="dash.icon"></v-icon>
@@ -107,7 +107,7 @@
                 :key="dash.title"
                 router
                 :to="dash.path"
-                :active-class="btncolor==='grey'?btncolor+' darken-3':btncolor"
+                :active-class="buttonColor==='grey'?buttonColor+' darken-3':buttonColor"
               >
                 <v-list-tile-action>
                   <v-icon v-text="dash.icon"></v-icon>
@@ -166,7 +166,7 @@ export default {
   },
   data() {
     return {
-      // btncolor: "cyan",
+      // buttonColor: "cyan",
       scrollSettings: {
         maxScrollbarLength: 160
       },
@@ -192,7 +192,7 @@ export default {
         },
         { title: "Sale", icon: "add_shopping_cart", path: "/report/sale" }
       ],
-      logo: "./static/DataScience.svg",
+      logo: "/static/images/logo/DataScience.svg",
       value: false
     };
   },
@@ -202,12 +202,12 @@ export default {
   computed: {
     ...mapState([
       "color",
-      "btncolor",
+      "buttonColor",
       "image",
       "mini",
       "drawer",
       "isSmallScreen",
-      "tbcolor"
+      "toolbarColor"
     ]),
     getDrawerStatus: {
       get() {
@@ -238,7 +238,7 @@ export default {
     // console.log("sidebar mount store mini: " + this.$store.state.mini);
     // console.log("sidebar mount store drawer: " + this.$store.state.drawer);
 
-    // console.log(this.btncolor)
+    // console.log(this.buttonColor)
   }
 };
 </script>

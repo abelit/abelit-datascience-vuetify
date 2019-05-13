@@ -276,6 +276,14 @@ const router = new Router({
     {
       path: "/demo/grid",
       component: () => import("@/components/demo/GridDemo")
+    },
+    {
+      path: "/demo/trans",
+      component: () => import("@/components/demo/TranslateDemo")
+    },
+    {
+      path: "/test/app",
+      component: () => import("@/components/test/AppDemo")
     }
   ]
 });

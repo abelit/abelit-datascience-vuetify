@@ -6,7 +6,7 @@
           <v-tooltip bottom>
         <template v-slot:activator="{ on }">
         <v-btn color="transparent" v-on="on" icon>
-          <img v-if="language" :src="require('@/assets/images/auth/'+language+'.png')" alt>
+          <img v-if="language" :src="require('@/assets/images/lang/'+language+'.png')" alt>
         </v-btn>
       </template>
       <span>{{ $t("tooltip.LANG_SWITCH") }}</span>
@@ -21,7 +21,7 @@
         >
           <v-list-tile-avatar>
             <v-avatar size="32px" tile @click="setLanguage(lang.code)">
-              <img :src="require('@/assets/images/auth/'+lang.code+'.png')" alt="language">
+              <img :src="require('@/assets/images/lang/'+lang.code+'.png')" alt="language">
             </v-avatar>
           </v-list-tile-avatar>
           <v-list-tile-title @click="setLanguage(lang.code)">{{ lang.name }}</v-list-tile-title>

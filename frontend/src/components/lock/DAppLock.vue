@@ -13,7 +13,7 @@
       </div>
     </template>
     <v-flex xs-12 sm-6 md-4>
-      <v-toolbar color="indigo" dark>
+      <v-toolbar :color="toolbarColor" dark>
         <v-toolbar-title>{{ $t("admin.SCREEN_LOCK_PASSWORD_SET") }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon dark @click="dialog = false">
@@ -43,7 +43,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <div class="pr-2">
-            <v-btn color="indigo" @click="handLock" dark>
+            <v-btn :color="toolbarColor" @click="handLock" dark>
               <span class="font-weight-bold">{{$t("button.CONFIRM") }}</span>
             </v-btn>
           </div>
@@ -55,6 +55,7 @@
 
 
 <script>
+import { mapState } from "vuex";
 export default {
   data: () => ({
     dialog: false,
@@ -72,6 +73,9 @@ export default {
         }, 100);
       }
     }
+  },
+  computed: {
+    ...mapState(["toolbarColor"])
   }
 };
 </script>

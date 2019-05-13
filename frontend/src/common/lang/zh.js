@@ -56,7 +56,8 @@ export const message = {
   ERROR_INTERNAL: "内部错误!",
 
   LOGINING: "登录中 ...",
-  LOADING: "正在加载 ..."
+  LOADING: "正在加载 ...",
+  ERROR_UNLOCK: "解锁密码错误！"
 };
 
 export const toolbar = {

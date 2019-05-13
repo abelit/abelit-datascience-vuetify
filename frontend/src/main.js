@@ -4,6 +4,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 // import bootstrap
 import "bootstrap/dist/css/bootstrap.css";
 import "jquery/dist/jquery.js";
@@ -27,8 +30,8 @@ Vue.prototype.$axios = axios;
 // import element framwork and ui component
 // import Element UI
 // import ElementUI from "element-ui";
-// import "element-ui/lib/theme-chalk/index.css";
 // Vue.use(ElementUI);
+// import "element-ui/lib/theme-chalk/index.css";
 // import Vue Material UI frontend framwork
 // import VueMaterial from "vue-material";
 // import "vue-material/dist/vue-material.min.css";
@@ -142,6 +145,7 @@ router.beforeEach(async (to, from, next) => {
   // console.log('beforeEach ...');
   // console.log(to);
   // console.log(from);
+  NProgress.start();
   if (store.state.isLock && to.path !== '/lock') {
     next({
       path: '/lock'
@@ -192,7 +196,8 @@ router.afterEach(() => {
   setTimeout(() => {
     const browserHeaderTitle = store.state.browserHeaderTitle
     setTitle(browserHeaderTitle)
-  }, 0)
+  }, 0);
+  NProgress.done();
 })
 
 function genRoutes(routeList) {

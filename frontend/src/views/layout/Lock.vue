@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height fluid style="height: 100vh" pa-0 align-center align-content-center>
-    <v-img :src="require('@/assets/images/auth/lockLogin.png')" height="100%" width="100%">
+    <v-img :src="backgroundImage" height="100%" width="100%">
       <v-layout align-center justify-center fill-height row wrap>
         <div style="max-width: 300px;">
           <div class="pb-2">
@@ -12,13 +12,13 @@
             :label="$t('auth.PASSWORD')"
             type="password"
             v-validate="'required|max:18|min:3'"
-            :error-messages="errors.collect('password')"
+            :error-messages="errors.collect('password') + message"
             data-vv-name="password"
             required
             @keyup.enter.native="handleLogin"
             class="float: left"
           ></v-text-field>
-          <v-btn-toggle v-model="toggle_exclusive" class="d-icon-group" :class="btncolor" dark>
+          <v-btn-toggle v-model="toggle_exclusive" class="d-icon-group" :class="toolbarColor" dark>
             <v-btn depressed flat @click="handleLogin" >
               <v-icon dark>lock_open</v-icon>
             </v-btn>
@@ -38,47 +38,36 @@ import { mapState } from "vuex";
 export default {
   data: () => ({
     password: undefined,
-    toggle_exclusive: 2
+    toggle_exclusive: 2,
+    message: "",
+    backgroundImage: require('@/assets/images/auth/LockBackground.png')
   }),
   methods: {
      async handleLogin() {
-      console.log(this.password);
-      console.log(this.lockPassword);
+      // console.log(this.$validator.errors.all());
       await this.$validator.validateAll();
+      if (this.$validator.errors.all().length === 0) {
       if (this.password !== this.lockPassword) {
-        this.password = ''
-        this.$message({
-          message: '解锁密码错误,请重新输入',
-          type: 'error'
-        })
-        this.passwdError = true
+        // this.password = ''
+        this.message = this.$t("message.ERROR_UNLOCK");
         setTimeout(() => {
           this.passwdError = false
         }, 1000)
         return
-      }
-      this.pass = true
-      setTimeout(() => {
+      }      setTimeout(() => {
         this.$store.commit('CLEAR_LOCK')
-        this.$router.push('/dashboard')
+        this.$router.push(this.$router.currentRoute.query.url || "/dashboard")
       }, 1000)
+      }
     },
     handleLogout() {
-      this.$confirm('是否退出系统, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$store.dispatch('LogOut').then(() => {
-          this.$router.push({ path: '/login' })
+        this.$store.dispatch('logOut').then(() => {
+          this.$router.push({ path: '/user/login' })
         })
-      }).catch(() => {
-        return false
-      })
     },
   },
   computed: {
-    ...mapState(["btncolor", "lockPassword"])
+    ...mapState(["toolbarColor", "lockPassword"])
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <v-footer dark height="auto"   app fixed  inset>
     <v-card class="flex" flat tile>
-      <v-card-actions class="justify-center"  :class="[tbcolor==='grey'?tbcolor+' darken-3':tbcolor]">
+      <v-card-actions class="justify-center"  :class="[toolbarColor==='grey'?toolbarColor+' darken-3':toolbarColor]">
         &copy; {{ new Date().getFullYear() }} &nbsp; — &nbsp;
         <strong>Data Visualization & Analyzation</strong>
       </v-card-actions>
@@ -16,7 +16,7 @@ export default {
   data: () => ({
   }),
   computed: {
-    ...mapState(["tbcolor"])
+    ...mapState(["toolbarColor"])
   }
 };
 </script>

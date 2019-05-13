@@ -2,7 +2,7 @@
   <transition name="rotate-fall">
     <div class="login-container container-fluid">
       <v-card class="mx-auto" style="max-width: 500px; margin-top:15%;" color="#eaeaeaa1">
-        <v-toolbar color="#01074ccf !important" cards dark flat>
+        <v-toolbar :color="toolbarColor" cards dark flat>
           <v-icon size="36" color="#efefef">account_box</v-icon>
           <v-card-title
             class="title font-weight-regular"
@@ -11,10 +11,11 @@
           <d-lang-picker></d-lang-picker>
         </v-toolbar>
         <v-form ref="form" v-model="form" class="pa-3 pt-4" :disabled="!form">
-          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon>
+          <!-- <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">person</v-icon> -->
           <v-text-field
             v-model="username"
-            box
+            prepend-inner-icon="person"
+            outline
             color="deep-purple"
             :label="$t('auth.EMAIL')+'/'+$t('auth.USERNAME') "
             type="username"
@@ -25,10 +26,11 @@
             class="df-input"
           ></v-text-field>
 
-          <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon>
+          <!-- <v-icon size="36" color="#efefef" style="float: left;" class="df-icon">lock</v-icon> -->
           <v-text-field
             v-model="password"
-            box
+            prepend-inner-icon="lock"
+            outline
             color="deep-purple"
             counter="18"
             :label="$t('auth.PASSWORD')"
@@ -37,7 +39,7 @@
             :type="passwordShow ? 'text' : 'password'"
             @click:append="passwordShow = !passwordShow"
             v-validate="'required|max:18|min:3'"
-            :error-messages="errors.collect('password') + 'hello'"
+            :error-messages="errors.collect('password')"
             data-vv-name="password"
             required
             @keyup.enter="submit"
@@ -51,7 +53,7 @@
           </v-btn>
           <v-spacer></v-spacer>
           <v-spacer></v-spacer>
-          <v-btn class="title font-weight-regular" color="#01074ccf" depressed @click="submit">
+          <v-btn class="title font-weight-regular" :color="toolbarColor" depressed @click="submit">
             <span style="color: #efefef">{{$t('button.LOGIN')}}</span>
           </v-btn>
         </v-card-actions>
@@ -70,6 +72,7 @@
 
 <script>
 import DLangPicker from "@/components/lang/DLangPicker";
+import { mapState } from 'vuex';
 
 export default {
   name: "Login",
@@ -164,6 +167,9 @@ export default {
 
       localStorage.setItem("routeList", JSON.stringify(routeList));
     }
+  },
+  computed: {
+    ...mapState(["toolbarColor"])
   }
 };
 </script>
@@ -172,7 +178,7 @@ export default {
 .login-container {
   width: 100%;
   height: 100%;
-  background-image: url("../../assets/images/auth/login_page_default.jpg");
+  background-image: url("/static/images/page/background001.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   -moz-background-size: 100% 100%;

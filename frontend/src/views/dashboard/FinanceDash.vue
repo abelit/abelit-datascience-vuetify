@@ -1,9 +1,15 @@
 <template>
   <v-container grid-list-xl fluid>
     <!-- <not-permission></not-permission> -->
+    <v-layout>
+     <h1>Finance Dashboard</h1>
+        <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon class="text--secondary">refresh</v-icon>
+      </v-btn>
+    </v-layout>
     <v-layout row wrap>
       <v-flex>
-        <h1>Finance Dashboard</h1>
         <table-demo></table-demo>
         <table-two-demo></table-two-demo>
         <table-one-demo></table-one-demo>

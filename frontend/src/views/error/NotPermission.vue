@@ -62,7 +62,7 @@ export default {
 }
 
 .d-permission-container {
-  background-image: url("../../assets/images/dpermission.jpg");
+  background-image: url("../../assets/images/page/permission.jpg");
   height: 100%;
   width: 100%;
 }

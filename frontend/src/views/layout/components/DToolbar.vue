@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <v-toolbar fixed app :class="[tbcolor==='grey'?tbcolor+' darken-3':tbcolor]" dark >
+    <v-toolbar fixed app :class="[toolbarColor==='grey'?toolbarColor+' darken-3':toolbarColor]" dark >
       <!-- 根据mini值显示icon的样式，正常与旋转90° -->
       <v-toolbar-side-icon v-if="!mini && !isSmallScreen" @click="miniSidebar"></v-toolbar-side-icon>
       <v-toolbar-side-icon
@@ -68,7 +68,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["isSmallScreen", "tbcolor"])
+    ...mapState(["isSmallScreen", "toolbarColor"])
   },
   mounted() {
     // console.log("NavBar mount ....");

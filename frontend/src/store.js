@@ -8,9 +8,9 @@ const state = {
   token: localStorage.getItem("token") || "",
   language: localStorage.getItem("language") || "zh_CN",
   skin: localStorage.getItem("skin") || "",
-  btncolor: localStorage.getItem("sidebar_btncolor") || "",
+  buttonColor: localStorage.getItem("button_color") || "",
   color: localStorage.getItem("sidebar_color") || "",
-  tbcolor: localStorage.getItem("toolbar_color") || "",
+  toolbarColor: localStorage.getItem("toolbar_color") || "",
   image: localStorage.getItem("sidebar_image") || "./static/theme/sidebar001",
   drawer: false,
   mini: false,
@@ -18,7 +18,7 @@ const state = {
   windowSize: "",
   isFullScreen: false,
   isLock: localStorage.getItem("is_lock") || false,
-  lockPassword:  localStorage.getItem("lock_password") || "",
+  lockPassword: localStorage.getItem("lock_password") || "",
   browserHeaderTitle: "DataAV"
 };
 const mutations = {
@@ -43,9 +43,9 @@ const mutations = {
     state.skin = skin;
     localStorage.setItem("skin", JSON.stringify(skin));
   },
-  SET_SIDEBAR_BUTTON_COLOR: (state, btncolor) => {
-    state.btncolor = btncolor;
-    localStorage.setItem("sidebar_btncolor", btncolor);
+  SET_SIDEBAR_BUTTON_COLOR: (state, buttonColor) => {
+    state.buttonColor = buttonColor;
+    localStorage.setItem("sidebar_buttonColor", buttonColor);
   },
   SET_SIDEBAR_IMAGE: (state, image) => {
     state.image = image;
@@ -56,9 +56,9 @@ const mutations = {
     localStorage.setItem("sidebar_color", color);
   },
 
-  SET_TOOLBAR_COLOR: (state, tbcolor) => {
-    state.tbcolor = tbcolor;
-    localStorage.setItem("toolbar_color", tbcolor);
+  SET_TOOLBAR_COLOR: (state, toolbarColor) => {
+    state.toolbarColor = toolbarColor;
+    localStorage.setItem("toolbar_color", toolbarColor);
   },
   SET_MINI: (state, mini) => {
     state.mini = mini;
@@ -83,85 +83,67 @@ const mutations = {
     state.isLock = isLock;
     localStorage.setItem("is_lock", isLock);
   },
-  CLEAR_LOCK: (state) => {
+  CLEAR_LOCK: state => {
     state.isLock = false;
     state.lockPassword = "";
     localStorage.removeItem("is_lock");
     localStorage.removeItem("lock_password");
   },
-   SET_BROWSERHEADERTITLE: (state, browserHeaderTitle) => {
-      state.browserHeaderTitle = browserHeaderTitle
-    }
+  SET_BROWSERHEADERTITLE: (state, browserHeaderTitle) => {
+    state.browserHeaderTitle = browserHeaderTitle;
+  },
+  LOG_OUT: state => {
+    state.token = "";
+    state.lockPassword = "";
+    state.isLock = false;
+    localStorage.removeItem("token");
+    localStorage.removeItem("lock_password");
+    localStorage.removeItem("is_lock");
+  }
 };
 const actions = {
   aincrement(ctx) {
     ctx.commit("increment");
   },
   // 使用ES2015语法简化代码
-  adecrement({
-    commit
-  }) {
+  adecrement({ commit }) {
     commit("decrement");
   },
 
-  setLanguage({
-    commit
-  }, language) {
+  setLanguage({ commit }, language) {
     commit("SET_LANGUAGE", language);
   },
-  setToken({
-    commit
-  }, token) {
+  setToken({ commit }, token) {
     commit("SET_TOKEN", token);
   },
-  delToken({
-    commit
-  }) {
+  delToken({ commit }) {
     commit("DEL_TOKEN");
   },
-  setSkin({
-    commit
-  }, skin) {
+  setSkin({ commit }, skin) {
     commit("SET_SKIN", skin);
   },
-  setSidebarButtonColor({
-    commit
-  }, btncolor) {
-    commit("SET_SIDEBAR_BUTTON_COLOR", btncolor);
+  setSidebarButtonColor({ commit }, buttonColor) {
+    commit("SET_SIDEBAR_BUTTON_COLOR", buttonColor);
   },
-  setSidebarImage({
-    commit
-  }, image) {
+  setSidebarImage({ commit }, image) {
     commit("SET_SIDEBAR_IMAGE", image);
   },
-  setSidebarColor({
-    commit
-  }, color) {
+  setSidebarColor({ commit }, color) {
     commit("SET_SIDEBAR_COLOR", color);
   },
-  setToolbarColor({
-    commit
-  }, tbcolor) {
-    commit("SET_TOOLBAR_COLOR", tbcolor);
+  setToolbarColor({ commit }, toolbarColor) {
+    commit("SET_TOOLBAR_COLOR", toolbarColor);
   },
-  setMini({
-    commit
-  }, mini) {
+  setMini({ commit }, mini) {
     commit("SET_MINI", mini);
   },
-  setDrawer({
-    commit
-  }, drawer) {
+  setDrawer({ commit }, drawer) {
     commit("SET_DRAWER", drawer);
   },
-  setSmallScreen({
-    commit
-  }, isSmallScreen) {
+  setSmallScreen({ commit }, isSmallScreen) {
     commit("SET_SMALLSCREEN", isSmallScreen);
   },
-  setWindowSize({
-    commit
-  }, windowSize) {
+  setWindowSize({ commit }, windowSize) {
     commit("SET_WINDOWSIZE", windowSize);
   },
   setFullScreen({ commit }, isFullScreen) {
@@ -175,6 +157,9 @@ const actions = {
   },
   clearLock({ commit }) {
     commit("CLEAR_LOCK");
+  },
+  logOut({ commit }) {
+    commit("LOG_OUT");
   }
 };
 

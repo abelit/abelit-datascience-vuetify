@@ -24,11 +24,11 @@ export default {
   left: 0;
   bottom: 0;
   right: 0; */
-  overflow: auto;
-  backface-visibility: hidden;
+  /* backface-visibility: hidden; */
+  /* overflow: auto; */
   /* transform: translate3d(0, 0, 0); */
   /* transform-style: preserve-3d; */
-  visibility: visible;
+  /* visibility: visible; */
 }
 </style>
 

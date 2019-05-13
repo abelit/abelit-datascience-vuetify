@@ -111,7 +111,7 @@
     }
 </script>
 <style scoped>
-.headerComponent{
+/* .headerComponent{
     padding-top: 80px;
     width: 100%;
     height: 70px;
@@ -119,5 +119,5 @@
 }
 input,select {
   margin-left: 10px;
-}
+} */
 </style>
