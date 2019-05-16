@@ -169,6 +169,7 @@ router.beforeEach(async (to, from, next) => {
   } else {
     next();
   }
+  // 动态路由
   if (localStorage.getItem("token")) {
     if (localStorage.getItem("routeList")) {
       let routeList = JSON.parse(localStorage.getItem("routeList"));

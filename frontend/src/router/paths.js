@@ -1,47 +1,4 @@
 export default [
-
-  {
-    path: '*',
-    meta: {
-      public: true,
-    },
-    redirect: {
-      path: '/404'
-    }
-  },  
-  {
-    path: '/404',
-    meta: {
-      public: true,
-    },
-    name: 'NotFound',
-    component: () => import(
-      /* webpackChunkName: "routes" */
-      `@/views/NotFound.vue`
-    )
-  },
-  {
-    path: '/403',
-    meta: {
-      public: true,
-    },
-    name: 'AccessDenied',
-    component: () => import(
-      /* webpackChunkName: "routes" */
-      `@/views/Deny.vue`
-    )
-  },
-  {
-    path: '/500',
-    meta: {
-      public: true,
-    },
-    name: 'ServerError',
-    component: () => import(
-      /* webpackChunkName: "routes" */
-      `@/views/Error.vue`
-    )
-  },
   {
     path: '/user/login',
     meta: {
@@ -96,7 +53,10 @@ export default [
       {
         path: "dashboard",
         name: 'Dashboard',
-        meta: { breadcrumb: true },
+        meta: {
+          breadcrumb: true,
+          requireAuth: true
+        },
         component: () => import("@/views/Dashboard.vue")
       },
       {
@@ -559,7 +519,48 @@ export default [
           `@/views/widgets/List.vue`
         )
       },
-    ]
+    ],
   },
-
+  {
+    path: '/404',
+    meta: {
+      public: true,
+    },
+    name: 'NotFound',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      `@/views/NotFound.vue`
+    )
+  },
+  {
+    path: '/403',
+    meta: {
+      public: true,
+    },
+    name: 'AccessDenied',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      `@/views/Deny.vue`
+    )
+  },
+  {
+    path: '/500',
+    meta: {
+      public: true,
+    },
+    name: 'ServerError',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      `@/views/Error.vue`
+    )
+  },
+  {
+    path: '*',
+    meta: {
+      public: true,
+    },
+    redirect: {
+      path: '/404'
+    }
+  }
 ];

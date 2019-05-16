@@ -2,8 +2,8 @@
   <v-container fluid style="height: 100vh" pa-0 align-center align-content-center>
     <v-img :src="backgroundImage" height="100%" width="100%">
       <v-layout justify-center row style="padding-top: 40vh">
+        <h4 class="pb-1">{{ $t("content.SCREEN_PASSWORD") }}</h4>
         <v-flex xs6 sm3 md2 lg-2>
-          <!-- <h4 class="pb-1">{{ $t("content.SCREEN_PASSWORD") }}</h4>   -->
           <v-text-field
             solo
             v-model="password"
@@ -25,7 +25,7 @@
             class="pt-2 mr-0 pr-0"
           >
             <v-tooltip bottom>
-              <template  v-slot:activator="{ on }">
+              <template v-slot:activator="{ on }">
                 <v-btn depressed flat @click="handleLogin" class="mx-1" v-on="on">
                   <v-icon dark>lock_open</v-icon>
                 </v-btn>
@@ -33,7 +33,7 @@
               <span>{{ $t("button.LOGIN") }}</span>
             </v-tooltip>
             <v-tooltip bottom>
-              <template  v-slot:activator="{ on }">
+              <template v-slot:activator="{ on }">
                 <v-btn depressed flat @click="handleLogout" class="mx-1" v-on="on">
                   <v-icon dark>exit_to_app</v-icon>
                 </v-btn>

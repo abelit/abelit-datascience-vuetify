@@ -20,7 +20,21 @@ router.beforeEach((to, from, next) => {
       path: '/lock'
     })
   } else {
-  next()
+  // next()
+  if (to.matched.some(record => record.meta.requireAuth)) {
+    if (localStorage.getItem("token")) {
+      next();
+    } else {
+      next({
+        path: "/user/login",
+        query: {
+          url: to.fullPath
+        }
+      });
+    }
+  } else {
+    next();
+  }
   };
 });
 

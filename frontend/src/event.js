@@ -13,6 +13,7 @@ export default [
         color: "green",
         text: "Logout successfully."
       };
+      localStorage.removeItem("token");
       this.$router.replace({ path: "/user/login" });
     }
   },
