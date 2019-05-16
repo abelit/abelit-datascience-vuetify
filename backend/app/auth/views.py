@@ -28,14 +28,14 @@ def register():
     password = request.json.get('password', None)
     selected_department = request.json.get('selected_department', None)
     selected_position = request.json.get('selected_position', None)
-    picked_gender = request.json.get('picked_gender', None)
+    selected_gender = request.json.get('selected_gender', None)
     # 用户注册默认状态为0即不允许登录
     status = 0
 
     status_code = None
 
     user = User(username=username, name=name, email=email, password=generate_password_hash(
-        password), group_id=selected_department, position_id=selected_position, gender=picked_gender, status=status)
+        password), group_id=selected_department, position_id=selected_position, gender=selected_gender, status=status)
 
     try:
         db.session.add(user)

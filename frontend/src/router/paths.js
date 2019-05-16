@@ -50,7 +50,18 @@ export default [
     name: 'Login',
     component: () => import(
       /* webpackChunkName: "routes" */
-      `@/views/Login.vue`
+      `@/views/auth/Login.vue`
+    )
+  },
+  {
+    path: '/user/register',
+    meta: {
+      public: true,
+    },
+    name: 'Register',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      `@/views/auth/Register.vue`
     )
   },
   {
