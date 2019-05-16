@@ -1,102 +1,112 @@
-<template >
-  <div v-resize="onResize">
-    <d-drawer v-if="!isFullScreen"></d-drawer>
-    <d-toolbar v-if="!isFullScreen"></d-toolbar>
-    <d-content></d-content>
-    <d-footer v-if="!isFullScreen"></d-footer>
+<template>
+  <div id="appRoot">
+    <template v-if="!$route.meta.public">
+      <v-app id="inspire" class="app">
+        <app-drawer class="app--drawer"></app-drawer>
+        <app-toolbar class="app--toolbar"></app-toolbar>
+        <v-content>
+          <!-- Page Header -->
+          <app-page-header v-if="$route.meta.breadcrumb"></app-page-header>
+          <div class="page-wrapper">
+            <router-view></router-view>
+          </div>   
+           <!-- App Footer -->
+          <app-footer></app-footer>
+        </v-content>
+
+        <!-- Go to top -->
+        <app-fab></app-fab>
+        <!-- theme setting -->
+        <v-btn small fab dark falt fixed top="top" right="right" class="setting-fab" color="red" @click="openThemeSettings">
+          <v-icon>settings</v-icon>
+        </v-btn>
+        <v-navigation-drawer
+          class="setting-drawer"
+          temporary
+          right
+          v-model="rightDrawer"
+          hide-overlay
+          fixed
+          >
+          <app-theme-settings></app-theme-settings>
+        </v-navigation-drawer>        
+      </v-app>
+    </template>
+    <template v-else>
+      <transition>
+        <keep-alive>
+          <router-view :key="$route.fullpath"></router-view>
+        </keep-alive>
+      </transition>
+    </template>
+    <v-snackbar
+      :timeout="3000"
+      bottom
+      right
+      :color="snackbar.color"
+      v-model="snackbar.show"
+    >
+      {{ snackbar.text }}
+      <v-btn dark flat @click.native="snackbar.show = false" icon> 
+        <v-icon>close</v-icon>
+      </v-btn>
+    </v-snackbar>    
   </div>
 </template>
-
 <script>
-import DContent from "@/views/layout/components/DContent";
-import DToolbar from "@/views/layout/components/DToolbar";
-import DDrawer from "@/views/layout/components/DDrawer";
-import DFooter from "@/components/footer/DFooter";
-import DSkinPicker from "@/components/skin/DSkinPicker";
-
-import { mapActions, mapState } from "vuex";
-
+import AppDrawer from '@/views/layout/components/AppDrawer';
+import AppToolbar from '@/views/layout/components/AppToolbar';
+import AppFooter from '@/views/layout/components/AppFooter';
+import AppFab from '@/views/layout/components/AppFab';
+import AppPageHeader from '@/views/layout/components/AppPageHeader';
+import AppThemeSettings from '@/views/layout/components/AppThemeSettings';
+import AppEvents from  '@/event';
 export default {
   components: {
-    DToolbar,
-    DContent,
-    DDrawer,
-    DFooter,
-    DSkinPicker
+    AppDrawer,
+    AppToolbar,
+    AppFooter,
+    AppFab,
+    AppPageHeader,
+    AppThemeSettings
   },
   data: () => ({
-    drawer: false,
-    mini: false,
-    responseSize: 991,
-    isSmallScreen: false,
-    isFullScreen: false
+    expanded: true,
+    rightDrawer: false,
+    snackbar: {
+      show: false,
+      text: '',
+      color: '',
+    }
   }),
+
+  computed: {
+
+  },
+
+  created () {
+    AppEvents.forEach(item => {
+      this.$on(item.name, item.callback);
+    });
+    window.getApp = this;
+  },
   methods: {
-    ...mapActions(["setDrawer", "setMini", "setSmallScreen", "setWindowSize"]),
-    onResize() {
-      let windowSize = {
-        windowHeight: window.innerHeight,
-        windowWidth: window.innerWidth
-      };
-      this.setWindowSize(windowSize);
-      // console.log(windowSize);
-      if (window.innerWidth < this.responseSize) {
-        this.isSmallScreen = true;
-      } else {
-        this.isSmallScreen = false;
-      }
-
-      // console.log("layout smallscreen: " + this.isSmallScreen);
-      // console.log(
-      //   "layout store smallscreen: " + this.$store.state.isSmallScreen
-      // );
-
-      // 当屏幕尺寸在大小两个值变化时，设置vuex中mini,drawer的值
-      if (
-        this.isSmallScreen != this.$store.state.isSmallScreen &&
-        this.isSmallScreen
-      ) {
-        this.setMini(false);
-        this.setDrawer(false);
-      }
-
-      if (
-        this.isSmallScreen != this.$store.state.isSmallScreen &&
-        !this.isSmallScreen
-      ) {
-        this.setMini(false);
-        this.setDrawer(true);
-      }
-
-      // 设置vuex中isSmallScreen的值
-      this.setSmallScreen(this.isSmallScreen);
-
-      // console.log("layout store mini: " + this.$store.state.mini);
-      // console.log("layout store drawer: " + this.$store.state.drawer);
-    },
-    // 根据屏幕大小设置mini, drawer的值
-    initValue() {
-      if (!this.isSmallScreen) {
-        this.setDrawer(true);
-        this.setMini(false);
-      } else {
-        this.setMini(false);
-        this.setDrawer(false);
-      }
+    openThemeSettings () {
+      this.$vuetify.goTo(0);
+      this.rightDrawer = (!this.rightDrawer);
     }
   },
-  mounted() {
-    // console.log("hah" + this.isSmallScreen);
-    // Init mini, drawer in store
-    this.initValue();
-    // console.log(this.$store.state.isFullScreen);
-  },
-  computed: {
-  //  ...mapState(["isFullScreen"])
-  }
+
 };
 </script>
 
 
+<style lang="stylus" scoped>
+  .setting-fab 
+    top:50%!important; 
+    right:0;
+    border-radius:0  
+  .page-wrapper
+    min-height:calc(100vh - 64px - 50px - 81px );  
 
-
+</style>
