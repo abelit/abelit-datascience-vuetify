@@ -1,6 +1,6 @@
 <template>
 <div id="themeSetting">
-  <v-toolbar color="blue" dark>
+  <v-toolbar color="primary" dark>
     <v-toolbar-title>
       {{ $t("theme.THEME_SETTINGS") }}
     </v-toolbar-title>
@@ -9,7 +9,7 @@
     <v-layout column>
       <v-flex>
         <v-subheader class="px-1 my-2">
-          Color Option
+          {{ $t("theme.NAVBAR_THEME") }}
         </v-subheader>
         <div class="color-option">
           <v-layout wrap>
@@ -28,11 +28,11 @@
         </div>
         <div class="theme-options">
           <v-subheader class="px-1 my-2">
-            Sidebar Option
+            {{ $t("theme.SIDEBAR_THEME") }}
           </v-subheader>
           <v-divider></v-divider>
           <div class="my-3">
-            <v-btn-toggle v-model="sideBarOption">
+            <v-btn-toggle v-model="sidebarTheme">
               <v-btn flat value="dark">
                 Dark
               </v-btn>
@@ -53,8 +53,8 @@ import colors from 'vuetify/es5/util/colors';
 export default {
   data () {
     return {
-      themeColor: 'indigo',
-      sideBarOption: 'light',
+      themeColor: this.$store.state.themeColor,
+      sidebarTheme: this.$store.state.sidebarTheme,
       colors: colors
     };
   },
@@ -140,26 +140,39 @@ export default {
             mainNav: 'green',
             sideManu: 'white'
           }
+        },
+        {
+          key: 'grey',
+          value: {
+            sideNav: 'grey',
+            mainNav: 'grey',
+            sideManu: 'white'
+          }
         }
       ];
-    }
+    },
+    // themeColor: function () {
+    //   return this.$store.state.toolbarColor;
+    // }
   },  
   watch: {
     themeColor: {
       handler (val) {
+        // 把主题名称存入vuex和localStorage
+        this.$store.dispatch("setThemeColor", val);
+
+        // 设置vuetify实例primary主题属性
         this.$vuetify.theme.primary = this.colors[val].base;
-        
       },
       immediate: true
     },
-    sideBarOption: {
+    sidebarTheme: {
       handler (val) {
-        this.$vuetify.dark = (val === 'dark');
+        this.$store.dispatch("setSidebarTheme", val);
       },
       immediate: true      
     }
-  },  
-
+  },
 };
 </script>
 <style lang="stylus" scoped>

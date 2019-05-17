@@ -71,7 +71,8 @@ export const theme = {
   NAVBAR_THEME: "Navigation Theme",
   SIDEBAR_THEME: "Menu Theme",
   BUTTON_THEME: "Button Theme",
-  THEME_SETTINGS: "Theme Settings"
+  THEME_SETTINGS: "Theme Settings",
+  COLOR_OPTION: "Color Option",
 };
 
 export const tooltip = {

@@ -1,6 +1,6 @@
 <template>
   <v-fab-transition>
-    <v-btn fab="fab" small dark="dark" fixed="fixed" bottom="bottom" right="right" color="red"  v-show="fab" @click="toTop">
+    <v-btn fab="fab" small dark="dark" fixed="fixed" bottom="bottom" right="right" color="red"  v-show="fab" @click="toTop"   v-scroll:#scroll-target="onScroll">
       <v-icon>keyboard_arrow_up</v-icon>
     </v-btn>
   </v-fab-transition>
@@ -23,6 +23,7 @@ export default {
         0;
 
       this.fab = top > 300;
+      console.log("fab: "+ fab)
     },
     toTop () {
       this.$router.push({ hash: '' });

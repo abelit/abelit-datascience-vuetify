@@ -1,6 +1,6 @@
 <template>
   <div id="pageDashboard">
-    <v-container grid-list-xl fluid>
+    <v-container grid-list-xl fluid id="scroll-target">
       <v-layout row wrap>
         <!-- mini statistic start -->
         <v-flex lg3 sm6 xs12>

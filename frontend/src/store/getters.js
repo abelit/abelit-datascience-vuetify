@@ -1,8 +1,7 @@
 const getters = {
-    skin: state => {
-        return state.skin;
-    }
+  skin: state => {
+    return state.skin;
+  }
 };
-
 
 export default getters;

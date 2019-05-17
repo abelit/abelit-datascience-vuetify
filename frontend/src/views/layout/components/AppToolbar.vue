@@ -9,21 +9,20 @@
     </v-toolbar-title>
       <v-toolbar-side-icon  @click.stop="handleDrawerToggle"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <!-- <v-text-field
-        
+      <v-flex xs4>
+        <v-text-field
         append-icon="search"
         label="Search"
         class="hidden-sm-and-down"
+        color="primary darken-4"
         >
-      </v-text-field> -->
-      
+      </v-text-field>
+      </v-flex>
+      <v-spacer></v-spacer>
       <d-help-question></d-help-question>
       <d-lang-picker></d-lang-picker>
       <d-full-screen></d-full-screen>
       <d-top-lock></d-top-lock>
-      <!-- <v-btn icon @click="handleFullScreen()">
-        <v-icon>fullscreen</v-icon>
-      </v-btn> -->
       <v-menu offset-y origin="center center" class="elelvation-1" :nudge-bottom="14" transition="scale-transition">
         <v-btn icon flat slot="activator">
         <v-badge color="red" overlap>

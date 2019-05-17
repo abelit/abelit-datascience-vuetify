@@ -1,7 +1,4 @@
 const mutations = {
-  increment: state => state.count++,
-  decrement: state => state.count--,
-
   SET_TOKEN(state, token) {
     state.token = token;
     // localStorage.token = JSON.stringify(token)
@@ -11,31 +8,25 @@ const mutations = {
     state.token = "";
     localStorage.removeItem("token");
   },
-  // 中英文切换
   SET_LANGUAGE: (state, language) => {
     state.language = language;
     localStorage.setItem("language", language);
   },
-  SET_SKIN: (state, skin) => {
-    state.skin = skin;
-    localStorage.setItem("skin", JSON.stringify(skin));
+  SET_THEME_COLOR: (state, color) => {
+    state.themeColor = color;
+    localStorage.setItem("theme_color", color);
   },
-  SET_SIDEBAR_BUTTON_COLOR: (state, buttonColor) => {
-    state.buttonColor = buttonColor;
-    localStorage.setItem("sidebar_buttonColor", buttonColor);
+  SET_SIDEBAR_THEME: (state, theme) => {
+    state.sidebarTheme = theme;
+    localStorage.setItem("sidebar_theme", theme);
   },
-  SET_SIDEBAR_IMAGE: (state, image) => {
-    state.image = image;
-    localStorage.setItem("sidebar_image", image);
+  SET_BUTTON_COLOR: (state, color) => {
+    state.buttonColor = color;
+    localStorage.setItem("button_color", color);
   },
-  SET_SIDEBAR_COLOR: (state, color) => {
-    state.color = color;
-    localStorage.setItem("sidebar_color", color);
-  },
-
-  SET_TOOLBAR_COLOR: (state, toolbarColor) => {
-    state.toolbarColor = toolbarColor;
-    localStorage.setItem("toolbar_color", toolbarColor);
+  SET_TOOLBAR_COLOR: (state, color) => {
+    state.toolbarColor = color;
+    localStorage.setItem("toolbar_color", color);
   },
   SET_MINI: (state, mini) => {
     state.mini = mini;
@@ -43,22 +34,22 @@ const mutations = {
   SET_DRAWER: (state, drawer) => {
     state.drawer = drawer;
   },
-  SET_SMALLSCREEN: (state, isSmallScreen) => {
-    state.isSmallScreen = isSmallScreen;
+  SET_SMALLSCREEN: (state, payload) => {
+    state.isSmallScreen = payload;
   },
-  SET_WINDOWSIZE: (state, windowSize) => {
-    state.windowSize = windowSize;
+  SET_WINDOWSIZE: (state, size) => {
+    state.windowSize = size;
   },
-  SET_FULLSCREEN: (state, isFullScreen) => {
-    state.isFullScreen = isFullScreen;
+  SET_FULLSCREEN: (state, payload) => {
+    state.isFullScreen = payload;
   },
-  SET_LOCK_PASSWORD: (state, lockPassword) => {
-    state.lockPassword = lockPassword;
-    localStorage.setItem("lock_password", lockPassword);
+  SET_LOCK_PASSWORD: (state, password) => {
+    state.lockPassword = password;
+    localStorage.setItem("lock_password", password);
   },
-  SET_LOCK: (state, isLock) => {
-    state.isLock = isLock;
-    localStorage.setItem("is_lock", isLock);
+  SET_LOCK: (state, payload) => {
+    state.isLock = payload;
+    localStorage.setItem("is_lock", payload);
   },
   CLEAR_LOCK: state => {
     state.isLock = false;
@@ -66,8 +57,8 @@ const mutations = {
     localStorage.removeItem("is_lock");
     localStorage.removeItem("lock_password");
   },
-  SET_BROWSERHEADERTITLE: (state, browserHeaderTitle) => {
-    state.browserHeaderTitle = browserHeaderTitle;
+  SET_BROWSERHEADERTITLE: (state, title) => {
+    state.browserHeaderTitle = title;
   },
   LOG_OUT: state => {
     state.token = "";

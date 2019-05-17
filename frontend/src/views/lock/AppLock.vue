@@ -2,8 +2,8 @@
   <v-container fluid style="height: 100vh" pa-0 align-center align-content-center>
     <v-img :src="backgroundImage" height="100%" width="100%">
       <v-layout justify-center row style="padding-top: 40vh">
-        <h4 class="pb-1">{{ $t("content.SCREEN_PASSWORD") }}</h4>
         <v-flex xs6 sm3 md2 lg-2>
+          <h4 class="pb-1">{{ $t("content.SCREEN_PASSWORD") }}</h4>
           <v-text-field
             solo
             v-model="password"
@@ -19,10 +19,9 @@
         <v-flex xs3 sm1 md1 lg-1>
           <v-btn-toggle
             v-model="toggle_exclusive"
-            :class="toolbarColor"
             dark
-            style="height: 49px;"
-            class="pt-2 mr-0 pr-0"
+            style="height: 50px; top: 10px;"
+            class="mt-4 pt-2 primary"
           >
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">

@@ -1,7 +1,7 @@
 <template>
   <v-footer  height="auto" class="white pt-3 app--footer">
     <v-card class="flex" flat tile>
-      <v-card-actions class="justify-center blue--text">
+      <v-card-actions class="justify-center primary--text">
         &copy; {{ new Date().getFullYear() }} &nbsp; — &nbsp;
         <strong>Data Visualization & Analyzation</strong>
       </v-card-actions>

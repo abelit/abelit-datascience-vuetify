@@ -3,7 +3,7 @@
     id="appDrawer"
     :mini-variant.sync="mini"
     fixed
-    :dark="$vuetify.dark"
+    :dark="computeTheme"
     app
     v-model="drawer"
     width="260"
@@ -16,6 +16,16 @@
     </v-toolbar>
     <vue-perfect-scrollbar class="drawer-menu--scroll" :settings="scrollSettings">
       <v-list dense expand>
+        <v-list-tile class="pt-3 hidden-sm-and-up">
+          <v-list-tile-content>
+             <v-text-field
+        
+        append-icon="search"
+        label="Search"
+        >
+      </v-text-field>
+          </v-list-tile-content>
+        </v-list-tile>
         <template v-for="(item, i) in menus">
             <!--group with subitems-->
             <v-list-group v-if="item.items" :key="item.name" :group="item.group" :prepend-icon="item.icon" no-action="no-action">
@@ -100,7 +110,10 @@ export default {
 
     sideToolbarColor () {
       return this.$vuetify.options.extra.sideNav;
-    }    
+    },
+    computeTheme () {
+      return (this.$store.state.sidebarTheme === 'dark');
+    }
   },
   created () {
     window.getApp.$on('APP_DRAWER_TOGGLED', () => {
@@ -119,6 +132,9 @@ export default {
       }
       return { name: `${item.group}/${(subItem.name)}` };
     },
+  },
+  mounted() {
+    console.log("drawer vuetify-dark: "+this.$vuetify.dark)
   }
 };
 </script>

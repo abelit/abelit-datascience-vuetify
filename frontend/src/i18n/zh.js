@@ -71,7 +71,8 @@ export const theme = {
   NAVBAR_THEME: "导航栏主题",
   SIDEBAR_THEME: "菜单栏主题",
   BUTTON_THEME: "按钮主题",
-  THEME_SETTINGS: "主题设置"
+  THEME_SETTINGS: "主题设置",
+  COLOR_OPTION: "颜色选择"
 };
 
 export const tooltip = {
