@@ -74,13 +74,14 @@ def add_user():
     password = request.json.get('password', None)
     selected_department = request.json.get('selected_department', None)
     selected_position = request.json.get('selected_position', None)
-    picked_gender = request.json.get('picked_gender', None)
+    selected_gender = request.json.get('selected_gender', None)
     status = request.json.get('status', None)
+    print("status: " + str(status))
 
     status_code = None
 
     user = User(username=username, name=name, email=email, password=generate_password_hash(
-        password), group_id=selected_department, position_id=selected_position, gender=picked_gender, status=status)
+        password), group_id=selected_department, position_id=selected_position, gender=selected_gender, status=status)
 
     try:
         db.session.add(user)
@@ -90,3 +91,24 @@ def add_user():
         status_code = 500
 
     return jsonify(), status_code
+
+
+@admin.route('/user/list', methods=['GET'])
+def list_users():
+    result = []
+    users = db.session.query(User,Group,Position).join(Group, User.group_id == Group.id).join(
+        Position, User.position_id == Position.id).all()
+
+    for u in users:
+        result.append({
+            "name": u.User.name,
+            "username": u.User.username,
+            "email": u.User.email,
+            "gender": u.User.gender,
+            "status": u.User.status,
+            "created_time": u.User.created_time,
+            "group_name": u.Group.name,
+            "position_name": u.Position.name
+        })
+
+    return jsonify(result), 200

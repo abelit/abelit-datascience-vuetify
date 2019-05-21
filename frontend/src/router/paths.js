@@ -648,7 +648,15 @@ export default [
             /* webpackChunkName: "routes" */
             "@/views/widgets/List.vue"
           )
-      }
+      },
+      {
+        path: "/user/list",
+        meta: {
+          breadcrumb: true
+        },
+        name: "UserList",
+        component: () => import("@/views/admin/UserList")
+      },
     ]
   },
   {

@@ -12,7 +12,7 @@
       <v-flex xs4>
         <v-text-field
         append-icon="search"
-        label="Search"
+        :label="$t('button.SEARCH')"
         class="hidden-sm-and-down"
         color="primary darken-4"
         >

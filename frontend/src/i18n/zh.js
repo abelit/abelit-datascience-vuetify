@@ -31,7 +31,8 @@ export const admin = {
   POSITION_ENNAME: "职位英文名称",
   POSITION_DESCRIPTION: "关于职位的具体描述",
   USER_ADD: "添加用户",
-  SCREEN_LOCK_PASSWORD_SET: "设置锁屏密码"
+  SCREEN_LOCK_PASSWORD_SET: "设置锁屏密码",
+  USER_LIST: "用户列表"
 };
 
 export const button = {
@@ -43,7 +44,9 @@ export const button = {
   CONFIRM: "确定",
   LOGIN: "登录",
   REGISTER: "注册",
-  EXIT: "退出"
+  EXIT: "退出",
+  SEARCH: "搜索",
+  NEW_USER: "新增用户"
 };
 
 export const message = {

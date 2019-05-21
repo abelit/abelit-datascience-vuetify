@@ -31,7 +31,8 @@ export const admin = {
   POSITION_ENNAME: "English Group Name",
   POSITION_DESCRIPTION: "Desciptions for Group",
   USER_ADD: "Add User",
-  SCREEN_LOCK_PASSWORD_SET: "Set Screen Lock Password"
+  SCREEN_LOCK_PASSWORD_SET: "Set Screen Lock Password",
+  USER_LIST: "User Lists"
 };
 
 export const button = {
@@ -43,7 +44,9 @@ export const button = {
   CONFIRM: "Confirm",
   LOGIN: "Login",
   REGISTER: "Register",
-  EXIT: "Exit"
+  EXIT: "Exit",
+  SEARCH: "Search",
+  NEW_USER: "New User"
 };
 
 export const message = {

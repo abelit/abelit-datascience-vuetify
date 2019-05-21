@@ -108,6 +108,15 @@ const Menu =  [
       { name: 'editors', title: 'Editors', component: 'components/editors' },
     ]
   },
+  {header: "Admin"},
+  {
+    title: "System Settings",
+    group: "admin",
+    icon: "settings",
+    items: [
+      { name: 'UserList', title: 'UserList', component: 'UserList' }
+    ]
+  },
   { divider: true },
   { header: 'Extras' },
   {
