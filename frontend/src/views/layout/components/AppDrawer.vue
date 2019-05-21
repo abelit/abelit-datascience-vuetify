@@ -8,7 +8,7 @@
     v-model="drawer"
     width="260"
     >
-    <v-toolbar color="primary darken-1" dark>
+    <v-toolbar  :color="$vuetify.theme.primary==='#9e9e9e'?'primary'+' darken-3':'primary darken-1'" dark>
       <img v-bind:src="computeLogo" height="50" alt="Data Analysis & Visualization">
       <v-toolbar-title class="ml-0 pl-2">
         <span class="hidden-sm-and-down">DATA ANALYSIS</span>

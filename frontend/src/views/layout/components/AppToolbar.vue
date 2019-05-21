@@ -1,6 +1,6 @@
 <template>
   <v-toolbar
-    color="primary"
+    :color="$vuetify.theme.primary==='#9e9e9e'?'primary'+' darken-3':'primary'"
     fixed
     dark
     app

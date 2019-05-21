@@ -1,6 +1,6 @@
 <template>
 <div id="themeSetting">
-  <v-toolbar color="primary" dark>
+  <v-toolbar  :color="$vuetify.theme.primary==='#9e9e9e'?'primary'+' darken-3':'primary'" dark>
     <v-toolbar-title>
       {{ $t("theme.THEME_SETTINGS") }}
     </v-toolbar-title>
@@ -144,8 +144,8 @@ export default {
         {
           key: 'grey',
           value: {
-            sideNav: 'grey',
-            mainNav: 'grey',
+            sideNav: 'grey darken-3',
+            mainNav: 'grey darken-3',
             sideManu: 'white'
           }
         }

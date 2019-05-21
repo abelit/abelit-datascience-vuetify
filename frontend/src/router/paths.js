@@ -59,7 +59,7 @@ export default [
           breadcrumb: true,
           requireAuth: true
         },
-        component: () => import("@/views/Dashboard.vue")
+        component: () => import("@/views/dashboard/Dashboard.vue")
       },
       {
         path: "/media",
@@ -660,7 +660,7 @@ export default [
     component: () =>
       import(
         /* webpackChunkName: "routes" */
-        "@/views/NotFound.vue"
+        "@/views/error/NotFound.vue"
       )
   },
   {
@@ -672,7 +672,7 @@ export default [
     component: () =>
       import(
         /* webpackChunkName: "routes" */
-        "@/views/Deny.vue"
+        "@/views/error/Deny.vue"
       )
   },
   {
@@ -684,7 +684,7 @@ export default [
     component: () =>
       import(
         /* webpackChunkName: "routes" */
-        "@/views/Error.vue"
+        "@/views/error/Error.vue"
       )
   },
   {
