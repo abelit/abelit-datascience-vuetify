@@ -32,7 +32,21 @@ export const admin = {
   POSITION_DESCRIPTION: "Desciptions for Group",
   USER_ADD: "Add User",
   SCREEN_LOCK_PASSWORD_SET: "Set Screen Lock Password",
-  USER_LIST: "User Lists"
+  USER_LIST: "User Lists",
+  GROUP: "Group",
+  POSITION: "Position",
+  USER: "User",
+  ROLE: "Role",
+  ROLE_LIST: "Role List",
+  ROLE_NAME: "Role Name",
+  NAME: "Name",
+  ENNAME: "English Name",
+  DESCRIPTION: "Description ...",
+  USER_MANAGEMENT: "User Management",
+  DEPARTMENT_MANAGEMENT: "Department Management",
+  POSITION_MANAGEMENT: "Position Management",
+  ROLE_MANAGEMENT: "Role Management",
+  MENU_MANAGEMENT: "Menu Management"
 };
 
 export const button = {
@@ -46,7 +60,10 @@ export const button = {
   REGISTER: "Register",
   EXIT: "Exit",
   SEARCH: "Search",
-  NEW_USER: "New User"
+  NEW_USER: "New User",
+  NEW_ROLE: "New Role",
+  NEW_GROUP: "New Group",
+  NEW_POSITION: "New Position"
 };
 
 export const message = {

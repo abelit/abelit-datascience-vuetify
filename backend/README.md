@@ -119,6 +119,92 @@ python manage.py db upgrade
 >>> db.session.commit()
 ```
 
+在模型中使用下列关系可以辅助查询
+```sql
+user_role = db.Table('user_role',
+                     db.Column('user_id', db.Integer, db.ForeignKey(
+                         'user.id'), primary_key=True),
+                     db.Column('role_id', db.Integer, db.ForeignKey(
+                         'role.id'), primary_key=True),
+                     db.Column('created_time', db.DateTime,
+                               nullable=False, default=datetime.now),
+                     db.Column('updated_time', db.DateTime,
+                               nullable=False, default=datetime.now)
+                     )
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False, doc="user account")
+    name = db.Column(db.String(80), nullable=False, doc="real username")
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(120), unique=True, nullable=False)
+    gender = db.Column(db.Integer, nullable=False, doc="1:male,0:female")
+    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
+    position_id = db.Column(db.Integer, db.ForeignKey(
+        'position.id'), nullable=False)
+    created_time = db.Column(
+        db.DateTime, nullable=False, default=datetime.now)
+    updated_time = db.Column(
+        db.DateTime, nullable=False, default=datetime.now)
+    group = db.relationship('Group',
+                            backref=db.backref('users', lazy=True))
+    position = db.relationship('Position',
+                               backref=db.backref('users', lazy=True))
+    user_role = db.relationship('Role', secondary=user_role, lazy='subquery',
+                                backref=db.backref('users', lazy=True))
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
+    created_time = db.Column(
+        db.DateTime, nullable=False, default=datetime.now)
+    updated_time = db.Column(
+        db.DateTime, nullable=False, default=datetime.now)
+    role_menu = db.relationship('Menu', secondary=role_menu, lazy='subquery',
+                                backref=db.backref('roles', lazy=True))
+    user_role = db.relationship('User', secondary=user_role, lazy='subquery',
+                                backref=db.backref('roles', lazy=True))
+```
+如User和Role表是多对多的关系，在模型中User类中声明"user_role = db.relationship('Role', secondary=user_role, lazy='subquery',backref=db.backref('users', lazy=True))"这句话可以实现如下查询，即找出所属某个角色的所有用户。同样，要找出某个用户所属的所有角色，需要在Role类中加入" user_role = db.relationship('User', secondary=user_role, lazy='subquery',backref=db.backref('roles', lazy=True))"。
+```python
+# 找出所属某个角色的所有用户
+>>> from models import *
+>>> r1 = Role.query.get(1)
+>>> r1.users
+
+#找出某个用户所属的所有角色
+>>> u1 = User.query.get(1)
+>>> u1.roles
+```
+
+## 在Flask SQLAlchemy中如何进行多对多的数据写入
+```python
+>>> u1 = User.query.get(1)
+>>> r1 = Role.query.get(1)
+>>> ur1 = user_role.insert().values(user_id=u1.id,role_id=r1.id)
+>>> db.session.add(ur1)
+>>> db.session.commit()
+
+#或
+>>> u2 = User.query.get(6)
+>>> r2 = Role.query.get(2)
+>>> u2.roles.append(r2)
+>>> db.session.add(u2)
+>>> db.session.commit()
+
+#或
+>>> u3 = User.query.get(6)
+>>> r3 = Role.query.get(3)
+>>> r3.users.append(u3)
+>>> db.session.add(r3)
+>>> db.session.commit()
+```
 
 # 2. Flask环境部署
 ```bash

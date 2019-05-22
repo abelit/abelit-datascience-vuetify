@@ -4,15 +4,17 @@
       <div v-on="on">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">{{ $t("button.NEW_USER") }}</v-btn>
+           <v-btn color="primary" dark class="mb-2" v-on="on" icon flat>
+                <v-icon>add_circle</v-icon>
+            </v-btn>
           </template>
-          <span>{{ $t("tooltip.APP_LOCK") }}</span>
+          <span>{{ $t("button.NEW_USER") }}</span>
         </v-tooltip>
       </div>
     </template>
     <v-flex xs-12 sm-6 md-4 lg-1>
       <v-toolbar dark color="primary">
-        <v-toolbar-title>{{ $t("admin.USER_ADD") }}</v-toolbar-title>
+        <v-toolbar-title>{{ $t("button.NEW_USER") }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon dark @click="dialog = false">
           <v-icon>close</v-icon>
@@ -145,8 +147,33 @@
             </v-layout>
 
             <v-layout row wrap align-center>
+              <v-flex xs12 sm12>
+                <v-combobox
+                  prepend-inner-icon="security"
+                  v-model="selected_role"
+                  :items="roles"
+                  :label="$t('admin.ROLE')"
+                  v-validate="'required'"
+                  :error-messages="errors.collect('role')"
+                  item-text="name"
+                  item-value="id"
+                  class="mx-1"
+                  data-vv-name="role"
+                  required
+                  multiple
+                  chips
+                ></v-combobox>
+              </v-flex>
+            </v-layout>
+            <v-layout row wrap align-center>
               <v-flex xs12 sm6>
-                <v-checkbox v-model="status" :label="$t('button.ENABLE')" value="1" data-vv-name="status"></v-checkbox>
+                <v-checkbox
+                  class="mx-1"
+                  v-model="status"
+                  :label="$t('button.ENABLE')"
+                  value="1"
+                  data-vv-name="status"
+                ></v-checkbox>
               </v-flex>
             </v-layout>
           </v-form>
@@ -154,13 +181,20 @@
         <!-- <v-divider></v-divider> -->
         <v-card-actions class="pb-3">
           <v-spacer></v-spacer>
-          <v-btn color="primary"  @click="dialog = false" dark>
+          <v-btn color="primary" @click="dialog = false" dark>
             <span class="font-weight-bold">{{$t("button.CANCEL") }}</span>
           </v-btn>
           <v-btn color="primary" @click="handleNewUser" dark>
             <span class="font-weight-bold">{{$t("button.CONFIRM") }}</span>
           </v-btn>
         </v-card-actions>
+        <div class="loading-overlay" v-if="isButtonLoading">
+          <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
+          <span>{{loadingMessage}}</span>
+        </div>
+        <div class="loading-overlay" v-if="message">
+          <span :class="[isActive ? 'activeClass' : 'errorClass']">{{message}}</span>
+        </div>
       </v-card>
     </v-flex>
   </v-dialog>
@@ -185,8 +219,10 @@ export default {
     selected_department: undefined,
     selected_position: undefined,
     selected_gender: undefined,
+    selected_role: undefined,
     departments: [],
     positions: [],
+    roles: [],
     isActive: false,
     status: 0,
     dialog: false
@@ -210,7 +246,8 @@ export default {
               selected_department: this.selected_department,
               selected_position: this.selected_position,
               selected_gender: this.selected_gender,
-              status: this.status
+              status: this.status,
+              role: this.selected_role
             })
             .then(() => {
               this.isActive = true;
@@ -218,19 +255,17 @@ export default {
               setTimeout(() => {
                 this.message = "";
                 // 跳转上一请求页面或主页
-                this.$router.push(
-                  this.$router.currentRoute.query.url || "/user/login"
-                );
-              }, 2000);
+                this.dialog = false;
+              }, 1000);
             })
             .catch(() => {
               this.isActive = false;
               this.message = this.$t("message.ERROR_REGISTER");
               setTimeout(() => {
                 this.message = "";
-              }, 2000);
+              }, 1000);
             });
-        }, 2000);
+        }, 1000);
       }
     },
     getDepartment() {
@@ -256,6 +291,22 @@ export default {
           // console.log(res.data)
           for (var i = 0; i < res.data.length; i++) {
             this.positions.push({
+              id: res.data[i].id,
+              name: res.data[i].name
+            });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getRole() {
+      this.$axios
+        .get("/api/role")
+        .then(res => {
+          // console.log(res.data)
+          for (var i = 0; i < res.data.length; i++) {
+            this.roles.push({
               id: res.data[i].id,
               name: res.data[i].name
             });
@@ -312,6 +363,7 @@ export default {
   mounted() {
     this.getDepartment();
     this.getPosition();
+    this.getRole();
     console.log(this.selected_gender);
   },
   computed: {

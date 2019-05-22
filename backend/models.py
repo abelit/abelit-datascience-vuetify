@@ -105,6 +105,8 @@ class Role(db.Model):
         db.DateTime, nullable=False, default=datetime.now)
     role_menu = db.relationship('Menu', secondary=role_menu, lazy='subquery',
                                 backref=db.backref('roles', lazy=True))
+    user_role = db.relationship('User', secondary=user_role, lazy='subquery',
+                                backref=db.backref('roles', lazy=True))
 
 
 class Tmenu(db.Model):

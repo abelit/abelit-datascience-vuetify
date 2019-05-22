@@ -1,7 +1,7 @@
 from flask import jsonify, request, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from models import Group, Position, User, Tmenu
+from models import Group, Position, User, Tmenu, Role
 from db import db
 
 api = Blueprint("api", __name__)
@@ -17,7 +17,11 @@ def group():
         for g in group:
             result.append({
                 "id": g.id,
-                "name": g.name
+                "name": g.name,
+                "enname": g.enname,
+                "status": g.status,
+                "description": g.description,
+                "created_time": g.created_time
             })
     except Exception:
         status_code = 500
@@ -28,12 +32,30 @@ def group():
 @api.route('/position', methods=['GET'])
 def position():
     result = []
-    position = Position.query.filter_by(status=1)
+    position = Position.query.all()
 
     for p in position:
         result.append({
             "id": p.id,
             "name": p.name,
+            "enname": p.enname,
+            "status": p.status,
+            "description": p.description,
+            "created_time": p.created_time
+        })
+
+    return jsonify(result), 200
+
+
+@api.route('/role', methods=['GET'])
+def role():
+    result = []
+    role = Role.query.filter_by(status=1)
+
+    for r in role:
+        result.append({
+            "id": r.id,
+            "name": r.name,
         })
 
     return jsonify(result), 200

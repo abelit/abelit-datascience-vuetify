@@ -657,6 +657,30 @@ export default [
         name: "UserList",
         component: () => import("@/views/admin/UserList")
       },
+      {
+        path: "/role/list",
+        meta: {
+          breadcrumb: true
+        },
+        name: "RoleList",
+        component: () => import("@/views/admin/RoleList")
+      },
+      {
+        path: "/group/list",
+        meta: {
+          breadcrumb: true
+        },
+        name: "GroupList",
+        component: () => import("@/views/admin/GroupList")
+      },
+      {
+        path: "/position/list",
+        meta: {
+          breadcrumb: true
+        },
+        name: "PositionList",
+        component: () => import("@/views/admin/PositionList")
+      },
     ]
   },
   {

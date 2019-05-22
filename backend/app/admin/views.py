@@ -2,10 +2,11 @@
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
+import time
 
 
 from db import db
-from models import Group, Position, User
+from models import Group, Position, User, Role
 
 admin = Blueprint("admin", __name__)
 
@@ -76,12 +77,16 @@ def add_user():
     selected_position = request.json.get('selected_position', None)
     selected_gender = request.json.get('selected_gender', None)
     status = request.json.get('status', None)
-    print("status: " + str(status))
+    role = request.json.get('role', None)
 
     status_code = None
 
     user = User(username=username, name=name, email=email, password=generate_password_hash(
         password), group_id=selected_department, position_id=selected_position, gender=selected_gender, status=status)
+
+    for r in role:
+        user_role = Role.query.get(r['id'])
+        user.roles.append(user_role)
 
     try:
         db.session.add(user)
@@ -100,15 +105,54 @@ def list_users():
         Position, User.position_id == Position.id).all()
 
     for u in users:
-        result.append({
+        ulist = {
             "name": u.User.name,
             "username": u.User.username,
             "email": u.User.email,
             "gender": u.User.gender,
             "status": u.User.status,
             "created_time": u.User.created_time,
-            "group_name": u.Group.name,
-            "position_name": u.Position.name
-        })
+            "group": u.Group.name,
+            "position": u.Position.name
+        }
+        urole = []
+        for r in u.User.roles:
+            urole.append(r.name)
+        
+        ulist["role"] = ','.join(urole)
 
+        result.append(ulist)
+    return jsonify(result), 200
+
+@admin.route('/role/add', methods=['POST'])
+def add_role():
+    name = request.json.get('name', None)
+    status = request.json.get('status', None)
+
+    status_code = None
+
+    role = Role(name=name, status=status)
+
+    try:
+        db.session.add(role)
+        db.session.commit()
+        status_code = 200
+    except Exception:
+        status_code = 500
+
+    return jsonify(), status_code
+
+
+@admin.route('/role/list', methods=['GET'])
+def list_roles():
+    result = []
+    roles = Role.query.all()
+
+    for r in roles:
+        rlist = {
+            "name": r.name,
+            "status": r.status,
+            "created_time": r.created_time
+        }
+        result.append(rlist)
     return jsonify(result), 200

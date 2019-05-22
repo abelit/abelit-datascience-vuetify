@@ -114,7 +114,10 @@ const Menu =  [
     group: "admin",
     icon: "settings",
     items: [
-      { name: 'UserList', title: 'UserList', component: 'UserList' }
+      { name: 'UserList', title: 'UserList', component: 'UserList' },
+      { name: 'RoleList', title: 'RoleList', component: 'RoleList' },
+      { name: 'GroupList', title: 'GroupList', component: 'GroupList' },
+      { name: "PositionList", title: `require($t('admin.POSITION_MANAGEMENT'))`, component: 'PositionList' }
     ]
   },
   { divider: true },
