@@ -13,9 +13,16 @@
         ></v-text-field>
       </v-flex>
       <v-spacer></v-spacer>
+      <d-refresh :pMethod="getPositions"></d-refresh>
       <d-new-position></d-new-position>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="data" :search="search" class="elevation-1" :pagination.sync="paginations">
+    <v-data-table
+      :headers="headers"
+      :items="data"
+      :search="search"
+      class="elevation-1"
+      :pagination.sync="paginations"
+    >
       <template v-slot:items="props">
         <td class="text-xs-left">{{ props.item.name }}</td>
         <td class="text-xs-left">{{ props.item.enname }}</td>
@@ -29,7 +36,7 @@
         </td>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
+        <span>{{$t("message.noData")}}</span>
       </template>
     </v-data-table>
   </v-container>
@@ -38,10 +45,12 @@
 
 <script>
 import DNewPosition from "@/components/admin/DNewPosition";
+import DRefresh from "@/components/widgets/tool/DRefresh";
 
 export default {
   components: {
-    DNewPosition
+    DNewPosition,
+    DRefresh
   },
   data: () => ({
     search: "",
@@ -52,8 +61,8 @@ export default {
     },
     headers: [
       { text: "名称", value: "name" },
-      { text: "英文名称", value: "enname"},
-      { text: "描述信息", value: "description"},
+      { text: "英文名称", value: "enname" },
+      { text: "描述信息", value: "description" },
       { text: "状态", value: "status" },
       { text: "创建日期", value: "created_time" }
     ],

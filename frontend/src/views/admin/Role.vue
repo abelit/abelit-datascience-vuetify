@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-toolbar flat color="white">
-      <v-toolbar-title>{{$t("admin.USER_LIST")}}</v-toolbar-title>
+      <v-toolbar-title>{{$t("admin.ROLE")}}</v-toolbar-title>
       <v-divider class="mx-2" inset vertical></v-divider>
 
       <v-flex xs2>
@@ -13,17 +13,12 @@
         ></v-text-field>
       </v-flex>
       <v-spacer></v-spacer>
-      <d-new-user></d-new-user>
+      <d-refresh :pMethod="getRoles"></d-refresh>
+      <d-new-role></d-new-role>
     </v-toolbar>
     <v-data-table :headers="headers" :items="data" :search="search" class="elevation-1" :pagination.sync="paginations">
       <template v-slot:items="props">
-        <td>{{ props.item.username }}</td>
         <td class="text-xs-left">{{ props.item.name }}</td>
-        <td class="text-xs-left">{{ props.item.email }}</td>
-        <td class="text-xs-left">{{ props.item.gender }}</td>
-        <td class="text-xs-left">{{ props.item.group }}</td>
-        <td class="text-xs-left">{{ props.item.position }}</td>
-        <td class="text-xs-left">{{ props.item.role }}</td>
         <td class="text-xs-left">{{ props.item.status }}</td>
         <td class="text-xs-left">{{ props.item.created_time }}</td>
 
@@ -33,7 +28,7 @@
         </td>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
+        <span>{{$t("message.noData")}}</span>
       </template>
     </v-data-table>
   </v-container>
@@ -41,11 +36,13 @@
 
 
 <script>
-import DNewUser from "@/components/admin/DNewUser";
+import DNewRole from "@/components/admin/DNewRole";
+import DRefresh from "@/components/widgets/tool/DRefresh";
 
 export default {
   components: {
-    DNewUser
+    DNewRole,
+    DRefresh
   },
   data: () => ({
     search: "",
@@ -55,43 +52,12 @@ export default {
       rowsPerPage: 15
     },
     headers: [
-      {
-        text: "用户名",
-        align: "left",
-        sortable: false,
-        value: "user"
-      },
-      { text: "姓名", value: "name" },
-      { text: "邮箱", value: "email" },
-      { text: "性别", value: "gender" },
-      { text: "部门", value: "group" },
-      { text: "职位", value: "position", sortable: false },
-      { text: "角色", value: "role" },
+      { text: "名称", value: "name" },
       { text: "状态", value: "status" },
       { text: "创建日期", value: "created_time" }
     ],
     data: [],
-    editedIndex: -1,
-    // editedItem: {
-    //   username: "",
-    //   name: 0,
-    //   email: 0,
-    //   gender: 0,
-    //   position: 0,
-    //   role: 0,
-    //   status: 0,
-    //   created_time: 0
-    // },
-    // defaultItem: {
-    //   username: "",
-    //   name: 0,
-    //   email: 0,
-    //   gender: 0,
-    //   position: 0,
-    //   role: 0,
-    //   status: 0,
-    //   created_time: 0
-    // }
+    editedIndex: -1
   }),
 
   computed: {
@@ -107,13 +73,13 @@ export default {
   },
 
   created() {
-    this.getUserLists();
+    this.getRoles();
   },
 
   methods: {
-    getUserLists() {
+    getRoles() {
       this.$axios
-        .get("/admin/user/list")
+        .get("/admin/role/list")
         .then(res => {
           this.data = res.data;
         })

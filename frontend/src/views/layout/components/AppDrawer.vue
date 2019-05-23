@@ -16,6 +16,7 @@
       <img v-bind:src="computeLogo" height="50" alt="Data Analysis & Visualization">
       <v-toolbar-title class="ml-0 pl-2">
         <span class="hidden-sm-and-down">DATA ANALYSIS</span>
+        <!-- <span>{{ generateTitle("userManagement") }}</span> -->
       </v-toolbar-title>
     </v-toolbar>
     <vue-perfect-scrollbar class="drawer-menu--scroll" :settings="scrollSettings">
@@ -36,7 +37,7 @@
           >
             <v-list-tile slot="activator" ripple="ripple">
               <v-list-tile-content>
-                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                <v-list-tile-title>{{ generateTitle(item.title) }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
             <template v-for="(subItem, i) in item.items">
@@ -49,7 +50,7 @@
               >
                 <v-list-tile slot="activator" ripple="ripple">
                   <v-list-tile-content>
-                    <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                    <v-list-tile-title>{{ generateTitle(subItem.title) }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile
@@ -60,7 +61,7 @@
                   ripple="ripple"
                 >
                   <v-list-tile-content>
-                    <v-list-tile-title>{{ grand.title }}</v-list-tile-title>
+                    <v-list-tile-title>{{ generateTitle(grand.title) }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
               </v-list-group>
@@ -76,7 +77,7 @@
               >
                 <v-list-tile-content>
                   <v-list-tile-title>
-                    <span>{{ subItem.title }}</span>
+                    <span>{{ generateTitle(subItem.title) }}</span>
                   </v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action v-if="subItem.action">
@@ -85,7 +86,7 @@
               </v-list-tile>
             </template>
           </v-list-group>
-          <v-subheader v-else-if="item.header" :key="i">{{ item.header }}</v-subheader>
+          <v-subheader v-else-if="item.header" :key="i">{{ generateTitle(item.header) }}</v-subheader>
           <v-divider v-else-if="item.divider" :key="i"></v-divider>
           <!--top-level link-->
           <v-list-tile
@@ -102,7 +103,7 @@
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              <v-list-tile-title>{{ generateTitle(item.title) }}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action v-if="item.subAction">
               <v-icon class="success--text">{{ item.subAction }}</v-icon>
@@ -116,6 +117,8 @@
 <script>
 import menu from "@/api/menu";
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import { generateTitle } from "@/util/i18n";
+
 export default {
   name: "app-drawer",
   components: {
@@ -165,10 +168,12 @@ export default {
         };
       }
       return { name: `${item.group}/${subItem.name}` };
-    }
+    },
+    generateTitle
   },
   mounted() {
-    console.log("drawer vuetify-dark: " + this.$vuetify.dark);
+    // console.log("drawer vuetify-dark: " + this.$vuetify.dark);
+    // console.log(this.menus)
   }
 };
 </script>

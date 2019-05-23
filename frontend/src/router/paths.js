@@ -650,36 +650,44 @@ export default [
           )
       },
       {
-        path: "/user/list",
+        path: "/admin/user",
         meta: {
           breadcrumb: true
         },
-        name: "UserList",
-        component: () => import("@/views/admin/UserList")
+        name: "User",
+        component: () => import("@/views/admin/User")
       },
       {
-        path: "/role/list",
+        path: "/admin/role",
         meta: {
           breadcrumb: true
         },
-        name: "RoleList",
-        component: () => import("@/views/admin/RoleList")
+        name: "Role",
+        component: () => import("@/views/admin/Role")
       },
       {
-        path: "/group/list",
+        path: "/admin/group",
         meta: {
           breadcrumb: true
         },
-        name: "GroupList",
-        component: () => import("@/views/admin/GroupList")
+        name: "Group",
+        component: () => import("@/views/admin/Group")
       },
       {
-        path: "/position/list",
+        path: "/admin/position",
         meta: {
           breadcrumb: true
         },
-        name: "PositionList",
-        component: () => import("@/views/admin/PositionList")
+        name: "Position",
+        component: () => import("@/views/admin/Position")
+      },
+      {
+        path: "/admin/menu",
+        meta: {
+          breadcrumb: true
+        },
+        name: "Menu",
+        component: () => import("@/views/admin/Menu")
       },
     ]
   },

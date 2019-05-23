@@ -42,11 +42,17 @@ export const admin = {
   NAME: "Name",
   ENNAME: "English Name",
   DESCRIPTION: "Description ...",
-  USER_MANAGEMENT: "User Management",
-  DEPARTMENT_MANAGEMENT: "Department Management",
-  POSITION_MANAGEMENT: "Position Management",
-  ROLE_MANAGEMENT: "Role Management",
-  MENU_MANAGEMENT: "Menu Management"
+  name: "Name",
+  menu: "Menu",
+  newMenu: "New Menu",
+  type: "Type",
+  order: "Order",
+  status: "Status",
+  url: "Url",
+  icon: "Icon",
+  component: "Component",
+  parentMenu: "Parent Menu",
+  typeSomething: "Type something ..."
 };
 
 export const button = {
@@ -63,7 +69,8 @@ export const button = {
   NEW_USER: "New User",
   NEW_ROLE: "New Role",
   NEW_GROUP: "New Group",
-  NEW_POSITION: "New Position"
+  NEW_POSITION: "New Position",
+  refresh: "Refresh"
 };
 
 export const message = {
@@ -78,7 +85,8 @@ export const message = {
 
   LOGINING: "Logining ...",
   LOADING: "Loading ...",
-  ERROR_UNLOCK: "Unlock password error!"
+  ERROR_UNLOCK: "Unlock password error!",
+  noData: "No data"
 };
 
 export const toolbar = {
@@ -108,4 +116,15 @@ export const tooltip = {
 export const content = {
   UNAUTHORIZED: "Sorry! No permission to access this page!",
   SCREEN_PASSWORD: "Lock Screen Password"
+};
+
+export const menu = {
+  dashboard: "Dashboard",
+  admin: "Administrator",
+  systemSettings: "System Settings",
+  userManagement: "User Management",
+  departmentManagement: "Department Management",
+  positionManagement: "Position Management",
+  roleManagement: "Role Management",
+  menuManagement: "Menu Management"
 };

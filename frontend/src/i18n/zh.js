@@ -42,11 +42,17 @@ export const admin = {
   NAME: "名称",
   ENNAME: "英文名称",
   DESCRIPTION: "描述信息 ...",
-  USER_MANAGEMENT: "用户管理",
-  DEPARTMENT_MANAGEMENT: "部门管理",
-  POSITION_MANAGEMENT: "职位管理",
-  ROLE_MANAGEMENT: "角色管理",
-  MENU_MANAGEMENT: "菜单管理"
+  name: "名称",
+  menu: "菜单",
+  newMenu: "新增菜单",
+  type: "类型",
+  order: "排序",
+  status: "状态",
+  url: "地址",
+  icon: "图标",
+  component: "组件",
+  parentMenu: "父级菜单",
+  typeSomething: "输入查找内容..."
 };
 
 export const button = {
@@ -63,7 +69,8 @@ export const button = {
   NEW_USER: "新增用户",
   NEW_ROLE: "新增角色",
   NEW_GROUP: "新增部门",
-  NEW_POSITION: "新增职位"
+  NEW_POSITION: "新增职位",
+  refresh: "刷新"
 };
 
 export const message = {
@@ -78,7 +85,8 @@ export const message = {
 
   LOGINING: "登录中 ...",
   LOADING: "正在加载 ...",
-  ERROR_UNLOCK: "解锁密码错误！"
+  ERROR_UNLOCK: "解锁密码错误！",
+  noData: "没有数据"
 };
 
 export const toolbar = {
@@ -108,4 +116,15 @@ export const tooltip = {
 export const content = {
   UNAUTHORIZED: "亲， 您无权访问此页面！",
   SCREEN_PASSWORD: "锁屏密码"
+};
+
+export const menu = {
+  dashboard: "仪表盘",
+  admin: "管理员",
+  systemSettings: "系统设置",
+  userManagement: "用户管理",
+  departmentManagement: "部门管理",
+  positionManagement: "职位管理",
+  roleManagement: "角色管理",
+  menuManagement: "菜单管理"
 };

@@ -6,7 +6,7 @@ import time
 
 
 from db import db
-from models import Group, Position, User, Role
+from models import Group, Position, User, Role, Menu
 
 admin = Blueprint("admin", __name__)
 
@@ -57,6 +57,36 @@ def add_position():
 
     try:
         db.session.add(position)
+        db.session.commit()
+        status_code = 200
+    except Exception as err:
+        print(err)
+        status_code = 500
+
+    return jsonify(), status_code
+
+
+@admin.route("/menu/add", methods=["POST"])
+# @jwt_required
+def add_menu():
+    # 从前端Ajax请求中获取数据
+    name = request.json.get('name', None)
+    enname = request.json.get('enname', None)
+    fid = request.json.get('fid', None)
+    url = request.json.get('url', None)
+    icon = request.json.get('icon', None)
+    component = request.json.get('component', None)
+    status = request.json.get('status', None)
+    type = request.json.get('type', None)
+    order = request.json.get('order', None)    
+
+    menu = Menu(name=name, en_name=enname, fid=fid,url=url,component=component,icon=icon,
+                        status=status, type=type, order=order)
+
+    status_code = None
+
+    try:
+        db.session.add(menu)
         db.session.commit()
         status_code = 200
     except Exception as err:

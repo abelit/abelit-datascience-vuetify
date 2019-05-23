@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-toolbar flat color="white">
-      <v-toolbar-title>${$t("admin.ROLE")}</v-toolbar-title>
+      <v-toolbar-title>{{$t("admin.ROLE_LIST")}}</v-toolbar-title>
       <v-divider class="mx-2" inset vertical></v-divider>
 
       <v-flex xs2>
@@ -13,11 +13,20 @@
         ></v-text-field>
       </v-flex>
       <v-spacer></v-spacer>
-      <d-new-role></d-new-role>
+      <d-refresh :pMethod="getGroups"></d-refresh>
+      <d-new-group></d-new-group>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="data" :search="search" class="elevation-1" :pagination.sync="paginations">
+    <v-data-table
+      :headers="headers"
+      :items="data"
+      :search="search"
+      class="elevation-1"
+      :pagination.sync="paginations"
+    >
       <template v-slot:items="props">
         <td class="text-xs-left">{{ props.item.name }}</td>
+        <td class="text-xs-left">{{ props.item.enname }}</td>
+        <td class="text-xs-left">{{ props.item.description }}</td>
         <td class="text-xs-left">{{ props.item.status }}</td>
         <td class="text-xs-left">{{ props.item.created_time }}</td>
 
@@ -27,7 +36,7 @@
         </td>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
+        <span>{{$t("message.noData")}}</span>
       </template>
     </v-data-table>
   </v-container>
@@ -35,11 +44,12 @@
 
 
 <script>
-import DNewRole from "@/components/admin/DNewRole";
-
+import DNewGroup from "@/components/admin/DNewGroup";
+import DRefresh from "@/components/widgets/tool/DRefresh";
 export default {
   components: {
-    DNewRole
+    DNewGroup,
+    DRefresh
   },
   data: () => ({
     search: "",
@@ -50,6 +60,8 @@ export default {
     },
     headers: [
       { text: "名称", value: "name" },
+      { text: "英文名称", value: "enname" },
+      { text: "描述信息", value: "description" },
       { text: "状态", value: "status" },
       { text: "创建日期", value: "created_time" }
     ],
@@ -70,13 +82,13 @@ export default {
   },
 
   created() {
-    this.getUserLists();
+    this.getGroups();
   },
 
   methods: {
-    getUserLists() {
+    getGroups() {
       this.$axios
-        .get("/admin/role/list")
+        .get("/api/group")
         .then(res => {
           this.data = res.data;
         })

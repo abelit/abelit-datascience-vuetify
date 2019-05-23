@@ -1,7 +1,7 @@
 from flask import jsonify, request, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from models import Group, Position, User, Tmenu, Role
+from models import Group, Position, User, Tmenu, Role, Menu
 from db import db
 
 api = Blueprint("api", __name__)
@@ -62,13 +62,32 @@ def role():
 
 
 @api.route('/menu', methods=['GET'])
-@jwt_required
+# @jwt_required
 def menu():
-    username = get_jwt_identity()
-    if username == 'test':
-        return jsonify({'mapdemo': '/demo/mapdemo', 'uidemo': '/demo/uidemo'})
+    # username = get_jwt_identity()
+    # if username == 'test':
+    #     return jsonify({'mapdemo': '/demo/mapdemo', 'uidemo': '/demo/uidemo'})
 
-    return jsonify({'uidemo': '/demo/uidemo'})
+    # return jsonify({'uidemo': '/demo/uidemo'})
+    menus = Menu.query.all()
+    result = []
+
+    for m in menus:
+        result.append({
+            "id": m.id,
+            "name": m.name,
+            "enname": m.en_name,
+            "fid": m.fid,
+            "url": m.url,
+            "component": m.component,
+            "icon": m.icon,
+            "status": m.status,
+            "type": m.type,
+            "order": m.order,
+            "created_time": m.created_time
+        })
+    
+    return jsonify(result), 200
 
 
 @api.route('/books', methods=['GET'])
