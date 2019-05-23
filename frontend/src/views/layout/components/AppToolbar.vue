@@ -35,7 +35,8 @@
       <v-menu offset-y origin="center center" :nudge-bottom="10" transition="scale-transition">
         <v-btn icon large flat slot="activator">
           <v-avatar size="30px">
-            <img src="/static/avatar/man_4.jpg" alt="Michael Wang"/>
+            <img :src="userPortrait" alt="User Portrait"/>
+            <!-- <span class="white--text headline">C</span> -->
           </v-avatar>
           <!-- <v-icon> account_circle </v-icon> -->
         </v-btn>
@@ -71,6 +72,7 @@ export default {
   },
   data: () => ({
     drawer: true,
+    userPortrait: "/static/images/portrait/portrait_male_007.jpg",
     items: [
       {
         icon: 'account_circle',

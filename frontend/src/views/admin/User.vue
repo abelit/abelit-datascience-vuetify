@@ -3,19 +3,19 @@
     <v-layout row wrap>
       <!-- <v-flex sm12>
         <h3>result Table</h3>
-      </v-flex> -->
+      </v-flex>-->
       <v-flex lg12>
         <v-card>
           <v-toolbar flat color="white">
             <v-flex xs2>
-             <v-text-field
-              flat
-              solo
-              prepend-icon="search"
-              :placeholder="$t('admin.typeSomething')"
-              v-model="search"
-              hide-details
-              ></v-text-field>   
+              <v-text-field
+                flat
+                solo
+                prepend-icon="search"
+                :placeholder="$t('admin.typeSomething')"
+                v-model="search"
+                hide-details
+              ></v-text-field>
             </v-flex>
             <v-spacer></v-spacer>
             <d-refresh :pMethod="getUsers"></d-refresh>
@@ -49,11 +49,18 @@
 
                 <td>
                   <v-icon small class="mr-2" color="primary" @click="editItem(props.item)">edit</v-icon>
-                  <v-icon small color="warning" @click="deleteItem(props.item)">delete</v-icon>
+                  <v-icon small color="error" @click="deleteItem(props.item)">delete</v-icon>
                 </td>
               </template>
               <template v-slot:no-data>
                 <span>{{$t("message.noData")}}</span>
+              </template>
+              <template v-slot:no-results>
+                <v-alert
+                  :value="true"
+                  color="error"
+                  icon="warning"
+                >{{ $t("admin.noRecordFound") }}</v-alert>
               </template>
             </v-data-table>
           </v-card-text>
@@ -81,25 +88,25 @@ export default {
       rowsPerPage: 15
     },
     result: {
-    selected: [],
-    headers: [
-      {
-        text: "用户名",
-        align: "left",
-        sortable: false,
-        value: "user"
-      },
-      { text: "姓名", value: "name" },
-      { text: "邮箱", value: "email" },
-      { text: "性别", value: "gender" },
-      { text: "部门", value: "group" },
-      { text: "职位", value: "position", sortable: false },
-      { text: "角色", value: "role" },
-      { text: "状态", value: "status" },
-      { text: "创建日期", value: "created_time" },
-      { text: "操作", value: "action" }
-    ],
-    items: []
+      selected: [],
+      headers: [
+        {
+          text: "用户名",
+          align: "left",
+          sortable: false,
+          value: "user"
+        },
+        { text: "姓名", value: "name" },
+        { text: "邮箱", value: "email" },
+        { text: "性别", value: "gender" },
+        { text: "部门", value: "group" },
+        { text: "职位", value: "position", sortable: false },
+        { text: "角色", value: "role" },
+        { text: "状态", value: "status" },
+        { text: "创建日期", value: "created_time" },
+        { text: "操作", value: "action" }
+      ],
+      items: []
     },
     editedIndex: -1
   }),

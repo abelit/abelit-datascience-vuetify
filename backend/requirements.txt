@@ -1,6 +1,6 @@
 flask
 flask-cors：flask跨域
-flask-sqlachemy: flask数据库orm
+flask-sqlalchemy: flask数据库orm
 flask-httpauth：flask的auth认证
 passlib: python密码解析库
 itsdangerous
@@ -14,3 +14,4 @@ flask_migrate
 pip install flask_script
 pip install flask_migrate
 pip install psycopg2-binary
+pip install flask_jwt_extended

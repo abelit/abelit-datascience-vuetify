@@ -1,7 +1,7 @@
   <template>
   <v-layout row class="align-center layout px-4 pt-4 app--page-header">
     <div class="page-header-left">
-      <h3 class="pr-3">{{title}}</h3>
+      <h3 class="pr-3">{{generateTitle(title)}}</h3>
     </div>
     <v-breadcrumbs divider="-" :items="breadcrumbs">
 
@@ -17,11 +17,16 @@
 
 <script>
 import menu from '@/api/menu';
+import { generateTitle } from "@/util/i18n";
+
 export default {
   data () {
     return {
       title: ''
     };
+  },
+  methods: {
+    generateTitle
   },
   computed: {
     breadcrumbs: function () {

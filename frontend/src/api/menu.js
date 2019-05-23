@@ -169,7 +169,7 @@ const Menu = [
     items: [
       { name: "User", title: "userManagement", component: "User" },
       { name: "Role", title: "roleManagement", component: "Role" },
-      { name: "Group", title: "departmentManagement", component: "Group" },
+      { name: "Group", title: "departManagement", component: "Group" },
       { name: "Position", title: "positionManagement", component: "Position" },
       { name: "Menu", title: "menuManagement", component: "Menu" }
     ]

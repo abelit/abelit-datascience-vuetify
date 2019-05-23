@@ -52,7 +52,8 @@ export const admin = {
   icon: "Icon",
   component: "Component",
   parentMenu: "Parent Menu",
-  typeSomething: "Type something ..."
+  typeSomething: "Type something ...",
+  noRecordFound: "No matching records found"
 };
 
 export const button = {
@@ -123,7 +124,7 @@ export const menu = {
   admin: "Administrator",
   systemSettings: "System Settings",
   userManagement: "User Management",
-  departmentManagement: "Department Management",
+  departManagement: "Department Management",
   positionManagement: "Position Management",
   roleManagement: "Role Management",
   menuManagement: "Menu Management"

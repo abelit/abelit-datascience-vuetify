@@ -1,44 +1,61 @@
 <template>
   <v-container fluid>
-    <v-toolbar flat color="white">
-      <v-toolbar-title>{{$t("admin.ROLE_LIST")}}</v-toolbar-title>
-      <v-divider class="mx-2" inset vertical></v-divider>
+    <v-layout row wrap>
+      <v-flex lg12>
+        <v-card>
+          <v-toolbar flat color="white">
+            <!-- <v-toolbar-title>{{$t("admin.ROLE_LIST")}}</v-toolbar-title>
+            <v-divider class="mx-2" inset vertical></v-divider>-->
 
-      <v-flex xs2>
-        <v-text-field
-          v-model="search"
-          append-icon="search"
-          :label="$t('button.SEARCH')"
-          hide-details
-        ></v-text-field>
+            <v-flex xs2>
+              <v-text-field
+                flat
+                solo
+                prepend-icon="search"
+                :placeholder="$t('admin.typeSomething')"
+                v-model="search"
+                hide-details
+              ></v-text-field>
+            </v-flex>
+            <v-spacer></v-spacer>
+            <d-refresh :pMethod="getGroups"></d-refresh>
+            <d-new-group></d-new-group>
+          </v-toolbar>
+          <v-card-text class="pa-0">
+            <v-data-table
+              :headers="headers"
+              :items="data"
+              :search="search"
+              class="elevation-1"
+              :pagination.sync="paginations"
+            >
+              <template v-slot:items="props">
+                <td class="text-xs-left">{{ props.item.name }}</td>
+                <td class="text-xs-left">{{ props.item.enname }}</td>
+                <td class="text-xs-left">{{ props.item.description }}</td>
+                <td class="text-xs-left">{{ props.item.status }}</td>
+                <td class="text-xs-left">{{ props.item.created_time }}</td>
+
+                <td>
+                  <v-icon small class="mr-2" color="primary" @click="editItem(props.item)">edit</v-icon>
+                  <v-icon small color="error" @click="deleteItem(props.item)">delete</v-icon>
+                </td>
+              </template>
+              <template v-slot:no-data>
+                <span>{{$t("message.noData")}}</span>
+              </template>
+              <template v-slot:no-results>
+                <v-alert
+                  :value="true"
+                  color="error"
+                  icon="warning"
+                >{{ $t("admin.noRecordFound") }}</v-alert>
+              </template>
+            </v-data-table>
+          </v-card-text>
+        </v-card>
       </v-flex>
-      <v-spacer></v-spacer>
-      <d-refresh :pMethod="getGroups"></d-refresh>
-      <d-new-group></d-new-group>
-    </v-toolbar>
-    <v-data-table
-      :headers="headers"
-      :items="data"
-      :search="search"
-      class="elevation-1"
-      :pagination.sync="paginations"
-    >
-      <template v-slot:items="props">
-        <td class="text-xs-left">{{ props.item.name }}</td>
-        <td class="text-xs-left">{{ props.item.enname }}</td>
-        <td class="text-xs-left">{{ props.item.description }}</td>
-        <td class="text-xs-left">{{ props.item.status }}</td>
-        <td class="text-xs-left">{{ props.item.created_time }}</td>
-
-        <td class="justify-center layout px-0">
-          <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
-          <v-icon small @click="deleteItem(props.item)">delete</v-icon>
-        </td>
-      </template>
-      <template v-slot:no-data>
-        <span>{{$t("message.noData")}}</span>
-      </template>
-    </v-data-table>
+    </v-layout>
   </v-container>
 </template>
 
@@ -63,7 +80,8 @@ export default {
       { text: "英文名称", value: "enname" },
       { text: "描述信息", value: "description" },
       { text: "状态", value: "status" },
-      { text: "创建日期", value: "created_time" }
+      { text: "创建日期", value: "created_time" },
+      { text: "操作", value: "Action" }
     ],
     data: [],
     editedIndex: -1

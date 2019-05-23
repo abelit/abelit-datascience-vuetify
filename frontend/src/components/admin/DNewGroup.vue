@@ -5,7 +5,7 @@
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
             <v-btn color="primary" dark class="mb-2" v-on="on" icon flat>
-                <v-icon>add_circle</v-icon>
+                <v-icon>playlist_add</v-icon>
             </v-btn>
           </template>
           <span>{{ $t("button.NEW_GROUP") }}</span>

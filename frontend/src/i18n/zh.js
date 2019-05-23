@@ -52,7 +52,8 @@ export const admin = {
   icon: "图标",
   component: "组件",
   parentMenu: "父级菜单",
-  typeSomething: "输入查找内容..."
+  typeSomething: "输入查找内容...",
+  noRecordFound: "没有找到匹配内容"
 };
 
 export const button = {
@@ -123,7 +124,7 @@ export const menu = {
   admin: "管理员",
   systemSettings: "系统设置",
   userManagement: "用户管理",
-  departmentManagement: "部门管理",
+  departManagement: "部门管理",
   positionManagement: "职位管理",
   roleManagement: "角色管理",
   menuManagement: "菜单管理"

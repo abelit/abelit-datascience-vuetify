@@ -58,6 +58,11 @@ export default {
 ```
 
 ## Git&Github使用手册
+### 0. Git配置
+```
+git config --global user.name "abelit"
+git config --global user.email "ychenid@live.com"
+```
 ### 1.Git分支
 ```bash
 # 创建分支company
