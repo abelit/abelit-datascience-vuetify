@@ -127,5 +127,7 @@ export const menu = {
   departManagement: "Department Management",
   positionManagement: "Position Management",
   roleManagement: "Role Management",
-  menuManagement: "Menu Management"
+  menuManagement: "Menu Management",
+  demo: "Demo",
+  echartDemo: "Echart Demo"
 };

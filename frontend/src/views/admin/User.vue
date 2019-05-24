@@ -1,10 +1,10 @@
 <template>
   <v-container fluid>
     <v-layout row wrap>
-      <!-- <v-flex sm12>
-        <h3>result Table</h3>
-      </v-flex>-->
-      <v-flex lg12>
+      <v-flex sm12>
+        <button type="button" @click="toggleFullscreen" >Fullscreen</button>
+      </v-flex>
+      <v-flex lg12 class=".d-content-fullscreen">
         <v-card>
           <v-toolbar flat color="white">
             <v-flex xs2>
@@ -166,6 +166,15 @@ export default {
         this.result.items.push(this.editedItem);
       }
       this.close();
+    },
+    toggleFullscreen () {
+      this.$fullscreen.toggle(this.$el.querySelector('.d-content-fullscreen'),{
+        wrap: false,
+        callback: this.fullscreenChange
+      })
+    },
+    fullscreenChange (fullscreen) {
+      this.fullscreen = fullscreen;
     }
   }
 };

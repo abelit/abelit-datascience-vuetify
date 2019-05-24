@@ -127,5 +127,7 @@ export const menu = {
   departManagement: "部门管理",
   positionManagement: "职位管理",
   roleManagement: "角色管理",
-  menuManagement: "菜单管理"
+  menuManagement: "菜单管理",
+  demo: "示例演示",
+  echartDemo: "Echart示例"
 };

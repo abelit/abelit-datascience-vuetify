@@ -77,7 +77,8 @@ export default {
       show: false,
       text: '',
       color: '',
-    }
+    },
+    fullscreen: false
   }),
 
   computed: {
@@ -94,6 +95,15 @@ export default {
     openThemeSettings () {
       this.$vuetify.goTo(0);
       this.rightDrawer = (!this.rightDrawer);
+    },
+    toggleFullscreen () {
+      this.$fullscreen.toggle(this.$el.querySelector('.d-content-fullscreen'),{
+        wrap: false,
+        callback: this.fullscreenChange
+      })
+    },
+    fullscreenChange (fullscreen) {
+      this.fullscreen = fullscreen;
     }
   },
 

@@ -689,6 +689,22 @@ export default [
         name: "Menu",
         component: () => import("@/views/admin/Menu")
       },
+      {
+        path: "/demo/echart",
+        meta: {
+          breadcrumb: true
+        },
+        name: "EchartDemo",
+        component: () => import("@/components/demo/EchartDemo")
+      },
+      {
+        path: "/demo/map",
+        meta: {
+          breadcrumb: true
+        },
+        name: "MapDemo",
+        component: () => import("@/components/demo/MapDemo")
+      }
     ]
   },
   {

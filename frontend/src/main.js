@@ -1,14 +1,13 @@
 import Vue from "vue";
-import './plugins/vuetify';
+import "./plugins/vuetify";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
-import 'roboto-fontface/css/roboto/roboto-fontface.css';
-import 'font-awesome/css/font-awesome.css';
+import "roboto-fontface/css/roboto/roboto-fontface.css";
+import "font-awesome/css/font-awesome.css";
 
 Vue.config.productionTip = false;
-
 
 // import fonts
 import "material-design-icons-iconfont/dist/material-design-icons.css";
@@ -22,6 +21,10 @@ Vue.prototype.$echarts = echarts;
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:5000";
 Vue.prototype.$axios = axios;
+
+// import vue-fullscreen
+import fullscreen from "vue-fullscreen";
+Vue.use(fullscreen);
 
 // import vue-i18n for location application
 import VueI18n from "vue-i18n";
@@ -38,7 +41,6 @@ const i18n = new VueI18n({
   }
 });
 
-
 // import and add vee-validate
 import VeeValidate from "vee-validate";
 import zh from "vee-validate/dist/locale/zh_CN";
@@ -52,11 +54,9 @@ Vue.use(VeeValidate, {
   }
 });
 
-
-
 /* 请求拦截器 */
 axios.interceptors.request.use(
-  function (config) {
+  function(config) {
     // 每次请求时会从localStorage中获取token
     let token = localStorage.getItem("token");
 
@@ -67,7 +67,7 @@ axios.interceptors.request.use(
     }
     return config;
   },
-  function (error) {
+  function(error) {
     return Promise.reject(error);
   }
 );
@@ -91,7 +91,9 @@ axios.interceptors.response.use(
           let rtoken = JSON.parse(localStorage.getItem("token")).refresh_token;
           axios
             .post(
-              "/refresh", {}, {
+              "/refresh",
+              {},
+              {
                 headers: {
                   Authorization: "Bearer " + rtoken
                 }
@@ -117,7 +119,6 @@ axios.interceptors.response.use(
     return Promise.reject(error.response);
   }
 );
-
 
 new Vue({
   router,

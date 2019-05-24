@@ -174,6 +174,16 @@ const Menu = [
       { name: "Menu", title: "menuManagement", component: "Menu" }
     ]
   },
+  { header: "demo"},
+  {
+    title: "demo",
+    group: "demo",
+    icon: "airplay",
+    items: [
+      { name: "EchartDemo", title: "echartDemo", component: "EchartDemo" },
+      { name: "MapDemo", title: "mapDemo", component: "MapDemo" }
+    ]
+  },
   { divider: true },
   { header: "Extras" },
   {
