@@ -7,7 +7,7 @@
         <v-content>
           <!-- Page Header -->
           <app-page-header v-if="$route.meta.breadcrumb"></app-page-header>
-          <div class="page-wrapper">
+          <div class="page-wrapper d-content-fullscreen">
             <router-view></router-view>
           </div>   
            <!-- App Footer -->

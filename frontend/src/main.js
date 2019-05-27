@@ -9,8 +9,10 @@ import "font-awesome/css/font-awesome.css";
 
 Vue.config.productionTip = false;
 
-// import fonts
+// import marterial icon fonts designed by google
 import "material-design-icons-iconfont/dist/material-design-icons.css";
+
+// import material design icon fonts
 import "@mdi/font/css/materialdesignicons.css";
 
 // import Echarts

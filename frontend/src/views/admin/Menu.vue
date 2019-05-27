@@ -1,5 +1,6 @@
 <template>
-  <v-container fluid>
+<div>
+  <v-container grid-list-xl fluid id="scroll-target" class="scroll-y d-content-fullscreen">
     <v-layout row wrap>
       <v-flex lg12>
         <v-card>
@@ -63,6 +64,7 @@
       </v-flex>
     </v-layout>
   </v-container>
+</div>
 </template>
 
 

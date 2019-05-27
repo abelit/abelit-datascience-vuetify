@@ -1,10 +1,10 @@
 <template>
-  <v-container fluid>
-    <v-layout row wrap>
+  <v-container fluid class="d-content-fullscreen">
+    <v-layout row wrap >
       <v-flex sm12>
-        <button type="button" @click="toggleFullscreen" >Fullscreen</button>
+        <v-btn color="primary" @click="toggleFullscreen">fullscreen</v-btn>
       </v-flex>
-      <v-flex lg12 class=".d-content-fullscreen">
+      <v-flex lg12 >
         <v-card>
           <v-toolbar flat color="white">
             <v-flex xs2>
@@ -66,7 +66,7 @@
           </v-card-text>
         </v-card>
       </v-flex>
-    </v-layout>
+    </v-layout> 
   </v-container>
 </template>
 
@@ -179,3 +179,42 @@ export default {
   }
 };
 </script>
+
+
+<style lang="scss" rel="stylesheet/scss" scoped>
+  .wrapper {
+    position: relative;
+    height: 400px;
+    .chart-container {
+      height: 100%;
+      width: 100%;
+    }
+    .btn-map-fullscreen {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      font-size: 36px;
+      line-height: 36px;
+      text-align: center;
+      outline: none;
+    }
+    &.fullscreen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .chart-container {
+        height: 60%;
+        width: 60%;
+      }
+      .btn-map-fullscreen {
+        left: 10px;
+        top: 10px;
+        right: auto;
+        bottom: auto;
+      }
+    }
+  }
+</style>
