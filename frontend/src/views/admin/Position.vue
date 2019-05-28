@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="d-content-fullscreen">
     <v-layout row wrap>
       <v-flex lg12>
         <v-card>

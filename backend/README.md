@@ -285,3 +285,53 @@ ignored-modules=flask_sqlalchemy
 
 ```
 参考地址：https://www.youtube.com/watch?v=n9jq_lkKeUU
+
+
+## 问题2
+```bash
+● postgresql.service - PostgreSQL database server
+   Loaded: loaded (/usr/lib/systemd/system/postgresql.service; disabled; vendor>
+   Active: failed (Result: exit-code) since Tue 2019-05-28 15:40:36 UTC; 4s ago
+  Process: 7923 ExecStartPre=/usr/bin/postgresql-check-db-dir ${PGROOT}/data (c>
+
+May 28 15:40:35 dataforum.org systemd[1]: Starting PostgreSQL database server...
+May 28 15:40:36 dataforum.org postgres[7923]: "/var/lib/postgres/data" is missi>
+May 28 15:40:36 dataforum.org postgres[7923]:   su - postgres -c "initdb --loca>
+May 28 15:40:36 dataforum.org postgres[7923]: with relevant options, to initial>
+May 28 15:40:36 dataforum.org systemd[1]: postgresql.service: Control process e>
+May 28 15:40:36 dataforum.org systemd[1]: postgresql.service: Failed with resul>
+May 28 15:40:36 dataforum.org systemd[1]: Failed to start PostgreSQL database s>
+
+```
+
+解决办法：
+```bash
+[root@dataforum ~]# su - postgres -c "initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'"
+The files belonging to this database system will be owned by user "postgres".
+This user must also own the server process.
+
+The database cluster will be initialized with locale "en_US.UTF-8".
+The default database encoding has accordingly been set to "UTF8".
+The default text search configuration will be set to "english".
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /var/lib/postgres/data ... ok
+creating subdirectories ... ok
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting dynamic shared memory implementation ... posix
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+WARNING: enabling "trust" authentication for local connections
+You can change this by editing pg_hba.conf or using the option -A, or
+--auth-local and --auth-host, the next time you run initdb.
+
+Success. You can now start the database server using:
+
+    pg_ctl -D /var/lib/postgres/data -l logfile start
+
+```

@@ -1,6 +1,6 @@
   <template>
   <v-layout row class="align-center layout px-4 pt-4 app--page-header">
-    <div class="page-header-left d-content-fullscreen">
+    <div class="page-header-left">
       <h3 class="pr-3">{{generateTitle(title)}}</h3>
     </div>
     <v-breadcrumbs divider="-" :items="breadcrumbs"></v-breadcrumbs>
@@ -10,7 +10,7 @@
         <v-icon class="text--secondary">refresh</v-icon>
       </v-btn>
     </div>
-    <v-btn icon @click="toggleFullscreen" class="mx-0">
+    <v-btn icon @click="toggleParentMethod" class="mx-0">
       <v-icon class="text--secondary">fullscreen</v-icon>
     </v-btn>
     <v-btn icon v-on="on" class="mx-0">
@@ -31,14 +31,17 @@ export default {
   },
   methods: {
     generateTitle,
-    toggleFullscreen() {
-      this.$fullscreen.toggle(this.$el.querySelector(".d-content-fullscreen"), {
-        wrap: false,
-        callback: this.fullscreenChange
-      });
-    },
-    fullscreenChange(fullscreen) {
-      this.fullscreen = fullscreen;
+    // toggleFullscreen() {
+    //   this.$fullscreen.toggle(this.$el.querySelector(".d-content-fullscreen"), {
+    //     wrap: false,
+    //     callback: this.fullscreenChange
+    //   });
+    // },
+    // fullscreenChange(fullscreen) {
+    //   this.fullscreen = fullscreen;
+    // },
+    toggleParentMethod() {
+      this.$emit("toggleFullscreen");
     }
   },
   computed: {
@@ -65,7 +68,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$root);
   }
 };
 </script>

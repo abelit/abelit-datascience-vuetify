@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-xs>
       <div class="box">
-    <div class="map-example" @change="fullscreenChange" :fullscreen.sync="fullscreen" ref="fullscreen">
+    <div class="map-example">
       <div class="map-container"></div>
       <button type="button" class="btn btn-default btn-map-fullscreen" @click="toggleFullScreen">
         <i class="mdi" :class="[fullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen']"></i>
@@ -44,7 +44,7 @@ export default {
       map = new BMap.Map($map)
       map.enableKeyboard()
       map.enableScrollWheelZoom()
-      map.centerAndZoom('杭州', 13)
+      map.centerAndZoom('贵州', 13)
     })
   }
 }
@@ -53,7 +53,7 @@ export default {
 <style lang="scss" rel="stylesheet/scss" scoped>
   .map-example {
     position: relative;
-    height: 400px;
+    height: 700px;
     .map-container {
       height: 100%;
     }

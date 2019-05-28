@@ -1,9 +1,12 @@
 <template>
-  <v-container fluid class="d-content-fullscreen">
-    <v-layout row wrap >
-      <v-flex sm12>
-        <v-btn color="primary" @click="toggleFullscreen">fullscreen</v-btn>
-      </v-flex>
+  <div>
+    <v-container fluid>
+    <v-layout row wrap  class="d-content-fullscreen">
+      <!-- <v-flex xs1>
+         <v-btn icon @click="toggleFullscreen" class="mx-0">
+      <v-icon class="text--secondary">fullscreen</v-icon>
+    </v-btn>
+      </v-flex> -->
       <v-flex lg12 >
         <v-card>
           <v-toolbar flat color="white">
@@ -68,6 +71,7 @@
       </v-flex>
     </v-layout> 
   </v-container>
+  </div>
 </template>
 
 

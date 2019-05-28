@@ -1,7 +1,7 @@
 <template>
-  <div id="pageDashboard">
-    <v-container grid-list-xl fluid id="scroll-target" class="scroll-y d-content-fullscreen">
-      <v-layout row wrap class>
+  <div id="pageDashboard" class="d-content-fullscreen">
+    <v-container grid-list-xl fluid id="scroll-target" class="scroll-y">
+      <v-layout row wrap>
         <!-- mini statistic start -->
         <v-flex lg3 sm6 xs12>
           <mini-statistic icon="fa fa-facebook" title="100+" sub-title="Likes" color="indigo"></mini-statistic>
@@ -301,6 +301,15 @@ export default {
     ]
   }),
   methods: {
+    // toggleFullscreen() {
+    //   this.$fullscreen.toggle(this.$el.querySelector(".d-content-fullscreen"), {
+    //     wrap: false,
+    //     callback: this.fullscreenChange
+    //   });
+    // },
+    // fullscreenChange(fullscreen) {
+    //   this.fullscreen = fullscreen;
+    // }
   },
   computed: {
     activity() {
@@ -318,3 +327,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.pageDashboard {
+  height: 100%;
+  width: 100%;
+}
+</style>
