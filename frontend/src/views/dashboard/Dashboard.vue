@@ -1,7 +1,7 @@
 <template>
   <div id="pageDashboard" class="d-page-fullscreen">
     <vue-perfect-scrollbar
-      :class="isPageFullScreen?'d-page-scroll-fullscreen ps':'d-page-scroll ps'"
+      :class="isPageFullScreen?'d-page-scroll-fullscreen ps':'ps'"
       @ps-scroll-y="scrollHanle"
     >
       <v-container grid-list-xl fluid id="scroll-target" :class="isPageFullScreen?'px-1':''">

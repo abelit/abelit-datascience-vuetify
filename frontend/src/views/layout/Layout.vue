@@ -124,6 +124,6 @@ export default {
 }
 
 .page-wrapper {
-  min-height: calc(100vh - 64px - 50px - 81px);
+  min-height: calc(100vh - 64px - 65px - 37px);
 }
 </style>

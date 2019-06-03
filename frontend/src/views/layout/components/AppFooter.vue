@@ -1,5 +1,5 @@
 <template>
-  <v-footer  height="auto" class="white app--footer">
+  <v-footer height="auto" class="white app--footer">
     <v-card class="flex" flat tile>
       <v-card-actions class="justify-center primary--text">
         &copy; {{ new Date().getFullYear() }} &nbsp; — &nbsp;
@@ -13,8 +13,7 @@
 <script>
 // import { mapState } from 'vuex';
 export default {
-  data: () => ({
-  }),
+  data: () => ({})
   // computed: {
   //   ...mapState(["toolbarColor"])
   // }
