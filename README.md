@@ -57,6 +57,17 @@ export default {
 </script>
 ```
 
+### 使用vue-perfect-scrollbar遇到的问题
+```
+<vue-perfect-scrollbar
+      :class="isPageFullScreen?'d-page-scroll-fullscreen ps':'d-page-scroll ps'"
+      @ps-scroll-y="scrollHanle"
+    >
+......
+</vue-perfect-scrollbar>
+```
+***注意：在使用vue-perfect-scrollbar组件来做页面的滚动条时，需要在class属性中带上"ps"属性来避免该组件在全屏或退出全屏时造成的页面高度继承所产生的页面高度错误！***
+
 ## Git&Github使用手册
 ### 0. Git配置
 ```

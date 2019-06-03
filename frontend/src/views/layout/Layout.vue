@@ -8,8 +8,8 @@
           <!-- Page Header -->
           <app-page-header v-if="$route.meta.breadcrumb" @toggleFullscreen="toggleFullscreen"></app-page-header>
           <!-- <div class="d-content-fullscreen scroll-y"> -->
-            <div class="page-wrapper">
-              <router-view></router-view>
+          <div class="page-wrapper">
+            <router-view></router-view>
             <!-- </div> -->
           </div>
           <!-- App Footer -->
@@ -126,7 +126,4 @@ export default {
 .page-wrapper {
   min-height: calc(100vh - 64px - 50px - 81px);
 }
-// .d-content-fullscreen {
-//   overflow: hidden;
-// }
 </style>

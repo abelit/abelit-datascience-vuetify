@@ -1,12 +1,10 @@
 <template>
-    <div id="pageDashboard" class="d-page-fullscreen">
-      <vue-perfect-scrollbar class="d-page-scroll">
-      <v-container
-        grid-list-xl
-        fluid
-        id="scroll-target"
-        :class="isPageFullScreen?'px-1':''"
-      >
+  <div id="pageDashboard" class="d-page-fullscreen">
+    <vue-perfect-scrollbar
+      :class="isPageFullScreen?'d-page-scroll-fullscreen ps':'d-page-scroll ps'"
+      @ps-scroll-y="scrollHanle"
+    >
+      <v-container grid-list-xl fluid id="scroll-target" :class="isPageFullScreen?'px-1':''">
         <v-layout row wrap>
           <!-- mini statistic start -->
 
@@ -177,8 +175,8 @@
           </v-flex>
         </v-layout>
       </v-container>
-      </vue-perfect-scrollbar>
-    </div>
+    </vue-perfect-scrollbar>
+  </div>
 </template>
 
 <script>
@@ -312,7 +310,11 @@ export default {
       }
     ]
   }),
-  methods: {},
+  methods: {
+    scrollHanle(evt) {
+      console.log(evt);
+    }
+  },
   computed: {
     activity() {
       return API.getActivity();
@@ -338,8 +340,12 @@ export default {
   height: 100%;
   width: 100%;
 }
-.d-page-scroll {
+.d-page-scroll-fullscreen {
   height: 100vh;
+  overflow: auto;
+}
+.d-page-scroll {
+  height: calc(100vh - 56px - 56px - 37px);
   overflow: auto;
 }
 </style>

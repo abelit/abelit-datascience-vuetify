@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: "/user/login",
     meta: {
       public: true
@@ -51,13 +50,12 @@ export default [
     name: "Root",
     redirect: "/dashboard",
     component: () => import("@/views/layout/Layout"),
-    children: [
-      {
+    children: [{
         path: "dashboard",
         name: "Dashboard",
         meta: {
           breadcrumb: true,
-          requireAuth: true
+          requireAuth: false
         },
         component: () => import("@/views/dashboard/Dashboard.vue")
       },
@@ -88,8 +86,7 @@ export default [
         redirect: {
           path: "/chat/messaging"
         },
-        children: [
-          {
+        children: [{
             path: "/chat/messaging/:uuid?",
             meta: {
               public: true
@@ -134,8 +131,7 @@ export default [
         redirect: {
           path: "/mail/all"
         },
-        children: [
-          {
+        children: [{
             path: "/mail/:mailType",
             meta: {
               public: true
