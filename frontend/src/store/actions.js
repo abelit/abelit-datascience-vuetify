@@ -38,6 +38,9 @@ const actions = {
   setFullScreen({ commit }, payload) {
     commit("SET_FULLSCREEN", payload);
   },
+  setPageFullScreen({ commit }, payload) {
+    commit("SET_PAGEFULLSCREEN", payload);
+  },
   setLockPassword({ commit }, password) {
     commit("SET_LOCK_PASSWORD", password);
   },

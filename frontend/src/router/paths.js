@@ -704,6 +704,14 @@ export default [
         },
         name: "MapDemo",
         component: () => import("@/components/demo/MapDemo")
+      },
+      {
+        path: "/demo/scroll",
+        meta: {
+          breadcrumb: true
+        },
+        name: "ScrollDemo",
+        component: () => import("@/components/demo/ScrollBarDemo")
       }
     ]
   },

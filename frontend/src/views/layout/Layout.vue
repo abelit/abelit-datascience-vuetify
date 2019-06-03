@@ -102,13 +102,14 @@ export default {
       this.rightDrawer = !this.rightDrawer;
     },
     toggleFullscreen() {
-      this.$fullscreen.toggle(this.$el.querySelector(".d-content-fullscreen"), {
+      this.$fullscreen.toggle(this.$el.querySelector(".d-page-fullscreen"), {
         wrap: false,
         callback: this.fullscreenChange
       });
     },
     fullscreenChange(fullscreen) {
       this.fullscreen = fullscreen;
+      this.$store.dispatch("setPageFullScreen", fullscreen);
     }
   }
 };

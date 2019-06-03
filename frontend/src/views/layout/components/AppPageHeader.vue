@@ -1,5 +1,5 @@
   <template>
-  <v-layout row class="align-center layout px-4 pt-4 app--page-header">
+  <v-layout row class="align-center layout px-4 pt-2 app--page-header">
     <div class="page-header-left">
       <h3 class="pr-3">{{generateTitle(title)}}</h3>
     </div>
@@ -31,15 +31,6 @@ export default {
   },
   methods: {
     generateTitle,
-    // toggleFullscreen() {
-    //   this.$fullscreen.toggle(this.$el.querySelector(".d-content-fullscreen"), {
-    //     wrap: false,
-    //     callback: this.fullscreenChange
-    //   });
-    // },
-    // fullscreenChange(fullscreen) {
-    //   this.fullscreen = fullscreen;
-    // },
     toggleParentMethod() {
       this.$emit("toggleFullscreen");
     }

@@ -1,34 +1,41 @@
 <template>
-  <div id="pageDashboard" class="d-content-fullscreen">
-    <v-container grid-list-xl fluid id="scroll-target" class="scroll-y">
-      <v-layout row wrap>
-        <!-- mini statistic start -->
-        <v-flex lg3 sm6 xs12>
-          <mini-statistic icon="fa fa-facebook" title="100+" sub-title="Likes" color="indigo"></mini-statistic>
-        </v-flex>
-        <v-flex lg3 sm6 xs12>
-          <mini-statistic icon="fa fa-google" title="150+" sub-title="Connections" color="red"></mini-statistic>
-        </v-flex>
-        <v-flex lg3 sm6 xs12>
-          <mini-statistic
-            icon="fa fa-twitter"
-            title="200+"
-            sub-title="Followers"
-            color="light-blue"
-          ></mini-statistic>
-        </v-flex>
-        <v-flex lg3 sm6 xs12>
-          <mini-statistic icon="fa fa-instagram" title="50+" sub-title="Shots" color="purple"></mini-statistic>
-        </v-flex>
-        <!-- mini statistic  end -->
-        <v-flex lg8 sm12 xs12>
-          <v-widget title="Site Traffic" content-bg="white">
-            <v-btn icon slot="widget-header-action">
-              <v-icon class="text--secondary">refresh</v-icon>
-            </v-btn>
-            <div slot="widget-content">
-              <e-chart
-                :path-option="[
+    <div id="pageDashboard" class="d-page-fullscreen">
+      <vue-perfect-scrollbar class="d-page-scroll">
+      <v-container
+        grid-list-xl
+        fluid
+        id="scroll-target"
+        :class="isPageFullScreen?'px-1':''"
+      >
+        <v-layout row wrap>
+          <!-- mini statistic start -->
+
+          <v-flex lg3 sm6 xs12>
+            <mini-statistic icon="fa fa-facebook" title="100+" sub-title="Likes" color="indigo"></mini-statistic>
+          </v-flex>
+          <v-flex lg3 sm6 xs12>
+            <mini-statistic icon="fa fa-google" title="150+" sub-title="Connections" color="red"></mini-statistic>
+          </v-flex>
+          <v-flex lg3 sm6 xs12>
+            <mini-statistic
+              icon="fa fa-twitter"
+              title="200+"
+              sub-title="Followers"
+              color="light-blue"
+            ></mini-statistic>
+          </v-flex>
+          <v-flex lg3 sm6 xs12>
+            <mini-statistic icon="fa fa-instagram" title="50+" sub-title="Shots" color="purple"></mini-statistic>
+          </v-flex>
+          <!-- mini statistic  end -->
+          <v-flex lg8 sm12 xs12>
+            <v-widget title="Site Traffic" content-bg="white">
+              <v-btn icon slot="widget-header-action">
+                <v-icon class="text--secondary">refresh</v-icon>
+              </v-btn>
+              <div slot="widget-content">
+                <e-chart
+                  :path-option="[
                   ['dataset.source', siteTrafficData],
                   ['color', [color.lightBlue.base, color.green.lighten1]],
                   ['legend.show', true],
@@ -44,17 +51,17 @@
                   ['series[1].type', 'bar'],
                   ['series[1].areaStyle', {}],
                 ]"
-                height="400px"
-                width="100%"
-              ></e-chart>
-            </div>
-          </v-widget>
-        </v-flex>
-        <v-flex lg4 sm12 xs12>
-          <v-widget title="Top Location" content-bg="white">
-            <div slot="widget-content">
-              <e-chart
-                :path-option="[
+                  height="400px"
+                  width="100%"
+                ></e-chart>
+              </div>
+            </v-widget>
+          </v-flex>
+          <v-flex lg4 sm12 xs12>
+            <v-widget title="Top Location" content-bg="white">
+              <div slot="widget-content">
+                <e-chart
+                  :path-option="[
                   ['dataset.source', locationData],
                   ['legend.bottom', '0'],
                   ['color', [color.lightBlue.base, color.indigo.base, color.pink.base, color.green.base, color.cyan.base, color.teal.base]],
@@ -64,116 +71,118 @@
                   ['series[0].avoidLabelOverlap', true],         
                   ['series[0].radius', ['50%', '70%']],                      
                 ]"
-                height="400px"
-                width="100%"
-              ></e-chart>
-            </div>
-          </v-widget>
-        </v-flex>
-        <!-- social/weather card start -->
-        <v-flex lg4 sm12 xs12>
-          <profile-card></profile-card>
-        </v-flex>
-        <v-flex lg4 sm12 xs12>
-          <box-chart
-            card-color="indigo"
-            title="Trending"
-            sub-title="10%"
-            icon="trending_up"
-            :data="siteTrafficData"
-            :chart-color="[color.indigo.lighten1]"
-            type="line"
-          ></box-chart>
-          <box-chart
-            class="mt-4"
-            card-color="pink"
-            title="Page views"
-            sub-title="10%"
-            icon="trending_up"
-            :data="siteTrafficData"
-            :chart-color="[color.pink.darken1, 'rgba(255,255,255,0.3)']"
-            gradient
-            type="area"
-          ></box-chart>
-        </v-flex>
-        <!-- statistic section -->
-        <v-flex lg4 sm12 xs12>
-          <linear-statistic
-            title="Sales"
-            sub-title="Sales increase"
-            icon="trending_up"
-            color="success"
-            :value="15"
-          ></linear-statistic>
-          <linear-statistic
-            class="my-4"
-            title="Orders"
-            sub-title="Increase"
-            icon="trending_up"
-            color="pink"
-            :value="30"
-          ></linear-statistic>
-          <linear-statistic
-            class="my-4"
-            title="Revenue"
-            sub-title="Revenue increase"
-            icon="trending_up"
-            color="primary"
-            :value="50"
-          ></linear-statistic>
-          <linear-statistic
-            class="mt-4"
-            title="Cost"
-            sub-title="Cost reduce"
-            icon="trending_down"
-            color="orange"
-            :value="25"
-          ></linear-statistic>
-        </v-flex>
-        <!-- Circle statistic -->
-        <v-flex lg4 sm12 xs12 v-for="(item,index) in trending" :key="'c-trending'+index">
-          <circle-statistic
-            :title="item.subheading"
-            :sub-title="item.headline"
-            :caption="item.caption"
-            :icon="item.icon.label"
-            :color="item.linear.color"
-            :value="item.linear.value"
-          ></circle-statistic>
-        </v-flex>
-        <!-- acitivity/chat widget -->
-        <v-flex lg6 sm12 xs12>
-          <chat-window height="308px"></chat-window>
-        </v-flex>
-        <v-flex lg6 sm12 xs12>
-          <v-widget title="Activities" contentBg="white">
-            <div slot="widget-content">
-              <ol class="timeline timeline-activity timeline-point-sm timeline-content-right">
-                <li class="timeline-block" v-for="(item, index) in activity" :key="index">
-                  <div class="timeline-point">
-                    <v-circle dot large :color="item.color"></v-circle>
-                  </div>
-                  <div class="timeline-content">
-                    <time datetime="2018" class="subheading">{{item.timeString}}</time>
-                    <div class="py-2 text--secondary" v-html="item.text"></div>
-                  </div>
-                </li>
-              </ol>
-            </div>
-          </v-widget>
-        </v-flex>
-        <v-flex lg7 sm12 xs12>
-          <plain-table></plain-table>
-        </v-flex>
-        <v-flex lg5 sm12 xs12>
-          <plain-table-order></plain-table-order>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </div>
+                  height="400px"
+                  width="100%"
+                ></e-chart>
+              </div>
+            </v-widget>
+          </v-flex>
+          <!-- social/weather card start -->
+          <v-flex lg4 sm12 xs12>
+            <profile-card></profile-card>
+          </v-flex>
+          <v-flex lg4 sm12 xs12>
+            <box-chart
+              card-color="indigo"
+              title="Trending"
+              sub-title="10%"
+              icon="trending_up"
+              :data="siteTrafficData"
+              :chart-color="[color.indigo.lighten1]"
+              type="line"
+            ></box-chart>
+            <box-chart
+              class="mt-4"
+              card-color="pink"
+              title="Page views"
+              sub-title="10%"
+              icon="trending_up"
+              :data="siteTrafficData"
+              :chart-color="[color.pink.darken1, 'rgba(255,255,255,0.3)']"
+              gradient
+              type="area"
+            ></box-chart>
+          </v-flex>
+          <!-- statistic section -->
+          <v-flex lg4 sm12 xs12>
+            <linear-statistic
+              title="Sales"
+              sub-title="Sales increase"
+              icon="trending_up"
+              color="success"
+              :value="15"
+            ></linear-statistic>
+            <linear-statistic
+              class="my-4"
+              title="Orders"
+              sub-title="Increase"
+              icon="trending_up"
+              color="pink"
+              :value="30"
+            ></linear-statistic>
+            <linear-statistic
+              class="my-4"
+              title="Revenue"
+              sub-title="Revenue increase"
+              icon="trending_up"
+              color="primary"
+              :value="50"
+            ></linear-statistic>
+            <linear-statistic
+              class="mt-4"
+              title="Cost"
+              sub-title="Cost reduce"
+              icon="trending_down"
+              color="orange"
+              :value="25"
+            ></linear-statistic>
+          </v-flex>
+          <!-- Circle statistic -->
+          <v-flex lg4 sm12 xs12 v-for="(item,index) in trending" :key="'c-trending'+index">
+            <circle-statistic
+              :title="item.subheading"
+              :sub-title="item.headline"
+              :caption="item.caption"
+              :icon="item.icon.label"
+              :color="item.linear.color"
+              :value="item.linear.value"
+            ></circle-statistic>
+          </v-flex>
+          <!-- acitivity/chat widget -->
+          <v-flex lg6 sm12 xs12>
+            <chat-window height="308px"></chat-window>
+          </v-flex>
+          <v-flex lg6 sm12 xs12>
+            <v-widget title="Activities" contentBg="white">
+              <div slot="widget-content">
+                <ol class="timeline timeline-activity timeline-point-sm timeline-content-right">
+                  <li class="timeline-block" v-for="(item, index) in activity" :key="index">
+                    <div class="timeline-point">
+                      <v-circle dot large :color="item.color"></v-circle>
+                    </div>
+                    <div class="timeline-content">
+                      <time datetime="2018" class="subheading">{{item.timeString}}</time>
+                      <div class="py-2 text--secondary" v-html="item.text"></div>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+            </v-widget>
+          </v-flex>
+          <v-flex lg7 sm12 xs12>
+            <plain-table></plain-table>
+          </v-flex>
+          <v-flex lg5 sm12 xs12>
+            <plain-table-order></plain-table-order>
+          </v-flex>
+        </v-layout>
+      </v-container>
+      </vue-perfect-scrollbar>
+    </div>
 </template>
 
 <script>
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
 import API from "@/api";
 import EChart from "@/components/chart/echart";
 import MiniStatistic from "@/components/widgets/statistic/MiniStatistic";
@@ -205,10 +214,13 @@ export default {
     CircleStatistic,
     LinearStatistic,
     PlainTable,
-    PlainTableOrder
+    PlainTableOrder,
+    VuePerfectScrollbar
   },
   data: () => ({
-    fullscreen: false,
+    scrollSettings: {
+      maxScrollbarLength: 100
+    },
     color: Material,
     selectedTab: "tab-1",
     linearTrending: [
@@ -300,17 +312,7 @@ export default {
       }
     ]
   }),
-  methods: {
-    // toggleFullscreen() {
-    //   this.$fullscreen.toggle(this.$el.querySelector(".d-content-fullscreen"), {
-    //     wrap: false,
-    //     callback: this.fullscreenChange
-    //   });
-    // },
-    // fullscreenChange(fullscreen) {
-    //   this.fullscreen = fullscreen;
-    // }
-  },
+  methods: {},
   computed: {
     activity() {
       return API.getActivity();
@@ -323,14 +325,21 @@ export default {
     },
     locationData() {
       return API.getLocation;
+    },
+    isPageFullScreen() {
+      return this.$store.state.isPageFullScreen;
     }
   }
 };
 </script>
 
-<style>
-.pageDashboard {
+<style scoped>
+#pageDashboard {
   height: 100%;
   width: 100%;
+}
+.d-page-scroll {
+  height: 100vh;
+  overflow: auto;
 }
 </style>

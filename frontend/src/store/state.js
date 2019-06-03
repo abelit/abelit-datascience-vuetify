@@ -12,6 +12,7 @@ const state = {
   isSmallScreen: false,
   windowSize: "",
   isFullScreen: false,
+  isPageFullScreen: false,
   isLock: localStorage.getItem("is_lock") || false,
   lockPassword: localStorage.getItem("lock_password") || "",
   browserHeaderTitle: "DataAV"

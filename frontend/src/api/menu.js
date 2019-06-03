@@ -181,7 +181,8 @@ const Menu = [
     icon: "airplay",
     items: [
       { name: "EchartDemo", title: "echartDemo", component: "EchartDemo" },
-      { name: "MapDemo", title: "mapDemo", component: "MapDemo" }
+      { name: "MapDemo", title: "mapDemo", component: "MapDemo" },
+      { name: "ScrollDemo", title: "scrollDemo", component: "ScrollDemo"}
     ]
   },
   { divider: true },

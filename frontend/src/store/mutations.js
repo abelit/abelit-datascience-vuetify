@@ -43,6 +43,9 @@ const mutations = {
   SET_FULLSCREEN: (state, payload) => {
     state.isFullScreen = payload;
   },
+  SET_PAGEFULLSCREEN: (state, payload) => {
+    state.isPageFullScreen = payload;
+  },
   SET_LOCK_PASSWORD: (state, password) => {
     state.lockPassword = password;
     localStorage.setItem("lock_password", password);
