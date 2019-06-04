@@ -2,7 +2,6 @@
   <div class="d-page-fullscreen">
     <vue-perfect-scrollbar
       :class="isPageFullScreen?'d-page-scroll-fullscreen ps':'ps'"
-      @ps-scroll-y="scrollHanle"
     >
       <v-container fluid :class="isPageFullScreen?'pa-1':''">
         <v-layout row wrap>
@@ -26,7 +25,7 @@
                 </v-flex>
                 <v-spacer></v-spacer>
                 <d-refresh :pMethod="getUsers"></d-refresh>
-                <d-new-user></d-new-user>
+                <d-new-user :dialog="dialog" :editedItem="editedItem"></d-new-user>
               </v-toolbar>
               <v-divider></v-divider>
               <v-card-text class="pa-0">
@@ -119,22 +118,30 @@ export default {
       ],
       items: []
     },
-    editedIndex: -1
+    editedIndex: -1,
+    editedItem: {
+      username: "",
+      name: "",
+      email: "",
+      password: "",
+      selected_department: "",
+      selected_position: "",
+      selected_gender: "",
+      status: "",
+      selected_role: []
+    },
   }),
 
   computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    },
+    // formTitle() {
+    //   return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    // },
     isPageFullScreen() {
       return this.$store.state.isPageFullScreen;
     }
   },
 
   watch: {
-    dialog(val) {
-      val || this.close();
-    }
   },
 
   created() {
@@ -142,6 +149,7 @@ export default {
   },
 
   methods: {
+    // 从后台获取用户信息
     getUsers() {
       this.$axios
         .get("/admin/user/list")
@@ -152,35 +160,20 @@ export default {
           console.log(error);
         });
     },
-
+    // 编辑条目
     editItem(item) {
       this.editedIndex = this.result.items.indexOf(item);
       this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+      this.dialog = !this.dialog;
     },
-
+    // 删除条目
     deleteItem(item) {
       const index = this.result.items.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
         this.result.items.splice(index, 1);
     },
 
-    close() {
-      this.dialog = false;
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      }, 300);
-    },
-
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.result.items[this.editedIndex], this.editedItem);
-      } else {
-        this.result.items.push(this.editedItem);
-      }
-      this.close();
-    },
+    // 页面全屏
     toggleFullscreen() {
       this.$fullscreen.toggle(this.$el.querySelector(".d-content-fullscreen"), {
         wrap: false,
@@ -190,6 +183,9 @@ export default {
     fullscreenChange(fullscreen) {
       this.fullscreen = fullscreen;
     }
+  },
+  mounted() {
+    console.log("User dialog: "+this.dialog);
   }
 };
 </script>

@@ -13,7 +13,7 @@
     <v-btn icon @click="toggleParentMethod" class="mx-0">
       <v-icon class="text--secondary">fullscreen</v-icon>
     </v-btn>
-    <v-btn icon v-on="on" class="mx-0">
+    <v-btn icon class="mx-0">
       <v-icon class="text--secondary">more_vert</v-icon>
     </v-btn>
   </v-layout>

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="500">
+  <v-dialog v-model="currentDialog" max-width="500">
     <template v-slot:activator="{ on }">
       <div v-on="on">
         <v-tooltip bottom>
@@ -16,7 +16,7 @@
       <v-toolbar dark color="primary">
         <v-toolbar-title>{{ $t("button.NEW_USER") }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon dark @click="dialog = false">
+        <v-btn icon dark @click="currentDialog = false">
           <v-icon>close</v-icon>
         </v-btn>
       </v-toolbar>
@@ -27,7 +27,7 @@
             <v-layout wrap align-center>
               <v-flex xs12 sm6>
                 <v-text-field
-                  v-model.trim="username"
+                  v-model.trim="editedItem.username"
                   prepend-inner-icon="person"
                   color="deep-purple"
                   :label="$t('auth.USERNAME')"
@@ -43,7 +43,7 @@
               </v-flex>
               <v-flex xs12 sm6>
                 <v-text-field
-                  v-model.trim="name"
+                  v-model.trim="editedItem.name"
                   prepend-inner-icon="person"
                   color="deep-purple"
                   :label="$t('auth.NAME')"
@@ -60,7 +60,7 @@
             <v-layout wrap algin-center>
               <v-flex xs12 sm6>
                 <v-text-field
-                  v-model.trim="email"
+                  v-model.trim="editedItem.email"
                   prepend-inner-icon="email"
                   color="deep-purple"
                   :label="$t('auth.EMAIL')"
@@ -77,7 +77,7 @@
               <v-flex xs12 sm6>
                 <v-select
                   prepend-inner-icon="people"
-                  v-model="selected_gender"
+                  v-model="editedItem.selected_gender"
                   v-validate="'required'"
                   :error-messages="errors.collect('gender')"
                   :items="genders"
@@ -94,7 +94,7 @@
             <v-layout wrap align-center>
               <v-flex xs12 sm12>
                 <v-text-field
-                  v-model.trim="password"
+                  v-model.trim="editedItem.password"
                   prepend-inner-icon="lock"
                   color="deep-purple"
                   counter="16"
@@ -116,7 +116,7 @@
               <v-flex xs12 sm6>
                 <v-select
                   prepend-inner-icon="work"
-                  v-model="selected_department"
+                  v-model="editedItem.selected_department"
                   v-validate="'required'"
                   :error-messages="errors.collect('department')"
                   :items="departments"
@@ -132,7 +132,7 @@
               <v-flex xs12 sm6>
                 <v-select
                   prepend-inner-icon="assignment_ind"
-                  v-model="selected_position"
+                  v-model="editedItem.selected_position"
                   v-validate="'required'"
                   :error-messages="errors.collect('position')"
                   :items="positions"
@@ -150,7 +150,7 @@
               <v-flex xs12 sm12>
                 <v-combobox
                   prepend-inner-icon="security"
-                  v-model="selected_role"
+                  v-model="editedItem.selected_role"
                   :items="roles"
                   :label="$t('admin.ROLE')"
                   v-validate="'required'"
@@ -170,7 +170,7 @@
               <v-flex xs12 sm6>
                 <v-checkbox
                   class="mx-1"
-                  v-model="status"
+                  v-model="editedItem.status"
                   :label="$t('button.ENABLE')"
                   value="1"
                   data-vv-name="status"
@@ -182,7 +182,7 @@
         <!-- <v-divider></v-divider> -->
         <v-card-actions class="pb-3">
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="dialog = false" dark>
+          <v-btn color="primary" @click="currentDialog = false" dark>
             <span class="font-weight-bold">{{$t("button.CANCEL") }}</span>
           </v-btn>
           <v-btn color="primary" @click="handleNewUser" dark>
@@ -206,6 +206,7 @@
 import { mapState } from "vuex";
 
 export default {
+  props: ["dialog","editedItem"],
   data: () => ({
     isDisplayPassword: false,
     username: undefined,
@@ -226,7 +227,7 @@ export default {
     roles: [],
     isActive: false,
     status: 0,
-    dialog: false
+    currentDialog: false
   }),
   methods: {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
@@ -240,15 +241,15 @@ export default {
           this.isButtonLoading = false;
           this.$axios
             .post("/admin/user/add", {
-              username: this.username,
-              name: this.name,
-              email: this.email,
-              password: this.password,
-              selected_department: this.selected_department,
-              selected_position: this.selected_position,
-              selected_gender: this.selected_gender,
-              status: this.status,
-              role: this.selected_role
+              username: this.editedItem.username,
+              name: this.editedItem.name,
+              email: this.editedItem.email,
+              password: this.editedItem.password,
+              selected_department: this.editedItem.selected_department,
+              selected_position: this.editedItem.selected_position,
+              selected_gender: this.editedItem.selected_gender,
+              status: this.editedItem.status,
+              role: this.editedItem.selected_role
             })
             .then(() => {
               this.isActive = true;
@@ -359,13 +360,17 @@ export default {
       this.select = null;
       this.checkbox = null;
       this.$validator.reset();
-    }
+    },
+    // // 关闭diaglog
+    // close() {
+    //   this.dialog = false;
+    // },
   },
   mounted() {
     this.getDepartment();
     this.getPosition();
     this.getRole();
-    console.log(this.selected_gender);
+    console.log("DNewUser dialog: "+this.dialog);
   },
   computed: {
     genders: function() {
@@ -379,6 +384,11 @@ export default {
           code: "0"
         }
       ];
+    },
+  },
+  watch: {
+    dialog(val) {
+      this.currentDialog = true;
     }
   }
 };
