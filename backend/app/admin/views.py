@@ -142,14 +142,19 @@ def list_users():
             "gender": u.User.gender,
             "status": u.User.status,
             "created_time": u.User.created_time,
-            "group": u.Group.name,
-            "position": u.Position.name
+            "group": {"name": u.Group.name, "id": u.Group.id},
+            "position": {"name": u.Position.name, "id": u.Position.id}
         }
+        # urole = []
+        # for r in u.User.roles:
+        #     urole.append(r.name)
+        
+        # ulist["role"] = ','.join(urole)
+
         urole = []
         for r in u.User.roles:
-            urole.append(r.name)
-        
-        ulist["role"] = ','.join(urole)
+            urole.append({"name": r.name, "id": r.id})
+        ulist["role"] = urole
 
         result.append(ulist)
     return jsonify(result), 200

@@ -46,11 +46,11 @@
                     <td>{{ props.item.username }}</td>
                     <td class="text-xs-left">{{ props.item.name }}</td>
                     <td class="text-xs-left">{{ props.item.email }}</td>
-                    <td class="text-xs-left">{{ props.item.gender }}</td>
-                    <td class="text-xs-left">{{ props.item.group }}</td>
-                    <td class="text-xs-left">{{ props.item.position }}</td>
-                    <td class="text-xs-left">{{ props.item.role }}</td>
-                    <td class="text-xs-left">{{ props.item.status }}</td>
+                    <td class="text-xs-left">{{ (props.item.gender===1)?$t("auth.MALE"):$t("auth.FEMALE") }}</td>
+                    <td class="text-xs-left">{{ props.item.group.name }}</td>
+                    <td class="text-xs-left">{{ props.item.position.name }}</td>
+                    <td class="text-xs-left"><v-chip outline color="primary" v-for="k in props.item.role" :key="k.id">{{ k.name}}</v-chip></td>
+                    <td class="text-xs-left"> <v-chip :color="props.item.status===1?'primary':''">{{ (props.item.status===1)?$t("button.enabled"):$t("button.disabled") }} </v-chip></td>
                     <td class="text-xs-left">{{ props.item.created_time }}</td>
 
                     <td>
@@ -124,10 +124,10 @@ export default {
       name: "",
       email: "",
       password: "",
-      selected_department: "",
-      selected_position: "",
-      selected_gender: "",
-      status: "",
+      selected_department: {},
+      selected_position: {},
+      selected_gender: {},
+      status: false,
       selected_role: []
     },
   }),
@@ -163,7 +163,28 @@ export default {
     // 编辑条目
     editItem(item) {
       this.editedIndex = this.result.items.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      // this.editedItem = Object.assign({}, item);
+      let genderName = this.$t("auth.MALE")
+      let statusName = false
+      if (item.gender===0) {
+        genderName = this.$t("auth.FEMALE")
+      }
+      if (item.status===1) {
+        statusName = true
+      }
+      console.log(item)
+      this.editedItem = Object.assign({
+        username: item.username,
+        name: item.name,
+        email: item.email,
+        // password: item.password,
+        selected_department: item.group,
+        selected_position:item.position,
+        selected_gender: {name: genderName,code: item.gender},
+        status: statusName,
+        selected_role: item.role
+      })
+      // console.log(this.editItem);
       this.dialog = !this.dialog;
     },
     // 删除条目

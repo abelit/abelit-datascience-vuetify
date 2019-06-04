@@ -153,13 +153,9 @@
                   v-model="editedItem.selected_role"
                   :items="roles"
                   :label="$t('admin.ROLE')"
-                  v-validate="'required'"
-                  :error-messages="errors.collect('role')"
                   item-text="name"
                   item-value="id"
                   class="mx-1"
-                  data-vv-name="role"
-                  required
                   multiple
                   chips
                   hide-details
@@ -171,7 +167,7 @@
                 <v-checkbox
                   class="mx-1"
                   v-model="editedItem.status"
-                  :label="$t('button.ENABLE')"
+                  :label="$t('button.enable')"
                   value="1"
                   data-vv-name="status"
                 ></v-checkbox>
@@ -226,7 +222,7 @@ export default {
     positions: [],
     roles: [],
     isActive: false,
-    status: 0,
+    status: true,
     currentDialog: false
   }),
   methods: {
@@ -257,7 +253,7 @@ export default {
               setTimeout(() => {
                 this.message = "";
                 // 跳转上一请求页面或主页
-                this.dialog = false;
+                this.currentDialog = false;
               }, 1000);
             })
             .catch(() => {
@@ -371,17 +367,18 @@ export default {
     this.getPosition();
     this.getRole();
     console.log("DNewUser dialog: "+this.dialog);
+    console.log(this.editedItem)
   },
   computed: {
     genders: function() {
       return [
         {
           name: this.$t("auth.MALE"),
-          code: "1"
+          code: 1
         },
         {
           name: this.$t("auth.FEMALE"),
-          code: "0"
+          code: 0
         }
       ];
     },

@@ -59,7 +59,10 @@ export const admin = {
 export const button = {
   ADD: "Add",
   CLOSE: "Close",
-  ENABLE: "Enable",
+  enable: "Enable",
+  enabled: "Enabled",
+  disable: "Disable",
+  disabled: "Disabled",
   CLEAR: "Clear",
   CANCEL: "Cancel",
   CONFIRM: "Confirm",
