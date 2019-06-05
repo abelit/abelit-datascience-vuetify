@@ -183,7 +183,7 @@
           <v-btn color="primary" @click="cdialog = false" dark>
             <span class="font-weight-bold">{{$t("button.CANCEL") }}</span>
           </v-btn>
-          <v-btn color="primary" @click="handleNewUser" dark>
+          <v-btn color="primary" @click="editedIndex===-1?'handleNewUser':'updateUser'" dark>
             <span class="font-weight-bold">{{$t("button.CONFIRM") }}</span>
           </v-btn>
         </v-card-actions>
@@ -207,24 +207,24 @@ export default {
   props: ["pdialog", "editedItem", "editedIndex"],
   data: () => ({
     isDisplayPassword: false,
-    username: undefined,
-    name: undefined,
-    email: undefined,
+    // username: undefined,
+    // name: undefined,
+    // email: undefined,
     isButtonLoading: false,
     message: "",
     loadingMessage: "",
     usernameMessage: "",
     emailMessage: "",
-    password: undefined,
-    selected_department: undefined,
-    selected_position: undefined,
-    selected_gender: undefined,
-    selected_role: undefined,
+    // password: undefined,
+    // selected_department: undefined,
+    // selected_position: undefined,
+    // selected_gender: undefined,
+    // selected_role: undefined,
     departments: [],
     positions: [],
     roles: [],
     isActive: false,
-    status: false,
+    // status: false,
     cdialog: false
   }),
   methods: {
@@ -239,6 +239,46 @@ export default {
           this.isButtonLoading = false;
           this.$axios
             .post("/admin/user/add", {
+              username: this.editedItem.username,
+              name: this.editedItem.name,
+              email: this.editedItem.email,
+              password: this.editedItem.password,
+              selected_department: this.editedItem.selected_department,
+              selected_position: this.editedItem.selected_position,
+              selected_gender: this.editedItem.selected_gender,
+              status: this.editedItem.status ? 1 : 0,
+              role: this.editedItem.selected_role
+            })
+            .then(() => {
+              this.isActive = true;
+              this.message = this.$t("message.SUCCESS_REGISTER");
+              setTimeout(() => {
+                this.message = "";
+                // 跳转上一请求页面或主页
+                this.cdialog = false;
+              }, 1000);
+            })
+            .catch(() => {
+              this.isActive = false;
+              this.message = this.$t("message.ERROR_REGISTER");
+              setTimeout(() => {
+                this.message = "";
+              }, 1000);
+            });
+        }, 1000);
+      }
+    },
+    // 更新用户信息
+    async updateUser() {
+      await this.$validator.validateAll();
+      // 如果用户输入的所有内容没有错误信息，然后发起后台请求
+      if (this.$validator.errors.all().length === 0) {
+        this.isButtonLoading = true;
+        this.loadingMessage = this.$t("message.LOADING");
+        setTimeout(() => {
+          this.isButtonLoading = false;
+          this.$axios
+            .post("/admin/user/update", {
               username: this.editedItem.username,
               name: this.editedItem.name,
               email: this.editedItem.email,
@@ -378,6 +418,7 @@ export default {
     }
   },
   watch: {
+    // 监听父组件pdialog的值
     pdialog(val) {
       console.log("pdialog: "+val);
       if (val) {
@@ -385,9 +426,10 @@ export default {
         this.cdialog = true;
       }
     },
+    // 监听子组件cdialog的值
     cdialog(val) {
       if (!val) {
-        this.$emit("pchangeDialog");
+        this.$emit("pChangeDialog");
       }
     }
   }

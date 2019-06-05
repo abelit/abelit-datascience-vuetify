@@ -128,6 +128,55 @@ def add_user():
     return jsonify(), status_code
 
 
+@admin.route('/user/update', methods=['POST'])
+def update_user():
+    # 从前端Ajax请求中获取用户名
+    username = request.json.get('username', None)
+    name = request.json.get('name', None)
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
+    selected_department = request.json.get('selected_department', None)
+    selected_position = request.json.get('selected_position', None)
+    selected_gender = request.json.get('selected_gender', None)
+    status = request.json.get('status', None)
+    role = request.json.get('role', None)
+
+    status_code = None
+
+    user = User.query.filter_by(username=username)
+    print("test ............")
+    # 更新用户信息
+    user.update({'name': name,'password': password, 'selected_department': selected_department, 'selected_position': selected_position,'selected_gender': selected_gender, 'status': status})
+
+    has_role  = user.first().roles
+    new_role = []
+
+  
+    # 更新用户权限信息
+    for r in role:
+        # 获取角色对象
+        user_role = Role.query.get(r['id'])
+        new_role.append(user_role)
+
+    # 删除没有的权限
+    for hr in has_role:
+        if hr not in new_role:
+            user.first().roles.remove(hr)
+
+     # 添加新增不存在的权限
+    for nr in new_role:
+        if nr not in has_role:
+            user.first().roles.append(nr)
+
+    try:
+        db.session.commit()
+        status_code = 200
+    except Exception:
+        status_code = 500
+
+    return jsonify(), status_code
+
+
 @admin.route('/user/list', methods=['GET'])
 def list_users():
     result = []

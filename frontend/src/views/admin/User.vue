@@ -23,7 +23,7 @@
                 </v-flex>
                 <v-spacer></v-spacer>
                 <d-refresh :pMethod="getUsers"></d-refresh>
-                <d-new-user :pdialog="pdialog" :editedItem="editedItem" :editedIndex="editedIndex" @pchangeDialog="pchangeDialog"></d-new-user>
+                <d-new-user ref="dnewuser" :pdialog="pdialog" :editedItem="editedItem" :editedIndex="editedIndex" @pChangeDialog="pChangeDialog"></d-new-user>
               </v-toolbar>
               <v-divider></v-divider>
               <v-card-text class="pa-0">
@@ -191,12 +191,12 @@ export default {
       this.editedIndex = this.result.items.indexOf(item);
       // this.editedItem = Object.assign({}, item);
       let genderName = this.$t("auth.MALE");
-      let statusName = false;
+      let isStatus = false;
       if (item.gender === 0) {
         genderName = this.$t("auth.FEMALE");
       }
       if (item.status === 1) {
-        statusName = true;
+        isStatus = true;
       }
       this.editedItem = Object.assign({
         username: item.username,
@@ -206,9 +206,11 @@ export default {
         selected_department: item.group,
         selected_position: item.position,
         selected_gender: { name: genderName, code: item.gender },
-        status: statusName,
+        status: isStatus,
         selected_role: item.role
       });
+      // 调用子组件DNewUser中updateUser方法更新用户信息内容并提交保存入库
+      this.$ref.dnewuser.updateUser();
     },
     // 删除条目
     deleteItem(item) {
@@ -225,8 +227,8 @@ export default {
       }, 300);
     },
 
-    pchangeDialog() {
-      console.log("pchangeDialog: "+this.pdialog)
+    pChangeDialog() {
+      console.log("pChangeDialog: "+this.pdialog)
       this.pdialog = false;
     },
     // 页面全屏
