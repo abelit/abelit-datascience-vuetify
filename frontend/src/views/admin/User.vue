@@ -1,8 +1,6 @@
 <template>
   <div class="d-page-fullscreen">
-    <vue-perfect-scrollbar
-      :class="isPageFullScreen?'d-page-scroll-fullscreen ps':'ps'"
-    >
+    <vue-perfect-scrollbar :class="isPageFullScreen?'d-page-scroll-fullscreen ps':'ps'">
       <v-container fluid :class="isPageFullScreen?'pa-1':''">
         <v-layout row wrap>
           <!-- <v-flex xs1>
@@ -25,7 +23,7 @@
                 </v-flex>
                 <v-spacer></v-spacer>
                 <d-refresh :pMethod="getUsers"></d-refresh>
-                <d-new-user :dialog="dialog" :editedItem="editedItem"></d-new-user>
+                <d-new-user :dialog="dialog" :editedItem="editedItem" :editedIndex="editedIndex"></d-new-user>
               </v-toolbar>
               <v-divider></v-divider>
               <v-card-text class="pa-0">
@@ -34,6 +32,7 @@
                   :search="search"
                   :items="result.items"
                   :rows-per-page-items="[10,25,50,{text:'All','value':-1}]"
+                  :pagination.sync="paginationSettings"
                   class="elevation-1"
                   item-key="name"
                   select-all
@@ -46,11 +45,24 @@
                     <td>{{ props.item.username }}</td>
                     <td class="text-xs-left">{{ props.item.name }}</td>
                     <td class="text-xs-left">{{ props.item.email }}</td>
-                    <td class="text-xs-left">{{ (props.item.gender===1)?$t("auth.MALE"):$t("auth.FEMALE") }}</td>
+                    <td
+                      class="text-xs-left"
+                    >{{ (props.item.gender===1)?$t("auth.MALE"):$t("auth.FEMALE") }}</td>
                     <td class="text-xs-left">{{ props.item.group.name }}</td>
                     <td class="text-xs-left">{{ props.item.position.name }}</td>
-                    <td class="text-xs-left"><v-chip outline color="primary" v-for="k in props.item.role" :key="k.id">{{ k.name}}</v-chip></td>
-                    <td class="text-xs-left"> <v-chip :color="props.item.status===1?'primary':''">{{ (props.item.status===1)?$t("button.enabled"):$t("button.disabled") }} </v-chip></td>
+                    <td class="text-xs-left">
+                      <v-chip
+                        outline
+                        color="primary"
+                        v-for="k in props.item.role"
+                        :key="k.id"
+                      >{{ k.name}}</v-chip>
+                    </td>
+                    <td class="text-xs-left">
+                      <v-chip
+                        :color="props.item.status===1?'primary':''"
+                      >{{ (props.item.status===1)?$t("button.enabled"):$t("button.disabled") }}</v-chip>
+                    </td>
                     <td class="text-xs-left">{{ props.item.created_time }}</td>
 
                     <td>
@@ -93,9 +105,8 @@ export default {
   data: () => ({
     search: "",
     dialog: false,
-    paginations: {
-      descending: true,
-      rowsPerPage: 15
+    paginationSettings: {
+      rowsPerPage: 25
     },
     result: {
       selected: [],
@@ -103,14 +114,14 @@ export default {
         {
           text: "用户名",
           align: "left",
-          sortable: false,
+          sortable: true,
           value: "user"
         },
         { text: "姓名", value: "name" },
         { text: "邮箱", value: "email" },
         { text: "性别", value: "gender" },
         { text: "部门", value: "group" },
-        { text: "职位", value: "position", sortable: false },
+        { text: "职位", value: "position", sortable: true },
         { text: "角色", value: "role" },
         { text: "状态", value: "status" },
         { text: "创建日期", value: "created_time" },
@@ -130,18 +141,32 @@ export default {
       status: false,
       selected_role: []
     },
+    defaultItem: {
+      username: "",
+      name: "",
+      email: "",
+      password: "",
+      selected_department: {},
+      selected_position: {},
+      selected_gender: {},
+      status: false,
+      selected_role: []
+    }
   }),
 
   computed: {
-    // formTitle() {
-    //   return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    // },
+    formTitle() {
+      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+    },
     isPageFullScreen() {
       return this.$store.state.isPageFullScreen;
     }
   },
 
   watch: {
+    dialog(val) {
+      val || this.close();
+    }
   },
 
   created() {
@@ -164,26 +189,26 @@ export default {
     editItem(item) {
       this.editedIndex = this.result.items.indexOf(item);
       // this.editedItem = Object.assign({}, item);
-      let genderName = this.$t("auth.MALE")
-      let statusName = false
-      if (item.gender===0) {
-        genderName = this.$t("auth.FEMALE")
+      let genderName = this.$t("auth.MALE");
+      let statusName = false;
+      if (item.gender === 0) {
+        genderName = this.$t("auth.FEMALE");
       }
-      if (item.status===1) {
-        statusName = true
+      if (item.status === 1) {
+        statusName = true;
       }
-      console.log(item)
+      console.log(item);
       this.editedItem = Object.assign({
         username: item.username,
         name: item.name,
         email: item.email,
         // password: item.password,
         selected_department: item.group,
-        selected_position:item.position,
-        selected_gender: {name: genderName,code: item.gender},
+        selected_position: item.position,
+        selected_gender: { name: genderName, code: item.gender },
         status: statusName,
         selected_role: item.role
-      })
+      });
       // console.log(this.editItem);
       this.dialog = !this.dialog;
     },
@@ -192,6 +217,24 @@ export default {
       const index = this.result.items.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
         this.result.items.splice(index, 1);
+    },
+
+    close() {
+      this.dialog = false;
+      setTimeout(() => {
+        this.editedItem = Object.assign({
+          username: "",
+          name: "",
+          email: "",
+          // password: item.password,
+          selected_department: {},
+          selected_position: {},
+          selected_gender: {},
+          status: false,
+          selected_role: ""
+        });
+        this.editedIndex = -1;
+      }, 300);
     },
 
     // 页面全屏
@@ -206,7 +249,7 @@ export default {
     }
   },
   mounted() {
-    console.log("User dialog: "+this.dialog);
+    console.log("User dialog: " + this.dialog);
   }
 };
 </script>

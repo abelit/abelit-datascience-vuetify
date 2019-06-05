@@ -4,8 +4,8 @@
       <div v-on="on">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-           <v-btn color="primary" dark class="mb-2" v-on="on" icon flat>
-                <v-icon>playlist_add</v-icon>
+            <v-btn color="primary" dark class="mb-2" v-on="on" icon flat>
+              <v-icon>playlist_add</v-icon>
             </v-btn>
           </template>
           <span>{{ $t("button.NEW_USER") }}</span>
@@ -28,6 +28,7 @@
               <v-flex xs12 sm6>
                 <v-text-field
                   v-model.trim="editedItem.username"
+                  :disabled="editedIndex===-1?false:true"
                   prepend-inner-icon="person"
                   color="deep-purple"
                   :label="$t('auth.USERNAME')"
@@ -61,6 +62,7 @@
               <v-flex xs12 sm6>
                 <v-text-field
                   v-model.trim="editedItem.email"
+                  :disabled="editedIndex===-1?false:true"
                   prepend-inner-icon="email"
                   color="deep-purple"
                   :label="$t('auth.EMAIL')"
@@ -102,7 +104,7 @@
                   :append-icon="isDisplayPassword ? 'visibility_off' : 'visibility'"
                   :type="isDisplayPassword ? 'text' : 'password'"
                   @click:append="isDisplayPassword = !isDisplayPassword"
-                  v-validate="'required|max:16|min:6'"
+                  :v-validate="[editedIndex===-1?'required|max:16|min:6':'']"
                   :error-messages="errors.collect('password')"
                   data-vv-name="password"
                   ref="password"
@@ -168,8 +170,8 @@
                   class="mx-1"
                   v-model="editedItem.status"
                   :label="$t('button.enable')"
-                  value="1"
                   data-vv-name="status"
+                  hide-details
                 ></v-checkbox>
               </v-flex>
             </v-layout>
@@ -202,7 +204,7 @@
 import { mapState } from "vuex";
 
 export default {
-  props: ["dialog","editedItem"],
+  props: ["dialog", "editedItem", "editedIndex"],
   data: () => ({
     isDisplayPassword: false,
     username: undefined,
@@ -222,7 +224,7 @@ export default {
     positions: [],
     roles: [],
     isActive: false,
-    status: true,
+    status: false,
     currentDialog: false
   }),
   methods: {
@@ -244,7 +246,7 @@ export default {
               selected_department: this.editedItem.selected_department,
               selected_position: this.editedItem.selected_position,
               selected_gender: this.editedItem.selected_gender,
-              status: this.editedItem.status,
+              status: this.editedItem.status ? 1 : 0,
               role: this.editedItem.selected_role
             })
             .then(() => {
@@ -318,7 +320,7 @@ export default {
       this.$axios
         .get("/api/checkusername", {
           params: {
-            username: this.username
+            username: this.editedItem.username
           }
         })
         .then(() => {
@@ -336,7 +338,7 @@ export default {
       this.$axios
         .get("/api/checkemail", {
           params: {
-            email: this.email
+            email: this.editedItem.email
           }
         })
         .then(() => {
@@ -356,7 +358,7 @@ export default {
       this.select = null;
       this.checkbox = null;
       this.$validator.reset();
-    },
+    }
     // // 关闭diaglog
     // close() {
     //   this.dialog = false;
@@ -366,8 +368,8 @@ export default {
     this.getDepartment();
     this.getPosition();
     this.getRole();
-    console.log("DNewUser dialog: "+this.dialog);
-    console.log(this.editedItem)
+    console.log("DNewUser dialog: " + this.dialog);
+    console.log(this.editedItem);
   },
   computed: {
     genders: function() {
@@ -381,7 +383,7 @@ export default {
           code: 0
         }
       ];
-    },
+    }
   },
   watch: {
     dialog(val) {

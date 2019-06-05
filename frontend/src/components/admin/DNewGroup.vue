@@ -70,7 +70,7 @@
                 <v-checkbox
                   class="mx-1"
                   v-model="status"
-                  :label="$t('button.ENABLE')"
+                  :label="$t('button.enable')"
                   value="1"
                   data-vv-name="status"
                 ></v-checkbox>

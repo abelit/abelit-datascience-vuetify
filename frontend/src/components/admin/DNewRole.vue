@@ -4,8 +4,8 @@
       <div v-on="on">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-             <v-btn color="primary" dark class="mb-2" v-on="on" icon flat>
-                <v-icon>playlist_add</v-icon>
+            <v-btn color="primary" dark class="mb-2" v-on="on" icon flat>
+              <v-icon>playlist_add</v-icon>
             </v-btn>
           </template>
           <span>{{ $t("button.NEW_ROLE") }}</span>
@@ -45,7 +45,7 @@
                 <v-checkbox
                   class="mx-1"
                   v-model="status"
-                  :label="$t('button.ENABLE')"
+                  :label="$t('button.enable')"
                   value="1"
                   data-vv-name="status"
                 ></v-checkbox>
