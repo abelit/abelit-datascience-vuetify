@@ -57,7 +57,7 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False, doc="user account")
     name = db.Column(db.String(80), nullable=False, doc="real username")
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
     gender = db.Column(db.Integer, nullable=False, doc="1:male,0:female")
     status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)

@@ -144,9 +144,12 @@ def update_user():
     status_code = None
 
     user = User.query.filter_by(username=username)
-    print("test ............")
     # 更新用户信息
-    user.update({'name': name,'password': password, 'selected_department': selected_department, 'selected_position': selected_position,'selected_gender': selected_gender, 'status': status})
+    user.update({'name': name, 'group_id': selected_department, 'position_id': selected_position,'gender': selected_gender, 'status': status})
+
+    # 根据用户输入判断是否进行密码更新
+    if password is not None:
+        user.update({'password': generate_password_hash(password)})
 
     has_role  = user.first().roles
     new_role = []
@@ -163,11 +166,11 @@ def update_user():
         if hr not in new_role:
             user.first().roles.remove(hr)
 
-     # 添加新增不存在的权限
+    # 添加新增不存在的权限
     for nr in new_role:
         if nr not in has_role:
             user.first().roles.append(nr)
-
+    # 提交入库
     try:
         db.session.commit()
         status_code = 200

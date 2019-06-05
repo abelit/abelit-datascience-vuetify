@@ -104,7 +104,7 @@
                   :append-icon="isDisplayPassword ? 'visibility_off' : 'visibility'"
                   :type="isDisplayPassword ? 'text' : 'password'"
                   @click:append="isDisplayPassword = !isDisplayPassword"
-                  :v-validate="[editedIndex===-1?'required|max:16|min:6':'']"
+                  v-validate="'required|max:16|min:6'"
                   :error-messages="errors.collect('password')"
                   data-vv-name="password"
                   ref="password"
@@ -183,7 +183,7 @@
           <v-btn color="primary" @click="cdialog = false" dark>
             <span class="font-weight-bold">{{$t("button.CANCEL") }}</span>
           </v-btn>
-          <v-btn color="primary" @click="editedIndex===-1?'handleNewUser':'updateUser'" dark>
+          <v-btn color="primary" @click="editedIndex===-1?handleNewUser():updateUser()" dark>
             <span class="font-weight-bold">{{$t("button.CONFIRM") }}</span>
           </v-btn>
         </v-card-actions>
@@ -283,9 +283,9 @@ export default {
               name: this.editedItem.name,
               email: this.editedItem.email,
               password: this.editedItem.password,
-              selected_department: this.editedItem.selected_department,
-              selected_position: this.editedItem.selected_position,
-              selected_gender: this.editedItem.selected_gender,
+              selected_department: this.editedItem.selected_department.id,
+              selected_position: this.editedItem.selected_position.id,
+              selected_gender: this.editedItem.selected_gender.code,
               status: this.editedItem.status ? 1 : 0,
               role: this.editedItem.selected_role
             })
