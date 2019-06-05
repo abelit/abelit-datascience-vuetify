@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="currentDialog" max-width="500">
+  <v-dialog v-model="cdialog" max-width="500">
     <template v-slot:activator="{ on }">
       <div v-on="on">
         <v-tooltip bottom>
@@ -8,15 +8,15 @@
               <v-icon>playlist_add</v-icon>
             </v-btn>
           </template>
-          <span>{{ $t("button.NEW_USER") }}</span>
+          <span>{{ $t("button.newUser") }}</span>
         </v-tooltip>
       </div>
     </template>
     <v-flex xs-12 sm-6 md-4 lg-1>
       <v-toolbar dark color="primary">
-        <v-toolbar-title>{{ $t("button.NEW_USER") }}</v-toolbar-title>
+        <v-toolbar-title>{{ $t("button.newUser") }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn icon dark @click="currentDialog = false">
+        <v-btn icon dark @click="cdialog = false">
           <v-icon>close</v-icon>
         </v-btn>
       </v-toolbar>
@@ -34,7 +34,7 @@
                   :label="$t('auth.USERNAME')"
                   type="username"
                   v-validate="'required|alpha_num|max:20|min:6'"
-                  :error-messages="errors.collect('username')+usernameMessage"
+                  :error-messages="pdialog?'':errors.collect('username')+usernameMessage"
                   data-vv-name="username"
                   required
                   class="mx-1"
@@ -180,7 +180,7 @@
         <!-- <v-divider></v-divider> -->
         <v-card-actions class="pb-3">
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="currentDialog = false" dark>
+          <v-btn color="primary" @click="cdialog = false" dark>
             <span class="font-weight-bold">{{$t("button.CANCEL") }}</span>
           </v-btn>
           <v-btn color="primary" @click="handleNewUser" dark>
@@ -204,7 +204,7 @@
 import { mapState } from "vuex";
 
 export default {
-  props: ["dialog", "editedItem", "editedIndex"],
+  props: ["pdialog", "editedItem", "editedIndex"],
   data: () => ({
     isDisplayPassword: false,
     username: undefined,
@@ -225,7 +225,7 @@ export default {
     roles: [],
     isActive: false,
     status: false,
-    currentDialog: false
+    cdialog: false
   }),
   methods: {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
@@ -255,7 +255,7 @@ export default {
               setTimeout(() => {
                 this.message = "";
                 // 跳转上一请求页面或主页
-                this.currentDialog = false;
+                this.cdialog = false;
               }, 1000);
             })
             .catch(() => {
@@ -353,23 +353,15 @@ export default {
         });
     },
     clear() {
-      this.name = "";
-      this.email = "";
-      this.select = null;
-      this.checkbox = null;
+      this.usernameMessage = "";
+      this.emailMessage = "";
       this.$validator.reset();
     }
-    // // 关闭diaglog
-    // close() {
-    //   this.dialog = false;
-    // },
   },
   mounted() {
     this.getDepartment();
     this.getPosition();
     this.getRole();
-    console.log("DNewUser dialog: " + this.dialog);
-    console.log(this.editedItem);
   },
   computed: {
     genders: function() {
@@ -386,8 +378,17 @@ export default {
     }
   },
   watch: {
-    dialog(val) {
-      this.currentDialog = true;
+    pdialog(val) {
+      console.log("pdialog: "+val);
+      if (val) {
+        this.clear()
+        this.cdialog = true;
+      }
+    },
+    cdialog(val) {
+      if (!val) {
+        this.$emit("pchangeDialog");
+      }
     }
   }
 };

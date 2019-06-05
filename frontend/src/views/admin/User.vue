@@ -23,7 +23,7 @@
                 </v-flex>
                 <v-spacer></v-spacer>
                 <d-refresh :pMethod="getUsers"></d-refresh>
-                <d-new-user :dialog="dialog" :editedItem="editedItem" :editedIndex="editedIndex"></d-new-user>
+                <d-new-user :pdialog="pdialog" :editedItem="editedItem" :editedIndex="editedIndex" @pchangeDialog="pchangeDialog"></d-new-user>
               </v-toolbar>
               <v-divider></v-divider>
               <v-card-text class="pa-0">
@@ -34,7 +34,7 @@
                   :rows-per-page-items="[10,25,50,{text:'All','value':-1}]"
                   :pagination.sync="paginationSettings"
                   class="elevation-1"
-                  item-key="name"
+                  item-key="username"
                   select-all
                   v-model="result.selected"
                 >
@@ -104,7 +104,7 @@ export default {
   },
   data: () => ({
     search: "",
-    dialog: false,
+    pdialog: false,
     paginationSettings: {
       rowsPerPage: 25
     },
@@ -156,7 +156,7 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? $t("button.newUser") : $t("button.editUser");
     },
     isPageFullScreen() {
       return this.$store.state.isPageFullScreen;
@@ -164,7 +164,7 @@ export default {
   },
 
   watch: {
-    dialog(val) {
+    pdialog(val) {
       val || this.close();
     }
   },
@@ -187,6 +187,7 @@ export default {
     },
     // 编辑条目
     editItem(item) {
+      this.pdialog = true;
       this.editedIndex = this.result.items.indexOf(item);
       // this.editedItem = Object.assign({}, item);
       let genderName = this.$t("auth.MALE");
@@ -197,7 +198,6 @@ export default {
       if (item.status === 1) {
         statusName = true;
       }
-      console.log(item);
       this.editedItem = Object.assign({
         username: item.username,
         name: item.name,
@@ -209,8 +209,6 @@ export default {
         status: statusName,
         selected_role: item.role
       });
-      // console.log(this.editItem);
-      this.dialog = !this.dialog;
     },
     // 删除条目
     deleteItem(item) {
@@ -220,23 +218,17 @@ export default {
     },
 
     close() {
-      this.dialog = false;
+      this.pdialog = false;
       setTimeout(() => {
-        this.editedItem = Object.assign({
-          username: "",
-          name: "",
-          email: "",
-          // password: item.password,
-          selected_department: {},
-          selected_position: {},
-          selected_gender: {},
-          status: false,
-          selected_role: ""
-        });
+        this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       }, 300);
     },
 
+    pchangeDialog() {
+      console.log("pchangeDialog: "+this.pdialog)
+      this.pdialog = false;
+    },
     // 页面全屏
     toggleFullscreen() {
       this.$fullscreen.toggle(this.$el.querySelector(".d-content-fullscreen"), {
@@ -248,8 +240,7 @@ export default {
       this.fullscreen = fullscreen;
     }
   },
-  mounted() {
-    console.log("User dialog: " + this.dialog);
+  mounted() { 
   }
 };
 </script>
