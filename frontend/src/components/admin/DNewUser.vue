@@ -8,13 +8,13 @@
               <v-icon>playlist_add</v-icon>
             </v-btn>
           </template>
-          <span>{{ $t("button.newUser") }}</span>
+          <span>{{ $t('button.newUser') }}</span>
         </v-tooltip>
       </div>
     </template>
     <v-flex xs-12 sm-6 md-4 lg-1>
       <v-toolbar dark color="primary">
-        <v-toolbar-title>{{ $t("button.newUser") }}</v-toolbar-title>
+        <v-toolbar-title>{{  formTitle()  }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon dark @click="cdialog = false">
           <v-icon>close</v-icon>
@@ -104,7 +104,7 @@
                   :append-icon="isDisplayPassword ? 'visibility_off' : 'visibility'"
                   :type="isDisplayPassword ? 'text' : 'password'"
                   @click:append="isDisplayPassword = !isDisplayPassword"
-                  v-validate="'required|max:16|min:6'"
+                  v-validate="editedIndex===-1?'required|max:16|min:6':''"
                   :error-messages="errors.collect('password')"
                   data-vv-name="password"
                   ref="password"
@@ -230,6 +230,11 @@ export default {
   methods: {
     // 等待完成表单输入验证后，然后显示登陆加载动画，这里在需要使用async与await关键字
     async handleNewUser() {
+      // console.log(typeof this.editedItem.selected_gender)
+      // console.log(this.editedItem)
+      // console.log(this.$validator)
+      // this.$validator.reset()
+      // console.log(this.$validator)
       await this.$validator.validateAll();
       // 如果用户输入的所有内容没有错误信息，然后发起后台请求
       if (this.$validator.errors.all().length === 0) {
@@ -270,6 +275,8 @@ export default {
     },
     // 更新用户信息
     async updateUser() {
+      // console.log(this.editedItem.selected_gender instanceof Object)
+      // console.log(this.editedItem)
       await this.$validator.validateAll();
       // 如果用户输入的所有内容没有错误信息，然后发起后台请求
       if (this.$validator.errors.all().length === 0) {
@@ -283,15 +290,15 @@ export default {
               name: this.editedItem.name,
               email: this.editedItem.email,
               password: this.editedItem.password,
-              selected_department: this.editedItem.selected_department.id,
-              selected_position: this.editedItem.selected_position.id,
-              selected_gender: this.editedItem.selected_gender.code,
+              selected_department: (this.editedItem.selected_department instanceof Object)?this.editedItem.selected_department.id:this.editedItem.selected_department,
+              selected_position: (this.editedItem.selected_position instanceof Object)?this.editedItem.selected_position.id:this.editedItem.selected_position,
+              selected_gender: (this.editedItem.selected_gender instanceof Object)?this.editedItem.selected_gender.code:this.editedItem.selected_gender,
               status: this.editedItem.status ? 1 : 0,
               role: this.editedItem.selected_role
             })
             .then(() => {
               this.isActive = true;
-              this.message = this.$t("message.SUCCESS_REGISTER");
+              this.message = this.$t("message.updateSuccessfully");
               setTimeout(() => {
                 this.message = "";
                 // 跳转上一请求页面或主页
@@ -300,7 +307,7 @@ export default {
             })
             .catch(() => {
               this.isActive = false;
-              this.message = this.$t("message.ERROR_REGISTER");
+              this.message = this.$t("message.updateFailed");
               setTimeout(() => {
                 this.message = "";
               }, 1000);
@@ -396,6 +403,9 @@ export default {
       this.usernameMessage = "";
       this.emailMessage = "";
       this.$validator.reset();
+    },
+    formTitle() {
+      return (this.editedIndex===-1) ? this.$t('button.newUser') : this.$t('button.editUser');
     }
   },
   mounted() {

@@ -180,6 +180,30 @@ def update_user():
     return jsonify(), status_code
 
 
+@admin.route('/user/delete', methods=['POST'])
+def delete_user():
+    # 从前端Ajax请求中获取用户名
+    username = request.json.get('username', None)
+    status_code = None
+    
+    user = User.query.filter_by(username=username).first()
+
+    # 提交入库
+    try:
+        # 删除用户的权限
+        for ur in user.roles:
+            user.roles.remove(ur)
+        db.session.commit()
+        # 删除用户
+        db.session.delete(user)
+        db.session.commit()
+        status_code = 200
+    except Exception:
+        status_code = 500
+
+    return jsonify(), status_code
+
+
 @admin.route('/user/list', methods=['GET'])
 def list_users():
     result = []
@@ -197,12 +221,7 @@ def list_users():
             "group": {"name": u.Group.name, "id": u.Group.id},
             "position": {"name": u.Position.name, "id": u.Position.id}
         }
-        # urole = []
-        # for r in u.User.roles:
-        #     urole.append(r.name)
-        
-        # ulist["role"] = ','.join(urole)
-
+  
         urole = []
         for r in u.User.roles:
             urole.append({"name": r.name, "id": r.id})

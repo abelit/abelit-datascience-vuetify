@@ -23,7 +23,13 @@
                 </v-flex>
                 <v-spacer></v-spacer>
                 <d-refresh :pMethod="getUsers"></d-refresh>
-                <d-new-user ref="dnewuser" :pdialog="pdialog" :editedItem="editedItem" :editedIndex="editedIndex" @pChangeDialog="pChangeDialog"></d-new-user>
+                <d-new-user
+                  ref="dnewuser"
+                  :pdialog="pdialog"
+                  :editedItem="editedItem"
+                  :editedIndex="editedIndex"
+                  @pChangeDialog="pChangeDialog"
+                ></d-new-user>
               </v-toolbar>
               <v-divider></v-divider>
               <v-card-text class="pa-0">
@@ -135,29 +141,26 @@ export default {
       name: "",
       email: "",
       password: "",
-      selected_department: {},
-      selected_position: {},
-      selected_gender: {},
+      selected_department: "",
+      selected_position: "",
+      selected_gender: "",
       status: false,
-      selected_role: []
+      selected_role: ""
     },
     defaultItem: {
       username: "",
       name: "",
       email: "",
       password: "",
-      selected_department: {},
-      selected_position: {},
-      selected_gender: {},
+      selected_department: "",
+      selected_position: "",
+      selected_gender: "",
       status: false,
-      selected_role: []
+      selected_role: ""
     }
   }),
 
   computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? $t("button.newUser") : $t("button.editUser");
-    },
     isPageFullScreen() {
       return this.$store.state.isPageFullScreen;
     }
@@ -166,6 +169,7 @@ export default {
   watch: {
     pdialog(val) {
       val || this.close();
+      this.getUsers();
     }
   },
 
@@ -183,6 +187,27 @@ export default {
         })
         .catch(error => {
           console.log(error);
+        });
+    },
+    deleteUser() {
+      this.$axios
+        .post("/admin/user/delete", {
+          username: item.username
+        })
+        .then(() => {
+          this.isActive = true;
+          this.message = this.$t("message.SUCCESS_REGISTER");
+          setTimeout(() => {
+            this.message = "";
+            // 跳转上一请求页面或主页
+          }, 1000);
+        })
+        .catch(() => {
+          this.isActive = false;
+          this.message = this.$t("message.ERROR_REGISTER");
+          setTimeout(() => {
+            this.message = "";
+          }, 1000);
         });
     },
     // 编辑条目
@@ -210,13 +235,13 @@ export default {
         selected_role: item.role
       });
       // 调用子组件DNewUser中updateUser方法更新用户信息内容并提交保存入库
-      this.$ref.dnewuser.updateUser();
+      this.$refs.dnewuser.updateUser();
     },
     // 删除条目
     deleteItem(item) {
       const index = this.result.items.indexOf(item);
-      confirm("Are you sure you want to delete this item?") &&
-        this.result.items.splice(index, 1);
+      confirm(this.$t("message.deleteDataTip")) && this.deleteUser();
+      this.result.items.splice(index, 1);
     },
 
     close() {
@@ -228,7 +253,7 @@ export default {
     },
 
     pChangeDialog() {
-      console.log("pChangeDialog: "+this.pdialog)
+      console.log("pChangeDialog: " + this.pdialog);
       this.pdialog = false;
     },
     // 页面全屏
@@ -242,8 +267,7 @@ export default {
       this.fullscreen = fullscreen;
     }
   },
-  mounted() { 
-  }
+  mounted() {}
 };
 </script>
 

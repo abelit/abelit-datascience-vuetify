@@ -91,7 +91,10 @@ export const message = {
   LOGINING: "Logining ...",
   LOADING: "Loading ...",
   ERROR_UNLOCK: "Unlock password error!",
-  noData: "No data"
+  noData: "No data",
+  updateSuccessfully: "Update Successfully!",
+  updateFailed: "Update Failed!",
+  deleteDataTip: "Are you sure you want to delete this item?"
 };
 
 export const toolbar = {

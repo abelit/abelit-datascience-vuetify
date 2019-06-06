@@ -91,7 +91,10 @@ export const message = {
   LOGINING: "登录中 ...",
   LOADING: "正在加载 ...",
   ERROR_UNLOCK: "解锁密码错误！",
-  noData: "没有数据"
+  noData: "没有数据",
+  updateSuccessfully: "更新成功！",
+  updateFailed: "更新失败！",
+  deleteDataTip: "确定要删除这条数据吗?"
 };
 
 export const toolbar = {
