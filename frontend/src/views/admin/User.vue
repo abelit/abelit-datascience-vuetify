@@ -189,7 +189,7 @@ export default {
           console.log(error);
         });
     },
-    deleteUser() {
+    deleteUser(item) {
       this.$axios
         .post("/admin/user/delete", {
           username: item.username
@@ -240,7 +240,9 @@ export default {
     // 删除条目
     deleteItem(item) {
       const index = this.result.items.indexOf(item);
-      confirm(this.$t("message.deleteDataTip")) && this.deleteUser();
+      console.log("hi");
+      confirm(this.$t("message.deleteDataTip")) && this.deleteUser(item);
+      console.log("hihii");
       this.result.items.splice(index, 1);
     },
 

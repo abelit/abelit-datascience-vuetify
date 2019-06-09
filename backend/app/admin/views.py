@@ -78,10 +78,10 @@ def add_menu():
     component = request.json.get('component', None)
     status = request.json.get('status', None)
     type = request.json.get('type', None)
-    order = request.json.get('order', None)    
+    order = request.json.get('order', None)
 
-    menu = Menu(name=name, en_name=enname, fid=fid,url=url,component=component,icon=icon,
-                        status=status, type=type, order=order)
+    menu = Menu(name=name, en_name=enname, fid=fid, url=url, component=component, icon=icon,
+                status=status, type=type, order=order)
 
     status_code = None
 
@@ -145,16 +145,16 @@ def update_user():
 
     user = User.query.filter_by(username=username)
     # 更新用户信息
-    user.update({'name': name, 'group_id': selected_department, 'position_id': selected_position,'gender': selected_gender, 'status': status})
+    user.update({'name': name, 'group_id': selected_department,
+                 'position_id': selected_position, 'gender': selected_gender, 'status': status})
 
     # 根据用户输入判断是否进行密码更新
     if password is not None:
         user.update({'password': generate_password_hash(password)})
 
-    has_role  = user.first().roles
+    has_role = user.first().roles
     new_role = []
 
-  
     # 更新用户权限信息
     for r in role:
         # 获取角色对象
@@ -185,7 +185,8 @@ def delete_user():
     # 从前端Ajax请求中获取用户名
     username = request.json.get('username', None)
     status_code = None
-    
+    print("...........................................")
+    print(username)
     user = User.query.filter_by(username=username).first()
 
     # 提交入库
@@ -207,7 +208,7 @@ def delete_user():
 @admin.route('/user/list', methods=['GET'])
 def list_users():
     result = []
-    users = db.session.query(User,Group,Position).join(Group, User.group_id == Group.id).join(
+    users = db.session.query(User, Group, Position).join(Group, User.group_id == Group.id).join(
         Position, User.position_id == Position.id).all()
 
     for u in users:
@@ -221,7 +222,7 @@ def list_users():
             "group": {"name": u.Group.name, "id": u.Group.id},
             "position": {"name": u.Position.name, "id": u.Position.id}
         }
-  
+
         urole = []
         for r in u.User.roles:
             urole.append({"name": r.name, "id": r.id})
@@ -229,6 +230,7 @@ def list_users():
 
         result.append(ulist)
     return jsonify(result), 200
+
 
 @admin.route('/role/add', methods=['POST'])
 def add_role():
