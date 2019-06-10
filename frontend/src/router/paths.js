@@ -708,6 +708,14 @@ export default [{
         },
         name: "ScrollDemo",
         component: () => import("@/components/demo/ScrollBarDemo")
+      },
+      {
+        path: "/demo/table",
+        meta: {
+          breadcrumb: true
+        },
+        name: "TableDemo",
+        component: () => import("@/components/demo/TableDemo")
       }
     ]
   },

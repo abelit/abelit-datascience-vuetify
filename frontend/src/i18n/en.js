@@ -138,3 +138,7 @@ export const menu = {
   demo: "Demo",
   echartDemo: "Echart Demo"
 };
+
+export const table = {
+  export: "Export "
+}

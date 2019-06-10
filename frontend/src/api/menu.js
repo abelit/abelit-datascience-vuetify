@@ -182,7 +182,8 @@ const Menu = [
     items: [
       { name: "EchartDemo", title: "echartDemo", component: "EchartDemo" },
       { name: "MapDemo", title: "mapDemo", component: "MapDemo" },
-      { name: "ScrollDemo", title: "scrollDemo", component: "ScrollDemo"}
+      { name: "ScrollDemo", title: "scrollDemo", component: "ScrollDemo"},
+      { name: "TableDemo", title: "tableDemo", component: "TableDemo" }
     ]
   },
   { divider: true },

@@ -43,6 +43,8 @@
                   item-key="username"
                   select-all
                   v-model="result.selected"
+                  :loading="isLoading"
+                  id="example"
                 >
                   <template v-slot:items="props">
                     <td class="pr-0">
@@ -109,6 +111,7 @@ export default {
     VuePerfectScrollbar
   },
   data: () => ({
+    isLoading: false,
     search: "",
     pdialog: false,
     paginationSettings: {
@@ -120,18 +123,17 @@ export default {
         {
           text: "用户名",
           align: "left",
-          sortable: true,
-          value: "user"
+          value: "username"
         },
         { text: "姓名", value: "name" },
         { text: "邮箱", value: "email" },
         { text: "性别", value: "gender" },
         { text: "部门", value: "group" },
-        { text: "职位", value: "position", sortable: true },
+        { text: "职位", value: "position" },
         { text: "角色", value: "role" },
         { text: "状态", value: "status" },
         { text: "创建日期", value: "created_time" },
-        { text: "操作", value: "action" }
+        { text: "操作", value: "action", sortable: false }
       ],
       items: []
     },
@@ -180,14 +182,18 @@ export default {
   methods: {
     // 从后台获取用户信息
     getUsers() {
-      this.$axios
-        .get("/admin/user/list")
-        .then(res => {
-          this.result.items = res.data;
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      this.isLoading = true;
+      setTimeout(() => {
+        this.$axios
+          .get("/admin/user/list")
+          .then(res => {
+            this.result.items = res.data;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        this.isLoading = false;
+      }, 1500);
     },
     deleteUser(item) {
       this.$axios

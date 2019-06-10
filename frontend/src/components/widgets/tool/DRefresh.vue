@@ -29,10 +29,10 @@ export default {
     cMethod() {
       if (this.pMethod) {
         this.isProgressCircular = true;
+        this.pMethod();
         setTimeout(() => {
           this.isProgressCircular = false;
-          this.pMethod();
-        }, 2000);
+        }, 1500);
       }
     }
   }

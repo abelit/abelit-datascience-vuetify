@@ -116,7 +116,7 @@ export default {
           console.log(error);
         });
         this.isLoading = false;
-      }, 2000);
+      }, 1500);
       
     },
 

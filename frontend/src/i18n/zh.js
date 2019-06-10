@@ -138,3 +138,7 @@ export const menu = {
   demo: "示例演示",
   echartDemo: "Echart示例"
 };
+
+export const table = {
+  export: "导出"
+}
