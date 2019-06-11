@@ -55,7 +55,8 @@ export default [{
         name: "Dashboard",
         meta: {
           breadcrumb: true,
-          requireAuth: false
+          requireAuth: false,
+          title: "Dashboard"
         },
         component: () => import("@/views/dashboard/Dashboard.vue")
       },
@@ -648,7 +649,8 @@ export default [{
       {
         path: "/admin/user",
         meta: {
-          breadcrumb: true
+          breadcrumb: true,
+          title: "User Info"
         },
         name: "User",
         component: () => import("@/views/admin/User")
@@ -712,7 +714,8 @@ export default [{
       {
         path: "/demo/table",
         meta: {
-          breadcrumb: true
+          breadcrumb: true,
+          title: "Table Demo"
         },
         name: "TableDemo",
         component: () => import("@/components/demo/TableDemo")
