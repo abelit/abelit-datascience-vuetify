@@ -30,6 +30,7 @@
                   :editedIndex="editedIndex"
                   @pChangeDialog="pChangeDialog"
                 ></d-new-user>
+                <v-btn color="success" @click="handleDownload"><v-icon>cloud_download</v-icon></v-btn>
               </v-toolbar>
               <v-divider></v-divider>
               <v-card-text class="pa-0">
@@ -273,6 +274,17 @@ export default {
     },
     fullscreenChange(fullscreen) {
       this.fullscreen = fullscreen;
+    },
+    handleDownload() {
+      import('@/assets/vender/js/Export2Excel.js').then(excel => {
+  excel.export_json_to_excel({
+    header: this.result.headers, //Header Required
+    data: this.result.items, //Specific data Required
+    filename: 'excel-list', //Optional
+    autoWidth: true, //Optional
+    bookType: 'xlsx' //Optional
+  })
+})
     }
   },
   mounted() {}
