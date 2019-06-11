@@ -30,7 +30,9 @@
                   :editedIndex="editedIndex"
                   @pChangeDialog="pChangeDialog"
                 ></d-new-user>
-                <v-btn color="success" @click="handleDownload"><v-icon>cloud_download</v-icon></v-btn>
+                <v-btn @click="handleDownload" :loading="downloadLoading" icon>
+                  <v-icon color="primary">cloud_download</v-icon>
+                </v-btn>
               </v-toolbar>
               <v-divider></v-divider>
               <v-card-text class="pa-0">
@@ -46,6 +48,7 @@
                   v-model="result.selected"
                   :loading="isLoading"
                   id="example"
+                  value
                 >
                   <template v-slot:items="props">
                     <td class="pr-0">
@@ -112,7 +115,12 @@ export default {
     VuePerfectScrollbar
   },
   data: () => ({
+    svalue: [],
     isLoading: false,
+    downloadLoading: false,
+    filename: "",
+    autoWidth: true,
+    bookType: "xlsx",
     search: "",
     pdialog: false,
     paginationSettings: {
@@ -173,6 +181,9 @@ export default {
     pdialog(val) {
       val || this.close();
       this.getUsers();
+    },
+    selected(val) {
+      console.log(val)
     }
   },
 
@@ -276,18 +287,67 @@ export default {
       this.fullscreen = fullscreen;
     },
     handleDownload() {
-      import('@/assets/vender/js/Export2Excel.js').then(excel => {
-  excel.export_json_to_excel({
-    header: this.result.headers, //Header Required
-    data: this.result.items, //Specific data Required
-    filename: 'excel-list', //Optional
-    autoWidth: true, //Optional
-    bookType: 'xlsx' //Optional
-  })
-})
+      this.downloadLoading = true;
+      import("@/assets/vendor/js/Export2Excel").then(excel => {
+        let tHeader = [];
+        for (var i = 0; i <= this.result.headers.length - 2; i++) {
+          tHeader.push(this.result.headers[i]["text"]);
+        }
+        let fHeader = [];
+        for (var i = 0; i <= this.result.headers.length - 2; i++) {
+          fHeader.push(this.result.headers[i]["value"]);
+        }
+        console.log(this.result.items[0].position.name);
+
+        let fData = [];
+        let fRole = '';
+        for (var i = 0; i <= this.result.items.length - 1; i++) {
+          for (var j = 0; j <= this.result.items[i].role.length-1;j++){
+            if (j===0) {
+              fRole = fRole + this.result.items[i].role[j].name
+            } else {
+            fRole = fRole+','+this.result.items[i].role[j].name
+            }
+          }
+          fData.push({username: this.result.items[i].username,
+            name: this.result.items[i].name,
+            email: this.result.items[i].email,
+            gender:
+              this.result.items[i].gender === 0
+                ? this.$t("auth.FEMALE")
+                : this.$t("auth.MALE"),
+            position: this.result.items[i].position.name,
+            group: this.result.items[i].group.name,
+            status: this.result.items[i].status===0?this.$t("button.disable"):this.$t("button.enable"),
+            role: fRole,
+            created_time: this.result.items[i].created_time});
+        }
+        let data = this.formatJson(fHeader, fData);
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: this.filename,
+          autoWidth: this.autoWidth,
+          bookType: this.bookType
+        });
+        this.downloadLoading = false;
+      });
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v =>
+        filterVal.map(j => {
+          if (j === "timestamp") {
+            return parseTime(v[j]);
+          } else {
+            return v[j];
+          }
+        })
+      );
     }
   },
-  mounted() {}
+  mounted() {
+    console.log(this.result.selected)
+  }
 };
 </script>
 
