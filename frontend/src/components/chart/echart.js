@@ -185,7 +185,11 @@ export default {
           _object.set(this.$data._defaultOption, p[0], p[1]);
         });
       }
-      this.chartInstance = ECharts.init(this.$refs.canvas, 'material');
+      // 在main.js中注册echarts使用this.$echarts进行实例化
+      this.chartInstance = this.$echarts.init(this.$refs.canvas, 'material');
+
+      // 在public/index.html中引入echarts.js使用Echart进行实例化
+      // this.chartInstance = Echarts.init(this.$refs.canvas, 'material');
       this.chartInstance.setOption(_object.merge(this.option, this.$data._defaultOption));
       window.addEventListener('optimizedResize', (e) => {
         setTimeout(_ => {

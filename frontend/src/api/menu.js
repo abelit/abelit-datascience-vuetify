@@ -183,7 +183,9 @@ const Menu = [
       { name: "EchartDemo", title: "echartDemo", component: "EchartDemo" },
       { name: "MapDemo", title: "mapDemo", component: "MapDemo" },
       { name: "ScrollDemo", title: "scrollDemo", component: "ScrollDemo"},
-      { name: "TableDemo", title: "tableDemo", component: "TableDemo" }
+      { name: "TableDemo", title: "tableDemo", component: "TableDemo" },
+      { name: "ExportTableDemo", title: "ExportTableDemo", component: "ExportTableDemo" },
+      { name: "EchartDemoA", title: "EchartDemoA", component: "EchartDemoA" }
     ]
   },
   { divider: true },

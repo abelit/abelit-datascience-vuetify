@@ -5,7 +5,7 @@
       @ps-scroll-y="scrollHanle"
     >
       <v-container grid-list-xl fluid id="scroll-target" :class="isPageFullScreen?'px-1':''">
-        <v-layout row wrap>
+        <v-layout row wrap dark>
           <!-- mini statistic start -->
 
           <v-flex lg3 sm6 xs12>
@@ -61,6 +61,26 @@
                 <e-chart
                   :path-option="[
                   ['dataset.source', locationData],
+                  ['legend.bottom', '0'],
+                  ['color', [color.lightBlue.base, color.indigo.base, color.pink.base, color.green.base, color.cyan.base, color.teal.base]],
+                  ['xAxis.show', false],
+                  ['yAxis.show', false],
+                  ['series[0].type', 'pie'],
+                  ['series[0].avoidLabelOverlap', true],         
+                  ['series[0].radius', ['50%', '70%']],                      
+                ]"
+                  height="400px"
+                  width="100%"
+                ></e-chart>
+              </div>
+            </v-widget>
+          </v-flex>
+          <v-flex lg4 sm12 xs12>
+            <v-widget title="Test Echarts" content-bg="white">
+              <div slot="widget-content">
+                <e-chart
+                  :path-option="[
+                  ['dataset.source', testData],
                   ['legend.bottom', '0'],
                   ['color', [color.lightBlue.base, color.indigo.base, color.pink.base, color.green.base, color.cyan.base, color.teal.base]],
                   ['xAxis.show', false],
@@ -221,6 +241,49 @@ export default {
     },
     color: Material,
     selectedTab: "tab-1",
+    testData: [
+        {
+            name:'邮件营销',
+            type:'line',
+            stack: '总量',
+            areaStyle: {},
+            data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name:'联盟广告',
+            type:'line',
+            stack: '总量',
+            areaStyle: {},
+            data:[220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+            name:'视频广告',
+            type:'line',
+            stack: '总量',
+            areaStyle: {},
+            data:[150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+            name:'直接访问',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[320, 332, 301, 334, 390, 330, 320]
+        },
+        {
+            name:'搜索引擎',
+            type:'line',
+            stack: '总量',
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top'
+                }
+            },
+            areaStyle: {normal: {}},
+            data:[820, 932, 901, 934, 1290, 1330, 1320]
+        }
+    ],
     linearTrending: [
       {
         subheading: "Sales",

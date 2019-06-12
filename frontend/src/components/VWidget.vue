@@ -23,7 +23,7 @@ export default {
     },
     enableHeader: {
       type: Boolean,
-      default: true
+      default: false
     },
     contentBg: {
       type: String,

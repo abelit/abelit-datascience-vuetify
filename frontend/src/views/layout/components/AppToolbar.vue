@@ -9,7 +9,7 @@
     </v-toolbar-title>
       <v-toolbar-side-icon  @click.stop="handleDrawerToggle"></v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <v-flex xs4>
+      <!-- <v-flex xs4>
         <v-text-field
         append-icon="search"
         :label="$t('button.SEARCH')"
@@ -17,7 +17,7 @@
         color="primary darken-4"
         >
       </v-text-field>
-      </v-flex>
+      </v-flex> -->
       <v-spacer></v-spacer>
       <d-help-question></d-help-question>
       <d-lang-picker></d-lang-picker>

@@ -4,7 +4,7 @@
       <v-flex xs12 dark>
         <table
           id="user-table"
-          class="display table-bordered nowrap testt"
+          class="display table-bordered nowrap"
           cellspacing="0"
           width="100%"
         >
@@ -36,11 +36,11 @@ export default {
     let users = [];
 
     this.dataTable = $("#user-table").DataTable({
-      dom: 'B<"clear">frtip',
+      dom: 'Bfrtip',
       buttons: [
         {
           extend: "collection",
-          text: '<i class="fa fa-ellipsis-h"></i>',
+          text: '<i class="fa fa-ellipsis-v"></i>',
           buttons: [
             "copyHtml5",
             "excelHtml5",
@@ -88,5 +88,12 @@ export default {
 div.dt-buttons {
   position: relative;
   float: right;
+  
+  width: 20px;
+  height: 20px;
+}
+button.dt-button {
+  border-color: transparent;
+	background-color: transparent;
 }
 </style>

@@ -719,6 +719,24 @@ export default [{
         },
         name: "TableDemo",
         component: () => import("@/components/demo/TableDemo")
+      },
+      {
+        path: "/demo/exporttable",
+        meta: {
+          breadcrumb: true,
+          title: "Export Table Demo"
+        },
+        name: "ExportTableDemo",
+        component: () => import("@/components/demo/ExportTableDemo")
+      },
+      {
+        path: "/demo/echarta",
+        meta: {
+          breadcrumb: true,
+          title: "Echart Demo"
+        },
+        name: "EchartDemoA",
+        component: () => import("@/components/demo/EchartDemoA")
       }
     ]
   },

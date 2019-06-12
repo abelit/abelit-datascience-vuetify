@@ -343,6 +343,15 @@ export default {
           }
         })
       );
+    },
+    handleDownloadNew() {
+      $("#example").tableHTMLExport({
+        // csv, txt, json, pdf
+        type: "pdf",
+
+        // file name
+        filename: "sample.pdf"
+      });
     }
   },
   mounted() {
