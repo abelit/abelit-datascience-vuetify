@@ -31,7 +31,7 @@
               <v-btn icon slot="widget-header-action">
                 <v-icon class="text--secondary">refresh</v-icon>
               </v-btn>
-              <div slot="widget-content">
+              <div slot="widget-content" class="hbhhhhhh">
                 <e-chart
                   :path-option="[
                   ['dataset.source', siteTrafficData],
@@ -63,8 +63,8 @@
                   ['dataset.source', locationData],
                   ['legend.show', true],
                   ['color', [color.lightBlue.base, color.indigo.base]],
-                  ['xAxis.show', true],
-                  ['yAxis.show', true],
+                  ['xAxis.show', false],
+                  ['yAxis.show', false],
                   ['series[0].type', 'pie'],
                   ['series[0].avoidLabelOverlap', true],         
                   ['series[0].radius', ['50%', '70%']],                      

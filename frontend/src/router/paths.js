@@ -730,6 +730,15 @@ export default [{
         component: () => import("@/components/demo/ExportTableDemo")
       },
       {
+        path: "/demo/echartb",
+        meta: {
+          breadcrumb: true,
+          title: "Echart Demo"
+        },
+        name: "EchartDemoB",
+        component: () => import("@/components/demo/EchartDemoB")
+      },
+      {
         path: "/demo/echarta",
         meta: {
           breadcrumb: true,
@@ -737,6 +746,15 @@ export default [{
         },
         name: "EchartDemoA",
         component: () => import("@/components/demo/EchartDemoA")
+      },
+      {
+        path: "/demo/dashboard",
+        meta: {
+          breadcrumb: true,
+          title: "Dashboard Demo"
+        },
+        name: "DashboardDemo",
+        component: () => import("@/components/demo/DashboardDemo")
       }
     ]
   },
