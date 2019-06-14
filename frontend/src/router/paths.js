@@ -755,6 +755,15 @@ export default [{
         },
         name: "DashboardDemo",
         component: () => import("@/components/demo/DashboardDemo")
+      },
+      {
+        path: "/demo/testscroll",
+        meta: {
+          breadcrumb: true,
+          title: "Test Scroll Demo"
+        },
+        name: "TestScrollDemo",
+        component: () => import("@/components/demo/TestScrollDemo")
       }
     ]
   },

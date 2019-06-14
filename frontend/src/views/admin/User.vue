@@ -183,7 +183,7 @@ export default {
       this.getUsers();
     },
     selected(val) {
-      console.log(val)
+      console.log(val);
     }
   },
 
@@ -271,7 +271,6 @@ export default {
         this.editedIndex = -1;
       }, 300);
     },
-
     pChangeDialog() {
       console.log("pChangeDialog: " + this.pdialog);
       this.pdialog = false;
@@ -300,16 +299,17 @@ export default {
         console.log(this.result.items[0].position.name);
 
         let fData = [];
-        let fRole = '';
+        let fRole = "";
         for (var i = 0; i <= this.result.items.length - 1; i++) {
-          for (var j = 0; j <= this.result.items[i].role.length-1;j++){
-            if (j===0) {
-              fRole = fRole + this.result.items[i].role[j].name
+          for (var j = 0; j <= this.result.items[i].role.length - 1; j++) {
+            if (j === 0) {
+              fRole = fRole + this.result.items[i].role[j].name;
             } else {
-            fRole = fRole+','+this.result.items[i].role[j].name
+              fRole = fRole + "," + this.result.items[i].role[j].name;
             }
           }
-          fData.push({username: this.result.items[i].username,
+          fData.push({
+            username: this.result.items[i].username,
             name: this.result.items[i].name,
             email: this.result.items[i].email,
             gender:
@@ -318,9 +318,13 @@ export default {
                 : this.$t("auth.MALE"),
             position: this.result.items[i].position.name,
             group: this.result.items[i].group.name,
-            status: this.result.items[i].status===0?this.$t("button.disable"):this.$t("button.enable"),
+            status:
+              this.result.items[i].status === 0
+                ? this.$t("button.disable")
+                : this.$t("button.enable"),
             role: fRole,
-            created_time: this.result.items[i].created_time});
+            created_time: this.result.items[i].created_time
+          });
         }
         let data = this.formatJson(fHeader, fData);
         excel.export_json_to_excel({
@@ -355,7 +359,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.result.selected)
+    console.log(this.result.selected);
   }
 };
 </script>
