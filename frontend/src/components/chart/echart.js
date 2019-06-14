@@ -5,10 +5,10 @@
 import colors from "vuetify/es5/util/colors"
 import _object from "lodash/object"
 
-const ECharts = window.echarts || undefined
-if (ECharts === undefined) {
-  console.error("ECharts is not defined")
-}
+// const ECharts = window.echarts || undefined
+// if (ECharts === undefined) {
+//   console.error("ECharts is not defined")
+// }
 // set color palette
 const colorPalette = []
 Object.entries(colors).forEach(item => {
@@ -200,11 +200,16 @@ export default {
         })
       }
       this.chartInstance = this.$echarts.init(this.$refs.canvas, "material")
+      this.chartInstance.resize();
       // this.chartInstance = ECharts.init(this.$refs.canvas, "material")
       this.chartInstance.setOption(_object.merge(this.option, this.$data._defaultOption))
+
+      this.chartInstance.resize();
+      console.log("init resized")
       window.addEventListener("optimizedResize", e => {
         setTimeout(_ => {
           this.chartInstance.resize()
+          console.log("resize ....")
         }, this.widthChangeDelay)
       })
     },
@@ -219,11 +224,9 @@ export default {
   },
   mounted() {
     this.init()
-    console.log("haha")
   },
 
   beforeDestroy() {
-    console.log("destorey")
     this.clean()
   }
 }

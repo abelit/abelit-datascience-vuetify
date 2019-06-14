@@ -1,28 +1,28 @@
 <template>
     <v-container grid-list-xs fluid>
-        <v-layout row wrap>
-            <v-flex lg4 sm6 xs12>
-                <div id="myChart" style="width: 100vw;height:400px;"></div>
+        <v-layout row wrap >
+            <v-flex xs12 ref="mytest">
+                <div id="myChart" style="height:400px" :style="'width:'+width"></div>
             </v-flex>
-             <v-flex lg4 sm6 xs12>
-                <div id="myChart1" style="width: 100vw;height:400px;"></div>
-            </v-flex>
-             <v-flex lg4 sm6 xs12>
-                <div id="myChart2" style="width: 100vw;height:400px;"></div>
-            </v-flex>
+
         </v-layout>
     </v-container>
 </template>
 
 <script>
+
 export default {
   name: 'hello',
+
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+        width: 'auto',
     }
   },
   mounted(){
+    console.log(this.$refs.mytest.offsetWidth);
+    this.width = this.$refs.mytest.offsetWidth;
     this.drawLine();
   },
   methods: {

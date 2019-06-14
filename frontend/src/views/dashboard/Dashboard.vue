@@ -28,10 +28,10 @@
           <!-- mini statistic  end -->
           <v-flex lg8 sm12 xs12>
             <v-widget title="Site Traffic" content-bg="white">
-              <v-btn icon slot="widget-header-action">
+              <v-btn icon v-slot:widget-header-action>
                 <v-icon class="text--secondary">refresh</v-icon>
               </v-btn>
-              <div slot="widget-content">
+              <template v-slot:widget-content class="mybaby">
                 <e-chart
                   :path-option="[
                   ['dataset.source', siteTrafficData],
@@ -52,7 +52,7 @@
                   height="400px"
                   width="100%"
                 ></e-chart>
-              </div>
+              </template>
             </v-widget>
           </v-flex>
           <v-flex lg4 sm12 xs12>
@@ -63,14 +63,15 @@
                   ['dataset.source', locationData],
                   ['legend.show', true],
                   ['color', [color.lightBlue.base, color.indigo.base]],
-                  ['xAxis.show', true],
-                  ['yAxis.show', true],
+                  ['xAxis.show', false],
+                  ['yAxis.show', false],
                   ['series[0].type', 'pie'],
                   ['series[0].avoidLabelOverlap', true],         
                   ['series[0].radius', ['50%', '70%']],                      
                 ]"
                   height="400px"
                   width="100%"
+                  class="ogod"
                 ></e-chart>
               </div>
             </v-widget>
