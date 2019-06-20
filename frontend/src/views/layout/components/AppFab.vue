@@ -16,14 +16,14 @@ export default {
 
   methods: {
     onScroll () {
-      console.log("fab: "+ this.fab)
+      // console.log("fab: "+ this.fab)
       if (typeof window === 'undefined') return;
 
       const top = window.pageYOffset ||
         document.documentElement.offsetTop ||
         0;
 
-      console.log("top:" + top)
+      // console.log("top:" + top)
       this.fab = top > 300;
     },
     toTop () {

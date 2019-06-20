@@ -200,11 +200,9 @@ export default {
         })
       }
       this.chartInstance = this.$echarts.init(this.$refs.canvas, "material")
-      this.chartInstance.resize();
       // this.chartInstance = ECharts.init(this.$refs.canvas, "material")
       this.chartInstance.setOption(_object.merge(this.option, this.$data._defaultOption))
 
-      this.chartInstance.resize();
       console.log("init resized")
       window.addEventListener("optimizedResize", e => {
         setTimeout(_ => {
