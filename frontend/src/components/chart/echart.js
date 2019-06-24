@@ -27,16 +27,17 @@ Object.entries(colors).forEach(item => {
 
 //   }
 // });
-;(function() {
-  const throttle = function(type, name, obj) {
+;
+(function () {
+  const throttle = function (type, name, obj) {
     obj = obj || window
     let running = false
-    let func = function() {
+    let func = function () {
       if (running) {
         return
       }
       running = true
-      requestAnimationFrame(function() {
+      requestAnimationFrame(function () {
         obj.dispatchEvent(new CustomEvent(name))
         running = false
       })
@@ -61,8 +62,14 @@ export default {
 
   props: {
     // args of  ECharts.init(dom, theme, opts)
-    width: { type: String, default: "auto" },
-    height: { type: String, default: "400px" },
+    width: {
+      type: String,
+      default: "auto"
+    },
+    height: {
+      type: String,
+      default: "400px"
+    },
     merged: {
       type: Boolean,
       default: true
@@ -75,20 +82,24 @@ export default {
     title: Object,
     legend: [Object, Array],
     tooltip: Object,
-    grid: { type: [Object, Array] },
+    grid: {
+      type: [Object, Array]
+    },
     xAxis: [Object, Array],
     yAxis: [Object, Array],
     series: [Object, Array],
     axisPointer: Object,
     dataset: {
       type: [Object, Array],
-      default() {
+      default () {
         return {}
       }
     }, // option.dataSet
     colors: Array, // echarts.option.color
     backgroundColor: [Object, String],
-    toolbox: { type: [Object, Array] },
+    toolbox: {
+      type: [Object, Array]
+    },
     // resize delay
     widthChangeDelay: {
       type: Number,
@@ -175,11 +186,9 @@ export default {
           }
         }
       },
-      series: [
-        {
-          type: "line"
-        }
-      ]
+      series: [{
+        type: "line"
+      }]
     }
   }),
   computed: {
@@ -192,7 +201,9 @@ export default {
   },
   methods: {
     init() {
-      const { widthChangeDelay } = this
+      const {
+        widthChangeDelay
+      } = this
       // set
       if (this.pathOption) {
         this.pathOption.forEach(p => {
@@ -203,25 +214,26 @@ export default {
       // this.chartInstance = ECharts.init(this.$refs.canvas, "material")
       this.chartInstance.setOption(_object.merge(this.option, this.$data._defaultOption))
 
-      console.log("init resized")
-      window.addEventListener("optimizedResize", e => {
-        setTimeout(_ => {
-          this.chartInstance.resize()
-          console.log("resize ....")
-        }, this.widthChangeDelay)
-      })
+      window.addEventListener("optimizedResize", () => {
+        setTimeout(() => {
+          this.chartInstance.resize();
+        }, this.widthChangeDelay);
+      });
     },
-
     resize() {
-      this.chartInstance.resize()
+      setTimeout(_ => {
+        this.chartInstance.resize()
+      }, this.widthChangeDelay)
     },
     clean() {
-      window.removeEventListener("resize", this.chartInstance.resize)
-      this.chartInstance.clear()
+      window.removeEventListener("resize", this.chartInstance.resize())
+      this.chartInstance.clear();
     }
   },
   mounted() {
-    this.init()
+    this.init();
+    // 以下解决页面echarts的canvas大小自适应问题
+    this.resize();
   },
 
   beforeDestroy() {
