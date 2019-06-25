@@ -258,9 +258,7 @@ export default {
     // 删除条目
     deleteItem(item) {
       const index = this.result.items.indexOf(item);
-      console.log("hi");
       confirm(this.$t("message.deleteDataTip")) && this.deleteUser(item);
-      console.log("hihii");
       this.result.items.splice(index, 1);
     },
 

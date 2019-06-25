@@ -243,10 +243,29 @@ def add_role():
 
     status_code = None
 
-    role = Role(name=name, en_name=enname, status=status)
+    role = Role(name=name, enname=enname, status=status)
 
     try:
         db.session.add(role)
+        db.session.commit()
+        status_code = 200
+    except Exception:
+        status_code = 500
+
+    return jsonify(), status_code
+
+@admin.route('/role/delete', methods=['POST'])
+def delete_role():
+    # 从前端Ajax请求中获取用户名
+    name = request.json.get('name', None)
+    status_code = None
+
+    role = Role.query.filter_by(name=name).first()
+
+    # 提交入库
+    try:
+        # 删除角色
+        db.session.delete(role)
         db.session.commit()
         status_code = 200
     except Exception:
@@ -263,7 +282,7 @@ def list_roles():
     for r in roles:
         rlist = {
             "name": r.name,
-            "en_name": r.en_name,
+            "enname": r.enname,
             "status": r.status,
             "created_time": r.created_time
         }
