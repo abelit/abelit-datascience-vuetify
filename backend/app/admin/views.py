@@ -238,11 +238,12 @@ def list_users():
 @admin.route('/role/add', methods=['POST'])
 def add_role():
     name = request.json.get('name', None)
+    enname = request.json.get('enname', None)
     status = request.json.get('status', None)
 
     status_code = None
 
-    role = Role(name=name, status=status)
+    role = Role(name=name, en_name=enname, status=status)
 
     try:
         db.session.add(role)
@@ -262,6 +263,7 @@ def list_roles():
     for r in roles:
         rlist = {
             "name": r.name,
+            "en_name": r.en_name,
             "status": r.status,
             "created_time": r.created_time
         }

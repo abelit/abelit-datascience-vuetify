@@ -1,21 +1,18 @@
 <template>
   <v-container fluid>
     <v-flayout row wrap>
-       <!-- <v-flex sm12>
-        <h3>result Table</h3>
-      </v-flex> -->
       <v-flex lg12>
         <v-card>
           <v-toolbar flat color="white">
-           <v-flex xs2>
-             <v-text-field
-              flat
-              solo
-              prepend-icon="search"
-              :placeholder="$t('admin.typeSomething')"
-              v-model="search"
-              hide-details
-              ></v-text-field>   
+            <v-flex xs2>
+              <v-text-field
+                flat
+                solo
+                prepend-icon="search"
+                :placeholder="$t('admin.typeSomething')"
+                v-model="search"
+                hide-details
+              ></v-text-field>
             </v-flex>
             <v-spacer></v-spacer>
             <d-refresh :pMethod="getRoles"></d-refresh>
@@ -28,9 +25,14 @@
               :search="search"
               class="elevation-1"
               :pagination.sync="paginations"
+              select-all
             >
               <template v-slot:items="props">
+                <td class="pr-0">
+                  <v-checkbox primary hide-details v-model="props.selected"></v-checkbox>
+                </td>
                 <td class="text-xs-left">{{ props.item.name }}</td>
+                <td class="text-xs-left">{{ props.item.en_name }}</td>
                 <td class="text-xs-left">{{ props.item.status }}</td>
                 <td class="text-xs-left">{{ props.item.created_time }}</td>
 
@@ -43,11 +45,7 @@
                 <span>{{$t("message.noData")}}</span>
               </template>
               <template v-slot:no-results>
-                <v-alert
-                  :value="true"
-                  color="error"
-                  icon="warning"
-                >{{ $t("admin.noRecordFound") }}</v-alert>
+                <v-alert :value="true" color="error" icon="warning">{{ $t("admin.noRecordFound") }}</v-alert>
               </template>
             </v-data-table>
           </v-card-text>
@@ -76,9 +74,10 @@ export default {
     },
     headers: [
       { text: "名称", value: "name" },
+      { text: "英文名称", value: "en_name" },
       { text: "状态", value: "status" },
       { text: "创建日期", value: "created_time" },
-      { text: "操作", value: "Action"}
+      { text: "操作", value: "Action" }
     ],
     data: [],
     editedIndex: -1

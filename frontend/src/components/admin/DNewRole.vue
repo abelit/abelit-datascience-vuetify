@@ -41,6 +41,22 @@
               </v-flex>
             </v-layout>
             <v-layout row wrap align-center>
+              <v-flex xs12 sm12>
+                <v-text-field
+                  v-model.trim="enname"
+                  prepend-inner-icon="verified_user"
+                  color="deep-purple"
+                  :label="$t('admin.ENNAME')"
+                  type="enname"
+                  v-validate="'required|max:20|min:2'"
+                  :error-messages="errors.collect('enname')"
+                  data-vv-name="enname"
+                  required
+                  class="mx-1"
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+            <v-layout row wrap align-center>
               <v-flex xs12 sm6>
                 <v-checkbox
                   class="mx-1"
@@ -80,6 +96,7 @@
 export default {
   data: () => ({
     name: undefined,
+    enname: undefined,
     isButtonLoading: false,
     message: "",
     loadingMessage: "",
@@ -100,6 +117,7 @@ export default {
           this.$axios
             .post("/admin/role/add", {
               name: this.name,
+              enname: this.enname,
               status: this.status
             })
             .then(() => {
