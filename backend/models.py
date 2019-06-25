@@ -98,6 +98,7 @@ class Menu(db.Model):
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
+    en_name = db.Column(db.String(80), unique=True, nullable=False)
     status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
     created_time = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
