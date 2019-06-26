@@ -72,6 +72,8 @@ export const button = {
   SEARCH: "Search",
   newUser: "New User",
   editUser: "Edit User",
+  newRole: "New Role",
+  editRole: "Edit Role",
   NEW_ROLE: "New Role",
   NEW_GROUP: "New Group",
   NEW_POSITION: "New Position",

@@ -254,6 +254,27 @@ def add_role():
 
     return jsonify(), status_code
 
+@admin.route('/role/update', methods=['POST'])
+def update_role():
+    # 从前端Ajax请求中获取角色信息
+    name = request.json.get('name', None)
+    status = request.json.get('status', None)
+
+    status_code = None
+
+    role = Role.query.filter_by(name=name)
+    # 更新用户信息
+    role.update({'status': status})
+            
+    # 提交入库
+    try:
+        db.session.commit()
+        status_code = 200
+    except Exception:
+        status_code = 500
+
+    return jsonify(), status_code
+
 @admin.route('/role/delete', methods=['POST'])
 def delete_role():
     # 从前端Ajax请求中获取用户名

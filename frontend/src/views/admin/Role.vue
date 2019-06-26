@@ -31,7 +31,7 @@
               </template>
               <v-flex xs-12 sm-6 md-4 lg-1>
                 <v-toolbar dark color="primary">
-                  <v-toolbar-title>{{ $t("button.NEW_ROLE") }}</v-toolbar-title>
+                  <v-toolbar-title> {{  formTitle  }} </v-toolbar-title>
                   <v-spacer></v-spacer>
                   <v-btn icon dark @click="dialog = false">
                     <v-icon>close</v-icon>
@@ -54,6 +54,7 @@
                             data-vv-name="name"
                             required
                             class="mx-1"
+                            :disabled="editedIndex===-1?false:true"
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
@@ -70,6 +71,7 @@
                             data-vv-name="enname"
                             required
                             class="mx-1"
+                            :disabled="editedIndex===-1?false:true"
                           ></v-text-field>
                         </v-flex>
                       </v-layout>
@@ -79,7 +81,6 @@
                             class="mx-1"
                             v-model="editedItem.status"
                             :label="$t('button.enable')"
-                            value="1"
                             data-vv-name="status"
                           ></v-checkbox>
                         </v-flex>
@@ -92,7 +93,7 @@
                     <v-btn color="primary" @click="dialog = false" dark>
                       <span class="font-weight-bold">{{$t("button.CANCEL") }}</span>
                     </v-btn>
-                    <v-btn color="primary" @click="handNewRole" dark>
+                    <v-btn color="primary" @click="editedIndex===-1?handNewRole():updateRole()" dark>
                       <span class="font-weight-bold">{{$t("button.CONFIRM") }}</span>
                     </v-btn>
                   </v-card-actions>
@@ -124,7 +125,9 @@
                 </td>
                 <td class="text-xs-left">{{ props.item.name }}</td>
                 <td class="text-xs-left">{{ props.item.enname }}</td>
-                <td class="text-xs-left">{{ props.item.status }}</td>
+                <td class="text-xs-left"><v-chip
+                        :color="props.item.status===1?'primary':''"
+                      >{{ (props.item.status===1)?$t("button.enabled"):$t("button.disabled") }}</v-chip></td>
                 <td class="text-xs-left">{{ props.item.created_time }}</td>
 
                 <td>
@@ -189,12 +192,13 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+     return (this.editedIndex===-1) ? this.$t('button.newRole') : this.$t('button.editRole');
     }
   },
   watch: {
     dialog(val) {
       val || this.close();
+      this.getRoles;
     }
   },
   created() {
@@ -268,10 +272,46 @@ export default {
           }, 1000);
         });
     },
+      // 跟新角色信息
+    async updateRole() {
+      await this.$validator.validateAll();
+      // 如果用户输入的所有内容没有错误信息，然后发起后台请求
+      if (this.$validator.errors.all().length === 0) {
+        this.isButtonLoading = true;
+        this.loadingMessage = this.$t("message.LOADING");
+        setTimeout(() => {
+          this.isButtonLoading = false;
+          this.$axios
+            .post("/admin/role/update", {
+              name: this.editedItem.name,
+              status: this.editedItem.status ? 1 : 0
+            })
+            .then(() => {
+              this.isActive = true;
+              this.message = this.$t("message.updateSuccessfully");
+              setTimeout(() => {
+                this.message = "";
+                // 跳转上一请求页面或主页
+                this.dialog = false;
+              }, 1000);
+            })
+            .catch(() => {
+              this.isActive = false;
+              this.message = this.$t("message.updateFailed");
+              setTimeout(() => {
+                this.message = "";
+              }, 1000);
+            });
+        }, 1000);
+      }
+    },
     editItem(item) {
-      item.status = item.status === 1 ? true : false
+      // 通过JSON.stringify和JSON.parse完全复制对象
+      let _item = JSON.parse(JSON.stringify(item));
+
+      _item.status = item.status === 1 ? true : false;
       this.editedIndex = this.items.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.editedItem = Object.assign({}, _item);
       this.dialog = true;
     },
 

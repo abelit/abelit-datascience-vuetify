@@ -72,6 +72,8 @@ export const button = {
   SEARCH: "搜索",
   newUser: "新增用户",
   editUser: "编辑用户",
+  newRole: "新增角色",
+  editRole: "编辑角色",
   NEW_ROLE: "新增角色",
   NEW_GROUP: "新增部门",
   NEW_POSITION: "新增职位",
