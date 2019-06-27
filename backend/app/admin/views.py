@@ -41,6 +41,48 @@ def add_group():
     return jsonify(), status_code
 
 
+@admin.route('/group/delete', methods=['POST'])
+def delete_group():
+    # 从前端Ajax请求中获取用户名
+    name = request.json.get('name', None)
+    status_code = None
+
+    group = Group.query.filter_by(name=name).first()
+
+    # 提交入库
+    try:
+        # 删除角色
+        db.session.delete(group)
+        db.session.commit()
+        status_code = 200
+    except Exception:
+        status_code = 500
+
+    return jsonify(), status_code
+
+@admin.route('/group/update', methods=['POST'])
+def update_group():
+    # 从前端Ajax请求中获取角色信息
+    name = request.json.get('name', None)
+    status = request.json.get('status', None)
+    description =  request.json.get('description', None)
+
+    status_code = None
+
+    group = Group.query.filter_by(name=name)
+    # 更新用户信息
+    group.update({'status': status,'description': description})
+            
+    # 提交入库
+    try:
+        db.session.commit()
+        status_code = 200
+    except Exception:
+        status_code = 500
+
+    return jsonify(), status_code
+
+
 @admin.route("/position/add", methods=["POST"])
 # @jwt_required
 def add_position():
@@ -65,10 +107,52 @@ def add_position():
 
     return jsonify(), status_code
 
+@admin.route('/position/delete', methods=['POST'])
+def delete_position():
+    # 从前端Ajax请求中获取用户名
+    name = request.json.get('name', None)
+    status_code = None
+
+    position = Position.query.filter_by(name=name).first()
+
+    # 提交入库
+    try:
+        # 删除角色
+        db.session.delete(position)
+        db.session.commit()
+        status_code = 200
+    except Exception:
+        status_code = 500
+
+    return jsonify(), status_code
+
+@admin.route('/position/update', methods=['POST'])
+def update_position():
+    # 从前端Ajax请求中获取角色信息
+    name = request.json.get('name', None)
+    status = request.json.get('status', None)
+    description =  request.json.get('description', None)
+
+    status_code = None
+
+    position = Position.query.filter_by(name=name)
+    # 更新用户信息
+    position.update({'status': status,'description': description})
+            
+    # 提交入库
+    try:
+        db.session.commit()
+        status_code = 200
+    except Exception:
+        status_code = 500
+
+    return jsonify(), status_code
+
 
 @admin.route("/menu/add", methods=["POST"])
 # @jwt_required
 def add_menu():
+    print("--------------------------------------------------+++++++++++++++++++++++++++++")
     # 从前端Ajax请求中获取数据
     name = request.json.get('name', None)
     enname = request.json.get('enname', None)
@@ -79,6 +163,9 @@ def add_menu():
     status = request.json.get('status', None)
     type = request.json.get('type', None)
     order = request.json.get('order', None)
+
+    print(".........................................")
+    print(name)
 
     menu = Menu(name=name, en_name=enname, fid=fid, url=url, component=component, icon=icon,
                 status=status, type=type, order=order)

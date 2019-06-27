@@ -258,8 +258,11 @@ export default {
     // 删除条目
     deleteItem(item) {
       const index = this.result.items.indexOf(item);
-      confirm(this.$t("message.deleteDataTip")) && this.deleteUser(item);
-      this.result.items.splice(index, 1);
+      let isConfirm = confirm(this.$t("message.deleteDataTip"));
+      if (isConfirm){
+        this.deleteUser(item);
+        this.result.items.splice(index, 1);
+      }
     },
 
     close() {
@@ -357,7 +360,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.result.selected);
   }
 };
 </script>

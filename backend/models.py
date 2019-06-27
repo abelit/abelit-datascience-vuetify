@@ -82,7 +82,7 @@ class Menu(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     en_name = db.Column(db.String(80), unique=True, nullable=False)
-    fid = db.Column(db.Integer, nullable=False)
+    fid = db.Column(db.Integer, nullable=True)
     url = db.Column(db.String(500), unique=True, nullable=False)
     component = db.Column(db.String(500), unique=True, nullable=False)
     icon = db.Column(db.String(50), unique=True)

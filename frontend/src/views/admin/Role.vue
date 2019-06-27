@@ -31,7 +31,7 @@
               </template>
               <v-flex xs-12 sm-6 md-4 lg-1>
                 <v-toolbar dark color="primary">
-                  <v-toolbar-title> {{  formTitle  }} </v-toolbar-title>
+                  <v-toolbar-title>{{ formTitle }}</v-toolbar-title>
                   <v-spacer></v-spacer>
                   <v-btn icon dark @click="dialog = false">
                     <v-icon>close</v-icon>
@@ -93,7 +93,7 @@
                     <v-btn color="primary" @click="dialog = false" dark>
                       <span class="font-weight-bold">{{$t("button.CANCEL") }}</span>
                     </v-btn>
-                    <v-btn color="primary" @click="editedIndex===-1?handNewRole():updateRole()" dark>
+                    <v-btn color="primary" @click="save" dark>
                       <span class="font-weight-bold">{{$t("button.CONFIRM") }}</span>
                     </v-btn>
                   </v-card-actions>
@@ -125,9 +125,11 @@
                 </td>
                 <td class="text-xs-left">{{ props.item.name }}</td>
                 <td class="text-xs-left">{{ props.item.enname }}</td>
-                <td class="text-xs-left"><v-chip
-                        :color="props.item.status===1?'primary':''"
-                      >{{ (props.item.status===1)?$t("button.enabled"):$t("button.disabled") }}</v-chip></td>
+                <td class="text-xs-left">
+                  <v-chip
+                    :color="props.item.status===1?'primary':''"
+                  >{{ (props.item.status===1)?$t("button.enabled"):$t("button.disabled") }}</v-chip>
+                </td>
                 <td class="text-xs-left">{{ props.item.created_time }}</td>
 
                 <td>
@@ -192,16 +194,19 @@ export default {
 
   computed: {
     formTitle() {
-     return (this.editedIndex===-1) ? this.$t('button.newRole') : this.$t('button.editRole');
+      return this.editedIndex === -1
+        ? this.$t("button.newRole")
+        : this.$t("button.editRole");
     }
   },
   watch: {
     dialog(val) {
+      console.log("dialog: " + val);
       val || this.close();
-      this.getRoles;
+      this.getRoles();
     }
   },
-  created() {
+  mounted() {
     this.getRoles();
   },
 
@@ -251,7 +256,7 @@ export default {
         });
     },
     deleteRole(item) {
-      console.log(item)
+      console.log(item);
       this.$axios
         .post("/admin/role/delete", {
           name: item.name
@@ -272,7 +277,7 @@ export default {
           }, 1000);
         });
     },
-      // 跟新角色信息
+    // 跟新角色信息
     async updateRole() {
       await this.$validator.validateAll();
       // 如果用户输入的所有内容没有错误信息，然后发起后台请求
@@ -317,12 +322,17 @@ export default {
 
     deleteItem(item) {
       const index = this.items.indexOf(item);
-      confirm(this.$t("message.deleteDataTip")) && this.deleteRole(item);
-      this.items.splice(index, 1)
+
+      let isConfirm = confirm(this.$t("message.deleteDataTip") + item.name);
+      if (isConfirm) {
+        this.deleteRole(item);
+        this.items.splice(index, 1);
+      }
     },
 
     close() {
       this.dialog = false;
+      console.log("close: ");
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
@@ -330,12 +340,13 @@ export default {
     },
 
     save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.items[this.editedIndex], this.editedItem);
+      if (this.editedIndex === -1) {
+        // this.items.push(this.editedItem);
+        this.handNewRole();
       } else {
-        this.items.push(this.editedItem);
+        Object.assign(this.items[this.editedIndex], this.editedItem);
+        this.updateRole();
       }
-      this.close();
     }
   }
 };

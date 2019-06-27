@@ -74,6 +74,12 @@ export const button = {
   editUser: "Edit User",
   newRole: "New Role",
   editRole: "Edit Role",
+  newPosition: "New Position",
+  editPosition: "Edit Position",
+  newGroup: "New Group",
+  editGroup: "Edit Group",
+  newMenu: "New Menu",
+  editMenu: "Edit Menu",
   NEW_ROLE: "New Role",
   NEW_GROUP: "New Group",
   NEW_POSITION: "New Position",
@@ -96,7 +102,7 @@ export const message = {
   noData: "No data",
   updateSuccessfully: "Update Successfully!",
   updateFailed: "Update Failed!",
-  deleteDataTip: "Are you sure you want to delete this item?"
+  deleteDataTip: "Are you sure you want to delete this item? And you are deleting the object is "
 };
 
 export const toolbar = {

@@ -74,6 +74,12 @@ export const button = {
   editUser: "编辑用户",
   newRole: "新增角色",
   editRole: "编辑角色",
+  newPosition: "新增职位",
+  editPosition: "编辑职位",
+  newGroup: "新增组",
+  editGroup: "编辑组",
+  newMenu: "新增菜单",
+  editMenu: "编辑菜单",
   NEW_ROLE: "新增角色",
   NEW_GROUP: "新增部门",
   NEW_POSITION: "新增职位",
@@ -96,7 +102,7 @@ export const message = {
   noData: "没有数据",
   updateSuccessfully: "更新成功！",
   updateFailed: "更新失败！",
-  deleteDataTip: "确定要删除这条数据吗?"
+  deleteDataTip: "确定要删除这条数据吗? 你正在删除的对象是： "
 };
 
 export const toolbar = {

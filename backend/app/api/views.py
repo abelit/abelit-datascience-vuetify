@@ -64,11 +64,6 @@ def role():
 @api.route('/menu', methods=['GET'])
 # @jwt_required
 def menu():
-    # username = get_jwt_identity()
-    # if username == 'test':
-    #     return jsonify({'mapdemo': '/demo/mapdemo', 'uidemo': '/demo/uidemo'})
-
-    # return jsonify({'uidemo': '/demo/uidemo'})
     menus = Menu.query.all()
     result = []
 
