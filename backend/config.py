@@ -14,6 +14,7 @@ class RequestFormatter(logging.Formatter):
         record.remote_addr = request.remote_addr
         return super().format(record)
 
+
 class InfoFilter(logging.Filter):
     def filter(self, record):
         """only use INFO
@@ -28,12 +29,13 @@ class InfoFilter(logging.Filter):
         else:
             return 0
 
+
 class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:password@localhost/dataforum"
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@webdb/dataforum"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # 配置日志信息
@@ -50,11 +52,9 @@ class Config(object):
     CIRCULATE_ADMIN = '948640709@qq.com'
     CIRCULATE_MAIL_SUBJECT_PREFIX = 'App Error '
 
-
     @staticmethod
     def init_app(app):
         pass
-
 
 
 class ProductionConfig(Config):
@@ -155,8 +155,6 @@ class DevelopmentConfig(Config):
         loginfo.addHandler(file_handler_info)
         loginfo.addHandler(stream_handler)
 
-
-
         # FileHandler Error
         file_handler_error = RotatingFileHandler(filename=cls.LOG_PATH_ERROR)
         file_handler_error.setFormatter(formatter)
@@ -185,5 +183,3 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-
-
