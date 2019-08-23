@@ -1,0 +1,36 @@
+version: '2.2'
+services:
+  webdb:
+    image: postgres:latest
+    volumes:
+      - "./data/webdb/postgres/data:/var/lib/postgresql/data"
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dataforum
+  webapp:
+    build: ./webapp
+    links:
+      - webdb
+    ports:
+      - "5000:5000"
+    expose:
+      - "5000"
+    volumes:
+      - ./backend:/data/webapp
+    depends_on:
+      - nginx
+  nginx:
+    image: nginx:latest
+    links:
+      - webapp
+    volumes:
+      - "./data/nginx/log:/var/log/nginx"
+      - "./nginx/conf.d/:/etc/nginx/conf.d/"
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
