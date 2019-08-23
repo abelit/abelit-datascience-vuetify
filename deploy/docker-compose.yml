@@ -23,7 +23,7 @@ services:
     expose:
       - "5000"
     volumes:
-      - ../backend:/data/webapp
+      - ../../backend:/data/webapp
       - ../webapp/uwsgi.ini:/etc/uwsgi/uwsgi.ini
     # networks:
     #   - webdb_nw
