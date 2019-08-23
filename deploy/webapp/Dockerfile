@@ -16,11 +16,13 @@ RUN pip install --upgrade pip --timeout 600 -i http://pypi.mirrors.ustc.edu.cn/s
 RUN pip install --timeout 600 -i http://pypi.mirrors.ustc.edu.cn/simple --trusted-host pypi.mirrors.ustc.edu.cn -r /tmp/requirements.txt
 
 # Create webapp directory
-RUN mkdir -p /data/webapp
-COPY ../backend /data/webapp/
+RUN if [ ! -d "/data/webapp" ]; then mkdir -p /data/webapp; fi
+RUN if [ ! -d "/etc/uwsgi" ]; then mkdir -p /etc/uwsgi; fi
+COPY ./uwsgi.ini /etc/uwsgi/uwsgi.ini
+
 WORKDIR /data/webapp
 
 # ENV PORT 5000
 EXPOSE 5000
 
-CMD ["/usr/local/bin/gunicorn", "-w", "2", "-b", ":5000", "manage:app"]
+CMD ["uwsgi",  "--ini", "/etc/uwsgi/uwsgi.ini"]

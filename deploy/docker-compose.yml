@@ -11,10 +11,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: dataforum
-    networks:
-      - db_nw
+    # networks:
+    #   - webdb_nw
   webapp:
     build: ./webapp
+    container_name: webapp
     links:
       - webdb
     ports:
@@ -22,15 +23,16 @@ services:
     expose:
       - "5000"
     volumes:
-      - ./backend:/data/webapp
-    depends_on:
-      - nginx
-    networks:
-      - db_nw
-      - web_nw
+      - ../backend:/data/webapp
+      - ../webapp/uwsgi.ini:/etc/uwsgi/uwsgi.ini
+    # networks:
+    #   - webdb_nw
+    #   - webapp_nw
   nginx:
     image: nginx:latest
     links:
+      - webapp
+    depends_on:
       - webapp
     volumes:
       - "./data/nginx/log:/var/log/nginx"
@@ -39,11 +41,11 @@ services:
       - "80:80"
       - "443:443"
     restart: always
-    networks:
-      - web_nw
+    # networks:
+    #   - webapp_nw
 
-  networks:
-    db_nw:
-      driver: bridge
-    web_nw:
-      driver: bridge
+  # networks:
+  #   webdb_nw:
+  #     driver: bridge
+  #   webapp_nw:
+  #     driver: bridge
