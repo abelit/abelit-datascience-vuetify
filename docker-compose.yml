@@ -11,6 +11,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: dataforum
+    networks:
+      - db_nw
   webapp:
     build: ./webapp
     links:
@@ -23,6 +25,9 @@ services:
       - ./backend:/data/webapp
     depends_on:
       - nginx
+    networks:
+      - db_nw
+      - web_nw
   nginx:
     image: nginx:latest
     links:
@@ -34,3 +39,11 @@ services:
       - "80:80"
       - "443:443"
     restart: always
+    networks:
+      - web_nw
+
+  networks:
+    db_nw:
+      driver: bridge
+    web_nw:
+      driver: bridge
