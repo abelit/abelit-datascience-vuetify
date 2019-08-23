@@ -216,6 +216,8 @@ class Role(db.Model):
 #itsdangerous
 #flask_script
 #flask_migrate
+#psycopg2
+#psycopg2-binary
 
 pip install flask flask-cors flask-sqlalchemy
 pip install psycopg2 psycopg2-binary
