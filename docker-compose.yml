@@ -3,7 +3,7 @@ services:
   webdb:
     image: postgres:latest
     volumes:
-      - "./data/webdb/postgresql/data:/var/lib/postgresql/data"
+      - "./data/db/postgresql/data:/var/lib/postgresql/data"
     restart: always
     ports:
       - "5432:5432"
@@ -14,7 +14,7 @@ services:
     # networks:
     #   - webdb_nw
   webapp:
-    build: ./webapp
+    build: ./
     container_name: webapp
     links:
       - webdb
@@ -23,8 +23,8 @@ services:
     expose:
       - "5000"
     volumes:
-      - ../../backend:/data/webapp
-      - ../webapp/uwsgi.ini:/etc/uwsgi/uwsgi.ini
+      - ./backend:/data/webapp
+      - ./backend/uwsgi.ini:/etc/uwsgi/uwsgi.ini
     # networks:
     #   - webdb_nw
     #   - webapp_nw
