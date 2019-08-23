@@ -1,9 +1,9 @@
-version: '2.2'
+version: '3.7'
 services:
   webdb:
     image: postgres:latest
     volumes:
-      - "./data/webdb/postgres/data:/var/lib/postgresql/data"
+      - "./data/webdb/postgresql/data:/var/lib/postgresql/data"
     restart: always
     ports:
       - "5432:5432"
@@ -38,7 +38,7 @@ services:
       - "./data/nginx/log:/var/log/nginx"
       - "./nginx/conf.d/:/etc/nginx/conf.d/"
     ports:
-      - "80:80"
+      - "8080:8080"
       - "443:443"
     restart: always
     # networks:
