@@ -17,7 +17,7 @@ services:
   webapp:
     build: ./
     container_name: webapp
-    image: webapp:1.0.0
+    image: datascience/webapp:1.0.0
     links:
       - webdb
     # ports:
