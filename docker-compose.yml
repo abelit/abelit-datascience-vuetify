@@ -54,6 +54,6 @@ services:
   #   webapp_nw:
   #     driver: bridge
 
-  volumes:
-    pgdata:
-      external: true
+volumes:
+  pgdata:
+    external: true
