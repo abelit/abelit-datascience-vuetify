@@ -21,7 +21,8 @@ Vue.prototype.$echarts = echarts;
 
 // import axios for ajax application
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "http://10.46.101.245:8080";
 Vue.prototype.$axios = axios;
 
 // import vue-fullscreen
@@ -58,7 +59,7 @@ Vue.use(VeeValidate, {
 
 /* 请求拦截器 */
 axios.interceptors.request.use(
-  function(config) {
+  function (config) {
     // 每次请求时会从localStorage中获取token
     let token = localStorage.getItem("token");
 
@@ -69,7 +70,7 @@ axios.interceptors.request.use(
     }
     return config;
   },
-  function(error) {
+  function (error) {
     return Promise.reject(error);
   }
 );
@@ -93,9 +94,7 @@ axios.interceptors.response.use(
           let rtoken = JSON.parse(localStorage.getItem("token")).refresh_token;
           axios
             .post(
-              "/refresh",
-              {},
-              {
+              "/refresh", {}, {
                 headers: {
                   Authorization: "Bearer " + rtoken
                 }
