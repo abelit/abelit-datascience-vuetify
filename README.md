@@ -100,3 +100,9 @@ git tag -d v0.1.alpha
 # 删除远程仓库tag
 git push origin :refs/tags/v0.1.alpha
 ```
+
+# Docker
+## 创建持久卷
+```
+sudo docker volume create --name pgdata -d local
+ ``

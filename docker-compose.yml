@@ -4,7 +4,7 @@ services:
     image: postgres:latest
     container_name: webdb
     volumes:
-      - ./data/db/postgresql/:/var/lib/postgresql/
+      - ./data/db/postgresql:/var/lib/postgresql/data
     restart: always
     # ports:
     #   - 5432:5432
@@ -53,3 +53,7 @@ services:
   #     driver: bridge
   #   webapp_nw:
   #     driver: bridge
+
+  volumes:
+    pgdata:
+      external: true
