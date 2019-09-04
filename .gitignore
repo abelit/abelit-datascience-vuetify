@@ -1,7 +1,7 @@
 backend/migrations/
 backend/**/__pycache__/
 backend/env
-backend/logs/
+backend/logs/*.log
 
 frontend/node_modules/
 frontend/package-lock.json
