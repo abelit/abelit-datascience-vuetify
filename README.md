@@ -105,4 +105,25 @@ git push origin :refs/tags/v0.1.alpha
 ## 创建持久卷
 ```
 sudo docker volume create --name pgdata -d local
- ``
+```
+
+ ## 运行容器中命令
+```bash
+#运行数据库容器
+docker run -p 5432:5432 -d \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=dataforum \
+  -v $(pwd)/data/db/postgresql:/var/lib/postgresql/data  postgres:latest
+
+#运行flask
+docker-compose exec webapp python manage.py runserver
+
+#初始化数据库
+docker-compose exec webapp python manage.py db init
+docker-compose exec webapp python manage.py db migrate
+docker-compose exec webapp python manage.py db upgrade
+docker-compose exec webapp python manage.py db migrate
+
+#交互界面
+docker-compose exec webapp python manage.py shell
+```
