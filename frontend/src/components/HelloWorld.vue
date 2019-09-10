@@ -80,6 +80,22 @@
           </a>
         </v-layout>
       </v-flex>
+      <v-flex
+        xs12
+        mb-5
+      >
+        <h2 class="headline font-weight-bold mb-3" ><a href="/demo">Demo</a></h2>
+
+      </v-flex>
+       <v-flex
+        xs12
+        mb-5
+      >
+      <router-link :to="{name: 'demo'}">
+        <h2 class="headline font-weight-bold mb-3" >Demo2</h2>
+        </router-link>
+
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
