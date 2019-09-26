@@ -3,6 +3,11 @@ backend/**/__pycache__/
 backend/env
 backend/logs/*.log
 
+oldbackend/migrations/
+oldbackend/**/__pycache__/
+oldbackend/env
+oldbackend/logs/*.log
+
 frontend/node_modules/
 oldfrontend/node_modules/
 frontend/package-lock.json
