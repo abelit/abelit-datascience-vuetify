@@ -337,3 +337,12 @@ Success. You can now start the database server using:
     pg_ctl -D /var/lib/postgres/data -l logfile start
 
 ```
+
+# 安全
+```python
+>>> import os
+>>> os.urandom(24)
+
+
+app.config['JWT_SECRET_KEY'] = 'H~i\xb8y^J\xc0\xb1~\x99\xa72q\xba\x05%C\xcf\xf0A5D\xa6'  # Change this!
+```

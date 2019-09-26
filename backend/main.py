@@ -1,5 +1,5 @@
 # coding:utf8
-from flask import Flask
+from flask import Flask, request
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 
@@ -29,11 +29,22 @@ db.init_app(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 # 设置JWT认证加密密钥
-app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+# Change this!
+app.config['JWT_SECRET_KEY'] = '+\x1ba][o\x9e\x82\xa5MGsr\xa8x3\xc04\xd3\x0f\x11\x9a<z'
 # 创建JWT实例对象
 jwt = JWTManager(app)
 
 
+# 中间件
+@app.before_request
+def process_start_request():
+    print("正在访问： "+request.path)
+
+@app.after_request
+def process_end_request(response):
+    print("结束访问： "+request.path)
+    return response
+    
 # 注册自定义blueprint模块
 app.register_blueprint(home_blueprint)
 app.register_blueprint(admin_blueprint, url_prefix="/admin")
@@ -42,4 +53,4 @@ app.register_blueprint(api_blueprint, url_prefix="/api")
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")

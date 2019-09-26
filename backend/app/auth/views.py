@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import (
     jwt_required, create_access_token,
@@ -6,7 +6,6 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 import datetime
-from flask import Blueprint
 
 from db import db
 from models import User

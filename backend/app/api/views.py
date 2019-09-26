@@ -1,4 +1,4 @@
-from flask import jsonify, request, Blueprint
+from flask import jsonify, request, Blueprint,g
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from models import Group, Position, User, Tmenu, Role, Menu
@@ -86,6 +86,7 @@ def menu():
 
 
 @api.route('/books', methods=['GET'])
+# @jwt_required
 def all_books():
     BOOKS = [
         {
@@ -109,6 +110,8 @@ def all_books():
             'read': True
         }
     ]
+    g.user = "abelit"
+    print(g.user)
     return jsonify({
         'status': 'success',
         'books': BOOKS
