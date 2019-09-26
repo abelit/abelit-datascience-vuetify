@@ -35,7 +35,8 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@webdb/dataforum"
+    # 使用docker环境时把127.0.0.1改为db的容器名称
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:password@localhost/dataforum"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # 配置日志信息

@@ -58,6 +58,7 @@ def login():
     try:
         # 获取用户信息
         user_by_name = User.query.filter_by(username=username).first()
+        print("验证用户")
         user_by_email = User.query.filter_by(email=username).first()
         # 组合使用用户名或邮箱进行登录
         user = user_by_name if user_by_name else user_by_email
