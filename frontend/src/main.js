@@ -9,6 +9,11 @@ import '@mdi/font/css/materialdesignicons.css'
 
 Vue.config.productionTip = false;
 
+
+// import Echarts
+import echarts from "echarts";
+Vue.prototype.$echarts = echarts;
+
 new Vue({
   router,
   store,
