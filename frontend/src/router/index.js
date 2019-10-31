@@ -25,7 +25,34 @@ export default new Router({
     {
       path: "/demo",
       name: "demo",
-      component: () => import("@/components/Demo.vue")
+      component: () => import("@/App.vue"),
+      children: [
+        {
+          path: "googlekeep",
+          name: "googlekeep",
+          component: () => import("@/views/demo/GoogleKeep.vue")
+        },
+        {
+          path: "center",
+          name: "center",
+          component: () => import("@/views/demo/Center.vue")
+        },
+        {
+          path: "complex",
+          name: "complex",
+          component: () => import("@/views/demo/Complex.vue")
+        },
+        {
+          path: "sandbox",
+          name: "sandbox",
+          component: () => import("@/views/demo/Sandbox.vue")
+        },
+        {
+          path: "test",
+          name: "test",
+          component: () => import("@/views/demo/TestGrid.vue")
+        }
+      ]
     }
   ]
 });
