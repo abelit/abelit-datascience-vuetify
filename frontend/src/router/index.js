@@ -26,8 +26,7 @@ export default new Router({
       path: "/demo",
       name: "demo",
       component: () => import("@/App.vue"),
-      children: [
-        {
+      children: [{
           path: "googlekeep",
           name: "googlekeep",
           component: () => import("@/views/demo/GoogleKeep.vue")
@@ -57,9 +56,8 @@ export default new Router({
     {
       path: "/",
       name: "Root",
-      component: () => import("@/views/layout/Layout"),
-      children: [
-        {
+      component: () => import("@/views/layout/AppLayout"),
+      children: [{
           path: "",
           name: "home",
           component: Home
@@ -71,7 +69,7 @@ export default new Router({
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
           component: () =>
-            import(/* webpackChunkName: "about" */ "@/views/About.vue")
+            import( /* webpackChunkName: "about" */ "@/views/About.vue")
         },
       ]
     }

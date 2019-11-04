@@ -17,3 +17,12 @@
       <v-spacer />
     </v-app-bar>
 </template>
+
+
+<script>
+export default {
+  data: () => ({
+    drawer: null
+  })
+}
+</script>
