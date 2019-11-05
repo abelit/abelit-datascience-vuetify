@@ -92,10 +92,22 @@
         mb-5
       >
       <router-link :to="{name: 'demo'}">
-        <h2 class="headline font-weight-bold mb-3" >Demo2</h2>
+        <h2 class="headline font-weight-bold mb-3" >  {{ $vuetify.lang.t('$vuetify.dataFooter.nextPage') }}</h2>
+        <h2 class="headline font-weight-bold mb-3" >  {{ $vuetify.lang.t('$vuetify.toolbar.zh_cn') }}</h2>
         </router-link>
 
       </v-flex>
+        <v-row justify="space-around">
+    <v-date-picker
+      v-model="picker"
+      :first-day-of-week="0"
+      locale="zh-cn"
+    ></v-date-picker>
+    <v-date-picker
+      v-model="picker"
+      :first-day-of-week="1"
+    ></v-date-picker>
+  </v-row>
     </v-layout>
   </v-container>
 </template>

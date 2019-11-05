@@ -1,87 +1,64 @@
 <template>
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      clipped
-      color="grey lighten-4"
-    >
-      <v-list
-        dense
-        class="grey lighten-4"
-      >
-        <template v-for="(item, i) in items">
-          <v-row
-            v-if="item.heading"
-            :key="i"
-            align="center"
-          >
-            <v-col cols="6">
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
-            </v-col>
-            <v-col
-              cols="6"
-              class="text-right"
-            >
-              <v-btn
-                small
-                text
-              >edit</v-btn>
-            </v-col>
-          </v-row>
-          <v-divider
-            v-else-if="item.divider"
-            :key="i"
-            dark
-            class="my-4"
-          />
-          <v-list-item
-            v-else
-            :key="i"
-            link
-          >
-            <v-list-item-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title class="grey--text">
-                {{ item.text }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </template>
-      </v-list>
-    </v-navigation-drawer>
+  <v-navigation-drawer v-model="drawer" app clipped>
+    <v-list dense>
+      <template v-for="(item, i) in items">
+        <v-row v-if="item.heading" :key="i" align="center">
+          <v-col cols="6">
+            <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
+          </v-col>
+          <v-col cols="6" class="text-right">
+            <v-btn small text>edit</v-btn>
+          </v-col>
+        </v-row>
+        <v-divider v-else-if="item.divider" :key="i" dark class="my-4" />
+        <v-list-item v-else :key="i" link>
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title class="grey--text">{{ item.text }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script>
+//Vue兄弟组件使用bus总线设置全局事件通信
+import dataBus from "@/dataBus.js";
 export default {
-    data: () => ({
-      drawer: null,
-      items: [
-        { icon: 'lightbulb_outline', text: 'Notes' },
-        { icon: 'touch_app', text: 'Reminders' },
-        { divider: true },
-        { heading: 'Labels' },
-        { icon: 'add', text: 'Create new label' },
-        { divider: true },
-        { icon: 'archive', text: 'Archive' },
-        { icon: 'delete', text: 'Trash' },
-        { divider: true },
-        { icon: 'settings', text: 'Settings' },
-        { icon: 'chat_bubble', text: 'Trash' },
-        { icon: 'help', text: 'Help' },
-        { icon: 'phonelink', text: 'App downloads' },
-        { icon: 'keyboard', text: 'Keyboard shortcuts' },
-      ],
-    })
-}
+  data: () => ({
+    drawer: true,
+    items: [
+      { icon: "lightbulb_outline", text: "Notes" },
+      { icon: "touch_app", text: "Reminders" },
+      { divider: true },
+      { heading: "Labels" },
+      { icon: "add", text: "Create new label" },
+      { divider: true },
+      { icon: "archive", text: "Archive" },
+      { icon: "delete", text: "Trash" },
+      { divider: true },
+      { icon: "settings", text: "Settings" },
+      { icon: "chat_bubble", text: "Trash" },
+      { icon: "help", text: "Help" },
+      { icon: "phonelink", text: "App downloads" },
+      { icon: "keyboard", text: "Keyboard shortcuts" }
+    ]
+  }),
+  created() {
+    dataBus.$on("getDrawer", val => {
+      this.drawer = val;
+      // console.log(this.drawer)
+    });
+  }
+};
 </script>
 
 
 <style>
 #keep .v-navigation-drawer__border {
-  display: none
+  display: none;
 }
 </style>
