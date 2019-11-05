@@ -26,7 +26,7 @@
 
 <script>
 //Vue兄弟组件使用bus总线设置全局事件通信
-import dataBus from "@/dataBus.js";
+// import dataBus from "@/dataBus.js";
 export default {
   data: () => ({
     drawer: true,
@@ -48,9 +48,8 @@ export default {
     ]
   }),
   created() {
-    dataBus.$on("getDrawer", val => {
-      this.drawer = val;
-      // console.log(this.drawer)
+    window.getApp.$on("APP_DRAWER_TOGGLED", () => {
+      this.drawer = !this.drawer;
     });
   }
 };

@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on: menu }">
         <v-tooltip bottom>
           <template v-slot:activator="{ on: tooltip }">
-            <v-btn color="transparent" v-on="{ ...tooltip, ...menu}" icon dark>
+            <v-btn color="transparent" v-on="{ ...tooltip, ...menu}" icon>
               <v-avatar size="32px" tile>
                 <v-img
                   :src="require('@/assets/images/lang/'+language+'.png')"
@@ -14,7 +14,7 @@
               </v-avatar>
             </v-btn>
           </template>
-          <!-- <span>{{ $t("tooltip.langSwitch") }}</span> -->
+          <span>{{ $vuetify.lang.t("$vuetify.tooltip.switchLanguage") }}</span>
         </v-tooltip>
       </template>
       <v-list>
@@ -25,7 +25,7 @@
         >
           <v-list-item-avatar>
             <v-avatar size="32px" tile @click="setLanguage(lang.code)">
-              <v-img :src="require('@/assets/images/lang/'+lang.code+'.png')" alt="language"></v-img>
+              <v-img :src="require('@/assets/images/lang/'+lang.code+'.png')" :alt="lang.name"></v-img>
             </v-avatar>
           </v-list-item-avatar>
           <v-list-item-title @click="setLanguage(lang.code)">{{ lang.name }}</v-list-item-title>
@@ -47,21 +47,19 @@ export default {
       },
       {
         code: "en_us",
-        name: "English"
+        name: "American English"
       }
     ]
   }),
   methods: {
     // 语言切换
-    setLanguage(lang) {
-      this.language = lang;
+    setLanguage(language) {
+      this.language = language;
       // 设置国际化语言信息
-      this.$i18n.locale = lang;
-      // 设置验证语言信息
-      this.$validator.locale = lang;
+      this.$vuetify.lang.current = this.language;
 
       // 通过异步方式调用store中setLanguage方法，保存语言信息
-      this.$store.dispatch("setLanguage", lang);
+      this.$store.dispatch("setLanguage", this.language);
     }
   },
   mounted() {

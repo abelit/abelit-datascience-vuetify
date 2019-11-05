@@ -19,6 +19,9 @@ export default {
     AppToolbar,
     AppNavigationDrawer,
     AppFooter
+  },
+  created() {
+    window.getApp = this;
   }
 };
 </script>

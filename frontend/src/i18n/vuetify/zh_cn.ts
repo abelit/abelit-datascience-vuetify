@@ -47,5 +47,8 @@ export default {
     toolbar: {
         zh_cn: '简体中文',
         en_us: '美式英语'
+    },
+    tooltip: {
+        switchLanguage: '切换语言'
     }
 }

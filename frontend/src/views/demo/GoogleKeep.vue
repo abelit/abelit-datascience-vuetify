@@ -5,6 +5,13 @@
       clipped-left
       color="amber"
     >
+     <v-avatar size="36px" tile v-if="drawer">
+    <img :src="require('@/assets/images/logo/data_science.svg')" alt="Data Analysis & Visualization" />
+    </v-avatar>
+    <span class="title ml-3 mr-5" v-if="drawer">
+      DATA&nbsp;
+      <span class="font-weight-light">ANALYSIS</span>
+    </span>
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <span class="title ml-3 mr-5">Google&nbsp;<span class="font-weight-light">Keep</span></span>
       <v-text-field
