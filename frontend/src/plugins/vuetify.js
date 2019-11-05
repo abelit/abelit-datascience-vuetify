@@ -13,6 +13,7 @@ Vue.use(Vuetify);
 import zh_cn from '@/i18n/vuetify/zh_cn.ts';
 import en_us from '@/i18n/vuetify/en_us.ts';
 
+
 export default new Vuetify({
   theme: {
     options: {
@@ -34,7 +35,10 @@ export default new Vuetify({
     iconfont: 'mdi',
   },
   lang: {
-    locales: {zh_cn,en_us},
-    current: 'en_us'
+    locales: {
+      zh_cn,
+      en_us
+    },
+    current: 'zh_cn'
   },
 });

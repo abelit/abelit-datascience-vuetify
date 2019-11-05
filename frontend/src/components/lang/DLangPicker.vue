@@ -2,16 +2,20 @@
   <div class="text-center">
     <v-menu offset-y>
       <template v-slot:activator="{ on: menu }">
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on: tooltip }">
-              <v-btn color="transparent" v-on="{ ...tooltip, ...menu}" icon dark>
-                <v-avatar size="32px" tile>
-                <v-img :src="require('@/assets/images/lang/'+language+'.png')" aspect-ratio="1" alt="language"></v-img>
-                </v-avatar>
-              </v-btn>
-            </template>
-            <!-- <span>{{ $t("tooltip.langSwitch") }}</span> -->
-          </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on: tooltip }">
+            <v-btn color="transparent" v-on="{ ...tooltip, ...menu}" icon dark>
+              <v-avatar size="32px" tile>
+                <v-img
+                  :src="require('@/assets/images/lang/'+language+'.png')"
+                  aspect-ratio="1"
+                  alt="language"
+                ></v-img>
+              </v-avatar>
+            </v-btn>
+          </template>
+          <!-- <span>{{ $t("tooltip.langSwitch") }}</span> -->
+        </v-tooltip>
       </template>
       <v-list>
         <v-list-item
@@ -21,7 +25,7 @@
         >
           <v-list-item-avatar>
             <v-avatar size="32px" tile @click="setLanguage(lang.code)">
-              <v-img :src="require('@/assets/images/lang/'+lang.code+'.png')" alt="language" > </v-img>
+              <v-img :src="require('@/assets/images/lang/'+lang.code+'.png')" alt="language"></v-img>
             </v-avatar>
           </v-list-item-avatar>
           <v-list-item-title @click="setLanguage(lang.code)">{{ lang.name }}</v-list-item-title>
@@ -35,14 +39,14 @@
 <script>
 export default {
   data: () => ({
-    language: "zh_CN",
+    language: "zh_cn",
     langList: [
       {
-        code: "zh_CN",
+        code: "zh_cn",
         name: "简体中文"
       },
       {
-        code: "en_US",
+        code: "en_us",
         name: "English"
       }
     ]

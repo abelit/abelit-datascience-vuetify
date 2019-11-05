@@ -97,17 +97,7 @@
         </router-link>
 
       </v-flex>
-        <v-row justify="space-around">
-    <v-date-picker
-      v-model="picker"
-      :first-day-of-week="0"
-      locale="zh-cn"
-    ></v-date-picker>
-    <v-date-picker
-      v-model="picker"
-      :first-day-of-week="1"
-    ></v-date-picker>
-  </v-row>
+    
     </v-layout>
   </v-container>
 </template>
