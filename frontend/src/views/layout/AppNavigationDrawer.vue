@@ -14,7 +14,6 @@
             <span class="font-weight-light">ANALYSIS</span>
           </span>
         </v-list-item-title>
-        
       </v-list-item>
       <v-divider dark class="my-1 hidden-lg-and-up" />
 
@@ -27,14 +26,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-subheader class="mt-4 grey--text text--darken-1">SUBSCRIPTIONS</v-subheader>
-      <!-- <v-list>
-        <v-list-item v-for="item in items2" :key="item.text" link>
-          <v-list-item-avatar>
-            <img :src="`https://randomuser.me/api/portraits/men/${item.picture}.jpg`" alt />
-          </v-list-item-avatar>
-          <v-list-item-title v-text="item.text" />
-        </v-list-item>
-      </v-list> -->
+
       <v-list-item class="mt-4" link>
         <v-list-item-action>
           <v-icon color="grey darken-1">mdi-plus-circle-outline</v-icon>
@@ -62,14 +54,10 @@ export default {
       { icon: "subscriptions", text: "Subscriptions" },
       { icon: "history", text: "History" },
       { icon: "featured_play_list", text: "Playlists" },
-      { icon: "watch_later", text: "Watch Later" }
-    ],
-    items2: [
-      { picture: 28, text: "Joseph" },
-      { picture: 38, text: "Apple" },
-      { picture: 48, text: "Xbox Ahoy" },
-      { picture: 58, text: "Nokia" },
-      { picture: 78, text: "MKBHD" }
+      { icon: "watch_later", text: "Watch Later" },
+      { icon: "navigate_next", text: "Navigate Next" },
+      { icon: "md-star_half", text: "Start Half" },
+      { icon: "mdi-compass-outline", text: "Compass Outline" }
     ]
   }),
   created() {

@@ -1,4 +1,4 @@
-// import '@mdi/font/css/materialdesignicons.css';
+import '@mdi/font/css/materialdesignicons.css';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
@@ -20,6 +20,8 @@ export default new Vuetify({
     options: {
       customProperties: true,
     },
+
+    // 设置主题
     themes: {
       // light: {
       //   primary: '#ee44aa',
@@ -32,9 +34,13 @@ export default new Vuetify({
       // },
     },
   },
-  // icons: {
-  //   iconfont: 'mdi',
-  // },
+
+  // 设置默认图标
+  icons: {
+    iconfont: 'mdi', // default - only for display purposes
+  },
+
+  // 设置语言
   lang: {
     locales: {
       zh_cn,
