@@ -2,6 +2,7 @@
   <v-app id="keep">
     <v-app-bar
       app
+      dense
       clipped-left
       color="amber"
     >

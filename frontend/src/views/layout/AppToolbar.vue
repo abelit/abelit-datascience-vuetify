@@ -1,10 +1,10 @@
 <template>
   <v-app-bar app dense clipped-left>
     <v-app-bar-nav-icon @click.stop="setDrawer" />
-    <v-avatar size="36px" tile class="hidden-sm-and-down">
+    <v-avatar size="36px" tile class="hidden-md-and-down">
     <img :src="require('@/assets/images/logo/data_science.svg')" alt="Data Analysis & Visualization" />
     </v-avatar>
-    <span class="title ml-3 mr-5 hidden-sm-and-down">
+    <span class="title ml-3 mr-5 hidden-md-and-down">
       DATA&nbsp;
       <span class="font-weight-light">ANALYSIS</span>
     </span>

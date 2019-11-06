@@ -1,25 +1,52 @@
 <template>
   <v-navigation-drawer v-model="drawer" app clipped>
     <v-list dense>
-      <template v-for="(item, i) in items">
-        <v-row v-if="item.heading" :key="i" align="center">
-          <v-col cols="6">
-            <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
-          </v-col>
-          <v-col cols="6" class="text-right">
-            <v-btn small text>edit</v-btn>
-          </v-col>
-        </v-row>
-        <v-divider v-else-if="item.divider" :key="i" dark class="my-4" />
-        <v-list-item v-else :key="i" link>
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title class="grey--text">{{ item.text }}</v-list-item-title>
-          </v-list-item-content>
+      <v-list-item class="hidden-lg-and-up">
+        <v-list-item-avatar>
+          <img
+            :src="require('@/assets/images/logo/data_science.svg')"
+            alt="Data Analysis & Visualization"
+          />
+        </v-list-item-avatar>
+        <v-list-item-title>
+          <span class="title">
+            DATA&nbsp;
+            <span class="font-weight-light">ANALYSIS</span>
+          </span>
+        </v-list-item-title>
+        
+      </v-list-item>
+      <v-divider dark class="my-1 hidden-lg-and-up" />
+
+      <v-list-item v-for="item in items" :key="item.text" link>
+        <v-list-item-action>
+          <v-icon>{{ item.icon }}</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>{{ item.text }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-subheader class="mt-4 grey--text text--darken-1">SUBSCRIPTIONS</v-subheader>
+      <!-- <v-list>
+        <v-list-item v-for="item in items2" :key="item.text" link>
+          <v-list-item-avatar>
+            <img :src="`https://randomuser.me/api/portraits/men/${item.picture}.jpg`" alt />
+          </v-list-item-avatar>
+          <v-list-item-title v-text="item.text" />
         </v-list-item>
-      </template>
+      </v-list> -->
+      <v-list-item class="mt-4" link>
+        <v-list-item-action>
+          <v-icon color="grey darken-1">mdi-plus-circle-outline</v-icon>
+        </v-list-item-action>
+        <v-list-item-title class="grey--text text--darken-1">Browse Channels</v-list-item-title>
+      </v-list-item>
+      <v-list-item link>
+        <v-list-item-action>
+          <v-icon color="grey darken-1">mdi-settings</v-icon>
+        </v-list-item-action>
+        <v-list-item-title class="grey--text text--darken-1">Manage Subscriptions</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -29,28 +56,31 @@
 // import dataBus from "@/dataBus.js";
 export default {
   data: () => ({
-    drawer: true,
+    drawer: null,
     items: [
-      { icon: "lightbulb_outline", text: "Notes" },
-      { icon: "touch_app", text: "Reminders" },
-      { divider: true },
-      { heading: "Labels" },
-      { icon: "add", text: "Create new label" },
-      { divider: true },
-      { icon: "archive", text: "Archive" },
-      { icon: "delete", text: "Trash" },
-      { divider: true },
-      { icon: "settings", text: "Settings" },
-      { icon: "chat_bubble", text: "Trash" },
-      { icon: "help", text: "Help" },
-      { icon: "phonelink", text: "App downloads" },
-      { icon: "keyboard", text: "Keyboard shortcuts" }
+      { icon: "trending_up", text: "Most Popular" },
+      { icon: "subscriptions", text: "Subscriptions" },
+      { icon: "history", text: "History" },
+      { icon: "featured_play_list", text: "Playlists" },
+      { icon: "watch_later", text: "Watch Later" }
+    ],
+    items2: [
+      { picture: 28, text: "Joseph" },
+      { picture: 38, text: "Apple" },
+      { picture: 48, text: "Xbox Ahoy" },
+      { picture: 58, text: "Nokia" },
+      { picture: 78, text: "MKBHD" }
     ]
   }),
   created() {
     window.getApp.$on("APP_DRAWER_TOGGLED", () => {
       this.drawer = !this.drawer;
     });
+    //中屏及以下大小隐藏Navigation Drawer
+    if (this.$vuetify.breakpoint.mdAndDown) {
+      this.drawer = false;
+    }
+    // console.log(this.$vuetify.breakpoint.smAndDown);
   }
 };
 </script>

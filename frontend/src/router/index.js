@@ -50,6 +50,11 @@ export default new Router({
           path: "test",
           name: "test",
           component: () => import("@/views/demo/TestGrid.vue")
+        },
+        {
+          path: "contact",
+          name: "contact",
+          component: () => import("@/views/demo/GoogleContact.vue")
         }
       ]
     },
