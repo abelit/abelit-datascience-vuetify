@@ -17,18 +17,19 @@
           <span>{{ $vuetify.lang.t("$vuetify.tooltip.switchLanguage") }}</span>
         </v-tooltip>
       </template>
-      <v-list>
+      <v-list dense>
         <v-list-item
           v-for="(lang, index) in langList"
           :key="index"
           :disabled="language === lang.code"
+          @click="setLanguage(lang.code)"
         >
-          <v-list-item-avatar>
-            <v-avatar size="32px" tile @click="setLanguage(lang.code)">
-              <v-img :src="require('@/assets/images/lang/'+lang.code+'.png')" :alt="lang.name"></v-img>
-            </v-avatar>
+          <v-list-item-avatar tile>
+            <v-img :src="require('@/assets/images/lang/'+lang.code+'.png')" :alt="lang.name"></v-img>
           </v-list-item-avatar>
-          <v-list-item-title @click="setLanguage(lang.code)">{{ lang.name }}</v-list-item-title>
+          <v-list-item-content>
+            <v-list-item-title>{{ lang.name }}</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-menu>
