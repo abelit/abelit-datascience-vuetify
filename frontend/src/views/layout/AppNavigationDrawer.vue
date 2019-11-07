@@ -1,6 +1,18 @@
 <template>
   <v-navigation-drawer v-model="drawer" app clipped class="pr-0">
-    <v-app-bar dense class="hidden-lg-and-up">
+    <!-- <v-toolbar app absolute dense v-if="$vuetify.breakpoint.mdAndDown" width="256">
+      <v-avatar size="36px" tile>
+        <img
+          :src="require('@/assets/images/logo/data_science.svg')"
+          alt="Data Analysis & Visualization"
+        />
+      </v-avatar>
+      <span class="title ml-3">
+        DATA&nbsp;
+        <span class="font-weight-light">ANALYSIS</span>
+      </span>
+    </v-toolbar>-->
+    <v-app-bar fixed dense v-if="$vuetify.breakpoint.mdAndDown">
       <v-avatar size="36px" tile>
         <img
           :src="require('@/assets/images/logo/data_science.svg')"
@@ -12,7 +24,7 @@
         <span class="font-weight-light">ANALYSIS</span>
       </span>
     </v-app-bar>
-    <v-divider dark class="my-0" />
+    <!-- <v-divider dark class="my-0" /> -->
     <v-list dense>
       <v-list-item v-for="item in items" :key="item.text" link>
         <v-list-item-action>
