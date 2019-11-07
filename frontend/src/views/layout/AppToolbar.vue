@@ -2,7 +2,10 @@
   <v-app-bar app dense clipped-left>
     <v-app-bar-nav-icon @click.stop="setDrawer" />
     <v-avatar size="36px" tile class="hidden-md-and-down">
-    <img :src="require('@/assets/images/logo/data_science.svg')" alt="Data Analysis & Visualization" />
+      <img
+        :src="require('@/assets/images/logo/data_science.svg')"
+        alt="Data Analysis & Visualization"
+      />
     </v-avatar>
     <span class="title ml-3 mr-5 hidden-md-and-down">
       DATA&nbsp;
@@ -11,8 +14,8 @@
     <!-- <v-text-field solo-inverted flat hide-details label="Search" prepend-inner-icon="search" /> -->
 
     <v-spacer />
-      <d-lang-picker></d-lang-picker>
-      <!-- <v-switch v-model="$vuetify.theme.dark" primary label="Dark" /> -->
+    <d-lang-picker></d-lang-picker>
+    <!-- <v-switch v-model="$vuetify.theme.dark" primary label="Dark" /> -->
   </v-app-bar>
 </template>
 
@@ -33,7 +36,7 @@ export default {
   }),
   methods: {
     setDrawer() {
-      window.getApp.$emit('APP_DRAWER_TOGGLED');
+      window.getApp.$emit("APP_DRAWER_TOGGLED");
       this.drawer = !this.drawer;
     }
   }

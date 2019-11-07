@@ -1,22 +1,19 @@
 <template>
-  <v-navigation-drawer v-model="drawer" app clipped>
+  <v-navigation-drawer v-model="drawer" app clipped class="pr-0">
+    <v-app-bar dense class="hidden-lg-and-up">
+      <v-avatar size="36px" tile>
+        <img
+          :src="require('@/assets/images/logo/data_science.svg')"
+          alt="Data Analysis & Visualization"
+        />
+      </v-avatar>
+      <span class="title ml-3">
+        DATA&nbsp;
+        <span class="font-weight-light">ANALYSIS</span>
+      </span>
+    </v-app-bar>
+    <v-divider dark class="my-0" />
     <v-list dense>
-      <v-list-item class="hidden-lg-and-up">
-        <v-list-item-avatar>
-          <img
-            :src="require('@/assets/images/logo/data_science.svg')"
-            alt="Data Analysis & Visualization"
-          />
-        </v-list-item-avatar>
-        <v-list-item-title>
-          <span class="title">
-            DATA&nbsp;
-            <span class="font-weight-light">ANALYSIS</span>
-          </span>
-        </v-list-item-title>
-      </v-list-item>
-      <v-divider dark class="my-1 hidden-lg-and-up" />
-
       <v-list-item v-for="item in items" :key="item.text" link>
         <v-list-item-action>
           <v-icon>{{ item.icon }}</v-icon>
@@ -50,6 +47,24 @@ export default {
   data: () => ({
     drawer: null,
     items: [
+      { icon: "trending_up", text: "Most Popular" },
+      { icon: "subscriptions", text: "Subscriptions" },
+      { icon: "history", text: "History" },
+      { icon: "featured_play_list", text: "Playlists" },
+      { icon: "watch_later", text: "Watch Later" },
+      { icon: "navigate_next", text: "Navigate Next" },
+      { icon: "md-star_half", text: "Start Half" },
+      { icon: "mdi-compass-outline", text: "Compass Outline" },
+
+      { icon: "trending_up", text: "Most Popular" },
+      { icon: "subscriptions", text: "Subscriptions" },
+      { icon: "history", text: "History" },
+      { icon: "featured_play_list", text: "Playlists" },
+      { icon: "watch_later", text: "Watch Later" },
+      { icon: "navigate_next", text: "Navigate Next" },
+      { icon: "md-star_half", text: "Start Half" },
+      { icon: "mdi-compass-outline", text: "Compass Outline" },
+
       { icon: "trending_up", text: "Most Popular" },
       { icon: "subscriptions", text: "Subscriptions" },
       { icon: "history", text: "History" },
