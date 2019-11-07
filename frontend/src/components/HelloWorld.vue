@@ -1,160 +1,168 @@
 <template>
-  <v-container>
-    <v-layout
-      text-center
-      wrap
+  <v-container fluid>
+    <v-data-iterator
+      :items="items"
+      :items-per-page.sync="itemsPerPage"
+      :footer-props="{ itemsPerPageOptions }"
     >
-      <v-flex xs12>
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        ></v-img>
-      </v-flex>
-
-      <v-flex mb-4>
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a href="https://community.vuetifyjs.com" target="_blank">Discord Community</a>
-        </p>
-      </v-flex>
-
-      <v-flex
-        mb-5
-        xs12
-      >
-        <h2 class="headline font-weight-bold mb-3">What's next?</h2>
-
-        <v-layout justify-center>
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
+      <template v-slot:default="props">
+        <v-row>
+          <v-col
+            v-for="item in props.items"
+            :key="item.name"
+            cols="12"
+            sm="6"
+            md="4"
+            lg="3"
           >
-            {{ next.text }}
-          </a>
-        </v-layout>
-      </v-flex>
-
-      <v-flex
-        xs12
-        mb-5
-      >
-        <h2 class="headline font-weight-bold mb-3">Important Links</h2>
-
-        <v-layout justify-center>
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-layout>
-      </v-flex>
-
-      <v-flex
-        xs12
-        mb-5
-      >
-        <h2 class="headline font-weight-bold mb-3">Ecosystem</h2>
-
-        <v-layout justify-center>
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-layout>
-      </v-flex>
-      <v-flex
-        xs12
-        mb-5
-      >
-        <h2 class="headline font-weight-bold mb-3" ><a href="/demo">Demo</a></h2>
-
-      </v-flex>
-       <v-flex
-        xs12
-        mb-5
-      >
-      <router-link :to="{name: 'demo'}">
-        <h2 class="headline font-weight-bold mb-3" >  {{ $vuetify.lang.t('$vuetify.dataFooter.nextPage') }}</h2>
-        <h2 class="headline font-weight-bold mb-3" >  {{ $vuetify.lang.t('$vuetify.toolbar.zh_cn') }}</h2>
-        </router-link>
-
-      </v-flex>
-    
-    </v-layout>
+            <v-card>
+              <v-card-title><h4>{{ item.name }}</h4></v-card-title>
+              <v-divider></v-divider>
+              <v-list dense>
+                <v-list-item>
+                  <v-list-item-content>Calories:</v-list-item-content>
+                  <v-list-item-content class="align-end">{{ item.calories }}</v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-content>Fat:</v-list-item-content>
+                  <v-list-item-content class="align-end">{{ item.fat }}</v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-content>Carbs:</v-list-item-content>
+                  <v-list-item-content class="align-end">{{ item.carbs }}</v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-content>Protein:</v-list-item-content>
+                  <v-list-item-content class="align-end">{{ item.protein }}</v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-content>Sodium:</v-list-item-content>
+                  <v-list-item-content class="align-end">{{ item.sodium }}</v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-content>Calcium:</v-list-item-content>
+                  <v-list-item-content class="align-end">{{ item.calcium }}</v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-content>Iron:</v-list-item-content>
+                  <v-list-item-content class="align-end">{{ item.iron }}</v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-col>
+        </v-row>
+      </template>
+    </v-data-iterator>
   </v-container>
 </template>
 
 <script>
-export default {
-  data: () => ({
-    ecosystem: [
-      {
-        text: 'vuetify-loader',
-        href: 'https://github.com/vuetifyjs/vuetify-loader',
-      },
-      {
-        text: 'github',
-        href: 'https://github.com/vuetifyjs/vuetify',
-      },
-      {
-        text: 'awesome-vuetify',
-        href: 'https://github.com/vuetifyjs/awesome-vuetify',
-      },
-    ],
-    importantLinks: [
-      {
-        text: 'Documentation',
-        href: 'https://vuetifyjs.com',
-      },
-      {
-        text: 'Chat',
-        href: 'https://community.vuetifyjs.com',
-      },
-      {
-        text: 'Made with Vuetify',
-        href: 'https://madewithvuejs.com/vuetify',
-      },
-      {
-        text: 'Twitter',
-        href: 'https://twitter.com/vuetifyjs',
-      },
-      {
-        text: 'Articles',
-        href: 'https://medium.com/vuetify',
-      },
-    ],
-    whatsNext: [
-      {
-        text: 'Explore components',
-        href: 'https://vuetifyjs.com/components/api-explorer',
-      },
-      {
-        text: 'Select a layout',
-        href: 'https://vuetifyjs.com/layout/pre-defined',
-      },
-      {
-        text: 'Frequently Asked Questions',
-        href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-      },
-    ],
-  }),
-};
+  export default {
+    data: () => ({
+      itemsPerPageOptions: [4, 8, 12],
+      itemsPerPage: 4,
+      items: [
+        {
+          name: 'Frozen Yogurt',
+          calories: 159,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0,
+          sodium: 87,
+          calcium: '14%',
+          iron: '1%',
+        },
+        {
+          name: 'Ice cream sandwich',
+          calories: 237,
+          fat: 9.0,
+          carbs: 37,
+          protein: 4.3,
+          sodium: 129,
+          calcium: '8%',
+          iron: '1%',
+        },
+        {
+          name: 'Eclair',
+          calories: 262,
+          fat: 16.0,
+          carbs: 23,
+          protein: 6.0,
+          sodium: 337,
+          calcium: '6%',
+          iron: '7%',
+        },
+        {
+          name: 'Cupcake',
+          calories: 305,
+          fat: 3.7,
+          carbs: 67,
+          protein: 4.3,
+          sodium: 413,
+          calcium: '3%',
+          iron: '8%',
+        },
+        {
+          name: 'Gingerbread',
+          calories: 356,
+          fat: 16.0,
+          carbs: 49,
+          protein: 3.9,
+          sodium: 327,
+          calcium: '7%',
+          iron: '16%',
+        },
+        {
+          name: 'Jelly bean',
+          calories: 375,
+          fat: 0.0,
+          carbs: 94,
+          protein: 0.0,
+          sodium: 50,
+          calcium: '0%',
+          iron: '0%',
+        },
+        {
+          name: 'Lollipop',
+          calories: 392,
+          fat: 0.2,
+          carbs: 98,
+          protein: 0,
+          sodium: 38,
+          calcium: '0%',
+          iron: '2%',
+        },
+        {
+          name: 'Honeycomb',
+          calories: 408,
+          fat: 3.2,
+          carbs: 87,
+          protein: 6.5,
+          sodium: 562,
+          calcium: '0%',
+          iron: '45%',
+        },
+        {
+          name: 'Donut',
+          calories: 452,
+          fat: 25.0,
+          carbs: 51,
+          protein: 4.9,
+          sodium: 326,
+          calcium: '2%',
+          iron: '22%',
+        },
+        {
+          name: 'KitKat',
+          calories: 518,
+          fat: 26.0,
+          carbs: 65,
+          protein: 7,
+          sodium: 54,
+          calcium: '12%',
+          iron: '6%',
+        },
+      ],
+    }),
+  }
 </script>
