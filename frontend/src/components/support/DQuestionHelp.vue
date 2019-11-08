@@ -5,6 +5,6 @@
         <v-icon>contact_support</v-icon>
       </v-btn>
     </template>
-    <span>{{$vuetify.t("tooltip.QUESTION_SUPPORT")}}</span>
+    <span>{{ $vuetify.lang.t("$vuetify.tooltip.questionHelp") }}</span>
   </v-tooltip>
 </template>

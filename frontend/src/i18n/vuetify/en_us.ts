@@ -49,6 +49,7 @@ export default {
         en_us: 'American English'
     },
     tooltip: {
-        switchLanguage: 'Switch Language'
+        switchLanguage: 'Switch Language',
+        questionHelp: 'Question Help'
     }
 }

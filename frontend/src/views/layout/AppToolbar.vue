@@ -14,6 +14,7 @@
     <!-- <v-text-field solo-inverted flat hide-details label="Search" prepend-inner-icon="search" /> -->
 
     <v-spacer />
+    <d-question-help></d-question-help>
     <d-lang-picker></d-lang-picker>
     <!-- <v-switch v-model="$vuetify.theme.dark" primary label="Dark" /> -->
   </v-app-bar>
@@ -26,10 +27,12 @@
 
 //导入语言设置组件
 import DLangPicker from "@/components/lang/DLangPicker";
+import DQuestionHelp from "@/components/support/DQuestionHelp";
 
 export default {
   components: {
-    DLangPicker
+    DLangPicker,
+    DQuestionHelp
   },
   data: () => ({
     drawer: true

@@ -49,6 +49,7 @@ export default {
         en_us: '美式英语'
     },
     tooltip: {
-        switchLanguage: '切换语言'
+        switchLanguage: '切换语言',
+        questionHelp: '问题帮助'
     }
 }
