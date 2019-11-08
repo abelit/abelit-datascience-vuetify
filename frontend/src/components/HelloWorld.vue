@@ -14,6 +14,7 @@
             sm="6"
             md="4"
             lg="3"
+            class="pa-1"
           >
             <v-card>
               <v-card-title><h4>{{ item.name }}</h4></v-card-title>
