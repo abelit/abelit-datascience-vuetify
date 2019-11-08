@@ -56,9 +56,16 @@ export default {
     },
     form: {
         password: 'Password',
+        indicatesRequiredField: 'indicates required field'
+    },
+    rules: {
+        max: 'Max',
+        character: 'characters',
+        isRequired: ' is Required'
     },
     button: {
         cancel: 'Cancel',
         confirm: 'Confirm'
-    }
+    },
+
 }

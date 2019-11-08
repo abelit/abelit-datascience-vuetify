@@ -11,19 +11,26 @@
       </v-tooltip>
     </template>
     <v-card>
-      <v-card-title class="primary" primary-title>
-        {{ $vuetify.lang.t("$vuetify.tooltip.lockPassword") }}
-      </v-card-title>
+      <v-card-title
+        class="primary"
+        primary-title
+      >{{ $vuetify.lang.t("$vuetify.tooltip.lockPassword") }}</v-card-title>
       <v-card-text>
-        <v-form>
+        <v-form :lazy-validation="lazy" ref="form" v-model="valid">
           <v-container>
             <v-row>
               <v-col cols="12" sm="12">
-                <v-text-field v-model="title" :rules="rules" counter="25" :label="$vuetify.lang.t('$vuetify.form.password')" outlined></v-text-field>
+                <v-text-field
+                  v-model="title"
+                  :rules="rules('title',20)"
+                  :label="$vuetify.lang.t('$vuetify.form.password')"
+                  outlined
+                  required
+                ></v-text-field>
               </v-col>
             </v-row>
           </v-container>
-           <small>*indicates required field</small>
+          <small>*{{ $vuetify.lang.t('$vuetify.form.indicatesRequiredField') }}</small>
         </v-form>
       </v-card-text>
       <v-card-actions>
@@ -46,12 +53,11 @@ export default {
   data: () => ({
     dialog: false,
     passwordDisplay: false,
-    password: undefined,
-     rules: [v => v.length <= 25 || 'Max 25 characters'],
+    password: undefined
   }),
   methods: {
     async handLock() {
-      await this.$validator.validateAll();
+      await this.$refs.form.validate();
       if (this.$validator.errors.all().length === 0) {
         this.$store.commit("SET_LOCK_PASSWORD", this.password);
         this.$store.commit("SET_LOCK", true);
@@ -59,6 +65,16 @@ export default {
           this.$router.push({ path: "/lock" });
         }, 100);
       }
+    },
+    rules(filed, length) {
+      return [
+        v => !!v || filed + this.$vuetify.lang.t("$vuetify.rules.isRequired"),
+        v =>
+          (v && v.length <= length) ||
+          this.$vuetify.lang.t("$vuetify.rules.max") +
+            length +
+            this.$vuetify.lang.t("$vuetify.rules.character")
+      ];
     }
   },
   computed: {

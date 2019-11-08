@@ -56,6 +56,12 @@ export default {
     },
     form: {
         password: '密码',
+        indicatesRequiredField: '表示必须输入项'
+    },
+    rules: {
+        max: '最大',
+        character: '字符',
+        isRequired: '必须输入'
     },
     button: {
         cancel: '取消',
