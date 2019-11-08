@@ -50,6 +50,15 @@ export default {
     },
     tooltip: {
         switchLanguage: 'Switch Language',
-        questionHelp: 'Question Help'
+        questionHelp: 'Question Help',
+        screenLock: 'Screen Lock',
+        lockPassword: 'Lock Password'
+    },
+    form: {
+        password: 'Password',
+    },
+    button: {
+        cancel: 'Cancel',
+        confirm: 'Confirm'
     }
 }

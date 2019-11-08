@@ -50,6 +50,15 @@ export default {
     },
     tooltip: {
         switchLanguage: '切换语言',
-        questionHelp: '问题帮助'
+        questionHelp: '问题帮助',
+        screenLock: '屏幕锁',
+        lockPassword: '锁屏密码'
+    },
+    form: {
+        password: '密码',
+    },
+    button: {
+        cancel: '取消',
+        confirm: '确认'
     }
 }

@@ -16,6 +16,7 @@
     <v-spacer />
     <d-question-help></d-question-help>
     <d-lang-picker></d-lang-picker>
+    <d-top-lock></d-top-lock>
     <!-- <v-switch v-model="$vuetify.theme.dark" primary label="Dark" /> -->
   </v-app-bar>
 </template>
@@ -28,11 +29,13 @@
 //导入语言设置组件
 import DLangPicker from "@/components/lang/DLangPicker";
 import DQuestionHelp from "@/components/support/DQuestionHelp";
+import DTopLock from "@/components/lock/DTopLock";
 
 export default {
   components: {
     DLangPicker,
-    DQuestionHelp
+    DQuestionHelp,
+    DTopLock
   },
   data: () => ({
     drawer: true
