@@ -24,6 +24,10 @@
                   v-model="title"
                   :rules="rules('title',20)"
                   :label="$vuetify.lang.t('$vuetify.form.password')"
+                  :append-icon="passwordVisable ? 'visibility' : 'visibility_off'"
+                  @click:append="passwordVisable = !passwordVisable"
+                  :type="passwordVisable ? 'text' : 'password'"
+                  prepend-inner-icon="lock"
                   outlined
                   required
                 ></v-text-field>
@@ -52,13 +56,13 @@ import { mapState } from "vuex";
 export default {
   data: () => ({
     dialog: false,
-    passwordDisplay: false,
+    passwordVisable: false,
     password: undefined
   }),
   methods: {
     async handLock() {
       await this.$refs.form.validate();
-      if (this.$validator.errors.all().length === 0) {
+      if (this.$refs.form.validate()) {
         this.$store.commit("SET_LOCK_PASSWORD", this.password);
         this.$store.commit("SET_LOCK", true);
         setTimeout(() => {
@@ -75,10 +79,25 @@ export default {
             length +
             this.$vuetify.lang.t("$vuetify.rules.character")
       ];
-    }
+    },
+    resetValidation () {
+      this.$refs.form.resetValidation();
+    },
+    reset () {
+      this.$refs.form.reset()
+    },
   },
   computed: {
     ...mapState(["toolbarColor"])
+  },
+  watch: {
+    // 如果dialog发生变化且dialog为false，就重置表单验证
+    dialog: function () {
+      if (!this.dialog) {
+        this.resetValidation();
+        this.reset();
+      }
+    }
   }
 };
 </script>

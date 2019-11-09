@@ -77,6 +77,11 @@ export default new Router({
             import( /* webpackChunkName: "about" */ "@/views/About.vue")
         },
       ]
-    }
+    },
+    {
+      path: "/lock",
+      name: "Lock",
+      component: () => import("@/views/lock/AppLock")
+    },
   ]
 });
