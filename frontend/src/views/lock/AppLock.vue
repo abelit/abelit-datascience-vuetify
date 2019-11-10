@@ -2,10 +2,10 @@
   <v-container fluid class="pa-0 ma-0">
     <v-img :src="backgroundImage" height="100vh" width="100%">
       <v-row :align="alignment" :justify="justify" style="height: 100%">
-        <v-col cols="4">
+        <v-col :cols="$vuetify.breakpoint.mdAndUp?4:6">
           <v-form :lazy-validation="lazy" ref="form" v-model="valid">
             <v-row  :justify="justify">
-              <v-col cols="10" class="pr-0">
+              <v-col cols="9" class="pr-0">
                 <v-text-field
                   v-model="password"
                   :label="$vuetify.lang.t('$vuetify.form.password')"
@@ -17,7 +17,7 @@
                 ></v-text-field>
                 
               </v-col>
-              <v-col cols="2" class="pl-0">
+              <v-col cols="3" class="pl-0">
                 <v-card width="64">
                   <v-btn flat @click="handleLogin" height="40" dense>
                   <v-icon dark>lock_open</v-icon>
