@@ -4,8 +4,8 @@
       <v-row align="center" justify="center" style="height: 100%" class="px-5">
         <v-col cols="12" sm="6">
           <v-form :lazy-validation="lazy" ref="form" v-model="valid">
-            <v-row no-gutters justify="center">
-              <v-col cols="8"  sm="4">
+            <v-row no-gutters justify="center" >
+              <v-col cols="8"  sm="4" class="pl-4">
                 <v-text-field
                   v-model="password"
                   :label="$vuetify.lang.t('$vuetify.form.password')"
@@ -17,7 +17,7 @@
                   :rules="rules($vuetify.lang.t('$vuetify.form.password'),12)"
                 ></v-text-field>
               </v-col>
-              <v-col :cols="$vuetify.breakpoint.xsOnly?3:4" sm="3">
+              <v-col :cols="$vuetify.breakpoint.xsOnly?4:4" sm="2">
                 <v-btn-toggle mandatory multiple v-model="value">
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
