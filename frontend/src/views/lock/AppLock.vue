@@ -1,11 +1,11 @@
 <template>
   <v-container fluid class="pa-0 ma-0">
     <v-img :src="backgroundImage" height="100vh" width="100%">
-      <v-row :align="alignment" :justify="justify" style="height: 100%">
-        <v-col :cols="$vuetify.breakpoint.mdAndUp?4:6">
+      <v-row align="center" justify="center" style="height: 100%">
+        <v-col :cols="$vuetify.breakpoint.mdAndUp?4:8">
           <v-form :lazy-validation="lazy" ref="form" v-model="valid">
-            <v-row  :justify="justify">
-              <v-col cols="9" class="pr-0">
+            <v-row>
+              <v-col :cols="$vuetify.breakpoint.mdAndDown?8:10" class="px-0">
                 <v-text-field
                   v-model="password"
                   :label="$vuetify.lang.t('$vuetify.form.password')"
@@ -14,24 +14,33 @@
                   required
                   dense
                   solo
+                  :rules="rules($vuetify.lang.t('$vuetify.form.password'),12)"
                 ></v-text-field>
-                
               </v-col>
-              <v-col cols="3" class="pl-0">
-                <v-card width="64">
-                  <v-btn flat @click="handleLogin" height="40" dense>
-                  <v-icon dark>lock_open</v-icon>
-                </v-btn>
-                </v-card>
+              <v-col :cols="$vuetify.breakpoint.mdAndDown?4:2" class="px-0">
+                <v-btn-toggle mandatory multiple v-model="value">
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                      <v-btn @click="handleLogin" height="40" dense v-on="on">
+                        <v-icon dark>lock_open</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>lock open</span>
+                  </v-tooltip>
+
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                      <v-btn @click="handleLogin" height="40" dense v-on="on">
+                        <v-icon dark>exit_to_app</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>exit app</span>
+                  </v-tooltip>
+                </v-btn-toggle>
               </v-col>
             </v-row>
           </v-form>
         </v-col>
-        <!-- <v-col cols="1" class="pl-0">
-         <v-btn flat @click="handleLogin" width="36">
-                  <v-icon dark>lock_open</v-icon>
-                </v-btn>
-        </v-col>-->
       </v-row>
     </v-img>
   </v-container>
@@ -51,9 +60,8 @@ export default {
   }),
   methods: {
     async handleLogin() {
-      // console.log(this.$validator.errors.all());
-      await this.$validator.validateAll();
-      if (this.$validator.errors.all().length === 0) {
+      await this.$refs.form.validate();
+      if (his.$refs.form.validate()) {
         if (this.password !== this.lockPassword) {
           // this.password = ''
           this.message = this.$t("message.ERROR_UNLOCK");
@@ -74,6 +82,16 @@ export default {
       this.$store.dispatch("logOut").then(() => {
         this.$router.push({ path: "/user/login" });
       });
+    },
+    rules(filed, length) {
+      return [
+        v => !!v || filed + this.$vuetify.lang.t("$vuetify.rules.isRequired"),
+        v =>
+          (v && v.length <= length) ||
+          this.$vuetify.lang.t("$vuetify.rules.max") +
+            length +
+            this.$vuetify.lang.t("$vuetify.rules.character")
+      ];
     }
   },
   computed: {
