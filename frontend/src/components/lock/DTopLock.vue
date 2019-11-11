@@ -21,8 +21,8 @@
             <v-row>
               <v-col cols="12" sm="12">
                 <v-text-field
-                  v-model="title"
-                  :rules="rules('title',20)"
+                  v-model="password"
+                  :rules="rules('password',20)"
                   :label="$vuetify.lang.t('$vuetify.form.password')"
                   :append-icon="passwordVisable ? 'visibility' : 'visibility_off'"
                   @click:append="passwordVisable = !passwordVisable"
@@ -53,18 +53,24 @@
 
 <script>
 import { mapState } from "vuex";
+
 export default {
   data: () => ({
     dialog: false,
     passwordVisable: false,
-    password: undefined
+    password: null,
+    lazy: false,
+    valid: true
   }),
   methods: {
     async handLock() {
       await this.$refs.form.validate();
       if (this.$refs.form.validate()) {
-        this.$store.commit("SET_LOCK_PASSWORD", this.password);
-        this.$store.commit("SET_LOCK", true);
+        // 使用md5加密密码
+        this.password = this.$md5(this.password);
+        // Vuex同步方式，实际调用的是mutations中的方法
+        this.$store.commit("setLockPassword", this.password);
+        console.log("dtoplock: " + this.password);
         setTimeout(() => {
           this.$router.push({ path: "/lock" });
         }, 100);
@@ -80,19 +86,16 @@ export default {
             this.$vuetify.lang.t("$vuetify.rules.character")
       ];
     },
-    resetValidation () {
+    resetValidation() {
       this.$refs.form.resetValidation();
     },
-    reset () {
-      this.$refs.form.reset()
-    },
-  },
-  computed: {
-    ...mapState(["toolbarColor"])
+    reset() {
+      this.$refs.form.reset();
+    }
   },
   watch: {
     // 如果dialog发生变化且dialog为false，就重置表单验证
-    dialog: function () {
+    dialog: function() {
       if (!this.dialog) {
         this.resetValidation();
         this.reset();

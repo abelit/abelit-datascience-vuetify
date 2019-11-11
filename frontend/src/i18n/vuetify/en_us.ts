@@ -52,11 +52,14 @@ export default {
         switchLanguage: 'Switch Language',
         questionHelp: 'Question Help',
         screenLock: 'Screen Lock',
-        lockPassword: 'Lock Password'
+        lockPassword: 'Lock Password',
+        logout: 'Logout',
+        unlock: "Unlock"
     },
     form: {
         password: 'Password',
-        indicatesRequiredField: 'indicates required field'
+        indicatesRequiredField: 'indicates required field',
+        errorPassword: 'Error Password'
     },
     rules: {
         max: 'Max',

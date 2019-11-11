@@ -4,37 +4,39 @@
       <v-row align="center" justify="center" style="height: 100%" class="px-5">
         <v-col cols="12" sm="6">
           <v-form :lazy-validation="lazy" ref="form" v-model="valid">
-            <v-row no-gutters justify="center" >
-              <v-col cols="8"  sm="4" class="pl-4">
+            <v-row no-gutters justify="center">
+              <v-col cols="8" sm="4" class="pl-4">
                 <v-text-field
                   v-model="password"
                   :label="$vuetify.lang.t('$vuetify.form.password')"
+                  type="password"
                   prepend-inner-icon="lock"
                   outlined
                   required
                   dense
                   solo
-                  :rules="rules($vuetify.lang.t('$vuetify.form.password'),12)"
+                  :rules="rules($vuetify.lang.t('$vuetify.form.password'),24)"
+                  :error-messages="errorMessage"
                 ></v-text-field>
               </v-col>
               <v-col :cols="$vuetify.breakpoint.xsOnly?4:4" sm="2">
-                <v-btn-toggle mandatory multiple v-model="value">
+                <v-btn-toggle>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
                       <v-btn @click="handleLogin" height="40" dense v-on="on">
                         <v-icon dark>lock_open</v-icon>
                       </v-btn>
                     </template>
-                    <span>lock open</span>
+                    <span>{{ $vuetify.lang.t('$vuetify.tooltip.unlock') }}</span>
                   </v-tooltip>
 
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
-                      <v-btn @click="handleLogin" height="40" dense v-on="on">
+                      <v-btn @click="handleLogout" height="40" dense v-on="on">
                         <v-icon dark>exit_to_app</v-icon>
                       </v-btn>
                     </template>
-                    <span>exit app</span>
+                    <span>{{ $vuetify.lang.t('$vuetify.tooltip.logout') }}</span>
                   </v-tooltip>
                 </v-btn-toggle>
               </v-col>
@@ -49,38 +51,42 @@
 
 <script>
 import { mapState } from "vuex";
+
 export default {
   data: () => ({
-    password: undefined,
-    toggle_exclusive: 2,
-    message: "",
-    backgroundImage: require("@/assets/images/auth/lock_page.png"),
-    alignment: "center",
-    justify: "center"
+    password: null,
+    errorMessage: null,
+    lazy: false,
+    valid: true,
+    backgroundImage: require("@/assets/images/auth/lock_page.png")
   }),
   methods: {
     async handleLogin() {
       await this.$refs.form.validate();
-      if (his.$refs.form.validate()) {
-        if (this.password !== this.lockPassword) {
+      if (this.$refs.form.validate()) {
+        if (this.$md5(this.password) !== this.lockPassword) {
           // this.password = ''
-          this.message = this.$t("message.ERROR_UNLOCK");
+          this.errorMessage = this.$vuetify.lang.t(
+            "$vuetify.form.errorPassword"
+          );
           setTimeout(() => {
-            this.message = "";
+            this.errorMessage = null;
           }, 1000);
           return;
         }
         setTimeout(() => {
-          this.$store.commit("CLEAR_LOCK");
-          this.$router.push(
-            this.$router.currentRoute.query.url || "/dashboard"
-          );
+          // 清除lockPassword
+          this.$store.commit("setLockPassword", "");
+          this.$router.push(this.$router.currentRoute.query.url || "/");
         }, 1000);
       }
     },
     handleLogout() {
-      this.$store.dispatch("logOut").then(() => {
-        this.$router.push({ path: "/user/login" });
+      // Vuex通过dispatch实现异步，实际执行的是actions中的方法
+      this.$store.dispatch("logout").then(() => {
+        this.$store.commit("setLockPassword", "");
+        // 跳转到指定页面
+        this.$router.push({ path: "/" });
       });
     },
     rules(filed, length) {
@@ -95,7 +101,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["toolbarColor", "lockPassword"])
+    ...mapState(["lockPassword"])
   }
 };
 </script>

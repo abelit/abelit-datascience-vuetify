@@ -27,6 +27,11 @@ export default {
     AppFooter,
     VuePerfectScrollbar
   },
+  data: () => ({
+    scrollSettings: {
+      // maxScrollbarLength: 160
+    }
+  }),
   created() {
     window.getApp = this;
   }

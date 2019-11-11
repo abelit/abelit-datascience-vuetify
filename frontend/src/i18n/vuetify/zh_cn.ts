@@ -52,11 +52,14 @@ export default {
         switchLanguage: '切换语言',
         questionHelp: '问题帮助',
         screenLock: '屏幕锁',
-        lockPassword: '锁屏密码'
+        lockPassword: '锁屏密码',
+        logout: '退出',
+        unlock: "解锁"
     },
     form: {
         password: '密码',
-        indicatesRequiredField: '表示必须输入项'
+        indicatesRequiredField: '表示必须输入项',
+        errorPassword: '密码错误'
     },
     rules: {
         max: '最大',

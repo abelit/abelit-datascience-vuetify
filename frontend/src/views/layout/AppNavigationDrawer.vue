@@ -66,6 +66,9 @@ export default {
   },
   data: () => ({
     drawer: null,
+    scrollSettings: {
+      // maxScrollbarLength: 160
+    },
     items: [
       { icon: "trending_up", text: "Most Popular" },
       { icon: "subscriptions", text: "Subscriptions" },
@@ -76,23 +79,23 @@ export default {
       { icon: "md-star_half", text: "Start Half" },
       { icon: "mdi-compass-outline", text: "Compass Outline" },
 
-      { icon: "trending_up", text: "Most Popular" },
-      { icon: "subscriptions", text: "Subscriptions" },
-      { icon: "history", text: "History" },
-      { icon: "featured_play_list", text: "Playlists" },
-      { icon: "watch_later", text: "Watch Later" },
-      { icon: "navigate_next", text: "Navigate Next" },
-      { icon: "md-star_half", text: "Start Half" },
-      { icon: "mdi-compass-outline", text: "Compass Outline" },
+      { icon: "trending_up", text: "Most Popular1" },
+      { icon: "subscriptions", text: "Subscriptions1" },
+      { icon: "history", text: "History1" },
+      { icon: "featured_play_list", text: "Playlists1" },
+      { icon: "watch_later", text: "Watch Later1" },
+      { icon: "navigate_next", text: "Navigate Next1" },
+      { icon: "md-star_half", text: "Start Half1" },
+      { icon: "mdi-compass-outline", text: "Compass Outline1" },
 
-      { icon: "trending_up", text: "Most Popular" },
-      { icon: "subscriptions", text: "Subscriptions" },
-      { icon: "history", text: "History" },
-      { icon: "featured_play_list", text: "Playlists" },
-      { icon: "watch_later", text: "Watch Later" },
-      { icon: "navigate_next", text: "Navigate Next" },
-      { icon: "md-star_half", text: "Start Half" },
-      { icon: "mdi-compass-outline", text: "Compass Outline" }
+      { icon: "trending_up", text: "Most Popular2" },
+      { icon: "subscriptions", text: "Subscriptions2" },
+      { icon: "history", text: "History2" },
+      { icon: "featured_play_list", text: "Playlists2" },
+      { icon: "watch_later", text: "Watch Later2" },
+      { icon: "navigate_next", text: "Navigate Next2" },
+      { icon: "md-star_half", text: "Start Half2" },
+      { icon: "mdi-compass-outline", text: "Compass Outline2" }
     ]
   }),
   created() {
