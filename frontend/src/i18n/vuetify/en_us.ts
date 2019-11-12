@@ -73,5 +73,8 @@ export default {
         cancel: 'Cancel',
         confirm: 'Confirm'
     },
+    setting: {
+        settings: 'Settings'
+    }
 
 }

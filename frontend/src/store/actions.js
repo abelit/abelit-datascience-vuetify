@@ -7,6 +7,9 @@ const actions = {
   },
   logout({commit}) {
     commit("logout");
+  },
+  setFullscreen({commit}) {
+    commit("setFullscreen");
   }
 };
 

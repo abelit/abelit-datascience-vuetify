@@ -7,7 +7,7 @@
       <v-content>
         <router-view></router-view>
       </v-content>
-
+      <app-theme-setting></app-theme-setting>
       <app-footer></app-footer>
     </vue-perfect-scrollbar>
   </v-app>
@@ -17,6 +17,7 @@
 import AppToolbar from "@/views/layout/AppToolbar";
 import AppNavigationDrawer from "@/views/layout/AppNavigationDrawer";
 import AppFooter from "@/views/layout/AppFooter";
+import AppThemeSetting from "@/views/layout/AppThemeSetting";
 
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
 
@@ -25,7 +26,8 @@ export default {
     AppToolbar,
     AppNavigationDrawer,
     AppFooter,
-    VuePerfectScrollbar
+    VuePerfectScrollbar,
+    AppThemeSetting
   },
   data: () => ({
     scrollSettings: {

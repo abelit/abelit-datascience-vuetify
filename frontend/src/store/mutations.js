@@ -10,6 +10,9 @@ const mutations = {
   logout: state => {
    state.token = "";
    localStorage.removeItem("token");
+  },
+  setFullscreen: (state, value) => {
+    state.isFullscreen =  value;
   }
 };
 

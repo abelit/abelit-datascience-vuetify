@@ -72,5 +72,8 @@ export default {
     button: {
         cancel: '取消',
         confirm: '确认'
+    },
+    setting: {
+        settings: '设置'
     }
 }
