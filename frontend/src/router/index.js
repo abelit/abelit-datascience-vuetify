@@ -47,9 +47,9 @@ export default new Router({
           component: () => import("@/views/demo/Sandbox.vue")
         },
         {
-          path: "test",
-          name: "test",
-          component: () => import("@/views/demo/TestGrid.vue")
+          path: "grid",
+          name: "grid",
+          component: () => import("@/views/demo/Grid.vue")
         },
         {
           path: "contact",

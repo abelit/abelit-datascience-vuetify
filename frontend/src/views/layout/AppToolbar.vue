@@ -1,5 +1,11 @@
 <template>
   <v-app-bar app dense clipped-left>
+    <!-- <v-progress-linear
+      :active="loading"
+      :indeterminate="loading"
+      absolute
+      top
+    ></v-progress-linear> -->
     <v-app-bar-nav-icon @click.stop="setDrawer" />
     <v-avatar size="36px" tile class="hidden-md-and-down">
       <img
@@ -31,6 +37,8 @@ import DLangPicker from "@/components/lang/DLangPicker";
 import DQuestionHelp from "@/components/support/DQuestionHelp";
 import DTopLock from "@/components/lock/DTopLock";
 
+import { mapGetters } from "vuex";
+
 export default {
   components: {
     DLangPicker,
@@ -38,13 +46,25 @@ export default {
     DTopLock
   },
   data: () => ({
-    drawer: true
+    drawer: true,
+    // loading: true
   }),
   methods: {
     setDrawer() {
       window.getApp.$emit("APP_DRAWER_TOGGLED");
       this.drawer = !this.drawer;
     }
+  },
+  computed: {
+    // ...mapGetters({
+    //   loading: 'getAppLoading'
+    // })
+  },
+  created() {
+    console.log("created ...")
+  },
+  mounted() {
+    console.log("mounted ...")
   }
 };
 </script>

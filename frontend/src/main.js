@@ -29,6 +29,8 @@ Vue.prototype.$md5 = md5;
 // router gards
 router.beforeEach((to, _from, next) => {
   NProgress.start();
+  // store.state.appLoading = true
+  console.log("before each ...")
 
   // // This goes through the matched routes from last to first, finding the closest route with a title.
   // // eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.
@@ -53,8 +55,10 @@ router.beforeEach((to, _from, next) => {
 
 router.afterEach((_to, _from) => {
   NProgress.done();
-});
+  // store.state.appLoading = false
+  console.log("after each ...")
 
+});
 
 new Vue({
   router,
