@@ -24,7 +24,7 @@
       <d-full-screen></d-full-screen>
       <d-top-lock></d-top-lock>
       <v-menu offset-y origin="center center" class="elelvation-1" :nudge-bottom="14" transition="scale-transition">
-        <v-btn icon flat slot="activator">
+        <v-btn icon flat v-slot="activator">
         <v-badge color="red" overlap>
           <span slot="badge">3</span>
           <v-icon medium>notifications</v-icon>

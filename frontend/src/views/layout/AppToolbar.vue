@@ -20,9 +20,12 @@
     <!-- <v-text-field solo-inverted flat hide-details label="Search" prepend-inner-icon="search" /> -->
 
     <v-spacer />
-    <d-question-help></d-question-help>
-    <d-lang-picker></d-lang-picker>
+    <!-- <d-question-help></d-question-help> -->
+    <d-fullscreen></d-fullscreen>
     <d-top-lock></d-top-lock>
+    <d-notification></d-notification>
+    <d-lang-picker></d-lang-picker>
+    <d-user-info></d-user-info>
     <!-- <v-switch v-model="$vuetify.theme.dark" primary label="Dark" /> -->
   </v-app-bar>
 </template>
@@ -36,6 +39,9 @@
 import DLangPicker from "@/components/lang/DLangPicker";
 import DQuestionHelp from "@/components/support/DQuestionHelp";
 import DTopLock from "@/components/lock/DTopLock";
+import DNotification from "@/components/notification/DNotification";
+import DUserInfo from "@/components/user/DUserInfo";
+import DFullscreen from "@/components/fullscreen/DFullscreen";
 
 import { mapGetters } from "vuex";
 
@@ -43,7 +49,10 @@ export default {
   components: {
     DLangPicker,
     DQuestionHelp,
-    DTopLock
+    DTopLock,
+    DNotification,
+    DUserInfo,
+    DFullscreen
   },
   data: () => ({
     drawer: true,

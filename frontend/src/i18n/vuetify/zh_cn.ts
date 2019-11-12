@@ -54,7 +54,9 @@ export default {
         screenLock: '屏幕锁',
         lockPassword: '锁屏密码',
         logout: '退出',
-        unlock: "解锁"
+        unlock: "解锁",
+        fullscreen: "全屏",
+        notification: "消息通知"
     },
     form: {
         password: '密码',

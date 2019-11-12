@@ -54,7 +54,9 @@ export default {
         screenLock: 'Screen Lock',
         lockPassword: 'Lock Password',
         logout: 'Logout',
-        unlock: "Unlock"
+        unlock: "Unlock",
+        fullscreen: "Fullscreen",
+        notification: "Notifications"
     },
     form: {
         password: 'Password',
