@@ -56,6 +56,7 @@ export default {
         logout: '退出',
         unlock: "解锁",
         fullscreen: "全屏",
+        exitFullscreen: "退出全屏",
         notification: "消息通知"
     },
     form: {

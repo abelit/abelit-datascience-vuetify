@@ -56,6 +56,7 @@ export default {
         logout: 'Logout',
         unlock: "Unlock",
         fullscreen: "Fullscreen",
+        exitFullscreen: "Exit Fullscreen",
         notification: "Notifications"
     },
     form: {
