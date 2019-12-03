@@ -35,7 +35,7 @@
 <script>
 export default {
   data: () => ({
-    rightDrawer: true
+    rightDrawer: false
   }),
   method: {}
 };

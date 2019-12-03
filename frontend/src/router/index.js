@@ -55,6 +55,11 @@ export default new Router({
           path: "contact",
           name: "contact",
           component: () => import("@/views/demo/GoogleContact.vue")
+        },
+        {
+          path: "drag",
+          name: "drag",
+          component: () => import("@/views/demo/DragDemo.vue")
         }
       ]
     },
@@ -75,6 +80,15 @@ export default new Router({
           // which is lazy-loaded when the route is visited.
           component: () =>
             import( /* webpackChunkName: "about" */ "@/views/About.vue")
+        },
+        {
+          path: "form",
+          name: "form",
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () =>
+            import( /* webpackChunkName: "about" */ "@/views/form/AppMakeForm.vue")
         },
       ]
     },

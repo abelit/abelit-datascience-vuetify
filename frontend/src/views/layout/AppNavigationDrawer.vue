@@ -27,7 +27,7 @@
     <!-- <v-divider dark class="my-0" /> -->
     <vue-perfect-scrollbar class="drawer-menu--scroll" :settings="scrollSettings">
       <v-list dense>
-        <v-list-item v-for="item in items" :key="item.text" link>
+        <v-list-item v-for="item in items" :key="item.text" link :to="item.link">
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -70,32 +70,33 @@ export default {
       // maxScrollbarLength: 160
     },
     items: [
-      { icon: "trending_up", text: "Most Popular" },
-      { icon: "subscriptions", text: "Subscriptions" },
-      { icon: "history", text: "History" },
-      { icon: "featured_play_list", text: "Playlists" },
-      { icon: "watch_later", text: "Watch Later" },
-      { icon: "navigate_next", text: "Navigate Next" },
-      { icon: "md-star_half", text: "Start Half" },
-      { icon: "mdi-compass-outline", text: "Compass Outline" },
+      { icon: "mdi-file-document-box-plus-outline", text: "FromGenerate", link: "/form"},
+      { icon: "trending_up", text: "Most Popular", link:"/" },
+      { icon: "subscriptions", text: "Subscriptions", link:"/" },
+      { icon: "history", text: "History", link:"/" },
+      { icon: "featured_play_list", text: "Playlists", link:"/" },
+      { icon: "watch_later", text: "Watch Later", link:"/" },
+      { icon: "navigate_next", text: "Navigate Next", link:"/" },
+      { icon: "md-star_half", text: "Start Half", link:"/" },
+      { icon: "mdi-compass-outline", text: "Compass Outline", link:"/" },
 
-      { icon: "trending_up", text: "Most Popular1" },
-      { icon: "subscriptions", text: "Subscriptions1" },
-      { icon: "history", text: "History1" },
-      { icon: "featured_play_list", text: "Playlists1" },
-      { icon: "watch_later", text: "Watch Later1" },
-      { icon: "navigate_next", text: "Navigate Next1" },
-      { icon: "md-star_half", text: "Start Half1" },
-      { icon: "mdi-compass-outline", text: "Compass Outline1" },
+      { icon: "trending_up", text: "Most Popular1", link:"/" },
+      { icon: "subscriptions", text: "Subscriptions1", link:"/" },
+      { icon: "history", text: "History1", link:"/" },
+      { icon: "featured_play_list", text: "Playlists1", link:"/" },
+      { icon: "watch_later", text: "Watch Later1", link:"/" },
+      { icon: "navigate_next", text: "Navigate Next1", link:"/" },
+      { icon: "md-star_half", text: "Start Half1", link:"/" },
+      { icon: "mdi-compass-outline", text: "Compass Outline1", link:"/" },
 
-      { icon: "trending_up", text: "Most Popular2" },
-      { icon: "subscriptions", text: "Subscriptions2" },
-      { icon: "history", text: "History2" },
-      { icon: "featured_play_list", text: "Playlists2" },
-      { icon: "watch_later", text: "Watch Later2" },
-      { icon: "navigate_next", text: "Navigate Next2" },
-      { icon: "md-star_half", text: "Start Half2" },
-      { icon: "mdi-compass-outline", text: "Compass Outline2" }
+      { icon: "trending_up", text: "Most Popular2", link:"/" },
+      { icon: "subscriptions", text: "Subscriptions2", link:"/" },
+      { icon: "history", text: "History2", link:"/" },
+      { icon: "featured_play_list", text: "Playlists2", link:"/" },
+      { icon: "watch_later", text: "Watch Later2", link:"/" },
+      { icon: "navigate_next", text: "Navigate Next2", link:"/" },
+      { icon: "md-star_half", text: "Start Half2", link:"/" },
+      { icon: "mdi-compass-outline", text: "Compass Outline2", link:"/" }
     ]
   }),
   created() {
