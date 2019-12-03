@@ -8,9 +8,18 @@
           :group="{ name: 'people', pull: 'clone', put: false }"
           :clone="cloneDog"
         >
-         <v-btn v-for="(item,index) in formStyleList" x-large color="success" dark block :key="item.id" left>
-           <v-icon left>{{item.icon}}</v-icon> {{item.name}}
-         </v-btn>
+          <v-btn
+            v-for="item in formStyleList"
+            x-large
+            color="success"
+            dark
+            block
+            :key="item.id"
+            left
+          >
+            <v-icon left>{{item.icon}}</v-icon>
+            {{item.name}}
+          </v-btn>
           <!-- <v-text-field v-model="message" label="Outlined" outlined clearable key="1"></v-text-field> -->
           <!-- <v-file-input label="File input"></v-file-input>
           <v-textarea
@@ -19,41 +28,42 @@
             label="Outlined textarea"
             value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
           ></v-textarea>
-          <v-btn @click="addForm">add form</v-btn> -->
+          <v-btn @click="addForm">add form</v-btn>-->
         </vuedraggable>
       </v-col>
       <v-col cols="8" md="9">
-        <vuedraggable class="dragArea list-group" :list="list" v-for="(item,index) in list" group="people">
-          <v-text-field
-
-            v-model="formData[item.model]"
-            :key="index"
-            :label="item.label"
-            outlined
-            clearable
-            v-if="item.type==0"
-          ></v-text-field>
-          <v-select
-            v-model="formData[item.model]"
-            :key="index"
-            :label="item.label"
-          outlined
-          v-else-if="item.type==1"
-        ></v-select>
-          <v-file-input 
-            v-model="formData[item.model]"
-            :key="index"
-            :label="item.label" v-else-if="item.type==2"></v-file-input>
-          <v-textarea
-            v-model="formData[item.model]"
-            :key="index"
-            :label="item.label"
-          auto-grow
-          outlined
-          rows="5"
-          row-height="15"
-          v-else-if="item.type==3"
-        ></v-textarea>
+        <vuedraggable class="dragArea list-group" :list="list" group="people">
+          <div v-for="item in list" :key="item.id">
+            <v-text-field
+              v-model="formData[item.model]"
+              :label="item.label"
+              outlined
+              clearable
+              v-if="item.type==0"
+            ></v-text-field>
+            <v-select
+              v-model="formData[item.model]"
+              :label="item.label"
+              outlined
+              v-else-if="item.type==1"
+            ></v-select>
+            <v-file-input
+              v-model="formData[item.model]"
+              :label="item.label"
+              outlined
+              v-else-if="item.type==2"
+            ></v-file-input>
+            <v-textarea
+              v-model="formData[item.model]"
+              :key="index"
+              :label="item.label"
+              auto-grow
+              outlined
+              rows="5"
+              row-height="15"
+              v-else-if="item.type==3"
+            ></v-textarea>
+          </div>
         </vuedraggable>
         <v-btn @click="save">Save</v-btn>
       </v-col>
@@ -71,19 +81,29 @@ export default {
   components: {
     vuedraggable
   },
+  order: 3,
   data() {
     return {
       formData: {},
       formStyleList: [
-        {id: 0, name: "Text Field", icon:"mdi-format-text",type:"text_field"},
-        {id: 1, name: "Selects", icon:"mdi-select",type:"select_field"},
-        {id: 2, name: "File Inputs", icon:"mdi-paperclip",type:"file_field"},
-        {id: 3, name: "Text Area", icon:"mdi-card-text",type:"text_area"},
+        {
+          id: 0,
+          name: "Text Field",
+          icon: "mdi-format-text",
+          type: "text_field"
+        },
+        { id: 1, name: "Selects", icon: "mdi-select", type: "select_field" },
+        {
+          id: 2,
+          name: "File Inputs",
+          icon: "mdi-paperclip",
+          type: "file_field"
+        },
+        { id: 3, name: "Text Area", icon: "mdi-card-text", type: "text_area" }
       ],
       list: [],
       dragging: false,
-      message: "",
-
+      message: ""
     };
   },
   methods: {
@@ -100,20 +120,22 @@ export default {
     },
     save() {
       // console.log(this.formData["message4"]);
-      console.log(this.formData["message3"]);
+      console.log(this.formData["message0"]);
       console.log(this.list);
     },
     cloneDog({ id }) {
       // console.log(this.list)
-      console.log(id)
-      this.list.push({
+      // console.log(id);
+      var addList = {
         id: globalId,
         model: "message" + globalId,
         label: "text" + globalId,
         type: id
-      });
+      };
+
       globalId++;
-      console.log(this.list)
+      return addList;
+      // console.log(this.list);
     }
   }
 };

@@ -26,7 +26,10 @@
     </v-app-bar>
     <!-- <v-divider dark class="my-0" /> -->
     <vue-perfect-scrollbar class="drawer-menu--scroll" :settings="scrollSettings">
-      <v-list dense>
+      <v-list  dense class="pt-0" v-if="$vuetify.breakpoint.mdAndDown">
+        <v-list-item></v-list-item>
+      </v-list>
+      <v-list dense class="pt-0">
         <v-list-item v-for="item in items" :key="item.text" link :to="item.link">
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
