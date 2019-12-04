@@ -8,40 +8,41 @@
             <span class="title font-weight-light">Form Category</span>
           </v-card-title>
           <v-divider></v-divider>
-          <v-card-text>
-            <vuedraggable
-              class="dragArea list-group"
-              :list="formStyleList"
-              :group="{ name: 'formgroup', pull: 'clone', put: false }"
-              :clone="cloneDog"
-            >
-              <v-btn
-                v-for="item in formStyleList"
-                x-large
-                color="primary"
-                dark
-                block
-                :key="item.id"
-                left
+          <vue-perfect-scrollbar>
+            <v-card-text :style="$vuetify.breakpoint.mdAndDown?'height:36vh':'height:76vh'">
+              <vuedraggable
+                class="dragArea list-group"
+                :list="formStyleList"
+                :group="{ name: 'formgroup', pull: 'clone', put: false }"
+                :clone="cloneDog"
               >
-                <v-icon left>{{item.icon}}</v-icon>
-                {{item.name}}
-              </v-btn>
-            </vuedraggable>
-          </v-card-text>
+                <v-btn
+                  v-for="item in formStyleList"
+                  x-large
+                  color="primary"
+                  dark
+                  block
+                  :key="item.id"
+                  left
+                >
+                  <v-icon left>{{item.icon}}</v-icon>
+                  {{item.name}}
+                </v-btn>
+              </vuedraggable>
+            </v-card-text>
+          </vue-perfect-scrollbar>
         </v-card>
       </v-col>
-      <v-col cols="$vuetify.breakpoint.mdAndDown?12:8" md="9" sm="10" xs="10">
+      <v-col cols="$vuetify.breakpoint.mdAndDown?12:8" md="9" sm="10" xs="10" class="pl-0">
         <v-card outlined>
           <v-card-title>
             <v-icon large left>description</v-icon>
             <span class="title font-weight-light">Form Design Zone</span>
           </v-card-title>
           <v-divider></v-divider>
-
-          <v-card-text>
-            <vue-perfect-scrollbar>
-              <v-container :style="$vuetify.breakpoint.mdAndDown?'height:36vh':'height:70vh'" fluid>
+          <vue-perfect-scrollbar>
+            <v-card-text :style="$vuetify.breakpoint.mdAndDown?'height:36vh':'height:70vh'">
+              <v-container fluid>
                 <v-row justify="center" dense>
                   <v-col cols="12">
                     <v-card>
@@ -113,9 +114,7 @@
                           @start="drag = true"
                           @end="drag = false"
                         >
-
                           <div v-for="item in list" :key="item.id">
-                            
                             <v-btn v-if="item.type==5">cancel</v-btn>
                             <v-btn v-if="item.type==5">save</v-btn>
                           </div>
@@ -125,10 +124,10 @@
                   </v-col>
                 </v-row>
               </v-container>
-            </vue-perfect-scrollbar>
-          </v-card-text>
+            </v-card-text>
+          </vue-perfect-scrollbar>
           <v-divider></v-divider>
-
+          
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn @click="clear">Clear</v-btn>
