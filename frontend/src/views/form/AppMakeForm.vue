@@ -2,14 +2,14 @@
   <v-container fluid class="pt-0">
     <v-row justify="center">
       <v-col cols="4" md="3" sm="2" xs="2" v-if="!$vuetify.breakpoint.mdAndDown">
-        <v-card outlined class="mx-auto" max-height="100%">
-          <v-card-title>
+        <v-card outlined class="mx-auto" max-height="100%" dense>
+          <v-card-title class="py-2">
             <v-icon large left>ballot</v-icon>
             <span class="title font-weight-light">Form Category</span>
           </v-card-title>
           <v-divider></v-divider>
           <vue-perfect-scrollbar>
-            <v-card-text :style="$vuetify.breakpoint.mdAndDown?'height:36vh':'height:76vh'">
+            <v-card-text :style="$vuetify.breakpoint.mdAndDown?'height:40vh':'height:76vh'">
               <vuedraggable
                 class="dragArea list-group"
                 :list="formStyleList"
@@ -19,7 +19,7 @@
                 <v-btn
                   v-for="item in formStyleList"
                   x-large
-                  color="primary"
+                  color="primary lighten-1"
                   dark
                   block
                   :key="item.id"
@@ -35,13 +35,13 @@
       </v-col>
       <v-col cols="$vuetify.breakpoint.mdAndDown?12:8" md="9" sm="10" xs="10" class="pl-0">
         <v-card outlined>
-          <v-card-title>
+          <v-card-title class="py-2">
             <v-icon large left>description</v-icon>
             <span class="title font-weight-light">Form Design Zone</span>
           </v-card-title>
           <v-divider></v-divider>
           <vue-perfect-scrollbar>
-            <v-card-text :style="$vuetify.breakpoint.mdAndDown?'height:36vh':'height:70vh'">
+            <v-card-text :style="$vuetify.breakpoint.mdAndDown?'height:43vh':'height:70vh'">
               <v-container fluid>
                 <v-row justify="center" dense>
                   <v-col cols="12">
@@ -146,7 +146,7 @@
 
         <v-dialog v-model="dialog" max-width="500px">
           <v-card>
-            <v-card-title>Form Style</v-card-title>
+            <v-card-title class="py-2">Form Style</v-card-title>
             <v-card-text class="pt-5">
               <vuedraggable
                 class="dragArea list-group"
