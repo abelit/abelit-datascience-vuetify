@@ -44,48 +44,84 @@
               <v-container :style="$vuetify.breakpoint.mdAndDown?'height:36vh':'height:70vh'" fluid>
                 <v-row justify="center" dense>
                   <v-col cols="12">
-                    <v-form>
-                      <vuedraggable
-                        class="dragArea list-group"
-                        :list="list"
-                        group="formgroup"
-                        v-bind="dragOptions"
-                        @start="drag = true"
-                        @end="drag = false"
-                      >
-                        <div v-for="item in list" :key="item.id">
-                          <v-text-field
-                            v-model="formData[item.model]"
-                            :label="item.label"
-                            outlined
-                            clearable
-                            v-if="item.type==0"
-                          ></v-text-field>
-                          <v-select
-                            v-model="formData[item.model]"
-                            :label="item.label"
-                            outlined
-                            v-else-if="item.type==1"
-                          ></v-select>
-                          <v-file-input
-                            v-model="formData[item.model]"
-                            :label="item.label"
-                            outlined
-                            v-else-if="item.type==2"
-                          ></v-file-input>
-                          <v-textarea
-                            v-model="formData[item.model]"
-                            :key="item.id"
-                            :label="item.label"
-                            auto-grow
-                            outlined
-                            rows="10"
-                            row-height="10"
-                            v-else-if="item.type==3"
-                          ></v-textarea>
-                        </div>
-                      </vuedraggable>
-                    </v-form>
+                    <v-card>
+                      <v-card-title class="justify-center">
+                        <vuedraggable
+                          class="dragArea list-group"
+                          :list="list"
+                          group="formgroup"
+                          v-bind="dragOptions"
+                          @start="drag = true"
+                          @end="drag = false"
+                        >
+                          <div v-for="item in list" :key="item.id">
+                            <span class="title font-weight-light" v-if="item.type==4">Table1</span>
+                          </div>
+                        </vuedraggable>
+                      </v-card-title>
+                      <v-card-text>
+                        <v-form>
+                          <vuedraggable
+                            class="dragArea list-group"
+                            :list="list"
+                            group="formgroup"
+                            v-bind="dragOptions"
+                            @start="drag = true"
+                            @end="drag = false"
+                          >
+                            <div v-for="item in list" :key="item.id">
+                              <v-text-field
+                                v-model="formData[item.model]"
+                                :label="item.label"
+                                outlined
+                                clearable
+                                v-if="item.type==0"
+                              ></v-text-field>
+                              <v-select
+                                v-model="formData[item.model]"
+                                :label="item.label"
+                                outlined
+                                v-else-if="item.type==1"
+                              ></v-select>
+                              <v-file-input
+                                v-model="formData[item.model]"
+                                :label="item.label"
+                                outlined
+                                v-else-if="item.type==2"
+                              ></v-file-input>
+                              <v-textarea
+                                v-model="formData[item.model]"
+                                :key="item.id"
+                                :label="item.label"
+                                auto-grow
+                                outlined
+                                rows="10"
+                                row-height="10"
+                                v-else-if="item.type==3"
+                              ></v-textarea>
+                            </div>
+                          </vuedraggable>
+                        </v-form>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <vuedraggable
+                          class="dragArea list-group"
+                          :list="list"
+                          group="formgroup"
+                          v-bind="dragOptions"
+                          @start="drag = true"
+                          @end="drag = false"
+                        >
+
+                          <div v-for="item in list" :key="item.id">
+                            
+                            <v-btn v-if="item.type==5">cancel</v-btn>
+                            <v-btn v-if="item.type==5">save</v-btn>
+                          </div>
+                        </vuedraggable>
+                      </v-card-actions>
+                    </v-card>
                   </v-col>
                 </v-row>
               </v-container>
@@ -176,7 +212,14 @@ export default {
           icon: "mdi-paperclip",
           type: "file_field"
         },
-        { id: 3, name: "Text Area", icon: "mdi-card-text", type: "text_area" }
+        { id: 3, name: "Text Area", icon: "mdi-card-text", type: "text_area" },
+        { id: 4, name: "Title", icon: "table_chart", type: "table_title" },
+        {
+          id: 5,
+          name: "Button",
+          icon: "radio_button_checked",
+          type: "submit_button"
+        }
       ],
       list: [],
       dragging: false,
