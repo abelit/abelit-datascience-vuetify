@@ -97,5 +97,10 @@ export default new Router({
       name: "Lock",
       component: () => import("@/views/lock/AppLock")
     },
+    {
+      path: "/login",
+      name: "Login",
+      component: () => import("@/views/user/AppLogin")
+    }
   ]
 });
