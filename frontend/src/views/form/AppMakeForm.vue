@@ -78,13 +78,13 @@
                             <div v-for="item in list" :key="item.id">
                               <v-row  justify="center">
                                 <v-col cols="10" >
-                                  <v-text-field
+                                 <v-input>
+ <v-text-field
                                     v-model="formData[item.model]"
                                     :label="item.label"
                                     outlined
                                     clearable
                                     v-if="item.type==0"
-                                    dense
                                   ></v-text-field>
                                   <v-select
                                     v-model="formData[item.model]"
@@ -108,11 +108,10 @@
                                     row-height="10"
                                     v-else-if="item.type==3"
                                   ></v-textarea>
-                                </v-col>
-                                <v-col cols="2" justify-self="center">
                                   <v-btn class="ma-2" outlined color="teal">
                                     <v-icon>mdi-format-list-bulleted-square</v-icon>
                                   </v-btn>
+                                 </v-input>
                                 </v-col>
                               </v-row>
                             </div>

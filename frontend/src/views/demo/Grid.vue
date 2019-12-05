@@ -61,6 +61,46 @@
         </v-row>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col class="text-center">
+       <v-sheet class="pa-3">v-col-center</v-sheet>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col class="text-center">
+       <v-text-field
+                                    v-model="formData"
+                                    label="il"
+                                    outlined
+                                    clearable
+
+                                  ></v-text-field>
+      </v-col>
+       <v-col class="text-center">
+                                  <v-btn class="ma-2" outlined color="teal">
+                                    <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                  </v-btn>
+                                </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-input>
+  <v-text-field
+                                    v-model="formData"
+                                    label="il"
+                                    outlined
+                                    clearable
+
+                                  ></v-text-field>
+                                   <v-btn class="ma-2" outlined color="teal">
+                                    <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                  </v-btn>
+
+        </v-input>
+      </v-col>
+
+    </v-row>
   </v-container>
 </template>
 
