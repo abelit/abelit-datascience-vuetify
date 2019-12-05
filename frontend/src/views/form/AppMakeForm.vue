@@ -87,8 +87,11 @@
                                     v-if="item.type==0"
                                   >
                                     <template v-slot:append-outer>
-                                      <v-btn outlined color="teal" style="height: 40px">
+                                      <v-btn icon color="teal" style="height: 40px">
                                         <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                      </v-btn>
+                                      <v-btn icon color="teal" style="height: 40px"  @click="clearThisForm(item.id)">
+                                        <v-icon>close</v-icon>
                                       </v-btn>
                                     </template>
                                   </v-text-field>
@@ -100,8 +103,11 @@
                                     v-else-if="item.type==1"
                                   >
                                  <template v-slot:append-outer>
-                                      <v-btn outlined color="teal" style="height: 40px">
+                                      <v-btn icon color="teal" style="height: 40px">
                                         <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                      </v-btn>
+                                      <v-btn icon color="teal" style="height: 40px"  @click="clearThisForm(item.id)">
+                                        <v-icon>close</v-icon>
                                       </v-btn>
                                     </template>
                                   </v-select>
@@ -113,8 +119,11 @@
                                     v-else-if="item.type==2"
                                   >
                                   <template v-slot:append-outer>
-                                      <v-btn outlined color="teal" style="height: 40px">
+                                      <v-btn icon color="teal" style="height: 40px">
                                         <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                      </v-btn>
+                                      <v-btn icon color="teal" style="height: 40px" @click="clearThisForm(item.id)">
+                                        <v-icon>close</v-icon>
                                       </v-btn>
                                     </template>
                                   </v-file-input>
@@ -129,8 +138,11 @@
                                     v-else-if="item.type==3"
                                   >
                                   <template v-slot:append-outer>
-                                      <v-btn outlined color="teal" style="height: 40px">
+                                      <v-btn icon color="teal" style="height: 40px">
                                         <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                      </v-btn>
+                                      <v-btn icon color="teal" style="height: 40px"  @click="clearThisForm(item.id)">
+                                        <v-icon>close</v-icon>
                                       </v-btn>
                                     </template>
                                   </v-textarea>
@@ -265,7 +277,7 @@ export default {
   },
   methods: {
     addForm(id) {
-      console.log(id);
+      // console.log(id);
       var addList = {
         id: globalId,
         model: "message" + globalId,
@@ -286,6 +298,18 @@ export default {
     clear() {
       this.list = [];
       globalId = 0;
+    },
+    clearThisForm(id) {
+      var i;
+      console.log(id);
+      console.log("test id");
+      for (i in this.list){
+        if (this.list[i]['id'] == id) {
+          console.log(this.list[i]);
+          delete this.list[i];
+          console.log(this.list)
+        }
+      }
     },
     cloneDog({ id }) {
       // console.log(this.list)
