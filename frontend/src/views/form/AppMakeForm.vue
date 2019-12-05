@@ -38,6 +38,11 @@
           <v-card-title class="py-2">
             <v-icon large left>description</v-icon>
             <span class="title font-weight-light">Form Design Zone</span>
+
+            <v-spacer></v-spacer>
+            <v-btn icon>
+              <v-icon>mdi-settings</v-icon>
+            </v-btn>
           </v-card-title>
           <v-divider></v-divider>
           <vue-perfect-scrollbar>
@@ -71,35 +76,45 @@
                             @end="drag = false"
                           >
                             <div v-for="item in list" :key="item.id">
-                              <v-text-field
-                                v-model="formData[item.model]"
-                                :label="item.label"
-                                outlined
-                                clearable
-                                v-if="item.type==0"
-                              ></v-text-field>
-                              <v-select
-                                v-model="formData[item.model]"
-                                :label="item.label"
-                                outlined
-                                v-else-if="item.type==1"
-                              ></v-select>
-                              <v-file-input
-                                v-model="formData[item.model]"
-                                :label="item.label"
-                                outlined
-                                v-else-if="item.type==2"
-                              ></v-file-input>
-                              <v-textarea
-                                v-model="formData[item.model]"
-                                :key="item.id"
-                                :label="item.label"
-                                auto-grow
-                                outlined
-                                rows="10"
-                                row-height="10"
-                                v-else-if="item.type==3"
-                              ></v-textarea>
+                              <v-row  justify="center">
+                                <v-col cols="10" >
+                                  <v-text-field
+                                    v-model="formData[item.model]"
+                                    :label="item.label"
+                                    outlined
+                                    clearable
+                                    v-if="item.type==0"
+                                    dense
+                                  ></v-text-field>
+                                  <v-select
+                                    v-model="formData[item.model]"
+                                    :label="item.label"
+                                    outlined
+                                    v-else-if="item.type==1"
+                                  ></v-select>
+                                  <v-file-input
+                                    v-model="formData[item.model]"
+                                    :label="item.label"
+                                    outlined
+                                    v-else-if="item.type==2"
+                                  ></v-file-input>
+                                  <v-textarea
+                                    v-model="formData[item.model]"
+                                    :key="item.id"
+                                    :label="item.label"
+                                    auto-grow
+                                    outlined
+                                    rows="10"
+                                    row-height="10"
+                                    v-else-if="item.type==3"
+                                  ></v-textarea>
+                                </v-col>
+                                <v-col cols="2" justify-self="center">
+                                  <v-btn class="ma-2" outlined color="teal">
+                                    <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                  </v-btn>
+                                </v-col>
+                              </v-row>
                             </div>
                           </vuedraggable>
                         </v-form>
@@ -127,7 +142,7 @@
             </v-card-text>
           </vue-perfect-scrollbar>
           <v-divider></v-divider>
-          
+
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn @click="clear">Clear</v-btn>
