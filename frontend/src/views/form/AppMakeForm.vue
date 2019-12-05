@@ -76,28 +76,48 @@
                             @end="drag = false"
                           >
                             <div v-for="item in list" :key="item.id">
-                              <v-row  justify="center">
-                                <v-col cols="10" >
-                                 <v-input>
- <v-text-field
+                              <v-row justify="center" no-getters>
+                                <v-col cols="10">
+                                  <v-text-field
                                     v-model="formData[item.model]"
                                     :label="item.label"
                                     outlined
+                                    dense
                                     clearable
                                     v-if="item.type==0"
-                                  ></v-text-field>
+                                  >
+                                    <template v-slot:append-outer>
+                                      <v-btn outlined color="teal" style="height: 40px">
+                                        <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                      </v-btn>
+                                    </template>
+                                  </v-text-field>
                                   <v-select
                                     v-model="formData[item.model]"
                                     :label="item.label"
                                     outlined
+                                    dense
                                     v-else-if="item.type==1"
-                                  ></v-select>
+                                  >
+                                 <template v-slot:append-outer>
+                                      <v-btn outlined color="teal" style="height: 40px">
+                                        <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                      </v-btn>
+                                    </template>
+                                  </v-select>
                                   <v-file-input
                                     v-model="formData[item.model]"
                                     :label="item.label"
                                     outlined
+                                    dense
                                     v-else-if="item.type==2"
-                                  ></v-file-input>
+                                  >
+                                  <template v-slot:append-outer>
+                                      <v-btn outlined color="teal" style="height: 40px">
+                                        <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                      </v-btn>
+                                    </template>
+                                  </v-file-input>
                                   <v-textarea
                                     v-model="formData[item.model]"
                                     :key="item.id"
@@ -107,11 +127,13 @@
                                     rows="10"
                                     row-height="10"
                                     v-else-if="item.type==3"
-                                  ></v-textarea>
-                                  <v-btn class="ma-2" outlined color="teal">
-                                    <v-icon>mdi-format-list-bulleted-square</v-icon>
-                                  </v-btn>
-                                 </v-input>
+                                  >
+                                  <template v-slot:append-outer>
+                                      <v-btn outlined color="teal" style="height: 40px">
+                                        <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                      </v-btn>
+                                    </template>
+                                  </v-textarea>
                                 </v-col>
                               </v-row>
                             </div>
@@ -303,4 +325,7 @@ export default {
     overflow: auto;
   }
 }
+.v-input__append-outer {
+    margin: 0 !important
+  }
 </style>
