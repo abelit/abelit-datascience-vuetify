@@ -24,6 +24,7 @@
                   block
                   :key="item.id"
                   left
+                  class="text-left"
                 >
                   <v-icon left>{{item.icon}}</v-icon>
                   {{item.name}}
@@ -62,6 +63,18 @@
                         >
                           <div v-for="item in list" :key="item.id">
                             <span class="title font-weight-light" v-if="item.type==4">Table1</span>
+                            <v-btn icon color="teal" style="height: 40px" v-if="item.type==4">
+                              <v-icon>mdi-format-list-bulleted-square</v-icon>
+                            </v-btn>
+                            <v-btn
+                              icon
+                              color="teal"
+                              style="height: 40px"
+                              @click="removeItem(list, item)"
+                              v-if="item.type==4"
+                            >
+                              <v-icon>close</v-icon>
+                            </v-btn>
                           </div>
                         </vuedraggable>
                       </v-card-title>
@@ -76,78 +89,94 @@
                             @end="drag = false"
                           >
                             <div v-for="item in list" :key="item.id">
-                              <v-row justify="center" no-getters>
-                                <v-col cols="10">
-                                  <v-text-field
-                                    v-model="formData[item.model]"
-                                    :label="item.label"
-                                    outlined
-                                    dense
-                                    clearable
-                                    v-if="item.type==0"
+                              <v-text-field
+                                v-model="formData[item.model]"
+                                :label="item.label"
+                                outlined
+                                dense
+                                clearable
+                                v-if="item.type==0"
+                              >
+                                <template v-slot:append-outer>
+                                  <v-btn icon color="teal" style="height: 40px">
+                                    <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                  </v-btn>
+                                  <v-btn
+                                    icon
+                                    color="teal"
+                                    style="height: 40px"
+                                    @click="removeItem(list,item)"
                                   >
-                                    <template v-slot:append-outer>
-                                      <v-btn icon color="teal" style="height: 40px">
-                                        <v-icon>mdi-format-list-bulleted-square</v-icon>
-                                      </v-btn>
-                                      <v-btn icon color="teal" style="height: 40px"  @click="clearThisForm(item.id)">
-                                        <v-icon>close</v-icon>
-                                      </v-btn>
-                                    </template>
-                                  </v-text-field>
-                                  <v-select
-                                    v-model="formData[item.model]"
-                                    :label="item.label"
-                                    outlined
-                                    dense
-                                    v-else-if="item.type==1"
+                                    <v-icon>close</v-icon>
+                                  </v-btn>
+                                </template>
+                              </v-text-field>
+                              <v-select
+                                v-model="formData[item.model]"
+                                :label="item.label"
+                                outlined
+                                dense
+                                v-else-if="item.type==1"
+                              >
+                                <template v-slot:append-outer>
+                                  <v-btn icon color="teal" style="height: 40px">
+                                    <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                  </v-btn>
+                                  <v-btn
+                                    icon
+                                    color="teal"
+                                    style="height: 40px"
+                                    @click="removeItem(list,item)"
                                   >
-                                 <template v-slot:append-outer>
-                                      <v-btn icon color="teal" style="height: 40px">
-                                        <v-icon>mdi-format-list-bulleted-square</v-icon>
-                                      </v-btn>
-                                      <v-btn icon color="teal" style="height: 40px"  @click="clearThisForm(item.id)">
-                                        <v-icon>close</v-icon>
-                                      </v-btn>
-                                    </template>
-                                  </v-select>
-                                  <v-file-input
-                                    v-model="formData[item.model]"
-                                    :label="item.label"
-                                    outlined
-                                    dense
-                                    v-else-if="item.type==2"
+                                    <v-icon>close</v-icon>
+                                  </v-btn>
+                                </template>
+                              </v-select>
+                              <v-file-input
+                                v-model="formData[item.model]"
+                                :label="item.label"
+                                outlined
+                                dense
+                                v-else-if="item.type==2"
+                              >
+                                <template v-slot:append-outer>
+                                  <v-btn icon color="teal" style="height: 40px">
+                                    <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                  </v-btn>
+                                  <v-btn
+                                    icon
+                                    color="teal"
+                                    style="height: 40px"
+                                    @click="removeItem(list,item)"
                                   >
-                                  <template v-slot:append-outer>
-                                      <v-btn icon color="teal" style="height: 40px">
-                                        <v-icon>mdi-format-list-bulleted-square</v-icon>
-                                      </v-btn>
-                                      <v-btn icon color="teal" style="height: 40px" @click="clearThisForm(item.id)">
-                                        <v-icon>close</v-icon>
-                                      </v-btn>
-                                    </template>
-                                  </v-file-input>
-                                  <v-textarea
-                                    v-model="formData[item.model]"
-                                    :key="item.id"
-                                    :label="item.label"
-                                    auto-grow
-                                    outlined
-                                    rows="10"
-                                    row-height="10"
-                                    v-else-if="item.type==3"
+                                    <v-icon>close</v-icon>
+                                  </v-btn>
+                                </template>
+                              </v-file-input>
+                              <v-textarea
+                                v-model="formData[item.model]"
+                                :key="item.id"
+                                :label="item.label"
+                                auto-grow
+                                outlined
+                                rows="10"
+                                row-height="10"
+                                v-else-if="item.type==3"
+                              >
+                                <template v-slot:append-outer>
+                                  <v-btn icon color="teal" style="height: 40px">
+                                    <v-icon>mdi-format-list-bulleted-square</v-icon>
+                                  </v-btn>
+                                  <v-btn
+                                    icon
+                                    color="teal"
+                                    style="height: 40px"
+                                    @click="removeItem(list, item)"
                                   >
-                                  <template v-slot:append-outer>
-                                      <v-btn icon color="teal" style="height: 40px">
-                                        <v-icon>mdi-format-list-bulleted-square</v-icon>
-                                      </v-btn>
-                                      <v-btn icon color="teal" style="height: 40px"  @click="clearThisForm(item.id)">
-                                        <v-icon>close</v-icon>
-                                      </v-btn>
-                                    </template>
-                                  </v-textarea>
-                                </v-col>
-                              </v-row>
+                                    <v-icon>close</v-icon>
+                                  </v-btn>
+                                </template>
+                              </v-textarea>
                             </div>
                           </vuedraggable>
                         </v-form>
@@ -165,6 +194,18 @@
                           <div v-for="item in list" :key="item.id">
                             <v-btn v-if="item.type==5">cancel</v-btn>
                             <v-btn v-if="item.type==5">save</v-btn>
+                            <v-btn icon color="teal" style="height: 40px" v-if="item.type==5">
+                              <v-icon>mdi-format-list-bulleted-square</v-icon>
+                            </v-btn>
+                            <v-btn
+                              icon
+                              color="teal"
+                              style="height: 40px"
+                              @click="removeItem(list, item)"
+                              v-if="item.type==5"
+                            >
+                              <v-icon>close</v-icon>
+                            </v-btn>
                           </div>
                         </vuedraggable>
                       </v-card-actions>
@@ -287,9 +328,6 @@ export default {
       this.list.push(addList);
       globalId++;
     },
-    removeForm(idx) {
-      this.list.splice(idx, 1);
-    },
     save() {
       // console.log(this.formData["message4"]);
       // console.log(this.formData["message0"]);
@@ -299,17 +337,18 @@ export default {
       this.list = [];
       globalId = 0;
     },
-    clearThisForm(id) {
-      var i;
-      console.log(id);
-      console.log("test id");
-      for (i in this.list){
-        if (this.list[i]['id'] == id) {
-          console.log(this.list[i]);
-          delete this.list[i];
-          console.log(this.list)
+    removeItem(arr, item) {
+      console.log(arr);
+      var num = arr.length;
+      for (var i = 0; i < num; i++) {
+        if (arr[0] != item) {
+          arr.push(arr.shift());
+        } else {
+          arr.shift();
         }
       }
+      console.log(arr);
+      return arr;
     },
     cloneDog({ id }) {
       // console.log(this.list)
@@ -350,6 +389,6 @@ export default {
   }
 }
 .v-input__append-outer {
-    margin: 0 !important
-  }
+  margin: 0 !important;
+}
 </style>
