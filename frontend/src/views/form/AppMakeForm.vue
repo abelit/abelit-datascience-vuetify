@@ -88,7 +88,10 @@
                             @start="drag = true"
                             @end="drag = false"
                           >
-                            <div v-for="item in list" :key="item.id">
+                            <v-row justify="center" v-if="list.length==0"> 
+                              <span>Drag Form components Here ...</span>
+                            </v-row>
+                            <div v-for="item in list" :key="item.id" >
                               <v-text-field
                                 v-model="formData[item.model]"
                                 :label="item.label"
