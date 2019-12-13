@@ -1,43 +1,51 @@
 <template>
-  <v-container class="grey lighten-5">
-    <v-row>
-      <v-col sm="9">
-        <v-card
-          class="pa-2"
-          outlined
-          tile
-        >
-          Level 1: .col-sm-9
-        </v-card>
-        <v-row no-gutters>
-          <v-col
-            cols="8"
-            sm="6"
-          >
-            <v-card
-              class="pa-2"
-              outlined
-              style="background-color: lightgrey;"
-              tile
-            >
-              Level 2: .col-8 .col-sm-6
-            </v-card>
-          </v-col>
-          <v-col
-            cols="4"
-            sm="6"
-          >
-            <v-card
-              class="pa-2"
-              outlined
-              style="background-color: lightgrey;"
-              tile
-            >
-              Level 3: .col-4 .col-sm-6
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div class="row">
+    <div class="col-8">
+      <h3>Nested draggable</h3>
+      <nested-draggable :tasks="list" />
+    </div>
+
+    <rawDisplayer class="col-3" :value="list" title="List" />
+  </div>
 </template>
+
+<script>
+import nestedDraggable from "./nested";
+export default {
+  name: "nested-example",
+  display: "Nested",
+  order: 15,
+  components: {
+    nestedDraggable
+  },
+  data() {
+    return {
+      list: [
+        {
+          name: "task 1",
+          tasks: [
+            {
+              name: "task 2",
+              tasks: []
+            }
+          ]
+        },
+        {
+          name: "task 3",
+          tasks: [
+            {
+              name: "task 4",
+              tasks: []
+            }
+          ]
+        },
+        {
+          name: "task 5",
+          tasks: []
+        }
+      ]
+    };
+  }
+};
+</script>
+<style scoped></style>
