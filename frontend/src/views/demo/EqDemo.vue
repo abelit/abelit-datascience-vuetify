@@ -16,11 +16,9 @@
             <v-row justify="center" align="center">
               <v-col>
                 <div>
-                  <canvas id="can" :width="tableWidth" height="100px" class="id1"></canvas>
-                  <!-- <canvas id="can" :width="tableWidth" height="100px" v-else class="id2"></canvas> -->
+                  <canvas id="canvas" ref="canvas" :width="tableWidth" height="100px"></canvas>
                 </div>
-
-                <table border="1" cellspacing="0" cellpadding="0" ref="etable">
+                <table border="1" cellspacing="0" cellpadding="0" ref="table">
                   <tr style="height: 50px">
                     <td
                       v-for="item in allContent"
@@ -54,8 +52,7 @@ export default {
     currentYear: 10,
     topYear: 10,
     step: 0,
-    selected: ["A", "B", "AB"],
-    // canvasWidth: 1200 + "px",
+    selected: [],
     tableWidth: "1129px"
   }),
   computed: {
@@ -68,13 +65,6 @@ export default {
         return arr;
       }
     }
-    // tableWidth: {
-    //   get: function() {
-    //     // return this.$refs.etable.offsetWidth+"px";
-    //     // console.log(this.$refs.etable.offsetWidth)
-    //     return 1200+"px"
-    //   }
-    // }
   },
   methods: {
     restart() {
@@ -82,7 +72,7 @@ export default {
       this.step = 0;
       this.clearCanvas();
       this.drawLine(
-        (this.$refs.etable.offsetWidth / this.topYear) * this.currentYear
+        (this.$refs.table.offsetWidth / this.topYear) * this.currentYear
       );
     },
     change(type) {
@@ -151,34 +141,32 @@ export default {
       this.selected.push(type);
       this.step++;
       console.log(
-        (this.$refs.etable.offsetWidth / this.topYear) * this.currentYear
+        (this.$refs.table.offsetWidth / this.topYear) * this.currentYear
       );
 
       this.clearCanvas();
       if (this.currentYear > 0) {
         this.drawLine(
-          (this.$refs.etable.offsetWidth / this.topYear) * this.currentYear
+          (this.$refs.table.offsetWidth / this.topYear) * this.currentYear
         );
       }
     },
     drawLine(width) {
       //获取画板
-      var can = document.getElementById("can");
-      if (can == null) return false;
-      var ctx = can.getContext("2d"); //得到画笔
-
-      // //重绘画布内容
-      // can.height = can.height;
-      // console.log("height: " + can.height);
-
-      ctx.beginPath(); //开始绘制新路径
+      var canvas = document.getElementById("canvas");
+      if (canvas == null) return false;
+      //获取画笔
+      var ctx = canvas.getContext("2d");
+      //开始绘制新路径
+      ctx.beginPath();
       //画线
-      arrow_line("can", 0, 90, 0, 0, width, 0); //横  （向右）
-      // arrow_line("can",0,0,0,0,0,150);   //竖 (向下)
-      arrow_line("can", 0, 0, 5, 0, 0, 0); //横  （向左）
-      // arrow_line("can",150,-150,0,150,0,0);   //竖 (向上)
+      //横  （向右）
+      drawArrowLine("canvas", 0, 90, 0, 0, width, 0);
+      //横  （向左）
+      drawArrowLine("canvas", 0, 0, 5, 0, 0, 0);
+      canvas;
       //画带箭头的线
-      function arrow_line(canId, ox, oy, x1, y1, x2, y2) {
+      function drawArrowLine(canId, ox, oy, x1, y1, x2, y2) {
         //参数说明 canvas的 id ，原点坐标  第一个端点的坐标，第二个端点的坐标
         var sta = new Array(x1, y1);
         var end = new Array(x2, y2);
@@ -187,7 +175,8 @@ export default {
         var ctx = canvas.getContext("2d");
         //画线
         ctx.beginPath();
-        ctx.translate(ox, oy, 0); //坐标源点
+        //坐标源点
+        ctx.translate(ox, oy, 0);
         ctx.moveTo(sta[0], sta[1]);
         ctx.lineTo(end[0], end[1]);
         ctx.fill();
@@ -201,29 +190,33 @@ export default {
         if (end[1] - sta[1] >= 0) {
           ctx.rotate(-ang);
         } else {
-          ctx.rotate(Math.PI - ang); //加个180度，反过来
+          // 旋转180度
+          ctx.rotate(Math.PI - ang);
         }
         ctx.lineTo(-5, -10);
         ctx.lineTo(0, -5);
         ctx.lineTo(5, -10);
         ctx.lineTo(0, 0);
-        ctx.fill(); //箭头是个封闭图形
-        ctx.restore(); //恢复到堆的上一个状态，其实这里没什么用。
+        ctx.fill();
+        ctx.restore();
         ctx.closePath();
       }
     },
     clearCanvas() {
       //获取画板
-      var can = document.getElementById("can");
-      if (can == null) return false;
+      var canvas = document.getElementById("canvas");
+      if (canvas == null) return false;
       //清除画布内容
-      can.height = can.height;
+      canvas.height = canvas.height;
     }
   },
   mounted() {
-    this.drawLine(this.$refs.etable.offsetWidth);
+    this.drawLine(this.$refs.table.offsetWidth);
     // this.drawLine(0);
-    this.tableWidth = this.$refs.etable.offsetWidth + "px";
+    this.tableWidth = this.$refs.table.offsetWidth + "px";
+
+    console.log(document.getElementById("canvas"));
+    console.log(this.$refs.canvas);
   }
 };
 </script>
