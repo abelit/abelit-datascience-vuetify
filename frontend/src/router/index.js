@@ -66,6 +66,16 @@ export default new Router({
           path: "dynamicgrid",
           name: "dynamicgrid",
           component: () => import("@/views/demo/DynamicGrid.vue")
+        },
+        {
+          path: "gridorder",
+          name: "gridorder",
+          component: () => import("@/views/demo/GridOrder.vue")
+        },
+        {
+          path: "eq",
+          name: "eq",
+          component: () => import("@/views/demo/EqDemo.vue")
         }
       ]
     },

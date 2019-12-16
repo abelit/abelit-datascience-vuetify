@@ -8,41 +8,43 @@
           <v-card-text>
             <v-row>
               <v-col>
-                <span class="display-1">步骤：{{step}}</span>
+                <span class="display-1">当前步骤：{{step}}</span>
                 <v-spacer></v-spacer>
                 <span class="display-1">当前年： {{ currentYear }}</span>
               </v-col>
             </v-row>
             <v-row justify="center" align="center">
               <v-col>
-                <v-btn
-                  color="indigo"
-                  tile
-                  :height="height"
-                  v-for="item in allYear"
-                  :key="item"
-                  :outlined="item>currentYear"
-                >{{item}}</v-btn>
-              </v-col>
-            </v-row>
-            <v-row justify="center" align="center">
-              <v-col>
-                <v-btn
-                  color="green darken-4"
-                  tile
-                  :height="height"
-                  v-for="item in allYear"
-                  :key="item"
-                >{{item}}</v-btn>
+                <div ref="ecan">
+                  <canvas
+                    id="can"
+                    :width="tableWidth"
+                    height="100px"
+                    ref="earrow"
+                    v-if="currentYear>0"
+                  ></canvas>
+                  <canvas id="can" :width="tableWidth" height="100px" v-else></canvas>
+                </div>
+
+                <table border="1" cellspacing="0" cellpadding="0" ref="etable">
+                  <tr style="height: 50px">
+                    <td
+                      v-for="item in allContent"
+                      :key="item"
+                      style="width: 30px; text-align: center"
+                      :style="item<=4*currentYear?'background-color: green;':''"
+                    >{{item}}</td>
+                  </tr>
+                </table>
               </v-col>
             </v-row>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
-            <v-btn class="primary" @click="change(0)">A</v-btn>
-            <v-btn class="yellow darken-3" @click="change(-1)">A & B</v-btn>
-            <v-btn class="purple" @click="change(1)">B</v-btn>
-            <v-btn class="purple" @click="restart">
+            <v-btn class="primary" @click="change('A')">A</v-btn>
+            <v-btn class="yellow darken-3" @click="change('AB')">A & B</v-btn>
+            <v-btn class="purple" @click="change('B')">B</v-btn>
+            <v-btn class="purple" v-if="step>0" @click="restart">
               <v-icon>refresh</v-icon>
             </v-btn>
           </v-card-actions>
@@ -57,78 +59,169 @@ export default {
   data: () => ({
     currentYear: 10,
     topYear: 10,
-    step: 1,
-    width: 50,
-    height: 50,
-    elevation: 4,
-    colors: ["white", "gray darken-2", "warning", "error", "success", "teal"],
-    color: "blue",
-    tile: false
+    step: 0,
+    selected: ["A", "B", "AB"],
+    // canvasWidth: 1200 + "px",
+    tableWidth: "1129px"
   }),
   computed: {
-    allYear: {
+    allContent: {
       get: function() {
         var arr = [];
-        for (var i = 1; i <= this.topYear; i++) {
+        for (var i = 1; i <= 4 * this.topYear; i++) {
           arr.push(i);
         }
         return arr;
       }
     }
+    // tableWidth: {
+    //   get: function() {
+    //     // return this.$refs.etable.offsetWidth+"px";
+    //     // console.log(this.$refs.etable.offsetWidth)
+    //     return 1200+"px"
+    //   }
+    // }
   },
   methods: {
     restart() {
       this.currentYear = 10;
-      this.step = 1;
+      this.step = 0;
     },
     change(type) {
-      if (type == 0) {
-        if (this.step == 1) {
-          this.currentYear = this.currentYear - 10;
-        } else if (this.step == 2) {
-          this.currentYear = this.currentYear - 5;
-        } else if (this.step >= 3 && this.step < 7) {
-          if (
-            (this.currentYear <= 5 && this.currentYear > 1) ||
-            (this.currentYear <= -5 && this.currentYear > -9)
-          ) {
-            this.currentYear = this.currentYear - 1;
+      if (type === "A") {
+        if (this.currentYear === 0) {
+          alert("Next Question about B.");
+          return;
+        } else if (
+          (this.currentYear <= 1 && this.currentYear > 0) ||
+          (this.currentYear > 9 && this.currentYear <= 10)
+        ) {
+          if (this.currentYear === 10 && this.step === 0) {
+            this.currentYear = this.currentYear - 10;
           } else {
             this.currentYear = this.currentYear - 0.5;
           }
-        } else if (this.step >= 7 && this.step <= 8) {
-          this.currentYear = this.currentYear - 0.5;
-        } else {
-          alert("End ...");
-          return;
-        }
-      } else if (type == 1) {
-        if (this.step == 1) {
-          alert("Nothing to do ...");
-          return;
-        } else if (this.step == 2) {
-          this.currentYear = this.currentYear + 5;
-        } else if (this.step >= 3 && this.step < 7) {
+        } else if (this.currentYear > 1 && this.currentYear <= 9) {
           if (
-            (this.currentYear <= 5 && this.currentYear > 1) ||
-            (this.currentYear <= -5 && this.currentYear > -9)
+            this.step > 2 &&
+            this.selected[this.selected.length - 1] != type
+          ) {
+            this.currentYear = this.currentYear - 0.5;
+          } else {
+            if (this.currentYear % 1 === 0.5) {
+              this.currentYear = this.currentYear - 0.5;
+            } else {
+              this.currentYear = this.currentYear - 1;
+            }
+          }
+        } else {
+          alert("Warning ...");
+        }
+      } else if (type === "B") {
+        if (this.currentYear === 0) {
+          if (this.step === 1) {
+            this.currentYear = this.currentYear + 5;
+          } else {
+            this.currentYear = this.currentYear + 0.5;
+          }
+        } else if (
+          (this.currentYear < 1 && this.currentYear > 0) ||
+          (this.currentYear >= 9 && this.currentYear < 10)
+        ) {
+          this.currentYear = this.currentYear + 0.5;
+        } else if (this.currentYear >= 1 && this.currentYear <= 9) {
+          if (
+            this.step > 2 &&
+            this.selected[this.selected.length - 1] != type
           ) {
             this.currentYear = this.currentYear + 0.5;
           } else {
-            this.currentYear = this.currentYear + 1;
+            if (this.currentYear % 1 === 0.5) {
+              this.currentYear = this.currentYear + 0.5;
+            } else {
+              this.currentYear = this.currentYear + 1;
+            }
           }
-        } else if (this.step >= 7 && this.step <= 8) {
-          this.currentYear = this.currentYear + 0.5;
         } else {
-          alert("End ...");
+          alert("Warning ...");
           return;
         }
       } else {
         alert("A & B");
         return;
       }
+      this.selected.push(type);
       this.step++;
+      console.log((this.$refs.etable.offsetWidth / this.topYear) * this.currentYear);
+      this.drawLine(
+        (this.$refs.etable.offsetWidth / this.topYear) * this.currentYear
+      );
+      console.log("hello")
+    },
+    drawLine(width) {
+      //画出中心红点
+      var can = document.getElementById("can");
+      var can = document.getElementById("can");
+      var cans = can.getContext("2d"); //得到画笔
+      cans.restore()
+      // cans.beginPath();//开始绘制新路径
+      // //arc(x, y, radius, startAngle, endAngle, counterclockwise)：
+      // //以(x,y)为圆心绘制一条弧线，弧线半径为radius，起始和结束角度（用弧度表示）分别为startAngle 和endAngle。最后一个参数表示startAngle 和endAngle 是否按逆时针方向计算，值为false表示按顺时针方向计算。
+      // cans.arc(250,250,5,0,2*Math.PI);//参数1：左右移动；参数2：上下移动；参数3：大小；参数4：图形显示百分比
+      // cans.closePath();
+      // cans.fillStyle = 'red';
+      // cans.fill();
+      //画线
+      arrow_line("can", 0, 90, 0, 0, width, 0); //横  （向右）
+      // arrow_line("can",0,0,0,0,0,150);   //竖 (向下)
+      arrow_line("can", 0, 0, 5, 0, 0, 0); //横  （向左）
+      // arrow_line("can",150,-150,0,150,0,0);   //竖 (向上)
+      //画带箭头的线
+      function arrow_line(canId, ox, oy, x1, y1, x2, y2) {
+        //参数说明 canvas的 id ，原点坐标  第一个端点的坐标，第二个端点的坐标
+        var sta = new Array(x1, y1);
+        var end = new Array(x2, y2);
+        var canvas = document.getElementById(canId);
+        if (canvas == null) return false;
+        var ctx = canvas.getContext("2d");
+        //画线
+        ctx.beginPath();
+        ctx.translate(ox, oy, 0); //坐标源点
+        ctx.moveTo(sta[0], sta[1]);
+        ctx.lineTo(end[0], end[1]);
+        ctx.fill();
+        ctx.stroke();
+        ctx.save();
+        //画箭头
+        ctx.translate(end[0], end[1]);
+        //我的箭头本垂直向下，算出直线偏离Y的角，然后旋转 ,rotate是顺时针旋转的，所以加个负号
+        var ang = (end[0] - sta[0]) / (end[1] - sta[1]);
+        ang = Math.atan(ang);
+        if (end[1] - sta[1] >= 0) {
+          ctx.rotate(-ang);
+        } else {
+          ctx.rotate(Math.PI - ang); //加个180度，反过来
+        }
+        ctx.lineTo(-5, -10);
+        ctx.lineTo(0, -5);
+        ctx.lineTo(5, -10);
+        ctx.lineTo(0, 0);
+        ctx.fill(); //箭头是个封闭图形
+        ctx.restore(); //恢复到堆的上一个状态，其实这里没什么用。
+        ctx.closePath();
+      }
     }
+  },
+  mounted() {
+    // console.log(this.selected[this.selected.length - 1]);
+    this.drawLine(this.$refs.etable.offsetWidth);
+    this.tableWidth = this.$refs.etable.offsetWidth + "px";
+    // console.log(this.$refs.etable.offsetHeight);
+    // console.log(this.$refs.etable.offsetWidth);
+    // console.log(this.$refs.etable.offsetWidth + "px");
+    // console.log(this.tableWidth);
+    // console.log(this.$refs.ecan.offsetWidth);
+    // console.log(this.$refs.earrow.offsetWidth);
   }
 };
 </script>
