@@ -15,15 +15,9 @@
             </v-row>
             <v-row justify="center" align="center">
               <v-col>
-                <div ref="ecan">
-                  <canvas
-                    id="can"
-                    :width="tableWidth"
-                    height="100px"
-                    ref="earrow"
-                    v-if="currentYear>0"
-                  ></canvas>
-                  <canvas id="can" :width="tableWidth" height="100px" v-else></canvas>
+                <div>
+                  <canvas id="can" :width="tableWidth" height="100px" class="id1"></canvas>
+                  <!-- <canvas id="can" :width="tableWidth" height="100px" v-else class="id2"></canvas> -->
                 </div>
 
                 <table border="1" cellspacing="0" cellpadding="0" ref="etable">
@@ -86,6 +80,10 @@ export default {
     restart() {
       this.currentYear = 10;
       this.step = 0;
+      this.clearCanvas();
+      this.drawLine(
+        (this.$refs.etable.offsetWidth / this.topYear) * this.currentYear
+      );
     },
     change(type) {
       if (type === "A") {
@@ -152,25 +150,28 @@ export default {
       }
       this.selected.push(type);
       this.step++;
-      console.log((this.$refs.etable.offsetWidth / this.topYear) * this.currentYear);
-      this.drawLine(
+      console.log(
         (this.$refs.etable.offsetWidth / this.topYear) * this.currentYear
       );
-      console.log("hello")
+
+      this.clearCanvas();
+      if (this.currentYear > 0) {
+        this.drawLine(
+          (this.$refs.etable.offsetWidth / this.topYear) * this.currentYear
+        );
+      }
     },
     drawLine(width) {
-      //画出中心红点
+      //获取画板
       var can = document.getElementById("can");
-      var can = document.getElementById("can");
-      var cans = can.getContext("2d"); //得到画笔
-      cans.restore()
-      // cans.beginPath();//开始绘制新路径
-      // //arc(x, y, radius, startAngle, endAngle, counterclockwise)：
-      // //以(x,y)为圆心绘制一条弧线，弧线半径为radius，起始和结束角度（用弧度表示）分别为startAngle 和endAngle。最后一个参数表示startAngle 和endAngle 是否按逆时针方向计算，值为false表示按顺时针方向计算。
-      // cans.arc(250,250,5,0,2*Math.PI);//参数1：左右移动；参数2：上下移动；参数3：大小；参数4：图形显示百分比
-      // cans.closePath();
-      // cans.fillStyle = 'red';
-      // cans.fill();
+      if (can == null) return false;
+      var ctx = can.getContext("2d"); //得到画笔
+
+      // //重绘画布内容
+      // can.height = can.height;
+      // console.log("height: " + can.height);
+
+      ctx.beginPath(); //开始绘制新路径
       //画线
       arrow_line("can", 0, 90, 0, 0, width, 0); //横  （向右）
       // arrow_line("can",0,0,0,0,0,150);   //竖 (向下)
@@ -210,18 +211,19 @@ export default {
         ctx.restore(); //恢复到堆的上一个状态，其实这里没什么用。
         ctx.closePath();
       }
+    },
+    clearCanvas() {
+      //获取画板
+      var can = document.getElementById("can");
+      if (can == null) return false;
+      //清除画布内容
+      can.height = can.height;
     }
   },
   mounted() {
-    // console.log(this.selected[this.selected.length - 1]);
     this.drawLine(this.$refs.etable.offsetWidth);
+    // this.drawLine(0);
     this.tableWidth = this.$refs.etable.offsetWidth + "px";
-    // console.log(this.$refs.etable.offsetHeight);
-    // console.log(this.$refs.etable.offsetWidth);
-    // console.log(this.$refs.etable.offsetWidth + "px");
-    // console.log(this.tableWidth);
-    // console.log(this.$refs.ecan.offsetWidth);
-    // console.log(this.$refs.earrow.offsetWidth);
   }
 };
 </script>
