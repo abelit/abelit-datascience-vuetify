@@ -24,7 +24,7 @@
                       v-for="item in allContent(topYear)"
                       :key="item"
                       style="text-align: center; width: 24px"
-                      :style="item<=4*currentYear?'background-color: green;':''"
+                      :class="item<=4*currentYear?'light-green lighten-1':''"
                     >{{item}}</td>
                   </tr>
                 </table>
@@ -41,7 +41,7 @@
                       v-for="item in allContent(topYear)"
                       :key="item"
                       style="text-align: center; width: 24px"
-                      class="primary"
+                      class="blue lighten-2"
                     >{{item}}</td>
                   </tr>
                 </table>
@@ -60,16 +60,16 @@
             <v-row justify="center" align="center">
               <v-col>
                 <div>
-                  <canvas id="canvas1" ref="canvas1" height="100px"></canvas>
+                  <canvas id="canvas3" ref="canvas3" height="100px"></canvas>
                 </div>
-                <table border="1" cellspacing="0" cellpadding="0" ref="table1">
+                <table border="1" cellspacing="0" cellpadding="0" ref="table3">
                   <tr style="height: 50px">
                     <td
                       v-for="item in allContent(2*topYear)"
                       :key="item"
-                      style="text-align: center; width: 16px"
-                      :style="item<=4*currentYear?'background-color: green;':''"
-                    >{{item}}</td>
+                      style="text-align: center; width: 12px"
+                      :class="item<=4*currentYear?'light-green lighten-1':''"
+                    ></td>
                   </tr>
                 </table>
               </v-col>
@@ -77,24 +77,24 @@
             <v-row justify="center" align="center">
               <v-col>
                 <div>
-                  <canvas id="canvas2" ref="canvas2" height="100px"></canvas>
+                  <canvas id="canvas4" ref="canvas4" height="100px"></canvas>
                 </div>
-                <table border="1" cellspacing="0" cellpadding="0" ref="table2">
+                <table border="1" cellspacing="0" cellpadding="0" ref="table4">
                   <tr style="height: 50px">
                     <td
                       v-for="item in allContent(2*topYear)"
                       :key="item"
-                      style="text-align: center; width: 16px"
-                      class="primary"
-                    >{{item}}</td>
+                      style="text-align: center; width: 12px"
+                      :class="item<=40?'light-green lighten-1':'blue lighten-2'"
+                    ></td>
                   </tr>
                 </table>
               </v-col>
             </v-row>
-           <!-- <span v-if="count(3)>4">
+            <!-- <span v-if="count(3)>4">
               {{count(3)}}
            </span>
-           <span v-for="item in listItem(5)" :key="item">{{item}}</span> -->
+            <span v-for="item in listItem(5)" :key="item">{{item}}</span>-->
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
@@ -119,47 +119,48 @@ export default {
     step: 0,
     selected: [],
     tableWidth: "",
-    slide: 2
+    slide: 1
   }),
   computed: {
     allContent: function() {
-     return  function(year) {
+      return function(year) {
         var arr = [];
         for (var i = 1; i <= 4 * year; i++) {
           arr.push(i);
         }
         return arr;
-      }
+      };
     },
-    count: function () {
-      return function (index) {
-         return index + 1
-      }
+    count: function() {
+      return function(index) {
+        return index + 1;
+      };
     },
     listItem: function() {
-      return function (year) {
+      return function(year) {
         var arr = [];
         for (var i = 1; i <= 4 * year; i++) {
           arr.push(i);
         }
         return arr;
-      }
+      };
     }
   },
   methods: {
     restart() {
       this.currentYear = 10;
       this.step = 0;
-      this.clearCanvas('canvas1');
+      this.clearCanvas("canvas1");
       this.drawLine(
-        (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear,'canvas1'
+        (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear,
+        "canvas1"
       );
     },
     change(type) {
       if (type === "A") {
         if (this.currentYear === 0) {
           alert("Next Question about B.");
-          return;
+          this.slide = 2;
         } else if (
           (this.currentYear <= 1 && this.currentYear > 0) ||
           (this.currentYear > 9 && this.currentYear <= 10)
@@ -224,10 +225,11 @@ export default {
         (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear
       );
 
-      this.clearCanvas('canvas1');
+      this.clearCanvas("canvas1");
       if (this.currentYear > 0) {
         this.drawLine(
-          (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear, 'canvas1'
+          (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear,
+          "canvas1"
         );
       }
     },
@@ -293,7 +295,7 @@ export default {
       //清除画布内容
       canvas.height = canvas.height;
     },
-    setCanvasWidth(width,cvs) {
+    setCanvasWidth(width, cvs) {
       //获取画板
       var canvas = document.getElementById(cvs);
       if (canvas == null) return false;
@@ -304,14 +306,14 @@ export default {
   },
   mounted() {
     this.tableWidth = this.$refs.table1.offsetWidth + "px";
-    this.setCanvasWidth(this.$refs.table1.offsetWidth, 'canvas1');
-    this.setCanvasWidth(this.$refs.table2.offsetWidth, 'canvas2');
+    this.setCanvasWidth(this.$refs.table1.offsetWidth, "canvas1");
+    this.setCanvasWidth(this.$refs.table2.offsetWidth, "canvas2");
     // console.log("canvas width: " + this.$refs.canvas.offsetWidth);
     // console.log("canvas height: " + this.$refs.canvas.offsetHeight);
-    this.clearCanvas('canvas1');
-    this.clearCanvas('canvas2');
-    this.drawLine(this.$refs.table1.offsetWidth, 'canvas1');
-    this.drawLine(this.$refs.table2.offsetWidth, 'canvas2');
+    this.clearCanvas("canvas1");
+    this.clearCanvas("canvas2");
+    this.drawLine(this.$refs.table1.offsetWidth, "canvas1");
+    this.drawLine(this.$refs.table2.offsetWidth, "canvas2");
   }
 };
 </script>
