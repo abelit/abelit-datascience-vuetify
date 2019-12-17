@@ -5,7 +5,7 @@
         <v-card justify="center" align="center">
           <v-card-title>Demo EQ Test</v-card-title>
           <v-divider></v-divider>
-          <v-card-text>
+          <v-card-text v-if="slide === 1">
             <v-row>
               <v-col>
                 <span class="display-1">当前步骤：{{step}}</span>
@@ -16,20 +16,85 @@
             <v-row justify="center" align="center">
               <v-col>
                 <div>
-                  <canvas id="canvas" ref="canvas" :width="tableWidth" height="100px"></canvas>
+                  <canvas id="canvas1" ref="canvas1" height="100px"></canvas>
                 </div>
-                <table border="1" cellspacing="0" cellpadding="0" ref="table">
+                <table border="1" cellspacing="0" cellpadding="0" ref="table1">
                   <tr style="height: 50px">
                     <td
-                      v-for="item in allContent"
+                      v-for="item in allContent(topYear)"
                       :key="item"
-                      style="width: 30px; text-align: center"
+                      style="text-align: center; width: 24px"
                       :style="item<=4*currentYear?'background-color: green;':''"
                     >{{item}}</td>
                   </tr>
                 </table>
               </v-col>
             </v-row>
+            <v-row justify="center" align="center">
+              <v-col>
+                <div>
+                  <canvas id="canvas2" ref="canvas2" height="100px"></canvas>
+                </div>
+                <table border="1" cellspacing="0" cellpadding="0" ref="table2">
+                  <tr style="height: 50px">
+                    <td
+                      v-for="item in allContent(topYear)"
+                      :key="item"
+                      style="text-align: center; width: 24px"
+                      class="primary"
+                    >{{item}}</td>
+                  </tr>
+                </table>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-card-text v-if="slide === 2">
+            <v-row>
+              <v-col>
+                <span class="display-1">当前步骤：{{step}}</span>
+                <v-spacer></v-spacer>
+                <span class="display-1">当前年： {{ currentYear }}</span>
+              </v-col>
+            </v-row>
+            <v-row justify="center" align="center">
+              <v-col>
+                <div>
+                  <canvas id="canvas1" ref="canvas1" height="100px"></canvas>
+                </div>
+                <table border="1" cellspacing="0" cellpadding="0" ref="table1">
+                  <tr style="height: 50px">
+                    <td
+                      v-for="item in allContent(2*topYear)"
+                      :key="item"
+                      style="text-align: center; width: 16px"
+                      :style="item<=4*currentYear?'background-color: green;':''"
+                    >{{item}}</td>
+                  </tr>
+                </table>
+              </v-col>
+            </v-row>
+            <v-row justify="center" align="center">
+              <v-col>
+                <div>
+                  <canvas id="canvas2" ref="canvas2" height="100px"></canvas>
+                </div>
+                <table border="1" cellspacing="0" cellpadding="0" ref="table2">
+                  <tr style="height: 50px">
+                    <td
+                      v-for="item in allContent(2*topYear)"
+                      :key="item"
+                      style="text-align: center; width: 16px"
+                      class="primary"
+                    >{{item}}</td>
+                  </tr>
+                </table>
+              </v-col>
+            </v-row>
+           <!-- <span v-if="count(3)>4">
+              {{count(3)}}
+           </span>
+           <span v-for="item in listItem(5)" :key="item">{{item}}</span> -->
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
@@ -53,13 +118,28 @@ export default {
     topYear: 10,
     step: 0,
     selected: [],
-    tableWidth: "1129px"
+    tableWidth: "",
+    slide: 2
   }),
   computed: {
-    allContent: {
-      get: function() {
+    allContent: function() {
+     return  function(year) {
         var arr = [];
-        for (var i = 1; i <= 4 * this.topYear; i++) {
+        for (var i = 1; i <= 4 * year; i++) {
+          arr.push(i);
+        }
+        return arr;
+      }
+    },
+    count: function () {
+      return function (index) {
+         return index + 1
+      }
+    },
+    listItem: function() {
+      return function (year) {
+        var arr = [];
+        for (var i = 1; i <= 4 * year; i++) {
           arr.push(i);
         }
         return arr;
@@ -70,9 +150,9 @@ export default {
     restart() {
       this.currentYear = 10;
       this.step = 0;
-      this.clearCanvas();
+      this.clearCanvas('canvas1');
       this.drawLine(
-        (this.$refs.table.offsetWidth / this.topYear) * this.currentYear
+        (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear,'canvas1'
       );
     },
     change(type) {
@@ -141,29 +221,33 @@ export default {
       this.selected.push(type);
       this.step++;
       console.log(
-        (this.$refs.table.offsetWidth / this.topYear) * this.currentYear
+        (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear
       );
 
-      this.clearCanvas();
+      this.clearCanvas('canvas1');
       if (this.currentYear > 0) {
         this.drawLine(
-          (this.$refs.table.offsetWidth / this.topYear) * this.currentYear
+          (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear, 'canvas1'
         );
       }
     },
-    drawLine(width) {
+    drawLine(width, cvs) {
       //获取画板
-      var canvas = document.getElementById("canvas");
+      var canvas = document.getElementById(cvs);
+
       if (canvas == null) return false;
       //获取画笔
       var ctx = canvas.getContext("2d");
       //开始绘制新路径
       ctx.beginPath();
+
+      console.log("cw：" + canvas.width);
+      console.log("ch：" + canvas.height);
       //画线
       //横  （向右）
-      drawArrowLine("canvas", 0, 90, 0, 0, width, 0);
+      drawArrowLine(cvs, 0, 90, 0, 0, width, 0);
       //横  （向左）
-      drawArrowLine("canvas", 0, 0, 5, 0, 0, 0);
+      drawArrowLine(cvs, 0, 0, 5, 0, 0, 0);
       canvas;
       //画带箭头的线
       function drawArrowLine(canId, ox, oy, x1, y1, x2, y2) {
@@ -202,21 +286,32 @@ export default {
         ctx.closePath();
       }
     },
-    clearCanvas() {
+    clearCanvas(cvs) {
       //获取画板
-      var canvas = document.getElementById("canvas");
+      var canvas = document.getElementById(cvs);
       if (canvas == null) return false;
       //清除画布内容
+      canvas.height = canvas.height;
+    },
+    setCanvasWidth(width,cvs) {
+      //获取画板
+      var canvas = document.getElementById(cvs);
+      if (canvas == null) return false;
+      //清除画布内容
+      canvas.width = width;
       canvas.height = canvas.height;
     }
   },
   mounted() {
-    this.drawLine(this.$refs.table.offsetWidth);
-    // this.drawLine(0);
-    this.tableWidth = this.$refs.table.offsetWidth + "px";
-
-    console.log(document.getElementById("canvas"));
-    console.log(this.$refs.canvas);
+    this.tableWidth = this.$refs.table1.offsetWidth + "px";
+    this.setCanvasWidth(this.$refs.table1.offsetWidth, 'canvas1');
+    this.setCanvasWidth(this.$refs.table2.offsetWidth, 'canvas2');
+    // console.log("canvas width: " + this.$refs.canvas.offsetWidth);
+    // console.log("canvas height: " + this.$refs.canvas.offsetHeight);
+    this.clearCanvas('canvas1');
+    this.clearCanvas('canvas2');
+    this.drawLine(this.$refs.table1.offsetWidth, 'canvas1');
+    this.drawLine(this.$refs.table2.offsetWidth, 'canvas2');
   }
 };
 </script>
