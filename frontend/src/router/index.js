@@ -73,9 +73,14 @@ export default new Router({
           component: () => import("@/views/demo/GridOrder.vue")
         },
         {
-          path: "eq",
-          name: "eq",
+          path: "eq/1",
+          name: "eq1",
           component: () => import("@/views/demo/EqDemo.vue")
+        },
+        {
+          path: "eq/2",
+          name: "eq2",
+          component: () => import("@/views/demo/EqTwo.vue")
         }
       ]
     },
