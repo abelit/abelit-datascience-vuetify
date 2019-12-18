@@ -8,9 +8,18 @@
           <v-card-text v-if="slide === 1">
             <v-row>
               <v-col>
+                <span class="display-1">当前SLIDE： {{ slide }}</span>
+                <v-spacer></v-spacer>
+                <span class="display-1">当前Direction： {{ stepDirection }}</span>
+                <v-spacer></v-spacer>
                 <span class="display-1">当前步骤：{{step}}</span>
                 <v-spacer></v-spacer>
-                <span class="display-1">当前年： {{ currentYear }}</span>
+                <span class="display-1">当前步骤B：{{stepB}}</span>
+                <v-spacer></v-spacer>
+                <span class="display-1">当前年A： {{ currentYear }}</span>
+                <v-spacer>
+                  <span class="display-1">当前年B： {{ currentYearB }}</span>
+                </v-spacer>
               </v-col>
             </v-row>
             <v-row justify="center" align="center">
@@ -52,9 +61,18 @@
           <v-card-text v-if="slide === 2">
             <v-row>
               <v-col>
+                <v-spacer></v-spacer>
+                <span class="display-1">当前SLIDE： {{ slide }}</span>
+                <v-spacer></v-spacer>
+                <span class="display-1">当前Direction： {{ stepDirection }}</span>
+                <v-spacer></v-spacer>
                 <span class="display-1">当前步骤：{{step}}</span>
                 <v-spacer></v-spacer>
-                <span class="display-1">当前年： {{ currentYear }}</span>
+                <span class="display-1">当前步骤B：{{stepB}}</span>
+                <v-spacer></v-spacer>
+                <span class="display-1">当前年A： {{ currentYear }}</span>
+                <v-spacer></v-spacer>
+                <span class="display-1">当前年B： {{ currentYearB }}</span>
               </v-col>
             </v-row>
             <v-row justify="center" align="center">
@@ -65,10 +83,10 @@
                 <table border="1" cellspacing="0" cellpadding="0" ref="table3">
                   <tr style="height: 50px">
                     <td
-                      v-for="item in allContent(2*topYear)"
+                      v-for="item in allContent(topYearB)"
                       :key="item"
                       style="text-align: center; width: 12px"
-                      :class="item<=4*currentYear?'light-green lighten-1':''"
+                      :class="item<=4*currentYearB?'light-green lighten-1':''"
                     ></td>
                   </tr>
                 </table>
@@ -82,7 +100,7 @@
                 <table border="1" cellspacing="0" cellpadding="0" ref="table4">
                   <tr style="height: 50px">
                     <td
-                      v-for="item in allContent(2*topYear)"
+                      v-for="item in allContent(topYearB)"
                       :key="item"
                       style="text-align: center; width: 12px"
                       :class="item<=40?'light-green lighten-1':'blue lighten-2'"
@@ -91,16 +109,12 @@
                 </table>
               </v-col>
             </v-row>
-            <!-- <span v-if="count(3)>4">
-              {{count(3)}}
-           </span>
-            <span v-for="item in listItem(5)" :key="item">{{item}}</span>-->
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
-            <v-btn class="primary" @click="change('A')">A</v-btn>
-            <v-btn class="yellow darken-3" @click="change('AB')">A & B</v-btn>
-            <v-btn class="purple" @click="change('B')">B</v-btn>
+            <v-btn class="primary" @click="chooseAnswer('A')">A</v-btn>
+            <v-btn class="yellow darken-3" @click="chooseAnswer('AB')">A & B</v-btn>
+            <v-btn class="purple" @click="chooseAnswer('B')">B</v-btn>
             <v-btn class="purple" v-if="step>0" @click="restart">
               <v-icon>refresh</v-icon>
             </v-btn>
@@ -117,122 +131,275 @@ export default {
     currentYear: 10,
     topYear: 10,
     step: 0,
+    currentYearB: 10,
+    topYearB: 20,
+    stepB: 0,
     selected: [],
     tableWidth: "",
-    slide: 1
+    slide: 1,
+    stepDirection: 0
   }),
-  computed: {
-    allContent: function() {
-      return function(year) {
-        var arr = [];
-        for (var i = 1; i <= 4 * year; i++) {
-          arr.push(i);
-        }
-        return arr;
-      };
-    },
-    count: function() {
-      return function(index) {
-        return index + 1;
-      };
-    },
-    listItem: function() {
-      return function(year) {
-        var arr = [];
-        for (var i = 1; i <= 4 * year; i++) {
-          arr.push(i);
-        }
-        return arr;
-      };
-    }
-  },
+
   methods: {
     restart() {
+      this.slide = 1;
       this.currentYear = 10;
       this.step = 0;
-      this.clearCanvas("canvas1");
-      this.drawLine(
-        (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear,
-        "canvas1"
-      );
+      this.currentYearB = 10;
+      this.stepB = 0;
+      this.stepDirection = 0;
+
+      this.$nextTick(() => {
+        if (this.slide === 1) {
+          this.clearCanvas("canvas1");
+          this.drawLine(
+            (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear,
+            "canvas1"
+          );
+        }
+        if (this.slide === 2) {
+          this.clearCanvas("canvas3");
+          this.clearCanvas("canvas4");
+          console.log("hi");
+          this.drawLine(
+            (this.$refs.table3.offsetWidth / this.topYearB) * this.currentYearB,
+            "canvas3"
+          );
+        }
+      });
     },
-    change(type) {
+    chooseAnswer(type) {
       if (type === "A") {
-        if (this.currentYear === 0) {
-          alert("Next Question about B.");
-          this.slide = 2;
-        } else if (
-          (this.currentYear <= 1 && this.currentYear > 0) ||
-          (this.currentYear > 9 && this.currentYear <= 10)
-        ) {
-          if (this.currentYear === 10 && this.step === 0) {
+        if (this.slide === 1) {
+          if (this.step === 0) {
             this.currentYear = this.currentYear - 10;
-          } else {
-            this.currentYear = this.currentYear - 0.5;
-          }
-        } else if (this.currentYear > 1 && this.currentYear <= 9) {
-          if (
-            this.step > 2 &&
-            this.selected[this.selected.length - 1] != type
-          ) {
-            this.currentYear = this.currentYear - 0.5;
-          } else {
-            if (this.currentYear % 1 === 0.5) {
+          } else if (this.step === 1) {
+            this.slide = 2;
+            this.clearCanvas("canvas4");
+            this.$nextTick(() => {
+              this.drawLine(10, "canvas4");
+            });
+            console.log("clear cvs 4");
+            this.stepDirection++;
+            // return
+          } else if (this.step === 2) {
+            this.currentYear--;
+          } else if (this.step >= 3) {
+            if (
+              (this.currentYear > 0 && this.currentYear <= 1) ||
+              (this.currentYear > 9 && this.currentYear <= 10) ||
+              this.currentYear % 1 === 0.5 ||
+              this.selected[this.selected.length - 1] != type
+            ) {
               this.currentYear = this.currentYear - 0.5;
+            } else if (this.currentYear === 0) {
+              this.slide = 2;
+              this.stepDirection++;
             } else {
-              this.currentYear = this.currentYear - 1;
+              this.currentYear--;
             }
           }
-        } else {
-          alert("Warning ...");
+        } else if (this.slide === 2) {
+          if (this.stepDirection <= 1) {
+            if (this.stepB === 1) {
+              this.currentYearB = this.currentYearB - 5;
+            } else if (this.stepB === 2) {
+              this.currentYearB--;
+            } else if (this.stepB >= 3) {
+              if (
+                (this.currentYearB > 0 && this.currentYearB <= 1) ||
+                (this.currentYearB > 9 && this.currentYearB <= 10) ||
+                this.currentYearB % 1 === 0.5 ||
+                this.selected[this.selected.length - 1] != type
+              ) {
+                this.currentYearB = this.currentYearB - 0.5;
+              } else if (this.currentYearB === 0) {
+                return;
+              } else {
+                this.currentYearB--;
+              }
+            }
+          } else {
+            if (this.stepB === 0) {
+              this.stepB++;
+              return;
+            } else {
+              if (
+                (this.currentYearB > 0 && this.currentYearB <= 1) ||
+                (this.currentYearB > 9 && this.currentYearB <= 10) ||
+                this.currentYearB % 1 === 0.5 ||
+                this.selected[this.selected.length - 1] != type
+              ) {
+                this.currentYearB = this.currentYearB - 0.5;
+              } else if (this.currentYearB === 0) {
+                return;
+              } else {
+                this.currentYearB--;
+              }
+            }
+          }
         }
       } else if (type === "B") {
-        if (this.currentYear === 0) {
-          if (this.step === 1) {
+        if (this.slide === 1) {
+          if (this.step === 0) {
+            return;
+          } else if (this.step === 1) {
             this.currentYear = this.currentYear + 5;
-          } else {
-            this.currentYear = this.currentYear + 0.5;
-          }
-        } else if (
-          (this.currentYear < 1 && this.currentYear > 0) ||
-          (this.currentYear >= 9 && this.currentYear < 10)
-        ) {
-          this.currentYear = this.currentYear + 0.5;
-        } else if (this.currentYear >= 1 && this.currentYear <= 9) {
-          if (
-            this.step > 2 &&
-            this.selected[this.selected.length - 1] != type
-          ) {
-            this.currentYear = this.currentYear + 0.5;
-          } else {
-            if (this.currentYear % 1 === 0.5) {
+          } else if (this.step === 2) {
+            this.currentYear++;
+          } else if (this.step >= 3) {
+            if (
+              (this.currentYear >= 0 && this.currentYear < 1) ||
+              (this.currentYear >= 9 && this.currentYear < 10) ||
+              this.currentYear % 1 === 0.5 ||
+              this.selected[this.selected.length - 1] != type
+            ) {
               this.currentYear = this.currentYear + 0.5;
+            } else if (this.currentYear >= 10) {
+              return;
             } else {
-              this.currentYear = this.currentYear + 1;
+              this.currentYear++;
             }
           }
-        } else {
-          alert("Warning ...");
-          return;
+        } else if (this.slide === 2) {
+          if (this.currentYearB >= 10) {
+            this.slide = 1;
+            this.stepB = 0;
+            this.currentYear = this.currentYear + 0.5;
+          } else {
+            if (this.stepDirection <= 1) {
+              if (this.stepB >= 3) {
+                if (
+                  (this.currentYearB >= 0 && this.currentYearB < 1) ||
+                  (this.currentYearB >= 9 && this.currentYearB < 10) ||
+                  this.currentYearB % 1 === 0.5 ||
+                  this.selected[this.selected.length - 1] != type
+                ) {
+                  this.currentYearB = this.currentYearB + 0.5;
+                } else {
+                  this.currentYearB++;
+                }
+              } else {
+                this.currentYearB++;
+              }
+            } else {
+              if (
+                (this.currentYearB >= 0 && this.currentYearB < 1) ||
+                (this.currentYearB >= 9 && this.currentYearB < 10) ||
+                this.currentYearB % 1 === 0.5 ||
+                this.selected[this.selected.length - 1] != type
+              ) {
+                this.currentYearB = this.currentYearB + 0.5;
+              }
+            }
+          }
         }
       } else {
-        alert("A & B");
+        alert("A&B");
         return;
       }
       this.selected.push(type);
       this.step++;
-      console.log(
-        (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear
-      );
-
+      if (this.slide === 2) {
+        this.stepB++;
+      }
       this.clearCanvas("canvas1");
-      if (this.currentYear > 0) {
-        this.drawLine(
-          (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear,
-          "canvas1"
-        );
+      this.clearCanvas("canvas3");
+
+      if (this.currentYear > 0 && this.slide === 1) {
+        this.$nextTick(() => {
+          this.drawLine(
+            (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear,
+            "canvas1"
+          );
+        });
+      }
+      if (this.currentYearB > 0 && this.slide === 2) {
+        this.$nextTick(() => {
+          this.drawLine(
+            (this.$refs.table3.offsetWidth / this.topYearB) * this.currentYearB,
+            "canvas3"
+          );
+        });
       }
     },
+    // change(type) {
+    //   if (type === "A") {
+    //     if (this.currentYear === 0) {
+    //       alert("Next Question about B.");
+    //       this.slide.push(2);
+    //     } else if (
+    //       (this.currentYear <= 1 && this.currentYear > 0) ||
+    //       (this.currentYear > 9 && this.currentYear <= 10)
+    //     ) {
+    //       if (this.currentYear === 10 && this.step === 0) {
+    //         this.currentYear = this.currentYear - 10;
+    //       } else {
+    //         this.currentYear = this.currentYear - 0.5;
+    //       }
+    //     } else if (this.currentYear > 1 && this.currentYear <= 9) {
+    //       if (
+    //         this.step > 2 &&
+    //         this.selected[this.selected.length - 1] != type
+    //       ) {
+    //         this.currentYear = this.currentYear - 0.5;
+    //       } else {
+    //         if (this.currentYear % 1 === 0.5) {
+    //           this.currentYear = this.currentYear - 0.5;
+    //         } else {
+    //           this.currentYear = this.currentYear - 1;
+    //         }
+    //       }
+    //     } else {
+    //       alert("Warning ...");
+    //     }
+    //   } else if (type === "B") {
+    //     if (this.currentYear === 0) {
+    //       if (this.step === 1) {
+    //         this.currentYear = this.currentYear + 5;
+    //       } else {
+    //         this.currentYear = this.currentYear + 0.5;
+    //       }
+    //     } else if (
+    //       (this.currentYear < 1 && this.currentYear > 0) ||
+    //       (this.currentYear >= 9 && this.currentYear < 10)
+    //     ) {
+    //       this.currentYear = this.currentYear + 0.5;
+    //     } else if (this.currentYear >= 1 && this.currentYear <= 9) {
+    //       if (
+    //         this.step > 2 &&
+    //         this.selected[this.selected.length - 1] != type
+    //       ) {
+    //         this.currentYear = this.currentYear + 0.5;
+    //       } else {
+    //         if (this.currentYear % 1 === 0.5) {
+    //           this.currentYear = this.currentYear + 0.5;
+    //         } else {
+    //           this.currentYear = this.currentYear + 1;
+    //         }
+    //       }
+    //     } else {
+    //       alert("Warning ...");
+    //       return;
+    //     }
+    //   } else {
+    //     alert("A & B");
+    //     return;
+    //   }
+    //   this.selected.push(type);
+    //   this.step++;
+    //   console.log(
+    //     (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear
+    //   );
+
+    //   this.clearCanvas("canvas1");
+    //   if (this.currentYear > 0) {
+    //     this.drawLine(
+    //       (this.$refs.table1.offsetWidth / this.topYear) * this.currentYear,
+    //       "canvas1"
+    //     );
+    //   }
+    // },
     drawLine(width, cvs) {
       //获取画板
       var canvas = document.getElementById(cvs);
@@ -243,8 +410,8 @@ export default {
       //开始绘制新路径
       ctx.beginPath();
 
-      console.log("cw：" + canvas.width);
-      console.log("ch：" + canvas.height);
+      // console.log("cw：" + canvas.width);
+      // console.log("ch：" + canvas.height);
       //画线
       //横  （向右）
       drawArrowLine(cvs, 0, 90, 0, 0, width, 0);
@@ -308,12 +475,21 @@ export default {
     this.tableWidth = this.$refs.table1.offsetWidth + "px";
     this.setCanvasWidth(this.$refs.table1.offsetWidth, "canvas1");
     this.setCanvasWidth(this.$refs.table2.offsetWidth, "canvas2");
-    // console.log("canvas width: " + this.$refs.canvas.offsetWidth);
-    // console.log("canvas height: " + this.$refs.canvas.offsetHeight);
     this.clearCanvas("canvas1");
     this.clearCanvas("canvas2");
     this.drawLine(this.$refs.table1.offsetWidth, "canvas1");
     this.drawLine(this.$refs.table2.offsetWidth, "canvas2");
+  },
+  computed: {
+    allContent: function() {
+      return function(year) {
+        var arr = [];
+        for (var i = 1; i <= 4 * year; i++) {
+          arr.push(i);
+        }
+        return arr;
+      };
+    }
   }
 };
 </script>
