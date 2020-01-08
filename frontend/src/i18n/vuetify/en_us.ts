@@ -75,6 +75,10 @@ export default {
     },
     setting: {
         settings: 'Settings'
+    },
+    theme: {
+        dark: 'Dark',
+        light: 'Light'
     }
 
 }

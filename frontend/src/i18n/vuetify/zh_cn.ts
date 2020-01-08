@@ -75,5 +75,10 @@ export default {
     },
     setting: {
         settings: '设置'
+    },
+    theme: {
+        dark: '暗黑模式',
+        light: '明亮模式'
     }
+
 }

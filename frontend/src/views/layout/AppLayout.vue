@@ -1,5 +1,5 @@
 <template>
-  <v-app id="app-content-page">
+  <v-app id="app-content-page" dark>
     <vue-perfect-scrollbar id="app-content-page--scroll" :settings="scrollSettings">
       <app-toolbar></app-toolbar>
       <app-navigation-drawer></app-navigation-drawer>

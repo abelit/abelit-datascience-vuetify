@@ -5,7 +5,7 @@
       :indeterminate="loading"
       absolute
       top
-    ></v-progress-linear> -->
+    ></v-progress-linear>-->
     <v-app-bar-nav-icon @click.stop="setDrawer" />
     <v-avatar size="36px" tile class="hidden-md-and-down">
       <img
@@ -15,7 +15,7 @@
     </v-avatar>
     <span class="title ml-3 mr-5 hidden-md-and-down">
       DATA&nbsp;
-      <span class="font-weight-light">ANALYSIS</span>
+      <span class="font-weight-light text--testabelit">ANALYSIS</span>
     </span>
     <!-- <v-text-field solo-inverted flat hide-details label="Search" prepend-inner-icon="search" /> -->
 
@@ -55,7 +55,7 @@ export default {
     DFullscreen
   },
   data: () => ({
-    drawer: true,
+    drawer: true
     // loading: true
   }),
   methods: {
@@ -70,10 +70,10 @@ export default {
     // })
   },
   created() {
-    console.log("created ...")
+    console.log("created ...");
   },
   mounted() {
-    console.log("mounted ...")
+    console.log("mounted ...");
   }
 };
 </script>
