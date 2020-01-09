@@ -81,7 +81,12 @@ export default new Router({
           path: "eq/2",
           name: "eq2",
           component: () => import("@/views/demo/EqTwo.vue")
-        }
+        },
+        {
+          path: "test",
+          name: "test",
+          component: () => import("@/views/demo/Test.vue")
+        },
       ]
     },
     {
