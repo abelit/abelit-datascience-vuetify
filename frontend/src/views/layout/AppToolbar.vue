@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dense clipped-left>
+  <v-app-bar app dense clipped-left elevation=1>
     <!-- <v-progress-linear
       :active="loading"
       :indeterminate="loading"

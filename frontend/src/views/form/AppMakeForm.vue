@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pt-0">
+  <v-container fluid class="pt-0 mt-0">
     <v-row justify="center">
       <v-col cols="4" md="3" sm="2" xs="2" v-if="!$vuetify.breakpoint.mdAndDown">
         <v-card outlined class="mx-auto" max-height="100%" dense>

@@ -1,15 +1,16 @@
 <template>
   <v-app id="app-content-page" dark>
-    <vue-perfect-scrollbar id="app-content-page--scroll" :settings="scrollSettings">
+    <!-- <vue-perfect-scrollbar id="app-content-page--scroll" :settings="scrollSettings"> -->
       <app-toolbar></app-toolbar>
       <app-navigation-drawer></app-navigation-drawer>
 
       <v-content>
+        <app-tag></app-tag>
         <router-view></router-view>
       </v-content>
       <app-theme-setting></app-theme-setting>
       <app-footer></app-footer>
-    </vue-perfect-scrollbar>
+    <!-- </vue-perfect-scrollbar> -->
   </v-app>
 </template>
 
@@ -18,6 +19,7 @@ import AppToolbar from "@/views/layout/AppToolbar";
 import AppNavigationDrawer from "@/views/layout/AppNavigationDrawer";
 import AppFooter from "@/views/layout/AppFooter";
 import AppThemeSetting from "@/views/layout/AppThemeSetting";
+import AppTag from "@/views/layout/AppTag";
 
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
 
@@ -27,7 +29,8 @@ export default {
     AppNavigationDrawer,
     AppFooter,
     VuePerfectScrollbar,
-    AppThemeSetting
+    AppThemeSetting,
+    AppTag
   },
   data: () => ({
     scrollSettings: {
