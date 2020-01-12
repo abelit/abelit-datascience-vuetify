@@ -116,4 +116,7 @@ export default {
     }
   }
 }
+.v-toolbar__content {
+    padding-left: 0px;
+}
 </style>
