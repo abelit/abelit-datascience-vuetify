@@ -36,7 +36,7 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
     # 使用docker环境时把127.0.0.1改为db的容器名称
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:password@localhost/dataforum"
+    SQLALCHEMY_DATABASE_URI = "mysql://datascience:Passw0rd@58.42.231.98:53306/datascience"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # 配置日志信息
