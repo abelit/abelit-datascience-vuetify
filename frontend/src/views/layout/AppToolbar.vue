@@ -1,22 +1,25 @@
 <template>
-  <v-app-bar app dense clipped-left elevation=1>
+  <v-app-bar app dense clipped-left elevation="1">
     <!-- <v-progress-linear
       :active="loading"
       :indeterminate="loading"
       absolute
       top
     ></v-progress-linear>-->
+
     <v-app-bar-nav-icon @click.stop="setDrawer" />
-    <v-avatar size="36px" tile class="hidden-md-and-down">
-      <img
-        :src="require('@/assets/images/logo/data_science.svg')"
-        alt="Data Analysis & Visualization"
-      />
-    </v-avatar>
-    <span class="title ml-3 mr-5 hidden-md-and-down">
-      DATA&nbsp;
-      <span class="font-weight-light text--testabelit">ANALYSIS</span>
-    </span>
+    <router-link to="/" tag="span" style="cursor: pointer">
+      <v-avatar size="36px" tile class="hidden-md-and-down" >
+        <img
+          :src="require('@/assets/images/logo/data_science.svg')"
+          alt="Data Analysis & Visualization"
+        />
+      </v-avatar>
+      <span class="title ml-3 mr-5 hidden-md-and-down">
+        DATA&nbsp;
+        <span class="font-weight-light text--testabelit">ANALYSIS</span>
+      </span>
+    </router-link>
     <!-- <v-text-field solo-inverted flat hide-details label="Search" prepend-inner-icon="search" /> -->
 
     <v-spacer />
@@ -77,3 +80,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.router-link-active {
+    text-decoration: none;
+  }
+</style>
