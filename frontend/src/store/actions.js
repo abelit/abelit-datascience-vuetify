@@ -10,6 +10,12 @@ const actions = {
   },
   setFullscreen({commit}) {
     commit("setFullscreen");
+  },
+  setTag({ commit }, value) {
+    commit("setTag", value);
+  },
+  setDark({ commit }, value) {
+    commit("setDark", value);
   }
 };
 

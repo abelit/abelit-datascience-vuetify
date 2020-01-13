@@ -10,8 +10,8 @@
       max-width="160"
     >
       <v-app-bar dense>
-        <v-icon>settings</v-icon>
-        <span class="title ml-3">{{$vuetify.lang.t("$vuetify.setting.settings")}}</span>
+        <v-icon class="ml-2">settings</v-icon>
+        <span class="title ml-1">{{$vuetify.lang.t("$vuetify.setting.settings")}}</span>
       </v-app-bar>
       <v-container class="pt-0">
         <v-row align="center" justify="center">
@@ -21,11 +21,24 @@
         </v-row>
         <v-divider></v-divider>
         <v-row>
-          <v-col cols="12">
+          <v-col cols="12" class="py-0">
             <v-switch
               v-model="dark"
+              hide-details
               class="ma-2"
-              :label="dark?$vuetify.lang.t('$vuetify.theme.dark'):$vuetify.lang.t('$vuetify.theme.light')"
+              :label="$vuetify.lang.t('$vuetify.theme.dark')"
+              @change="updateDarkStatus"
+            ></v-switch>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" class="py-0">
+            <v-switch
+              v-model="tag"
+              hide-details
+              class="ma-2"
+              :label="$vuetify.lang.t('$vuetify.theme.enableTag')"
+              @change="updateTagStatus"
             ></v-switch>
           </v-col>
         </v-row>
@@ -49,15 +62,39 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data: () => ({
     rightDrawer: false,
-    dark: false
+    dark: false,
+    tag: true
   }),
+  mounted() {
+    this.tag = (this.isTag == 'true' ? true : false)
+    this.dark = (this.isDark == 'true' ? true : false)
+    this.$vuetify.theme.dark = (this.isDark == 'true' ? true : false);
+  },
   watch: {
     dark(value) {
-      this.$vuetify.theme.dark = this.dark;
+      this.$vuetify.theme.dark = this.dark
     }
+  },
+  methods: {
+    updateTagStatus() {
+      // 使用同步方法提交
+      this.$store.dispatch("setTag", this.tag)
+      console.log("isTag: " + this.isTag)
+      console.log(typeof(this.isTag))
+    },
+    updateDarkStatus() {
+      // 使用同步方法提交
+      this.$store.dispatch("setDark", this.dark);
+      console.log("isDark: " + this.isDark)
+      console.log(typeof(this.isDark))
+    }
+  },
+  computed: {
+    ...mapState(["isTag","isDark"])
   }
 };
 </script>

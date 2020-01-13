@@ -39,11 +39,11 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="dialog=false">
-          <span class="font-weight-bold">{{ $vuetify.lang.t("$vuetify.button.cancel") }}</span>
+        <v-btn class="primary" @click="dialog=false">
+          <span>{{ $vuetify.lang.t("$vuetify.button.cancel") }}</span>
         </v-btn>
-        <v-btn color="primary" @click="handLock">
-          <span class="font-weight-bold">{{ $vuetify.lang.t("$vuetify.button.confirm") }}</span>
+        <v-btn class="primary" @click="handLock">
+          <span>{{ $vuetify.lang.t("$vuetify.button.confirm") }}</span>
         </v-btn>
       </v-card-actions>
     </v-card>

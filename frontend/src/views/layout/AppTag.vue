@@ -1,56 +1,57 @@
 <template>
-  <v-container fluid class="mt-0 ml-0 pa-0">
-        <v-toolbar dense height="32" class="pl-1">
-          <v-chip-group show-arrows class="pa-0" v-if="chip">
-            <v-chip
-              v-if="chip"
-              class="mr-1 my-0"
-              close
-              to="/"
-              color="orange"
-              label
-              outlined
-              small
-              @click:close="chip = false"
-              @contextmenu.prevent.native="openMenu(tag,$event)"
-            >Complete</v-chip>
-            <v-chip
-              v-if="chip"
-              class="mr-1 my-0"
-              close
-              to="/"
-              color="orange"
-              label
-              outlined
-              small
-              @click:close="chip = false"
-              @contextmenu.prevent.native="openMenu(tag,$event)"
-            >Complete</v-chip>
-            <v-chip
-              v-if="chip"
-              class="mr-1 my-0"
-              close
-              to="/"
-              color="orange"
-              label
-              outlined
-              small
-              @click:close="chip = false"
-              @contextmenu.prevent.native="openMenu(tag,$event)"
-            >Complete</v-chip>
-          </v-chip-group>
-        </v-toolbar>
-        <!-- <v-divider></v-divider> -->
-        <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
-          <li>Refresh</li>
-          <li>Close</li>
-          <li>Close Others</li>
-          <li>Close All</li>
-        </ul>
+  <v-container fluid class="mt-0 ml-0 pa-0" v-if="(typeof(isTag) == 'string' && isTag == 'true') || (typeof(isTag) != 'string' && isTag)?true:false">
+    <v-toolbar dense height="32" class="pl-1">
+      <v-chip-group show-arrows class="pa-0" v-if="chip">
+        <v-chip
+          v-if="chip"
+          class="mr-1 my-0"
+          close
+          to="/"
+          color="orange"
+          label
+          outlined
+          small
+          @click:close="chip = false"
+          @contextmenu.prevent.native="openMenu(tag,$event)"
+        >Complete</v-chip>
+        <v-chip
+          v-if="chip"
+          class="mr-1 my-0"
+          close
+          to="/"
+          color="orange"
+          label
+          outlined
+          small
+          @click:close="chip = false"
+          @contextmenu.prevent.native="openMenu(tag,$event)"
+        >Complete</v-chip>
+        <v-chip
+          v-if="chip"
+          class="mr-1 my-0"
+          close
+          to="/"
+          color="orange"
+          label
+          outlined
+          small
+          @click:close="chip = false"
+          @contextmenu.prevent.native="openMenu(tag,$event)"
+        >Complete</v-chip>
+      </v-chip-group>
+    </v-toolbar>
+    <!-- <v-divider></v-divider> -->
+    <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
+      <li>Refresh</li>
+      <li>Close</li>
+      <li>Close Others</li>
+      <li>Close All</li>
+    </ul>
   </v-container>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data: function() {
     return {
@@ -90,6 +91,13 @@ export default {
         document.body.removeEventListener("click", this.closeMenu);
       }
     }
+  },
+  created() {
+    console.log("isTag: " + this.isTag)
+    console.log("isTag: " + typeof(this.isTag))
+  },
+  computed: {
+    ...mapState(["isTag"])
   }
 };
 </script>
@@ -117,6 +125,6 @@ export default {
   }
 }
 .v-toolbar__content {
-    padding-left: 0px;
+  padding-left: 0px;
 }
 </style>

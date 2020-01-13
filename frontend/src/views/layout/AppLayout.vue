@@ -1,20 +1,26 @@
 <template>
-  <v-app id="app-content-page" dark>
+  <v-app id="app-content-page">
     <!-- <vue-perfect-scrollbar id="app-content-page--scroll" :settings="scrollSettings"> -->
-      <app-toolbar></app-toolbar>
-      <app-navigation-drawer></app-navigation-drawer>
-
-      <v-content>
-        <app-tag></app-tag>
-        <router-view></router-view>
-      </v-content>
-      <app-theme-setting></app-theme-setting>
-      <app-footer></app-footer>
+    <app-toolbar></app-toolbar>
+    <!-- <div style="margin-left: 260px; margin-top: 48px">
+      <app-tag></app-tag>
+    </div> -->
+    <v-app-bar app dense elevation=1 style="margin-top:49px; height: 36px;">
+hi
+    </v-app-bar>
+    <app-navigation-drawer></app-navigation-drawer>
+    <v-content>
+      <!-- <app-tag></app-tag> -->
+      <router-view></router-view>
+    </v-content>
+    <app-theme-setting></app-theme-setting>
+    <app-footer></app-footer>
     <!-- </vue-perfect-scrollbar> -->
   </v-app>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import AppToolbar from "@/views/layout/AppToolbar";
 import AppNavigationDrawer from "@/views/layout/AppNavigationDrawer";
 import AppFooter from "@/views/layout/AppFooter";
@@ -40,6 +46,9 @@ export default {
   created() {
     window.getApp = this;
   }
+  // computed: {
+  //   ...mapState(["isTag"])
+  // }
 };
 </script>
 

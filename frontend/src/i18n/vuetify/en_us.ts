@@ -78,7 +78,8 @@ export default {
     },
     theme: {
         dark: 'Dark',
-        light: 'Light'
+        light: 'Light',
+        enableTag: 'Enable Nav Tag'
     }
 
 }

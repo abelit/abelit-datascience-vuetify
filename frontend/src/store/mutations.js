@@ -13,6 +13,14 @@ const mutations = {
   },
   setFullscreen: (state, value) => {
     state.isFullscreen =  value;
+  },
+  setTag: (state, value) => {
+    state.isTag = value;
+    localStorage.setItem("isTag", value);
+  },
+  setDark: (state, value) => {
+    state.isDark = value;
+    localStorage.setItem("isDark", value);
   }
 };
 
