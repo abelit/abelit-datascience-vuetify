@@ -6,6 +6,7 @@
         <v-chip
           v-if="chip"
           class="mr-1 my-0"
+          tag
           close
           to="/"
           color="orange"
@@ -18,6 +19,7 @@
         <v-chip
           v-if="chip"
           class="mr-1 my-0"
+          tag
           close
           to="/"
           color="orange"
@@ -30,6 +32,7 @@
         <v-chip
           v-if="chip"
           class="mr-1 my-0"
+          tag
           close
           to="/"
           color="orange"
@@ -77,7 +80,8 @@ export default {
       } else {
         this.left = left;
       }
-      this.top = e.clientY;
+      console.log(e.clientY)
+      this.top = e.clientY - 50;
       this.visible = true;
       this.selectedTag = tag;
     },
@@ -105,6 +109,12 @@ export default {
 </script>
 
 <style lang="scss">
+.v-input__append-outer {
+  margin: 0 0 !important;
+}
+.v-input__prepend-outer {
+  margin: 0 0 !important;
+}
 .contextmenu {
   margin: 0;
   background: #fff;
@@ -119,7 +129,7 @@ export default {
   box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
   li {
     margin: 0;
-    padding: 0px 5px;
+    padding: 7px 16px;
     cursor: pointer;
     &:hover {
       background: #eee;

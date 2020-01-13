@@ -1,7 +1,7 @@
 <template>
   <v-form>
     <v-container>
-      <v-row>
+      <!-- <v-row>
         <v-col cols="12" sm="4">
           <v-text-field v-model="message" outlined type="text" dense>
             <span style="width: 50px;padding-top:10px" slot="prepend">姓名:</span>
@@ -70,7 +70,7 @@
             </v-tabs>
           </v-card>
         </v-col>
-      </v-row>
+      </v-row> -->
       <v-row>
         <v-col>
           <div class="text-center">
@@ -124,6 +124,7 @@
                 color="green"
                 outlined
                 @click:close="chip3 = false"
+                
               >Success</v-chip>
 
               <v-chip
