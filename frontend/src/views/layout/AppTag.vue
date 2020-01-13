@@ -1,6 +1,7 @@
 <template>
-  <v-container fluid class="mt-0 ml-0 pa-0" v-if="(typeof(isTag) == 'string' && isTag == 'true') || (typeof(isTag) != 'string' && isTag)?true:false">
-    <v-toolbar dense height="32" class="pl-1">
+  <v-container fluid class="mt-0 ml-0 pa-0 mb-6" v-if="(typeof(isTag) == 'string' && isTag == 'true') || (typeof(isTag) != 'string' && isTag)?true:false">
+    <div style="position: fixed; z-index: 1;width: 100%">
+      <v-toolbar dense height="32" class="pl-1">
       <v-chip-group show-arrows class="pa-0" v-if="chip">
         <v-chip
           v-if="chip"
@@ -47,6 +48,7 @@
       <li>Close Others</li>
       <li>Close All</li>
     </ul>
+    </div>
   </v-container>
 </template>
 

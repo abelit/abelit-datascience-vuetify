@@ -2,15 +2,15 @@
   <v-app id="app-content-page">
     <!-- <vue-perfect-scrollbar id="app-content-page--scroll" :settings="scrollSettings"> -->
     <app-toolbar></app-toolbar>
-    <!-- <div style="margin-left: 260px; margin-top: 48px">
+    <!-- <div  style="margin-top: 48px; position: fixed;z-index: 1; width:100%" :style="$vuetify.breakpoint.mdAndDown?'':'margin-left: 260px'">
       <app-tag></app-tag>
     </div> -->
-    <v-app-bar app dense elevation=1 style="margin-top:49px; height: 36px;">
+    <!-- <v-app-bar app dense elevation=1 style="margin-top:49px; height: 36px;">
 hi
-    </v-app-bar>
+    </v-app-bar> -->
     <app-navigation-drawer></app-navigation-drawer>
     <v-content>
-      <!-- <app-tag></app-tag> -->
+        <app-tag></app-tag>
       <router-view></router-view>
     </v-content>
     <app-theme-setting></app-theme-setting>
