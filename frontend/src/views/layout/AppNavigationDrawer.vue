@@ -31,7 +31,7 @@
       </v-list>
       <v-list dense class="pt-0">
         <v-list-item v-for="item in items" :key="item.text" link :to="item.link">
-          <v-list-item-action>
+          <v-list-item-action class="mr-5">
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
@@ -74,32 +74,14 @@ export default {
     },
     items: [
       { icon: "mdi-file-document-box-plus-outline", text: "FromGenerate", link: "/form"},
-      { icon: "trending_up", text: "Most Popular", link:"/" },
-      { icon: "subscriptions", text: "Subscriptions", link:"/" },
-      { icon: "history", text: "History", link:"/" },
-      { icon: "featured_play_list", text: "Playlists", link:"/" },
-      { icon: "watch_later", text: "Watch Later", link:"/" },
-      { icon: "navigate_next", text: "Navigate Next", link:"/" },
-      { icon: "md-star_half", text: "Start Half", link:"/" },
-      { icon: "mdi-compass-outline", text: "Compass Outline", link:"/" },
-
-      { icon: "trending_up", text: "Most Popular1", link:"/" },
-      { icon: "subscriptions", text: "Subscriptions1", link:"/" },
-      { icon: "history", text: "History1", link:"/" },
-      { icon: "featured_play_list", text: "Playlists1", link:"/" },
-      { icon: "watch_later", text: "Watch Later1", link:"/" },
-      { icon: "navigate_next", text: "Navigate Next1", link:"/" },
-      { icon: "md-star_half", text: "Start Half1", link:"/" },
-      { icon: "mdi-compass-outline", text: "Compass Outline1", link:"/" },
-
-      { icon: "trending_up", text: "Most Popular2", link:"/" },
-      { icon: "subscriptions", text: "Subscriptions2", link:"/" },
-      { icon: "history", text: "History2", link:"/" },
-      { icon: "featured_play_list", text: "Playlists2", link:"/" },
-      { icon: "watch_later", text: "Watch Later2", link:"/" },
-      { icon: "navigate_next", text: "Navigate Next2", link:"/" },
-      { icon: "md-star_half", text: "Start Half2", link:"/" },
-      { icon: "mdi-compass-outline", text: "Compass Outline2", link:"/" }
+      { icon: "mdi-dev-to", text: "Development Path", link: "/admin/path"},
+      { icon: "mdi-table", text: "Table Demo", link:"/" },
+      { icon: "subscriptions", text: "Subscriptions", link:"/1" },
+      { icon: "history", text: "History", link:"/2" },
+      { icon: "featured_play_list", text: "Playlists", link:"/3" },
+      { icon: "watch_later", text: "Watch Later", link:"/4" },
+      { icon: "navigate_next", text: "Navigate Next", link:"/5" },
+      { icon: "mdi-compass-outline", text: "Compass Outline", link:"/6" }
     ]
   }),
   created() {

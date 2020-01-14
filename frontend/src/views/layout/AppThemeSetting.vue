@@ -42,6 +42,17 @@
             ></v-switch>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col cols="12" class="py-0">
+            <v-switch
+              v-model="footer"
+              hide-details
+              class="ma-2"
+              :label="$vuetify.lang.t('$vuetify.theme.enableFooter')"
+              @change="updateFooterStatus"
+            ></v-switch>
+          </v-col>
+        </v-row>
       </v-container>
     </v-navigation-drawer>
 
@@ -67,10 +78,12 @@ export default {
   data: () => ({
     rightDrawer: false,
     dark: false,
-    tag: true
+    tag: true,
+    footer: true
   }),
   mounted() {
     this.tag = (this.isTag == 'true' ? true : false)
+    this.footer = (this.isFooter == 'true' ? true : false)
     this.dark = (this.isDark == 'true' ? true : false)
     this.$vuetify.theme.dark = (this.isDark == 'true' ? true : false);
   },
@@ -91,10 +104,14 @@ export default {
       this.$store.dispatch("setDark", this.dark);
       console.log("isDark: " + this.isDark)
       console.log(typeof(this.isDark))
-    }
+    },
+    updateFooterStatus() {
+      // 使用同步方法提交
+      this.$store.dispatch("setFooter", this.footer);
+    },
   },
   computed: {
-    ...mapState(["isTag","isDark"])
+    ...mapState(["isTag","isDark","isFooter"])
   }
 };
 </script>

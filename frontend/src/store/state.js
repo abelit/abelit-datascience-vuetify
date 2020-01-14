@@ -4,7 +4,8 @@ const state = {
     appLoading: false,
     isFullscreen: false,
     isTag: localStorage.getItem("isTag") || true,
-    isDark: localStorage.getItem("isDark") || false
+    isDark: localStorage.getItem("isDark") || false,
+    isFooter: localStorage.getItem("isFooter") || true,
 };
 
 export default state;

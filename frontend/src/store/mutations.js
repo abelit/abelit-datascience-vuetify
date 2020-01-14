@@ -21,6 +21,10 @@ const mutations = {
   setDark: (state, value) => {
     state.isDark = value;
     localStorage.setItem("isDark", value);
+  },
+  setFooter: (state, value) => {
+    state.isFooter = value;
+    localStorage.setItem("isFooter", value);
   }
 };
 

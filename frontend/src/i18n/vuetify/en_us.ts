@@ -79,7 +79,8 @@ export default {
     theme: {
         dark: 'Dark',
         light: 'Light',
-        enableTag: 'Enable Nav Tag'
+        enableTag: 'Enable Nav Tag',
+        enableFooter: "Enable Footer"
     }
 
 }

@@ -16,6 +16,9 @@ const actions = {
   },
   setDark({ commit }, value) {
     commit("setDark", value);
+  },
+  setFooter({ commit }, value) {
+    commit("setFooter", value);
   }
 };
 

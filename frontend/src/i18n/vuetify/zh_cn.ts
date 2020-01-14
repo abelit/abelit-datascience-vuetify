@@ -79,7 +79,8 @@ export default {
     theme: {
         dark: '暗黑模式',
         light: '明亮模式',
-        enableTag: '启动导航标签'
+        enableTag: '启动导航标签',
+        enableFooter: "显示页脚"
     }
 
 }
