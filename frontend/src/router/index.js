@@ -141,6 +141,51 @@ export default new Router({
       path: "/login",
       name: "Login",
       component: () => import("@/views/user/AppLogin")
+    },
+    {
+      path: "/404",
+      meta: {
+        public: true
+      },
+      name: "NotFound",
+      component: () =>
+        import(
+          /* webpackChunkName: "routes" */
+          "@/views/error/AppNotFound.vue"
+        )
+    },
+    {
+      path: "/403",
+      meta: {
+        public: true
+      },
+      name: "AccessDenied",
+      component: () =>
+        import(
+          /* webpackChunkName: "routes" */
+          "@/views/error/AppDeny.vue"
+        )
+    },
+    {
+      path: "/500",
+      meta: {
+        public: true
+      },
+      name: "ServerError",
+      component: () =>
+        import(
+          /* webpackChunkName: "routes" */
+          "@/views/error/AppError.vue"
+        )
+    },
+    {
+      path: "*",
+      meta: {
+        public: true
+      },
+      redirect: {
+        path: "/404"
+      }
     }
   ]
 });
