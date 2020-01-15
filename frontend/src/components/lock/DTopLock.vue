@@ -15,7 +15,7 @@
         class="primary"
         primary-title
       >{{ $vuetify.lang.t("$vuetify.tooltip.lockPassword") }}</v-card-title>
-      <v-card-text>
+      <v-card-text class="pb-0">
         <v-form :lazy-validation="lazy" ref="form" v-model="valid">
           <v-container>
             <v-row>
@@ -37,7 +37,7 @@
           <small>*{{ $vuetify.lang.t('$vuetify.form.indicatesRequiredField') }}</small>
         </v-form>
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions class="mx-6">
         <v-spacer></v-spacer>
         <v-btn class="primary" @click="dialog=false">
           <span>{{ $vuetify.lang.t("$vuetify.button.cancel") }}</span>

@@ -138,9 +138,9 @@ export default new Router({
       component: () => import("@/views/lock/AppLock")
     },
     {
-      path: "/login",
+      path: "/auth/login",
       name: "Login",
-      component: () => import("@/views/user/AppLogin")
+      component: () => import("@/views/auth/AppLogin")
     },
     {
       path: "/404",
