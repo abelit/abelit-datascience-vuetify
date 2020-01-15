@@ -43,9 +43,11 @@
                 </v-form>
               </v-card-text>
               <v-card-actions class="px-4 pb-6">
-                <span>
+                <router-link to="/">
+                  <span>
                   Forget Password?
                 </span>
+                </router-link>
                 <v-spacer />
                 <v-btn color="primary">Login</v-btn>
               </v-card-actions>
