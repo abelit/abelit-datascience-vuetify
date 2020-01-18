@@ -2,13 +2,16 @@
   <v-container fluid fill-height>
     <v-row align="center" justify="center">
       <div class="mr-3 hidden-sm-and-down">
-         <v-img :src="require('@/assets/images/error/403.svg')"></v-img>
+        <v-img :src="require('@/assets/images/error/403.svg')"></v-img>
       </div>
       <div class="text-md-center">
         <h1>403</h1>
         <h2 class="my-3 headline">Sorry, access denied.</h2>
         <div>
-          <v-btn color="primary" @click="goHome">Go Home</v-btn>
+          <v-btn color="primary" @click="goHome">
+            <v-icon>mdi-keyboard-return</v-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-btn>
         </div>
       </div>
     </v-row>

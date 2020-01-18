@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-content>
       <v-container class="fill-height" fluid>
-        <v-row align="center" justify="center">
+        <v-row align="center" justify="center" class="mx-auto">
           <v-col cols="12" sm="8" md="4">
             <v-row class="mb-6 title">
               <v-col align="center">
@@ -66,3 +66,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.router-link-active {
+  text-decoration: none
+}
+</style>
