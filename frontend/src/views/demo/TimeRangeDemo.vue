@@ -15,7 +15,7 @@
         </v-row>
       </template>
       <v-row justify="center">
-        <v-col cols="12" sm="2" class="pt-6">
+        <v-col cols="12" sm="2" class="pt-8">
           <v-btn text block left @click="setTime(1)">最近15分钟</v-btn>
           <v-btn text block left @click="setTime(2)">最近30分钟</v-btn>
           <v-btn text block left @click="setTime(3)">最近1小时</v-btn>
