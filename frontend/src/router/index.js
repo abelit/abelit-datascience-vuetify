@@ -87,6 +87,21 @@ export default new Router({
           name: "test",
           component: () => import("@/views/demo/Test.vue")
         },
+        {
+          path: "date",
+          name: "date",
+          component: () => import("@/views/demo/DateRangeDemo.vue")
+        },
+        {
+          path: "time",
+          name: "time",
+          component: () => import("@/views/demo/TimeRangeDemo.vue")
+        },
+        {
+          path: "map",
+          name: "map",
+          component: () => import("@/views/demo/MapDemo.vue")
+        },
       ]
     },
     {
