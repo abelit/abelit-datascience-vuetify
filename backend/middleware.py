@@ -7,7 +7,6 @@ class Middleware(object):
     def __call__(self, *args, **kwargs):
         print("开始...")
         ret = self.wsgi_app(*args, **kwargs)
-        print(self.request)
         print("结束...")
         return ret
 

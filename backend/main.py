@@ -45,12 +45,13 @@ jwt = JWTManager(app)
 def process_start_request():
     # print("正在访问： "+request.path)
     app.wsgi_app = Middleware(app.wsgi_app, request.path)
+    # print(request.remote_addr)
 
 
-# @app.after_request
-# def process_end_request(response):
-#     print("结束访问： "+request.path)
-#     return response
+@app.after_request
+def process_end_request(response):
+    print("结束访问： "+request.path)
+    return response
 
 
 # 注册自定义blueprint模块
@@ -61,4 +62,4 @@ app.register_blueprint(api_blueprint, url_prefix="/api")
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0",debug=True)

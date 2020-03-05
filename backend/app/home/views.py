@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint,request,jsonify
 
 home = Blueprint("home", __name__)
 
@@ -9,6 +9,11 @@ def index():
     # flash('You were successfully logged in')
     return render_template('index.html')
 
-@home.route('/hello')
-def hello():
-    return "hello world"
+@home.route('/ip')
+def show_ip():
+    ip = request.remote_addr
+    user = request.remote_user
+    return jsonify({
+        "ip": ip,
+        "user": user
+    })
