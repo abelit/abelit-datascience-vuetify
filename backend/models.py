@@ -3,6 +3,33 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True,
+                         nullable=False, doc="user account")
+    name = db.Column(db.String(80), nullable=False, doc="real username")
+    alias = db.Column(db.String(100))
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
+    gender = db.Column(db.Integer, nullable=False, doc="1:male,0:female")
+    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
+    position_id = db.Column(db.Integer, db.ForeignKey(
+        'position.id'), nullable=False)
+    created_time = db.Column(
+        db.DateTime, nullable=False, default=datetime.now)
+    updated_time = db.Column(
+        db.DateTime, nullable=False, default=datetime.now)
+    group = db.relationship('Group',
+                            backref=db.backref('users', lazy=True))
+    position = db.relationship('Position',
+                               backref=db.backref('users', lazy=True))
+    user_role = db.relationship('Role', secondary=user_role, lazy='subquery',
+                                backref=db.backref('users', lazy=True))
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
@@ -52,30 +79,6 @@ user_role = db.Table('user_role',
                      )
 
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False, doc="user account")
-    name = db.Column(db.String(80), nullable=False, doc="real username")
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
-    gender = db.Column(db.Integer, nullable=False, doc="1:male,0:female")
-    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
-    group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
-    position_id = db.Column(db.Integer, db.ForeignKey(
-        'position.id'), nullable=False)
-    created_time = db.Column(
-        db.DateTime, nullable=False, default=datetime.now)
-    updated_time = db.Column(
-        db.DateTime, nullable=False, default=datetime.now)
-    group = db.relationship('Group',
-                            backref=db.backref('users', lazy=True))
-    position = db.relationship('Position',
-                               backref=db.backref('users', lazy=True))
-    user_role = db.relationship('Role', secondary=user_role, lazy='subquery',
-                                backref=db.backref('users', lazy=True))
-
-    def __repr__(self):
-        return '<User %r>' % self.username
 
 
 class Menu(db.Model):
