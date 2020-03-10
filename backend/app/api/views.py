@@ -1,7 +1,7 @@
 from flask import jsonify, request, Blueprint,g
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from models import Group, Position, User, Tmenu, Role, Menu
+from models import Groups, Positions, Users, Roles, Menus
 from db import db
 
 api = Blueprint("api", __name__)
@@ -12,7 +12,7 @@ def group():
     result = []
     status_code = None
     try:
-        group = Group.query.all()
+        group = Groups.query.all()
         status_code = 200
         for g in group:
             result.append({
