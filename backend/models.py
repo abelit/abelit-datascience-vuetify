@@ -78,14 +78,14 @@ class Users(db.Model):
                       nullable=False, doc="user email, can login as email")
     passwd = db.Column(db.String(200), nullable=False)
     gender = db.Column(db.Integer, nullable=False, doc="1:male,0:female")
-    groupid = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False)
+    groupid = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False, default='default')
     positionid = db.Column(db.Integer, db.ForeignKey(
-        'positions.id'), nullable=False)
+        'positions.id'), nullable=False,default='default')
     url = db.Column(db.Integer, nullable=True,
-                    doc="user's home page when logined")
+                    doc="user's home page when logined",default='')
     autologin = db.Column(db.Integer, nullable=False,
                           default=0, doc="1:true,0:false")
-    autologout = db.Column(db.Integer, default=600, nullable=False)
+    autologout = db.Column(db.Integer, nullable=False, default=600)
     lang = db.Column(db.String(10), nullable=False, default='zh_CN')
     refresh = db.Column(db.Integer, nullable=False, default=30)
     status = db.Column(db.Integer, nullable=False,
@@ -98,8 +98,8 @@ class Users(db.Model):
     attempt_failed = db.Column(db.Integer, nullable=False, default=0)
     attempt_ip = db.Column(db.String(64), nullable=False, default='')
     created_timestamp = db.Column(
-        db.DateTime, nullable=False, default=datetime.now)
-    updated_timestamp = db.Column(db.DateTime, nullable=False, default='')
+        db.timestamp, nullable=False, default=datetime.now)
+    updated_timestamp = db.Column(db.timestamp, nullable=False, onupdate=datetime.datetime.now)
 
     groups = db.relationship('Groups', backref=db.backref('users', lazy=True))
     positions = db.relationship(
