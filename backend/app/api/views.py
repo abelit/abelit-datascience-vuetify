@@ -32,7 +32,7 @@ def group():
 @api.route('/position', methods=['GET'])
 def position():
     result = []
-    position = Position.query.all()
+    position = Positions.query.all()
 
     for p in position:
         result.append({
@@ -50,7 +50,7 @@ def position():
 @api.route('/role', methods=['GET'])
 def role():
     result = []
-    role = Role.query.filter_by(status=1)
+    role = Roles.query.filter_by(status=1)
 
     for r in role:
         result.append({
@@ -64,7 +64,7 @@ def role():
 @api.route('/menu', methods=['GET'])
 # @jwt_required
 def menu():
-    menus = Menu.query.all()
+    menus = Menus.query.all()
     result = []
 
     for m in menus:
@@ -85,70 +85,18 @@ def menu():
     return jsonify(result), 200
 
 
-@api.route('/books', methods=['GET'])
-# @jwt_required
-def all_books():
-    BOOKS = [
-        {
-            'title': 'On the Road',
-            'author': 'Jack Kerouac',
-            'read': True
-        },
-        {
-            'title': 'Harry Potter and the Philosopher\'s Stone',
-            'author': 'J. K. Rowling',
-            'read': False
-        },
-        {
-            'title': 'Green Eggs and Ham',
-            'author': 'Dr. Seuss',
-            'read': True
-        },
-        {
-            'title': 'Data Science',
-            'author': 'Abelit',
-            'read': True
-        }
-    ]
-    g.user = "abelit"
-    print(g.user)
-    return jsonify({
-        'status': 'success',
-        'books': BOOKS
-    })
-
-
 @api.route('/ping')
 def ping():
     return 'Pong!'
 
-
-@api.route('/tmenu')
-def tmenu():
-    tm = Tmenu.query.all()
+@api.route('/test/menu')
+def test_menu():
+    sqlres = db.engine.execute("""select id,name,alias,surname,email from users""")
     result = []
 
-    for i in tm:
-        result.append({"id": i.id, "name": i.name, "fid": i.fid})
-
-    return jsonify(result)
-
-
-@api.route('/mmenu')
-def mmenu():
-    tm = db.engine.execute("""with RECURSIVE t(id, name, fid, depth, path, cycle) as
-                           (
-        select a.id, a.name, a.fid, 1, array[a.id], false from tmenu a where id=1
-        union all
-        select b.id, b.name, b.fid, c.depth+1, path ||b.id, b.id=any(path) from tmenu b, t c where c.id=b.fid and not cycle
-    )
-        select * from t
-        """)
-    result = []
-
-    for i in tm:
-        result.append({"id": i.id, "name": i.name, "fid": i.fid,
-                       "depth": i.depth, "path": i.path, "cycle": i.cycle})
+    for i in sqlres:
+        result.append({"id": i.id, "name": i.name, "alias": i.alias,
+                       "surname": i.surname, "email": i.email})
 
     return jsonify(result)
 
@@ -161,7 +109,7 @@ def check_username():
     status_code = None
 
     try:
-        user = User.query.filter_by(username=username).first()
+        user = Users.query.filter_by(username=username).first()
         status_code = 200
         if user:
             status_code = 700
@@ -179,7 +127,7 @@ def check_email():
     status_code = None
 
     try:
-        email = User.query.filter_by(email=email).first()
+        email = Users.query.filter_by(email=email).first()
         status_code = 200
         if email:
             status_code = 700
@@ -197,7 +145,7 @@ def check_group():
     status_code = None
 
     try:
-        group = Group.query.filter_by(name=name).first()
+        group = Groups.query.filter_by(name=name).first()
         status_code = 200
         if group:
             status_code = 700
@@ -215,7 +163,7 @@ def check_position():
     status_code = None
 
     try:
-        position = Position.query.filter_by(name=name).first()
+        position = Positions.query.filter_by(name=name).first()
         status_code = 200
         if position:
             status_code = 700

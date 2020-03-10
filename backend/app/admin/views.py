@@ -6,7 +6,7 @@ import time
 
 
 from db import db
-from models import Group, Position, User, Role, Menu
+from models import Groups, Positions, Users, Roles, Menus
 
 admin = Blueprint("admin", __name__)
 
@@ -25,8 +25,8 @@ def add_group():
     status = request.json.get('status', None)
     description = request.json.get('description', None)
 
-    # 使用Group模型类添加用户组
-    group = Group(name=name, enname=enname,
+    # 使用Groups模型类添加用户组
+    group = Groups(name=name, enname=enname,
                   status=status, description=description)
 
     status_code = None
@@ -47,7 +47,7 @@ def delete_group():
     name = request.json.get('name', None)
     status_code = None
 
-    group = Group.query.filter_by(name=name).first()
+    group = Groups.query.filter_by(name=name).first()
 
     # 提交入库
     try:
@@ -69,7 +69,7 @@ def update_group():
 
     status_code = None
 
-    group = Group.query.filter_by(name=name)
+    group = Groups.query.filter_by(name=name)
     # 更新用户信息
     group.update({'status': status,'description': description})
             
@@ -92,7 +92,7 @@ def add_position():
     status = request.json.get('status', None)
     description = request.json.get('description', None)
 
-    position = Position(name=name, enname=enname,
+    position = Positions(name=name, enname=enname,
                         status=status, description=description)
 
     status_code = None
@@ -113,7 +113,7 @@ def delete_position():
     name = request.json.get('name', None)
     status_code = None
 
-    position = Position.query.filter_by(name=name).first()
+    position = Positions.query.filter_by(name=name).first()
 
     # 提交入库
     try:
@@ -135,7 +135,7 @@ def update_position():
 
     status_code = None
 
-    position = Position.query.filter_by(name=name)
+    position = Positions.query.filter_by(name=name)
     # 更新用户信息
     position.update({'status': status,'description': description})
             
@@ -167,7 +167,7 @@ def add_menu():
     print(".........................................")
     print(name)
 
-    menu = Menu(name=name, en_name=enname, fid=fid, url=url, component=component, icon=icon,
+    menu = Menus(name=name, en_name=enname, fid=fid, url=url, component=component, icon=icon,
                 status=status, type=type, order=order)
 
     status_code = None
@@ -198,11 +198,11 @@ def add_user():
 
     status_code = None
 
-    user = User(username=username, name=name, email=email, password=generate_password_hash(
+    user = Users(username=username, name=name, email=email, password=generate_password_hash(
         password), group_id=selected_department, position_id=selected_position, gender=selected_gender, status=status)
 
     for r in role:
-        user_role = Role.query.get(r['id'])
+        user_role = Roles.query.get(r['id'])
         user.roles.append(user_role)
 
     try:
@@ -230,7 +230,7 @@ def update_user():
 
     status_code = None
 
-    user_obj = User.query.filter_by(username=username)
+    user_obj = Users.query.filter_by(username=username)
     user = user_obj.first()
     # 更新用户信息
     user_obj.update({'name': name, 'group_id': selected_department,
@@ -246,7 +246,7 @@ def update_user():
     # 更新用户权限信息
     for r in role:
         # 获取角色对象
-        user_role = Role.query.get(r['id'])
+        user_role = Roles.query.get(r['id'])
         new_role.append(user_role)
 
     # 删除没有的权限
@@ -277,7 +277,7 @@ def delete_user():
     status_code = None
     print("...........................................")
     print(username)
-    user = User.query.filter_by(username=username).first()
+    user = Users.query.filter_by(username=username).first()
 
     # 提交入库
     try:
@@ -298,23 +298,23 @@ def delete_user():
 @admin.route('/user/list', methods=['GET'])
 def list_users():
     result = []
-    users = db.session.query(User, Group, Position).join(Group, User.group_id == Group.id).join(
-        Position, User.position_id == Position.id).all()
+    users = db.session.query(Users, Groups, Positions).join(Groups, Users.group_id == Groups.id).join(
+        Positions, Users.position_id == Positions.id).all()
 
     for u in users:
         ulist = {
-            "name": u.User.name,
-            "username": u.User.username,
-            "email": u.User.email,
-            "gender": u.User.gender,
-            "status": u.User.status,
-            "created_time": u.User.created_time,
-            "group": {"name": u.Group.name, "id": u.Group.id},
-            "position": {"name": u.Position.name, "id": u.Position.id}
+            "name": u.Users.name,
+            "username": u.Users.username,
+            "email": u.Users.email,
+            "gender": u.Users.gender,
+            "status": u.Users.status,
+            "created_time": u.Users.created_time,
+            "group": {"name": u.Groups.name, "id": u.Groups.id},
+            "position": {"name": u.Positions.name, "id": u.Positions.id}
         }
 
         urole = []
-        for r in u.User.roles:
+        for r in u.Users.roles:
             urole.append({"name": r.name, "id": r.id})
         ulist["role"] = urole
 
@@ -330,7 +330,7 @@ def add_role():
 
     status_code = None
 
-    role = Role(name=name, enname=enname, status=status)
+    role = Roles(name=name, enname=enname, status=status)
 
     try:
         db.session.add(role)
@@ -349,7 +349,7 @@ def update_role():
 
     status_code = None
 
-    role = Role.query.filter_by(name=name)
+    role = Roles.query.filter_by(name=name)
     # 更新用户信息
     role.update({'status': status})
             
@@ -368,7 +368,7 @@ def delete_role():
     name = request.json.get('name', None)
     status_code = None
 
-    role = Role.query.filter_by(name=name).first()
+    role = Roles.query.filter_by(name=name).first()
 
     # 提交入库
     try:
@@ -385,7 +385,7 @@ def delete_role():
 @admin.route('/role/list', methods=['GET'])
 def list_roles():
     result = []
-    roles = Role.query.all()
+    roles = Roles.query.all()
 
     for r in roles:
         rlist = {

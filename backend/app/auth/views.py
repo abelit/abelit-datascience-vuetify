@@ -8,7 +8,7 @@ from flask_jwt_extended import (
 import datetime
 
 from db import db
-from models import User
+from models import Users
 
 auth = Blueprint("auth", __name__)
 
@@ -33,7 +33,7 @@ def register():
 
     status_code = None
 
-    user = User(username=username, name=name, email=email, password=generate_password_hash(
+    user = Users(username=username, name=name, email=email, password=generate_password_hash(
         password), group_id=selected_department, position_id=selected_position, gender=selected_gender, status=status)
 
     try:
@@ -57,9 +57,9 @@ def login():
 
     try:
         # 获取用户信息
-        user_by_name = User.query.filter_by(username=username).first()
+        user_by_name = Users.query.filter_by(username=username).first()
         print("验证用户")
-        user_by_email = User.query.filter_by(email=username).first()
+        user_by_email = Users.query.filter_by(email=username).first()
         # 组合使用用户名或邮箱进行登录
         user = user_by_name if user_by_name else user_by_email
         # 验证用户信息是否匹配

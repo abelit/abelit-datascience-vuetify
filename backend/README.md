@@ -1,5 +1,6 @@
 # 1. 数据库环境部署及使用
-## 1.1 安装Postgresql数据库
+## 1.1 安装数据库
+### Postgresql
 ```bash
 $ sudo apt-get install postgresql-10
 $ sudo service postgresql start/status/stop/restart
@@ -7,6 +8,10 @@ $ sudo su - postgres
 $ psql
 ALTER USER postgres WITH PASSWORD 'password';
 pg> CREATE USER dataforum WITH PASSWORD 'password';
+```
+### MySQL
+```bash
+
 ```
 
 ## 1.1 创建数据库
