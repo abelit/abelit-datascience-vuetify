@@ -36,8 +36,22 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
     # 使用docker环境时把127.0.0.1改为db的容器名称
-    SQLALCHEMY_DATABASE_URI = "mysql://datascience:Passw0rd@58.42.231.98:53306/datascience"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    DIALECT='mysql'
+    DRIVER='pymysql'
+    USERNAME='datascience'
+    PASSWORD='Passw0rd'
+    HOST='58.42.231.98'
+    PORT=53306
+    DATABASE='datascience'
+    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:Passw0rd@58.42.231.98:53306/datascience"
+    SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(
+        DIALECT,DRIVER,USERNAME,PASSWORD,HOST,PORT,DATABASE
+    )
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+ 
+    SQLALCHEMY_POOL_SIZE = 10
+    SQLALCHEMY_MAX_OVERFLOW = 5
 
     # 配置日志信息
     LOG_PATH = os.path.join(basedir, 'logs')

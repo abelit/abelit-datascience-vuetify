@@ -11,7 +11,8 @@ pg> CREATE USER dataforum WITH PASSWORD 'password';
 ```
 ### MySQL
 ```bash
-
+ALTER USER 'datascience'@'%' IDENTIFIED WITH mysql_native_password BY 'Passw0rd';
+pip3 install pymsql
 ```
 
 ## 1.1 创建数据库

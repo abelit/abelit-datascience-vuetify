@@ -78,9 +78,9 @@ class Users(db.Model):
                       nullable=False, doc="user email, can login as email")
     passwd = db.Column(db.String(200), nullable=False)
     gender = db.Column(db.Integer, nullable=False, doc="1:male,0:female")
-    groupid = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
+    groupid = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False)
     positionid = db.Column(db.Integer, db.ForeignKey(
-        'position.id'), nullable=False)
+        'positions.id'), nullable=False)
     url = db.Column(db.Integer, nullable=True,
                     doc="user's home page when logined")
     autologin = db.Column(db.Integer, nullable=False,
