@@ -386,16 +386,16 @@ def delete_role():
 
 
 @admin.route('/role', methods=['GET'])
-def list_roles():
+def get_role():
     result = []
     roles = Role.query.all()
 
     for r in roles:
         rlist = {
             "name": r.name,
-            "enname": r.enname,
+            "alias": r.alias,
             "status": r.status,
-            "created_time": r.created_time
+            "created_timestamp": r.created_timestamp
         }
         result.append(rlist)
     return jsonify(result), 200

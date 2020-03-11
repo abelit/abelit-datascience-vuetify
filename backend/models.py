@@ -107,14 +107,14 @@ class User(db.Model):
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(db.DateTime, nullable=False, onupdate=datetime.now,default=datetime.now)
 
-    groups = db.relationship('Group', backref=db.backref('users', lazy=True))
+    groups = db.relationship('Group', backref=db.backref('users', lazy='subquery'))
     positions = db.relationship(
         'Position', backref=db.backref('users', lazy=True))
-    # roles = db.relationship(
-    #     'Role', secondary=users_roles, lazy='subquery', backref=db.backref('users', lazy=True))
+    roles = db.relationship(
+        'Role', secondary=users_roles, lazy='subquery', backref=db.backref('users', lazy=True))
     
-    # permissions = db.relationship(
-    #     'Permission', secondary=users_permissions, lazy='subquery', backref=db.backref('users', lazy=True))
+    permissions = db.relationship(
+        'Permission', secondary=users_permissions, lazy='subquery', backref=db.backref('users', lazy=True))
 
     def __repr__(self):
         return '<User %r>' % self.name
@@ -133,11 +133,11 @@ class Group(db.Model):
     updated_timestamp = db.Column(
         db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
     
-    # roles = db.relationship(
-    #     'Role', secondary=groups_roles, lazy='subquery', backref=db.backref('groups', lazy=True))
+    roles = db.relationship(
+        'Role', secondary=groups_roles, lazy='subquery', backref=db.backref('groups', lazy=True))
 
-    # permissions = db.relationship(
-    #     'Permission', secondary=groups_permissions, lazy='subquery', backref=db.backref('groups', lazy=True))
+    permissions = db.relationship(
+        'Permission', secondary=groups_permissions, lazy='subquery', backref=db.backref('groups', lazy=True))
 
     def __repr__(self):
         return '<Group %r>' % self.name
@@ -188,7 +188,7 @@ class Role(db.Model):
     name = db.Column(db.String(80), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
     description = db.Column(db.Text)
-    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
+    status = db.Column(db.Integer, nullable=False, default=1, doc="0:disable,1:enable")
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
@@ -208,7 +208,7 @@ class Permission(db.Model):
     name = db.Column(db.String(80), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
     description = db.Column(db.Text)
-    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
+    status = db.Column(db.Integer, nullable=False, default=1,doc="0:disable,1:enable")
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
