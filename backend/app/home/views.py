@@ -9,11 +9,3 @@ def index():
     # flash('You were successfully logged in')
     return render_template('index.html')
 
-@home.route('/ip')
-def show_ip():
-    ip = request.remote_addr
-    user = request.remote_user
-    return jsonify({
-        "ip": ip,
-        "user": user
-    })

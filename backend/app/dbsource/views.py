@@ -1,18 +1,26 @@
 from flask import jsonify, request, Blueprint,g
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from models import Groups, Positions, Users, Roles, Menus
+from models import Group, Position, User, Role, Menu
 from db import db
 
-api = Blueprint("api", __name__)
+dbsource = Blueprint("dbsource", __name__)
 
 
-@api.route('/group', methods=['GET'])
+@dbsource.route('/ping')
+def ping():
+    return jsonify({
+        "ping": "Pong!",
+        "ip": request.remote_addr
+    })
+
+
+@dbsource.route('/group', methods=['GET'])
 def group():
     result = []
     status_code = None
     try:
-        group = Groups.query.all()
+        group = Group.query.all()
         status_code = 200
         for g in group:
             result.append({
@@ -29,10 +37,10 @@ def group():
     return jsonify(result), status_code
 
 
-@api.route('/position', methods=['GET'])
+@dbsource.route('/position', methods=['GET'])
 def position():
     result = []
-    position = Positions.query.all()
+    position = Position.query.all()
 
     for p in position:
         result.append({
@@ -47,10 +55,10 @@ def position():
     return jsonify(result), 200
 
 
-@api.route('/role', methods=['GET'])
+@dbsource.route('/role', methods=['GET'])
 def role():
     result = []
-    role = Roles.query.filter_by(status=1)
+    role = Role.query.filter_by(status=1)
 
     for r in role:
         result.append({
@@ -61,10 +69,10 @@ def role():
     return jsonify(result), 200
 
 
-@api.route('/menu', methods=['GET'])
+@dbsource.route('/menu', methods=['GET'])
 # @jwt_required
 def menu():
-    menus = Menus.query.all()
+    menus = Menu.query.all()
     result = []
 
     for m in menus:
@@ -84,12 +92,7 @@ def menu():
     
     return jsonify(result), 200
 
-
-@api.route('/ping')
-def ping():
-    return 'Pong!'
-
-@api.route('/test/menu')
+@dbsource.route('/test/menu')
 def test_menu():
     sqlres = db.engine.execute("""select id,name,alias,surname,email from users""")
     result = []
@@ -101,7 +104,7 @@ def test_menu():
     return jsonify(result)
 
 
-@api.route('/checkusername', methods=['GET'])
+@dbsource.route('/checkusername', methods=['GET'])
 def check_username():
     # 从前端Ajax请求中获取用户名
     username = request.args.get('username')
@@ -109,7 +112,7 @@ def check_username():
     status_code = None
 
     try:
-        user = Users.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username).first()
         status_code = 200
         if user:
             status_code = 700
@@ -119,7 +122,7 @@ def check_username():
     return jsonify(), status_code
 
 
-@api.route('/checkemail', methods=['GET'])
+@dbsource.route('/checkemail', methods=['GET'])
 def check_email():
     # 从前端Ajax请求中获取用户名
     email = request.args.get('email')
@@ -127,7 +130,7 @@ def check_email():
     status_code = None
 
     try:
-        email = Users.query.filter_by(email=email).first()
+        email = User.query.filter_by(email=email).first()
         status_code = 200
         if email:
             status_code = 700
@@ -137,7 +140,7 @@ def check_email():
     return jsonify(), status_code
 
 
-@api.route('/checkgroup', methods=['GET'])
+@dbsource.route('/checkgroup', methods=['GET'])
 def check_group():
     # 从前端Ajax请求中获取用户名
     name = request.args.get('name')
@@ -145,7 +148,7 @@ def check_group():
     status_code = None
 
     try:
-        group = Groups.query.filter_by(name=name).first()
+        group = Group.query.filter_by(name=name).first()
         status_code = 200
         if group:
             status_code = 700
@@ -155,7 +158,7 @@ def check_group():
     return jsonify(), status_code
 
 
-@api.route('/checkposition', methods=['GET'])
+@dbsource.route('/checkposition', methods=['GET'])
 def check_position():
     # 从前端Ajax请求中获取用户名
     name = request.args.get('name')
@@ -163,7 +166,7 @@ def check_position():
     status_code = None
 
     try:
-        position = Positions.query.filter_by(name=name).first()
+        position = Position.query.filter_by(name=name).first()
         status_code = 200
         if position:
             status_code = 700

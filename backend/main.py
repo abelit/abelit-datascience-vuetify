@@ -8,7 +8,7 @@ from flask_cors import CORS
 from db import db
 import config
 
-from app.api.views import api as api_blueprint
+from app.dbsource.views import dbsource as dbsource_blueprint
 from app.auth.views import auth as auth_blueprint
 from app.home.views import home as home_blueprint
 from app.admin.views import admin as admin_blueprint
@@ -56,9 +56,9 @@ def process_end_request(response):
 
 # 注册自定义blueprint模块
 app.register_blueprint(home_blueprint)
-app.register_blueprint(admin_blueprint, url_prefix="/admin")
-app.register_blueprint(auth_blueprint, url_prefix="/auth")
-app.register_blueprint(api_blueprint, url_prefix="/api")
+app.register_blueprint(admin_blueprint, url_prefix="/api/admin")
+app.register_blueprint(auth_blueprint, url_prefix="/api/auth")
+app.register_blueprint(dbsource_blueprint, url_prefix="/api/dbsource")
 
 
 if __name__ == "__main__":

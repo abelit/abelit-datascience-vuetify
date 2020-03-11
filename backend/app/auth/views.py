@@ -6,17 +6,20 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 import datetime
+from sqlalchemy import or_,and_
 
 from db import db
-from models import Users
+from models import User
 
 auth = Blueprint("auth", __name__)
 
 
-@auth.route('/')
-def authpage():
-    return "Auth page!"
-
+@auth.route('/ping')
+def ping():
+    return jsonify({
+        "ping": "Pong!",
+        "ip": request.remote_addr
+    })
 
 @auth.route('/register', methods=['POST'])
 def register():
@@ -33,7 +36,7 @@ def register():
 
     status_code = None
 
-    user = Users(username=username, name=name, email=email, password=generate_password_hash(
+    user = User(username=username, name=name, email=email, password=generate_password_hash(
         password), group_id=selected_department, position_id=selected_position, gender=selected_gender, status=status)
 
     try:
@@ -55,15 +58,22 @@ def login():
     status_code = None
     result = None
 
+    user_filter = {
+        or_(User.name == username, User.email == username)
+    }
+
     try:
         # 获取用户信息
-        user_by_name = Users.query.filter_by(username=username).first()
-        print("验证用户")
-        user_by_email = Users.query.filter_by(email=username).first()
-        # 组合使用用户名或邮箱进行登录
-        user = user_by_name if user_by_name else user_by_email
+        # user_by_name = User.query.filter_by(name=username).first()
+        # print("验证用户")
+        # user_by_email = User.query.filter_by(email=username).first()
+        # # 组合使用用户名或邮箱进行登录
+        # user = user_by_name if user_by_name else user_by_email
+        user = User.query.filter(*user_filter).first()
+        print(user.name)
+        print(user.passwd)
         # 验证用户信息是否匹配
-        if not user or not check_password_hash(user.password, password):
+        if not user or not check_password_hash(user.passwd, password):
             status_code = 401
         else:
             # Use create_access_token() and create_refresh_token() to create our
@@ -71,8 +81,8 @@ def login():
             access_expires = datetime.timedelta(seconds=3600)
             refresh_expires = datetime.timedelta(seconds=86400)
             result = {
-                'access_token': create_access_token(identity=user.username, expires_delta=access_expires),
-                'refresh_token': create_refresh_token(identity=user.username, expires_delta=refresh_expires)
+                'access_token': create_access_token(identity=user.name, expires_delta=access_expires),
+                'refresh_token': create_refresh_token(identity=user.name, expires_delta=refresh_expires)
             }
             status_code = 200
     except:

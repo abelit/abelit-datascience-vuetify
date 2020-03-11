@@ -5,7 +5,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 # 用户与角色多对多关系
 users_roles = db.Table('users_roles',
-                       db.Column('id', db.Integer, primary_key=True),
+                       db.Column('id', db.Integer, primary_key=True,
+                                 autoincrement=True),
                        db.Column('userid', db.Integer, db.ForeignKey(
                            'users.id'), primary_key=True),
                        db.Column('roleid', db.Integer, db.ForeignKey(
@@ -13,12 +14,13 @@ users_roles = db.Table('users_roles',
                        db.Column('created_timestamp', db.DateTime,
                                  nullable=False, default=datetime.now),
                        db.Column('updated_timestamp', db.DateTime,
-                                 nullable=False, default=datetime.now)
+                                 nullable=False,  onupdate=datetime.now, default=datetime.now)
                        )
 
 # 用户与权限多对多关系
 users_permissions = db.Table('users_permissions',
-                             db.Column('id', db.Integer, primary_key=True),
+                             db.Column('id', db.Integer,
+                                       primary_key=True, autoincrement=True),
                              db.Column('userid', db.Integer, db.ForeignKey(
                                  'users.id'), primary_key=True),
                              db.Column('permissionid', db.Integer, db.ForeignKey(
@@ -26,12 +28,13 @@ users_permissions = db.Table('users_permissions',
                              db.Column('created_timestamp', db.DateTime,
                                        nullable=False, default=datetime.now),
                              db.Column('updated_timestamp', db.DateTime,
-                                       nullable=False, default=datetime.now)
+                                       nullable=False,  onupdate=datetime.now, default=datetime.now)
                              )
 
 # 用户组和角色多对多关系
 groups_roles = db.Table('groups_roles',
-                        db.Column('id', db.Integer, primary_key=True),
+                        db.Column('id', db.Integer, primary_key=True,
+                                  autoincrement=True),
                         db.Column('groupid', db.Integer, db.ForeignKey(
                             'groups.id'), primary_key=True),
                         db.Column('roleid', db.Integer, db.ForeignKey(
@@ -39,12 +42,13 @@ groups_roles = db.Table('groups_roles',
                         db.Column('created_timestamp', db.DateTime,
                                   nullable=False, default=datetime.now),
                         db.Column('updated_timestamp', db.DateTime,
-                                  nullable=False, default=datetime.now)
+                                  nullable=False, onupdate=datetime.now, default=datetime.now)
                         )
 
 # 用户组与权限多对多关系
 groups_permissions = db.Table('groups_permissions',
-                              db.Column('id', db.Integer, primary_key=True),
+                              db.Column('id', db.Integer,
+                                        primary_key=True, autoincrement=True),
                               db.Column('groupid', db.Integer, db.ForeignKey(
                                   'groups.id'), primary_key=True),
                               db.Column('permissionid', db.Integer, db.ForeignKey(
@@ -52,12 +56,13 @@ groups_permissions = db.Table('groups_permissions',
                               db.Column('created_timestamp', db.DateTime,
                                         nullable=False, default=datetime.now),
                               db.Column('updated_timestamp', db.DateTime,
-                                        nullable=False, default=datetime.now)
+                                        nullable=False,  onupdate=datetime.now, default=datetime.now)
                               )
 
 # 角色与权限多对多关系
 roles_permissions = db.Table('roles_permissions',
-                             db.Column('id', db.Integer, primary_key=True),
+                             db.Column('id', db.Integer,
+                                       primary_key=True, autoincrement=True),
                              db.Column('roleid', db.Integer, db.ForeignKey(
                                  'roles.id'), primary_key=True),
                              db.Column('permissionid', db.Integer, db.ForeignKey(
@@ -65,12 +70,13 @@ roles_permissions = db.Table('roles_permissions',
                              db.Column('created_timestamp', db.DateTime,
                                        nullable=False, default=datetime.now),
                              db.Column('updated_timestamp', db.DateTime,
-                                       nullable=False, default=datetime.now)
+                                       nullable=False, onupdate=datetime.now, default=datetime.now)
                              )
 
-class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    alias = db.Column(db.String(100))
+class User(db.Model):
+    __tablename__="users"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    alias = db.Column(db.String(100), unique=True)
     name = db.Column(db.String(100), unique=True,
                      nullable=False, doc="user account")
     surname = db.Column(db.String(100), nullable=False, doc="real username")
@@ -78,10 +84,10 @@ class Users(db.Model):
                       nullable=False, doc="user email, can login as email")
     passwd = db.Column(db.String(200), nullable=False)
     gender = db.Column(db.Integer, nullable=False, doc="1:male,0:female")
-    groupid = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False, default='default')
+    groupid = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False)
     positionid = db.Column(db.Integer, db.ForeignKey(
-        'positions.id'), nullable=False,default='default')
-    url = db.Column(db.Integer, nullable=True,
+        'positions.id'), nullable=False)
+    url = db.Column(db.String(1024), nullable=False,
                     doc="user's home page when logined",default='')
     autologin = db.Column(db.Integer, nullable=False,
                           default=0, doc="1:true,0:false")
@@ -98,59 +104,68 @@ class Users(db.Model):
     attempt_failed = db.Column(db.Integer, nullable=False, default=0)
     attempt_ip = db.Column(db.String(64), nullable=False, default='')
     created_timestamp = db.Column(
-        db.timestamp, nullable=False, default=datetime.now)
-    updated_timestamp = db.Column(db.timestamp, nullable=False, onupdate=datetime.datetime.now)
+        db.DateTime, nullable=False, default=datetime.now)
+    updated_timestamp = db.Column(db.DateTime, nullable=False, onupdate=datetime.now,default=datetime.now)
 
-    groups = db.relationship('Groups', backref=db.backref('users', lazy=True))
+    groups = db.relationship('Group', backref=db.backref('users', lazy=True))
     positions = db.relationship(
-        'Positions', backref=db.backref('users', lazy=True))
-    users_roles = db.relationship(
-        'Roles', secondary=users_roles, lazy='subquery', backref=db.backref('users', lazy=True))
+        'Position', backref=db.backref('users', lazy=True))
+    # roles = db.relationship(
+    #     'Role', secondary=users_roles, lazy='subquery', backref=db.backref('users', lazy=True))
     
-    users_permissions = db.relationship(
-        'Permissions', secondary=users_permissions, lazy='subquery', backref=db.backref('users', lazy=True))
+    # permissions = db.relationship(
+    #     'Permission', secondary=users_permissions, lazy='subquery', backref=db.backref('users', lazy=True))
 
     def __repr__(self):
-        return '<Users %r>' % self.username
+        return '<User %r>' % self.name
 
 
-class Groups(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class Group(db.Model):
+    __tablename__ = 'groups'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    alias = db.Column(db.String(80), unique=True, nullable=False, default='')
+    alias = db.Column(db.String(80), unique=True)
     status = db.Column(db.Integer, nullable=False,
                        default=1, doc="0: disable, 1: enable")
     description = db.Column(db.Text)
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
-        db.DateTime, nullable=False, default=datetime.now)
+        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
     
-    groups_roles = db.relationship(
-        'Roles', secondary=groups_roles, lazy='subquery', backref=db.backref('groups', lazy=True))
+    # roles = db.relationship(
+    #     'Role', secondary=groups_roles, lazy='subquery', backref=db.backref('groups', lazy=True))
 
-    groups_permissions = db.relationship(
-        'Roles', secondary=groups_permissions, lazy='subquery', backref=db.backref('groups', lazy=True))
+    # permissions = db.relationship(
+    #     'Permission', secondary=groups_permissions, lazy='subquery', backref=db.backref('groups', lazy=True))
+
+    def __repr__(self):
+        return '<Group %r>' % self.name
 
 
-class Positions(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class Position(db.Model):
+    __tablename__ = 'positions'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    alias = db.Column(db.String(80), unique=True, nullable=False)
-    status = db.Column(db.Integer, nullable=False)
+    alias = db.Column(db.String(80), unique=True)
+    status = db.Column(db.Integer, nullable=False,default=1, doc="0: disable, 1: enable")
     description = db.Column(db.Text)
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
-        db.DateTime, nullable=False, default=datetime.now)
+        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
+
+    def __repr__(self):
+        return '<Position %r>' % self.name
 
 
 
 
-class Menus(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class Menu(db.Model):
+    __tablename__ = 'menus'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    alias = db.Column(db.String(80), unique=True, nullable=False)
+    alias = db.Column(db.String(80), unique=True)
     fid = db.Column(db.Integer, nullable=True)
     url = db.Column(db.String(500), unique=True, nullable=False)
     # component = db.Column(db.String(500), unique=True, nullable=False)
@@ -161,38 +176,49 @@ class Menus(db.Model):
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
-        db.DateTime, nullable=False, default=datetime.now)
+        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
+
+    def __repr__(self):
+        return '<Menu %r>' % self.name
 
 
-class Roles(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    alias = db.Column(db.String(80), unique=True, nullable=False)
+    alias = db.Column(db.String(80), unique=True)
     description = db.Column(db.Text)
     status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
-        db.DateTime, nullable=False, default=datetime.now)
-    roles_permissions = db.relationship('Permissions', secondary=roles_permissions, lazy='subquery',
-                                        backref=db.backref('roles', lazy=True))
-    users_roles = db.relationship('Users', secondary=users_roles, lazy='subquery',
-                                  backref=db.backref('roles', lazy=True))
+        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
+    # permissions = db.relationship('Permission', secondary=roles_permissions, lazy='subquery',
+    #                                     backref=db.backref('roles', lazy=True))
+    # users = db.relationship('User', secondary=users_roles, lazy='subquery',
+    #                               backref=db.backref('roles', lazy=True))
+
+    def __repr__(self):
+        return '<Role %r>' % self.name
 
 
-class Permissions(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+class Permission(db.Model):
+    __tablename__ = 'permissions'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
-    alias = db.Column(db.String(80), unique=True, nullable=False)
+    alias = db.Column(db.String(80), unique=True)
     description = db.Column(db.Text)
     status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
-        db.DateTime, nullable=False, default=datetime.now)
-    roles_permissions = db.relationship('Permissions', secondary=roles_permissions, lazy='subquery',
-                                        backref=db.backref('roles', lazy=True))
-    users_permissions = db.relationship('Users', secondary=users_permissions, lazy='subquery',
-                                        backref=db.backref('users', lazy=True))
-    groups_permissions = db.relationship('Groups', secondary=groups_permissions, lazy='subquery',
-                                        backref=db.backref('groups', lazy=True))
+        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
+    # roles = db.relationship('Role', secondary=roles_permissions, lazy='subquery',
+    #                                     backref=db.backref('permissions', lazy=True))
+    # users = db.relationship('User', secondary=users_permissions, lazy='subquery',
+    #                                     backref=db.backref('permissions', lazy=True))
+    # groups = db.relationship('Group', secondary=groups_permissions, lazy='subquery',
+    #                                      backref=db.backref('permissions', lazy=True))
+
+    def __repr__(self):
+        return '<Permission %r>' % self.name
