@@ -16,12 +16,13 @@ from app.admin.views import admin as admin_blueprint
 
 from middleware import Middleware
 
+from flask.ext.restful import Api, Resource
 
 # 创建flask实例对象
 app = Flask(__name__)
 # 从config.py中导入配置信息
 app.config.from_object(config.DevelopmentConfig)
-
+app.config['JSON_SORT_KEYS'] = False
 
 # 导入日志配置信息
 config.DevelopmentConfig.init_app(app)
