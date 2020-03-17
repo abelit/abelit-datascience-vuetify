@@ -1,3 +1,4 @@
+# coding=utf-8
 from db import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -222,3 +223,12 @@ class Permission(db.Model):
 
     def __repr__(self):
         return '<Permission %r>' % self.name
+
+class Session(db.Model):
+    __tablename__ = 'sessions'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    userid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    lastaccess = db.Column(db.DateTime,nullable=False,default=datetime.now)
+    status = db.Column(db.Integer, nullable=False, default=1,doc="0:failed,1:success")
+    ip = db.Column(db.String(120), nullable=False)
+    info = db.Column(db.Text)

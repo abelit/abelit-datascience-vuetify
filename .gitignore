@@ -1,4 +1,4 @@
-backend/migrations/
+# backend/migrations/
 backend/**/__pycache__/
 backend/env
 backend/logs/*.log

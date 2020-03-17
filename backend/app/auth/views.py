@@ -18,7 +18,8 @@ auth = Blueprint("auth", __name__)
 def ping():
     return jsonify({
         "ping": "Pong!",
-        "ip": request.remote_addr
+        "ip": request.remote_addr,
+        "module": "auth"
     })
 
 @auth.route('/register', methods=['POST'])
@@ -65,13 +66,11 @@ def login():
     try:
         # 获取用户信息
         # user_by_name = User.query.filter_by(name=username).first()
-        # print("验证用户")
         # user_by_email = User.query.filter_by(email=username).first()
         # # 组合使用用户名或邮箱进行登录
         # user = user_by_name if user_by_name else user_by_email
+        print(request.user_agent)
         user = User.query.filter(*user_filter).first()
-        print(user.name)
-        print(user.passwd)
         # 验证用户信息是否匹配
         if not user or not check_password_hash(user.passwd, password):
             status_code = 401

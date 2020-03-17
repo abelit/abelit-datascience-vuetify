@@ -15,7 +15,8 @@ admin = Blueprint("admin", __name__)
 def ping():
     return jsonify({
         "ping": "Pong!",
-        "ip": request.remote_addr
+        "ip": request.remote_addr,
+        "module": "admin"
     })
 
 @admin.route("/group/add", methods=["POST"])
