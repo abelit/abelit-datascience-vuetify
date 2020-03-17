@@ -1,14 +1,29 @@
-from flask import request, jsonify, Blueprint
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import (
-    jwt_required, create_access_token,
-    jwt_refresh_token_required, create_refresh_token,
-    get_jwt_identity
-)
-import datetime
-from sqlalchemy import or_,and_
+from flask import Flask, Blueprint,jsonify,request
+from flask_restful import Api, Resource
 
-from db import db
-from models import User
 
-auth = Blueprint("auth", __name__)
+demo = Blueprint('demo', __name__)
+
+api = Api(demo)
+
+class TodoItem(Resource):
+    def get(self):
+        return jsonify({'task': 'Say "Hello, World!"'})
+
+class HelloWorld(Resource):
+    def get(self):
+        return {'hello': 'world'}
+
+
+todos = {}
+
+# curl http://localhost:5000/todo1 -d "data=Remember the milk" -X PUT
+# curl http://localhost:5000/todo1
+
+class TodoSimple(Resource):
+    def get(self, todo_id):
+        return {todo_id: todos[todo_id]}
+
+    def put(self, todo_id):
+        todos[todo_id] = request.form['data']
+        return {todo_id: todos[todo_id]}
