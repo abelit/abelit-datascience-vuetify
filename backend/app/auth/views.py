@@ -6,10 +6,10 @@ from flask_jwt_extended import (
     get_jwt_identity
 )
 import datetime
-from sqlalchemy import or_,and_
+from sqlalchemy import or_, and_
 
 from db import db
-from models import User,Session
+from models import User, Session
 
 auth = Blueprint("auth", __name__)
 
@@ -17,24 +17,27 @@ auth = Blueprint("auth", __name__)
 def decorator_session(func):
     def wrapper(*args, **kw):
         print("session decorator")
-        sess = Session(userid='1',ip=request.remote_addr,info=request.user_agent.platform+";"+request.user_agent.browser)
+        sess = Session(userid='1', ip=request.remote_addr,
+                       info=request.user_agent.platform+";"+request.user_agent.browser)
         try:
             db.session.add(sess)
             db.session.commit()
         except Exception:
             db.session.rollback()
             print("record session failed.")
-        return func(*args,**kw)
+        return func(*args, **kw)
     return wrapper
 
-def create_session(userid,ip,status,info):
-    sess = Session(userid=userid,ip=ip,status=status,info=info)
+
+def create_session(userid, ip, status, info):
+    sess = Session(userid=userid, ip=ip, status=status, info=info)
     try:
         db.session.add(sess)
         db.session.commit()
     except Exception:
         db.session.rollback()
         print("record session failed.")
+
 
 @auth.route('/ping')
 def ping():
@@ -43,6 +46,7 @@ def ping():
         "ip": request.remote_addr,
         "module": "auth"
     })
+
 
 @auth.route('/register', methods=['POST'])
 def register():
@@ -91,27 +95,46 @@ def login():
         # user_by_email = User.query.filter_by(email=username).first()
         # # 组合使用用户名或邮箱进行登录
         # user = user_by_name if user_by_name else user_by_email
-        print(request.user_agent)
         user = User.query.filter(*user_filter).first()
+
         # 验证用户信息是否匹配
         if not user or not check_password_hash(user.passwd, password):
+            # 更新用户登录失败信息
+            if user:
+                user.attempt_failed = user.attempt_failed + 1
+                user.attempt_ip = request.remote_addr
+                user.attempt_clock = datetime.datetime.now()
+
             status_code = 401
+            result = {
+                "msg": "Bad username or password"
+            }
         else:
             # Use create_access_token() and create_refresh_token() to create our
             # access and refresh tokens
-            access_expires = datetime.timedelta(seconds=3600)
-            refresh_expires = datetime.timedelta(seconds=86400)
-            result = {
-                'access_token': create_access_token(identity=user.name, expires_delta=access_expires),
-                'refresh_token': create_refresh_token(identity=user.name, expires_delta=refresh_expires)
-            }
-            status_code = 200
+            if user.status == 1:
+                access_expires = datetime.timedelta(seconds=3600)
+                refresh_expires = datetime.timedelta(seconds=86400)
+                status_code = 200
+                result = {
+                    'access_token': create_access_token(identity=user.name, expires_delta=access_expires),
+                    'refresh_token': create_refresh_token(identity=user.name, expires_delta=refresh_expires)
+                }
+            else:
+                status_code = 201
+                result = {
+                    "msg": "User " + user.name + " is not allowed login!"
+                }
     except:
         status_code = 500
+        result = {
+            "msg": "Internal Error!"
+        }
 
-    
+    # 登录成功后，记录会话信息
     if status_code == 200:
-        create_session(user.id,request.remote_addr,1, "user: " +str(request.remote_user) + ";" + "plateform: " + str(request.user_agent.platform) + ";" + "browser: " +str(request.user_agent.browser))
+        create_session(user.id, request.remote_addr, 1, "user: " + str(request.remote_user) + ";" +
+                       "plateform: " + str(request.user_agent.platform) + ";" + "browser: " + str(request.user_agent.browser))
 
     return jsonify(result), status_code
 
