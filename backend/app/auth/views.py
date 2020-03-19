@@ -9,10 +9,32 @@ import datetime
 from sqlalchemy import or_,and_
 
 from db import db
-from models import User
+from models import User,Session
 
 auth = Blueprint("auth", __name__)
 
+
+def decorator_session(func):
+    def wrapper(*args, **kw):
+        print("session decorator")
+        sess = Session(userid='1',ip=request.remote_addr,info=request.user_agent.platform+";"+request.user_agent.browser)
+        try:
+            db.session.add(sess)
+            db.session.commit()
+        except Exception:
+            db.session.rollback()
+            print("record session failed.")
+        return func(*args,**kw)
+    return wrapper
+
+def create_session(userid,ip,status,info):
+    sess = Session(userid=userid,ip=ip,status=status,info=info)
+    try:
+        db.session.add(sess)
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        print("record session failed.")
 
 @auth.route('/ping')
 def ping():
@@ -86,6 +108,10 @@ def login():
             status_code = 200
     except:
         status_code = 500
+
+    
+    if status_code == 200:
+        create_session(user.id,request.remote_addr,1, "user: " +str(request.remote_user) + ";" + "plateform: " + str(request.user_agent.platform) + ";" + "browser: " +str(request.user_agent.browser))
 
     return jsonify(result), status_code
 
