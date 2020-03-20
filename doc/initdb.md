@@ -36,13 +36,13 @@ p3 = Position(name='匿名用户',alias='Anonymous')
 db.session.add_all([p1,p2,p3])
 db.session.commit()
 
-u1 = User(name='superadmin',alias='superadmin',surname='超级管理员',email='superadmin@live.com',passwd=generate_password_hash('superadmin'),gender=1)
+u1 = User(name='superadmin',alias='superadmin',surname='超级管理员',email='superadmin@live.com',passwd=generate_password_hash('superadmin'),gender=1,type=0)
 u1.groups = g1
 u1.positions = p1 
-u2 = User(name='admin',alias='admin',surname='管理员',email='admin@live.com',passwd=generate_password_hash('superadmin'),gender=1)  
+u2 = User(name='admin',alias='admin',surname='管理员',email='admin@live.com',passwd=generate_password_hash('superadmin'),gender=1,type=1)  
 u2.groups = g2
 u2.positions = p2 
-u3 = User(name='anonymous',alias='anonymous',surname='匿名用户',email='anonymous@live.com',passwd=generate_password_hash('anonymous'),gender=1)  
+u3 = User(name='anonymous',alias='anonymous',surname='匿名用户',email='anonymous@live.com',passwd=generate_password_hash('anonymous'),gender=1,type=3)  
 u3.groups = g3
 u3.positions = p3 
 db.session.add_all([u1,u2,u3])
@@ -71,4 +71,25 @@ u12.groups = g10
 u12.positions = p10  
 db.session.add_all([u10,u11,u12])
 db.session.commit()
+
+r1 = Role(name='IT经理', alias='IT Manager')
+r2 = Role(name='IT主管', alias='IT Supervisor')
+r3 = Role(name='IT助理', alias='IT Assistant')
+db.session.add_all([r1,r2,r3])
+db.session.commit()
+
+#给用户添加角色
+u1 = User.query.filter_by(name='chenying').first()
+u1.roles = [r1,r2]  
+db.session.add(u1) 
+db.session.commit()
+
+per1 = Role(name='IT经理', alias='IT Manager')
+per2 = Role(name='IT主管', alias='IT Supervisor')
+per3 = Role(name='IT助理', alias='IT Assistant')
+db.session.add_all([per1,per2,per3])
+db.session.commit()
+
+#给角色添加权限
+r1 = Role.query.filter_by(name='IT经理').first()
 ```

@@ -98,7 +98,7 @@ class User(db.Model):
     status = db.Column(db.Integer, nullable=False,
                        default=1, doc="0:disable,1:enable")
     type = db.Column(db.Integer, nullable=False, default=2,
-                     doc="0:Super Admin,1:Admin,2: General,3:Guest")
+                     doc="0:Super Admin,1:Admin,2: Normal,3:Guest")
     theme = db.Column(db.String(128), nullable=False, default='default')
     attempt_clock = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
@@ -194,10 +194,8 @@ class Role(db.Model):
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
         db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
-    # permissions = db.relationship('Permission', secondary=roles_permissions, lazy='subquery',
-    #                                     backref=db.backref('roles', lazy=True))
-    # users = db.relationship('User', secondary=users_roles, lazy='subquery',
-    #                               backref=db.backref('roles', lazy=True))
+    permissions = db.relationship('Permission', secondary=roles_permissions, lazy='subquery',
+                                        backref=db.backref('roles', lazy=True))
 
     def __repr__(self):
         return '<Role %r>' % self.name
@@ -206,20 +204,17 @@ class Role(db.Model):
 class Permission(db.Model):
     __tablename__ = 'permissions'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
+    name = db.Column(db.String(200), unique=True, nullable=False)
+    codename = db.Column(db.String(200), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
+    contenttypeid = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False)
+    action = db.Column(db.Integer, nullable=False, default=1,doc="1: view, 2: create, 3: edit, 4: delete")
     description = db.Column(db.Text)
     status = db.Column(db.Integer, nullable=False, default=1,doc="0:disable,1:enable")
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
         db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
-    # roles = db.relationship('Role', secondary=roles_permissions, lazy='subquery',
-    #                                     backref=db.backref('permissions', lazy=True))
-    # users = db.relationship('User', secondary=users_permissions, lazy='subquery',
-    #                                     backref=db.backref('permissions', lazy=True))
-    # groups = db.relationship('Group', secondary=groups_permissions, lazy='subquery',
-    #                                      backref=db.backref('permissions', lazy=True))
 
     def __repr__(self):
         return '<Permission %r>' % self.name
@@ -232,3 +227,10 @@ class Session(db.Model):
     status = db.Column(db.Integer, nullable=False, default=1,doc="0:failed,1:success")
     ip = db.Column(db.String(120), nullable=False)
     info = db.Column(db.Text)
+
+class ContentType(db.Model):
+    __tablename__ = "content_type"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(200), unique=True, nullable=False)
+    name = db.Column(db.String(200), unique=True, nullable=False)
+    name = db.Column(db.String(200), unique=True, nullable=False)

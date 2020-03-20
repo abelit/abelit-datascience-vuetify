@@ -14,21 +14,6 @@ from models import User, Session
 auth = Blueprint("auth", __name__)
 
 
-def decorator_session(func):
-    def wrapper(*args, **kw):
-        print("session decorator")
-        sess = Session(userid='1', ip=request.remote_addr,
-                       info=request.user_agent.platform+";"+request.user_agent.browser)
-        try:
-            db.session.add(sess)
-            db.session.commit()
-        except Exception:
-            db.session.rollback()
-            print("record session failed.")
-        return func(*args, **kw)
-    return wrapper
-
-
 def create_session(userid, ip, status, info):
     sess = Session(userid=userid, ip=ip, status=status, info=info)
     try:
