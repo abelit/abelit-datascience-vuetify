@@ -21,7 +21,7 @@ from flask_restful import Api, Resource
 
 # 自定义模块
 from db import db
-import config
+from config import config
 from app.dbsource.views import dbsource as dbsource_blueprint
 from app.auth.views import auth as auth_blueprint
 from app.home.views import home as home_blueprint
@@ -33,10 +33,10 @@ from utils.middleware import Middleware
 app = Flask(__name__)
 
 # 从config.py中导入配置信息
-app.config.from_object(config.DevelopmentConfig)
+app.config.from_object(config)
 
 # 导入日志配置信息
-config.DevelopmentConfig.init_app(app)
+config.init_app(app)
 
 # 使用flask-sqlalchemy
 db.init_app(app)
@@ -85,4 +85,4 @@ app.register_blueprint(demo_blueprint, url_prefix="/api/demo")
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0")

@@ -176,7 +176,6 @@ class Position(db.Model):
         return '<Position %r>' % self.name
 
 
-
 class Menu(db.Model):
     __tablename__ = 'menus'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

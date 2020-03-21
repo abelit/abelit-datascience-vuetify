@@ -11,7 +11,7 @@ Licence :   BSD-3-Clause
 '''
 
 
-from flask import render_template, Blueprint, request, jsonify
+from flask import render_template, Blueprint, request, jsonify, current_app
 
 home = Blueprint("home", __name__)
 
@@ -29,4 +29,20 @@ def ping():
         "ip": request.remote_addr,
         "router": request.path,
         "module": __name__
+    })
+
+
+@home.route('/api')
+def get_api():
+    rules = []
+    for rule in current_app.url_map.iter_rules():
+        rules.append({
+            "rule": rule.rule,
+            "endpoint": rule.endpoint,
+            "methods": str(rule.methods)
+        })
+
+    return jsonify({
+        "msg": "apis",
+        "rules": rules
     })

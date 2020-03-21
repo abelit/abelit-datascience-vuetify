@@ -18,7 +18,9 @@ import logging
 from logging.handlers import RotatingFileHandler
 
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+DEV = True
+
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 
 class RequestFormatter(logging.Formatter):
@@ -43,7 +45,7 @@ class InfoFilter(logging.Filter):
             return 0
 
 
-class Config(object):
+class BaseConfig(object):
     # 配置Flask
     DEBUG = False
     TESTING = False
@@ -69,7 +71,7 @@ class Config(object):
     SQLALCHEMY_MAX_OVERFLOW = 5
 
     # 配置日志信息
-    LOG_PATH = os.path.join(basedir, 'logs')
+    LOG_PATH = os.path.join(BASEDIR, 'logs')
     LOG_PATH_ERROR = os.path.join(LOG_PATH, 'error.log')
     LOG_PATH_INFO = os.path.join(LOG_PATH, 'info.log')
 
@@ -95,7 +97,7 @@ class Config(object):
         pass
 
 
-class ProductionConfig(Config):
+class ProductionConfig(BaseConfig):
     """
     正式环境配置
     """
@@ -104,7 +106,7 @@ class ProductionConfig(Config):
 
     @classmethod
     def init_app(cls, app):
-        Config.init_app(app)
+        BaseConfig.init_app(app)
 
         # email errors to the administrators
         import logging
@@ -153,14 +155,14 @@ class ProductionConfig(Config):
         app.logger.addHandler(mail_handler)
 
 
-class StagingConfig(Config):
+class StagingConfig(BaseConfig):
     DEVELOPMENT = True
     DEBUG = True
 
 
-class DevelopmentConfig(Config):
+class DevelopmentConfig(BaseConfig):
     """
-    开发环境配置
+    开发环境配置Base
     """
 
     DEVELOPMENT = True
@@ -169,7 +171,7 @@ class DevelopmentConfig(Config):
 
     @classmethod
     def init_app(cls, app):
-        Config.init_app(app)
+        BaseConfig.init_app(app)
 
         # email errors to the administrators
         import logging
@@ -227,5 +229,11 @@ class DevelopmentConfig(Config):
         # app.logger.addHandler(mail_handler)
 
 
-class TestingConfig(Config):
+class TestingConfig(BaseConfig):
     TESTING = True
+
+
+if DEV:
+    config = DevelopmentConfig
+else:
+    config = ProductionConfig
