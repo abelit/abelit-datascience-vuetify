@@ -13,9 +13,10 @@ Licence :   BSD-3-Clause
 
 from app.demo.views import TodoItem, HelloWorld, TodoSimple
 from app.demo.views import api as demoapi
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from flask_restful import Api, Resource
 
 
 # 自定义模块
@@ -26,9 +27,7 @@ from app.auth.views import auth as auth_blueprint
 from app.home.views import home as home_blueprint
 from app.admin.views import admin as admin_blueprint
 from app.demo.views import demo as demo_blueprint
-
-from middleware import Middleware
-from flask_restful import Api, Resource
+from utils.middleware import Middleware
 
 # 创建flask实例对象
 app = Flask(__name__)
@@ -63,6 +62,11 @@ def process_start_request():
 def process_end_request(response):
     print("结束访问： "+request.path)
     return response
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({"err": 404, "msg": "page not found"}), 404
 
 
 # 注册自定义blueprint模块

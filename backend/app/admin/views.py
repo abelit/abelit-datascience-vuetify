@@ -28,7 +28,8 @@ def ping():
     return jsonify({
         "ping": "Pong!",
         "ip": request.remote_addr,
-        "module": "admin"
+        "router": request.path,
+        "module": __name__
     })
 
 
