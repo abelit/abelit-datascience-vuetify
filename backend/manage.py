@@ -1,4 +1,16 @@
-# coding=utf-8
+# -*- encoding: utf-8 -*-
+'''
+@File    :   manage.py
+@Time    :   2020/03/21 08:30:56
+@Author  :   Abelit
+@Version :   1.0
+@Contact :   ychenid@live.com
+@Copyright :   (C)Copyright 2020, dataforum.org
+Licence :   BSD-3-Clause
+@Desc    :   None
+'''
+
+
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
@@ -11,10 +23,11 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 
-@manager.option("-n","--name",dest="name", default="www.baidu.com")
+@manager.option("-n", "--name", dest="name", default="www.baidu.com")
 def hello(name):
     print("hello world!")
     print(name)
+
 
 @manager.option("-n", "--name", dest="name", default="www.baidu.com")
 def world(name):

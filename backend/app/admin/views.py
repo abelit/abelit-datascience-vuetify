@@ -1,4 +1,16 @@
-# coding:utf8
+# -*- encoding: utf-8 -*-
+'''
+@File    :   views.py
+@Time    :   2020/03/21 08:31:39
+@Author  :   Abelit
+@Version :   1.0
+@Contact :   ychenid@live.com
+@Copyright :   (C)Copyright 2020, dataforum.org
+Licence :   BSD-3-Clause
+@Desc    :   None
+'''
+
+
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -6,7 +18,7 @@ import time
 
 
 from db import db
-from models import Group, Position, User, Role, Menu,Session
+from models import Group, Position, User, Role, Menu, Session
 
 admin = Blueprint("admin", __name__)
 
@@ -18,6 +30,7 @@ def ping():
         "ip": request.remote_addr,
         "module": "admin"
     })
+
 
 @admin.route("/group/add", methods=["POST"])
 # @jwt_required
@@ -63,19 +76,20 @@ def delete_group():
 
     return jsonify(), status_code
 
+
 @admin.route('/group/update', methods=['POST'])
 def update_group():
     # 从前端Ajax请求中获取角色信息
     name = request.json.get('name', None)
     status = request.json.get('status', None)
-    description =  request.json.get('description', None)
+    description = request.json.get('description', None)
 
     status_code = None
 
     group = Group.query.filter_by(name=name)
     # 更新用户信息
-    group.update({'status': status,'description': description})
-            
+    group.update({'status': status, 'description': description})
+
     # 提交入库
     try:
         db.session.commit()
@@ -110,6 +124,7 @@ def add_position():
 
     return jsonify(), status_code
 
+
 @admin.route('/position/delete', methods=['POST'])
 def delete_position():
     # 从前端Ajax请求中获取用户名
@@ -129,19 +144,20 @@ def delete_position():
 
     return jsonify(), status_code
 
+
 @admin.route('/position/update', methods=['POST'])
 def update_position():
     # 从前端Ajax请求中获取角色信息
     name = request.json.get('name', None)
     status = request.json.get('status', None)
-    description =  request.json.get('description', None)
+    description = request.json.get('description', None)
 
     status_code = None
 
     position = Position.query.filter_by(name=name)
     # 更新用户信息
-    position.update({'status': status,'description': description})
-            
+    position.update({'status': status, 'description': description})
+
     # 提交入库
     try:
         db.session.commit()
@@ -237,7 +253,7 @@ def update_user():
     user = user_obj.first()
     # 更新用户信息
     user_obj.update({'name': name, 'group_id': selected_department,
-                 'position_id': selected_position, 'gender': selected_gender, 'status': status})
+                     'position_id': selected_position, 'gender': selected_gender, 'status': status})
 
     # 根据用户输入判断是否进行密码更新
     if password is not None:
@@ -256,13 +272,12 @@ def update_user():
     for hr in has_role:
         if hr not in new_role:
             user.roles.remove(hr)
-    
 
     # 添加新增不存在的权限
     for nr in new_role:
         if nr not in has_role:
             user.roles.append(nr)
-            
+
     # 提交入库
     try:
         db.session.commit()
@@ -345,6 +360,7 @@ def add_role():
 
     return jsonify(), status_code
 
+
 @admin.route('/role/update', methods=['POST'])
 def update_role():
     # 从前端Ajax请求中获取角色信息
@@ -356,7 +372,7 @@ def update_role():
     role = Role.query.filter_by(name=name)
     # 更新用户信息
     role.update({'status': status})
-            
+
     # 提交入库
     try:
         db.session.commit()
@@ -365,6 +381,7 @@ def update_role():
         status_code = 500
 
     return jsonify(), status_code
+
 
 @admin.route('/role/delete', methods=['POST'])
 def delete_role():
@@ -419,7 +436,6 @@ def get_users():
             "position": {"name": u.positions.name, "id": u.positionid},
             "query_ip": request.remote_addr
         }
-
 
         result.append(ulist)
     return jsonify(result), 200

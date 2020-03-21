@@ -1,3 +1,16 @@
+# -*- encoding: utf-8 -*-
+'''
+@File    :   ptree.py
+@Time    :   2020/03/21 08:32:27
+@Author  :   Abelit
+@Version :   1.0
+@Contact :   ychenid@live.com
+@Copyright :   (C)Copyright 2020, dataforum.org
+Licence :   BSD-3-Clause
+@Desc    :   None
+'''
+
+
 def create_ptree_from_obj(obj):
     if not isinstance(obj, dict):
         raise InvalidPermissionObjError()

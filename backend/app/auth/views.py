@@ -1,3 +1,16 @@
+# -*- encoding: utf-8 -*-
+'''
+@File    :   views.py
+@Time    :   2020/03/21 08:31:48
+@Author  :   Abelit
+@Version :   1.0
+@Contact :   ychenid@live.com
+@Copyright :   (C)Copyright 2020, dataforum.org
+Licence :   BSD-3-Clause
+@Desc    :   None
+'''
+
+
 from flask import request, jsonify, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import (
@@ -29,7 +42,8 @@ def ping():
     return jsonify({
         "ping": "Pong!",
         "ip": request.remote_addr,
-        "module": "auth"
+        "router": "/api/auth",
+        "module": __name__
     })
 
 

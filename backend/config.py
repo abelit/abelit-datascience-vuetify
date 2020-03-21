@@ -1,3 +1,16 @@
+# -*- encoding: utf-8 -*-
+'''
+@File    :   config.py
+@Time    :   2020/03/21 08:30:46
+@Author  :   Abelit
+@Version :   1.0
+@Contact :   ychenid@live.com
+@Copyright :   (C)Copyright 2020, dataforum.org
+Licence :   BSD-3-Clause
+@Desc    :   None
+'''
+
+
 from flask.logging import default_handler
 from flask import request
 import os
@@ -31,25 +44,27 @@ class InfoFilter(logging.Filter):
 
 
 class Config(object):
+    # 配置Flask
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
+    # 配置Flask加密密钥
     SECRET_KEY = 'this-really-needs-to-be-changed'
+
+    # 配置数据库
     # 使用docker环境时把127.0.0.1改为db的容器名称
-    DIALECT='mysql'
-    DRIVER='pymysql'
-    USERNAME='datascience'
-    PASSWORD='Passw0rd'
-    HOST='58.42.231.98'
-    PORT=53306
-    DATABASE='datascience'
-    # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:Passw0rd@58.42.231.98:53306/datascience"
+    DIALECT = 'mysql'
+    DRIVER = 'pymysql'
+    USERNAME = 'datascience'
+    PASSWORD = 'Passw0rd'
+    HOST = '58.42.231.98'
+    PORT = 53306
+    DATABASE = 'datascience'
     SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(
-        DIALECT,DRIVER,USERNAME,PASSWORD,HOST,PORT,DATABASE
+        DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE
     )
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
- 
     SQLALCHEMY_POOL_SIZE = 10
     SQLALCHEMY_MAX_OVERFLOW = 5
 
@@ -67,12 +82,24 @@ class Config(object):
     CIRCULATE_ADMIN = '948640709@qq.com'
     CIRCULATE_MAIL_SUBJECT_PREFIX = 'App Error '
 
+    # 配值JSON是否自动排序，默认为启动
+    JSON_SORT_KEYS = False
+
+    # 配置Flask JWT Extended认证加密密钥
+    JWT_SECRET_KEY = '+\x1ba][o\x9e\x82\xa5MGsr\xa8x3\xc04\xd3\x0f\x11\x9a<z1'
+    JWT_ACCESS_TOKEN_EXPIRES = ''
+    JWT_REFRESH_ACCESS_TOKEN_EXPIRES = ''
+
     @staticmethod
     def init_app(app):
         pass
 
 
 class ProductionConfig(Config):
+    """
+    正式环境配置
+    """
+
     DEBUG = False
 
     @classmethod
@@ -132,6 +159,10 @@ class StagingConfig(Config):
 
 
 class DevelopmentConfig(Config):
+    """
+    开发环境配置
+    """
+
     DEVELOPMENT = True
     DEBUG = True
     SQLALCHEMY_ECHO = True

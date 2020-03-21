@@ -1,4 +1,16 @@
-# coding:utf8
+# -*- encoding: utf-8 -*-
+'''
+@File    :   main.py
+@Time    :   2020/03/21 08:30:15
+@Author  :   Abelit
+@Version :   1.0
+@Contact :   ychenid@live.com
+@Copyright :   (C)Copyright 2020, dataforum.org
+Licence :   BSD-3-Clause
+@Desc    :   None
+'''
+
+
 from app.demo.views import TodoItem, HelloWorld, TodoSimple
 from app.demo.views import api as demoapi
 from flask import Flask, request
@@ -9,24 +21,20 @@ from flask_cors import CORS
 # 自定义模块
 from db import db
 import config
-
 from app.dbsource.views import dbsource as dbsource_blueprint
 from app.auth.views import auth as auth_blueprint
 from app.home.views import home as home_blueprint
 from app.admin.views import admin as admin_blueprint
-
 from app.demo.views import demo as demo_blueprint
 
-
 from middleware import Middleware
-
 from flask_restful import Api, Resource
 
 # 创建flask实例对象
 app = Flask(__name__)
+
 # 从config.py中导入配置信息
 app.config.from_object(config.DevelopmentConfig)
-app.config['JSON_SORT_KEYS'] = False
 
 # 导入日志配置信息
 config.DevelopmentConfig.init_app(app)
@@ -37,10 +45,6 @@ db.init_app(app)
 # 跨域设置
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-# 设置JWT认证加密密钥
-app.config['JWT_SECRET_KEY'] = '+\x1ba][o\x9e\x82\xa5MGsr\xa8x3\xc04\xd3\x0f\x11\x9a<z1'
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = ''
-app.config['JWT_REFRESH_ACCESS_TOKEN_EXPIRES'] = ''
 # 创建JWT实例对象
 jwt = JWTManager(app)
 

@@ -1,3 +1,16 @@
+# -*- encoding: utf-8 -*-
+'''
+@File    :   middleware.py
+@Time    :   2020/03/21 08:31:04
+@Author  :   Abelit
+@Version :   1.0
+@Contact :   ychenid@live.com
+@Copyright :   (C)Copyright 2020, dataforum.org
+Licence :   BSD-3-Clause
+@Desc    :   None
+'''
+
+
 class Middleware(object):
     def __init__(self, wsgi_app, request, *args):
         self.wsgi_app = wsgi_app

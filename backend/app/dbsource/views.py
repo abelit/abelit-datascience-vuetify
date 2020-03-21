@@ -1,4 +1,17 @@
-from flask import jsonify, request, Blueprint,g
+# -*- encoding: utf-8 -*-
+'''
+@File    :   views.py
+@Time    :   2020/03/21 08:31:55
+@Author  :   Abelit
+@Version :   1.0
+@Contact :   ychenid@live.com
+@Copyright :   (C)Copyright 2020, dataforum.org
+Licence :   BSD-3-Clause
+@Desc    :   None
+'''
+
+
+from flask import jsonify, request, Blueprint, g
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from models import Group, Position, User, Role, Menu
@@ -89,12 +102,14 @@ def menu():
             "order": m.order,
             "created_time": m.created_time
         })
-    
+
     return jsonify(result), 200
+
 
 @dbsource.route('/test/menu')
 def test_menu():
-    sqlres = db.engine.execute("""select id,name,alias,surname,email from users""")
+    sqlres = db.engine.execute(
+        """select id,name,alias,surname,email from users""")
     result = []
 
     for i in sqlres:

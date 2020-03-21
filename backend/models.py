@@ -1,4 +1,16 @@
-# coding=utf-8
+# -*- encoding: utf-8 -*-
+'''
+@File    :   models.py
+@Time    :   2020/03/21 08:31:10
+@Author  :   Abelit
+@Version :   1.0
+@Contact :   ychenid@live.com
+@Copyright :   (C)Copyright 2020, dataforum.org
+Licence :   BSD-3-Clause
+@Desc    :   None
+'''
+
+
 from db import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -74,8 +86,9 @@ roles_permissions = db.Table('roles_permissions',
                                        nullable=False, onupdate=datetime.now, default=datetime.now)
                              )
 
+
 class User(db.Model):
-    __tablename__="users"
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     alias = db.Column(db.String(100), unique=True)
     name = db.Column(db.String(100), unique=True,
@@ -89,7 +102,7 @@ class User(db.Model):
     positionid = db.Column(db.Integer, db.ForeignKey(
         'positions.id'), nullable=False)
     url = db.Column(db.String(1024), nullable=False,
-                    doc="user's home page when logined",default='')
+                    doc="user's home page when logined", default='')
     autologin = db.Column(db.Integer, nullable=False,
                           default=0, doc="1:true,0:false")
     autologout = db.Column(db.Integer, nullable=False, default=600)
@@ -106,14 +119,16 @@ class User(db.Model):
     attempt_ip = db.Column(db.String(64), nullable=False, default='')
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
-    updated_timestamp = db.Column(db.DateTime, nullable=False, onupdate=datetime.now,default=datetime.now)
+    updated_timestamp = db.Column(
+        db.DateTime, nullable=False, onupdate=datetime.now, default=datetime.now)
 
-    groups = db.relationship('Group', backref=db.backref('users', lazy='subquery'))
+    groups = db.relationship(
+        'Group', backref=db.backref('users', lazy='subquery'))
     positions = db.relationship(
         'Position', backref=db.backref('users', lazy=True))
     roles = db.relationship(
         'Role', secondary=users_roles, lazy='subquery', backref=db.backref('users', lazy=True))
-    
+
     permissions = db.relationship(
         'Permission', secondary=users_permissions, lazy='subquery', backref=db.backref('users', lazy=True))
 
@@ -133,7 +148,7 @@ class Group(db.Model):
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
         db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
-    
+
     roles = db.relationship(
         'Role', secondary=groups_roles, lazy='subquery', backref=db.backref('groups', lazy=True))
 
@@ -149,7 +164,8 @@ class Position(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
-    status = db.Column(db.Integer, nullable=False,default=1, doc="0: disable, 1: enable")
+    status = db.Column(db.Integer, nullable=False,
+                       default=1, doc="0: disable, 1: enable")
     description = db.Column(db.Text)
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
@@ -158,7 +174,6 @@ class Position(db.Model):
 
     def __repr__(self):
         return '<Position %r>' % self.name
-
 
 
 
@@ -189,13 +204,14 @@ class Role(db.Model):
     name = db.Column(db.String(80), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
     description = db.Column(db.Text)
-    status = db.Column(db.Integer, nullable=False, default=1, doc="0:disable,1:enable")
+    status = db.Column(db.Integer, nullable=False,
+                       default=1, doc="0:disable,1:enable")
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
         db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
     permissions = db.relationship('Permission', secondary=roles_permissions, lazy='subquery',
-                                        backref=db.backref('roles', lazy=True))
+                                  backref=db.backref('roles', lazy=True))
 
     def __repr__(self):
         return '<Role %r>' % self.name
@@ -207,10 +223,13 @@ class Permission(db.Model):
     name = db.Column(db.String(200), unique=True, nullable=False)
     codename = db.Column(db.String(200), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
-    contenttypeid = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False)
-    action = db.Column(db.Integer, nullable=False, default=1,doc="1: view, 2: create, 3: edit, 4: delete")
+    contenttypeid = db.Column(
+        db.Integer, db.ForeignKey('groups.id'), nullable=False)
+    action = db.Column(db.Integer, nullable=False, default=1,
+                       doc="1: view, 2: create, 3: edit, 4: delete")
     description = db.Column(db.Text)
-    status = db.Column(db.Integer, nullable=False, default=1,doc="0:disable,1:enable")
+    status = db.Column(db.Integer, nullable=False,
+                       default=1, doc="0:disable,1:enable")
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
@@ -219,14 +238,17 @@ class Permission(db.Model):
     def __repr__(self):
         return '<Permission %r>' % self.name
 
+
 class Session(db.Model):
     __tablename__ = 'sessions'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     userid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    lastaccess = db.Column(db.DateTime,nullable=False,default=datetime.now)
-    status = db.Column(db.Integer, nullable=False, default=1,doc="0:failed,1:success")
+    lastaccess = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    status = db.Column(db.Integer, nullable=False,
+                       default=1, doc="0:failed,1:success")
     ip = db.Column(db.String(120), nullable=False)
     info = db.Column(db.Text)
+
 
 class ContentType(db.Model):
     __tablename__ = "content_type"
