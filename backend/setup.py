@@ -14,11 +14,45 @@ Licence :   BSD-3-Clause
 from setuptools import setup
 
 setup(
-    name='DataScience',
+    name='Flask-DataScience',
     version='1.0',
+    url='http://www.dataforum.com/datascience/',
+    project_urls={
+        "Documentation": "https://dataforum.org/datascience/document",
+        "Code": "https://github.com/abelit/abelit-DataScience",
+        "Issue tracker": "https://github.comabelit/abelit-DataScience/issues"
+    },
+    license='BSD',
+    author='Abelit',
+    author_email='ychenid@live.com',
+    maintainer="Abelit",
+    maintainer_email="ychenid@live.com",
+    description='A Data Science and Role,Permission API.',
     long_description=__doc__,
-    packages=['datascience'],
-    include_package_data=True,
+    python_requires="3.*",
     zip_safe=False,
-    install_requires=['Flask']
+    include_package_data=True,
+    platforms='any',
+    install_requires=[
+        'Flask',
+        "PyMySQL",
+        "flask-restful",
+        "uwsgi",
+        "Flask-SQLAlchemy",
+        "Flask-Migrate",
+        "Flask-Script",
+        "Flask-JWT-Extended",
+        "Flask-Cors",
+        "itsdangerous"
+    ],
+    classifiers=[
+        'Data Science :: Data Analysis :: Data Visualization',
+        'Environment :: Web Environment',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+        'Topic :: Software Development :: Libraries :: Python Modules'
+    ]
 )
