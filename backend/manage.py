@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
 '''
 @File    :   manage.py
-@Time    :   2020/03/21 08:30:56
-@Author  :   Abelit
+@Time    :   2020/03/23 10:22:20
+@Author  :   Abelit 
 @Version :   1.0
 @Contact :   ychenid@live.com
 @Copyright :   (C)Copyright 2020, dataforum.org
-Licence :   BSD-3-Clause
+@Licence :   BSD-3-Clause
 @Desc    :   None
 '''
 
