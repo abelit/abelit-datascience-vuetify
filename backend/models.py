@@ -181,13 +181,15 @@ class Menu(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
-    fid = db.Column(db.Integer, nullable=True)
+    module = db.Column(db.String(200))
+    pid = db.Column(db.Integer, nullable=True)
     url = db.Column(db.String(500), unique=True, nullable=False)
     # component = db.Column(db.String(500), unique=True, nullable=False)
     icon = db.Column(db.String(50), unique=True)
     status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
     type = db.Column(db.Integer, nullable=False)
-    level = db.Column(db.Integer, nullable=False)
+    order = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.Text)
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
@@ -222,8 +224,8 @@ class Permission(db.Model):
     name = db.Column(db.String(200), unique=True, nullable=False)
     codename = db.Column(db.String(200), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
-    contenttypeid = db.Column(
-        db.Integer, db.ForeignKey('groups.id'), nullable=False)
+    object = db.Column(
+        db.Integer, db.ForeignKey('Menu.id'), nullable=False)
     action = db.Column(db.Integer, nullable=False, default=1,
                        doc="1: view, 2: create, 3: edit, 4: delete")
     description = db.Column(db.Text)
@@ -253,5 +255,24 @@ class ContentType(db.Model):
     __tablename__ = "content_type"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(200), unique=True, nullable=False)
-    name = db.Column(db.String(200), unique=True, nullable=False)
-    name = db.Column(db.String(200), unique=True, nullable=False)
+    alias = db.Column(db.String(200), unique=True, nullable=False)
+    status = db.Column(db.Integer, nullable=False,
+                       default=1, doc="0:disable,1:enable")
+    description = db.Column(db.Text)
+    created_timestamp = db.Column(
+        db.DateTime, nullable=False, default=datetime.now)
+    updated_timestamp = db.Column(
+        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
+
+
+class BlockIP(db.Model):
+    __tablename__= "block_ip"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    ip = db.Column(db.String(200), unique=True, nullable=False)
+    status = db.Column(db.Integer, nullable=False,
+                       default=1, doc="0:disable,1:enable")
+    description = db.Column(db.Text)
+    created_timestamp = db.Column(
+        db.DateTime, nullable=False, default=datetime.now)
+    updated_timestamp = db.Column(
+        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
