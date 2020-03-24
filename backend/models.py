@@ -14,15 +14,16 @@ Licence :   BSD-3-Clause
 from db import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+import uuid
 
 
 # 用户与角色多对多关系
 users_roles = db.Table('users_roles',
                        db.Column('id', db.Integer, primary_key=True,
-                                 autoincrement=True),
-                       db.Column('userid', db.Integer, db.ForeignKey(
+                                  autoincrement=True),
+                       db.Column('userid',db.Integer, db.ForeignKey(
                            'users.id'), primary_key=True),
-                       db.Column('roleid', db.Integer, db.ForeignKey(
+                       db.Column('roleid',db.Integer, db.ForeignKey(
                            'roles.id'), primary_key=True),
                        db.Column('created_timestamp', db.DateTime,
                                  nullable=False, default=datetime.now),
@@ -33,7 +34,7 @@ users_roles = db.Table('users_roles',
 # 用户与权限多对多关系
 users_permissions = db.Table('users_permissions',
                              db.Column('id', db.Integer,
-                                       primary_key=True, autoincrement=True),
+                                       primary_key=True,  autoincrement=True),
                              db.Column('userid', db.Integer, db.ForeignKey(
                                  'users.id'), primary_key=True),
                              db.Column('permissionid', db.Integer, db.ForeignKey(
@@ -46,8 +47,8 @@ users_permissions = db.Table('users_permissions',
 
 # 用户组和角色多对多关系
 groups_roles = db.Table('groups_roles',
-                        db.Column('id', db.Integer, primary_key=True,
-                                  autoincrement=True),
+                        db.Column('id',  db.Integer, primary_key=True,
+                                   autoincrement=True),
                         db.Column('groupid', db.Integer, db.ForeignKey(
                             'groups.id'), primary_key=True),
                         db.Column('roleid', db.Integer, db.ForeignKey(
@@ -60,8 +61,8 @@ groups_roles = db.Table('groups_roles',
 
 # 用户组与权限多对多关系
 groups_permissions = db.Table('groups_permissions',
-                              db.Column('id', db.Integer,
-                                        primary_key=True, autoincrement=True),
+                              db.Column('id',  db.Integer,
+                                        primary_key=True,  autoincrement=True),
                               db.Column('groupid', db.Integer, db.ForeignKey(
                                   'groups.id'), primary_key=True),
                               db.Column('permissionid', db.Integer, db.ForeignKey(
@@ -74,8 +75,8 @@ groups_permissions = db.Table('groups_permissions',
 
 # 角色与权限多对多关系
 roles_permissions = db.Table('roles_permissions',
-                             db.Column('id', db.Integer,
-                                       primary_key=True, autoincrement=True),
+                             db.Column('id',  db.Integer,
+                                       primary_key=True,  autoincrement=True),
                              db.Column('roleid', db.Integer, db.ForeignKey(
                                  'roles.id'), primary_key=True),
                              db.Column('permissionid', db.Integer, db.ForeignKey(
@@ -86,10 +87,43 @@ roles_permissions = db.Table('roles_permissions',
                                        nullable=False, onupdate=datetime.now, default=datetime.now)
                              )
 
+# 数据包与权限多对多关系
+menus_permissions = db.Table('menus_permissions',
+                                db.Column('id', db.Integer,
+                                          primary_key=True,  autoincrement=True),
+                                db.Column('menusid', db.Integer, db.ForeignKey(
+                                    'menus.id'), primary_key=True),
+                                db.Column('permissionid', db.Integer, db.ForeignKey(
+                                    'permissions.id'), primary_key=True),
+                                db.Column('action', db.Integer,
+                                          doc='1: view,2:create,3,edit,4.delete'),
+                                db.Column('created_timestamp', db.DateTime,
+                                          nullable=False, default=datetime.now),
+                                db.Column('updated_timestamp', db.DateTime,
+                                          nullable=False,  onupdate=datetime.now, default=datetime.now)
+                                )
+
+
+# 数据包与权限多对多关系
+datapack_permissions = db.Table('datapack_permissions',
+                                db.Column('id', db.Integer,
+                                          primary_key=True,  autoincrement=True),
+                                db.Column('datapackid', db.Integer, db.ForeignKey(
+                                    'datapack.id'), primary_key=True),
+                                db.Column('permissionid', db.Integer, db.ForeignKey(
+                                    'permissions.id'), primary_key=True),
+                                db.Column('action', db.Integer,
+                                          doc='1: view,2:create,3,edit,4.delete'),
+                                db.Column('created_timestamp', db.DateTime,
+                                          nullable=False, default=datetime.now),
+                                db.Column('updated_timestamp', db.DateTime,
+                                          nullable=False,  onupdate=datetime.now, default=datetime.now)
+                                )
+
 
 class User(db.Model):
     __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
     alias = db.Column(db.String(100), unique=True)
     name = db.Column(db.String(100), unique=True,
                      nullable=False, doc="user account")
@@ -138,9 +172,10 @@ class User(db.Model):
 
 class Group(db.Model):
     __tablename__ = 'groups'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
+    pid = db.Column(db.Integer, db.ForeignKey('groups.id'))
     status = db.Column(db.Integer, nullable=False,
                        default=1, doc="0: disable, 1: enable")
     description = db.Column(db.Text)
@@ -161,7 +196,7 @@ class Group(db.Model):
 
 class Position(db.Model):
     __tablename__ = 'positions'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
     status = db.Column(db.Integer, nullable=False,
@@ -176,32 +211,9 @@ class Position(db.Model):
         return '<Position %r>' % self.name
 
 
-class Menu(db.Model):
-    __tablename__ = 'menus'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    alias = db.Column(db.String(80), unique=True)
-    module = db.Column(db.String(200))
-    pid = db.Column(db.Integer, nullable=True)
-    url = db.Column(db.String(500), unique=True, nullable=False)
-    # component = db.Column(db.String(500), unique=True, nullable=False)
-    icon = db.Column(db.String(50), unique=True)
-    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
-    type = db.Column(db.Integer, nullable=False)
-    order = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.Text)
-    created_timestamp = db.Column(
-        db.DateTime, nullable=False, default=datetime.now)
-    updated_timestamp = db.Column(
-        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
-
-    def __repr__(self):
-        return '<Menu %r>' % self.name
-
-
 class Role(db.Model):
     __tablename__ = 'roles'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     alias = db.Column(db.String(80), unique=True)
     description = db.Column(db.Text)
@@ -220,55 +232,31 @@ class Role(db.Model):
 
 class Permission(db.Model):
     __tablename__ = 'permissions'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(200), unique=True, nullable=False)
-    codename = db.Column(db.String(200), unique=True, nullable=False)
-    alias = db.Column(db.String(80), unique=True)
-    object = db.Column(
-        db.Integer, db.ForeignKey('Menu.id'), nullable=False)
-    action = db.Column(db.Integer, nullable=False, default=1,
-                       doc="1: view, 2: create, 3: edit, 4: delete")
-    description = db.Column(db.Text)
+    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
+    type = db.Column(db.Integer, nullable=False, doc = "1: menu, 2: data package, 3: page element")
     status = db.Column(db.Integer, nullable=False,
                        default=1, doc="0:disable,1:enable")
     created_timestamp = db.Column(
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
         db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
-
-    def __repr__(self):
-        return '<Permission %r>' % self.name
 
 
 class Session(db.Model):
     __tablename__ = 'sessions'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
     userid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    lastaccess = db.Column(db.DateTime, nullable=False, default=datetime.now)
     status = db.Column(db.Integer, nullable=False,
                        default=1, doc="0:failed,1:success")
-    ip = db.Column(db.String(120), nullable=False)
+    ip = db.Column(db.String(64), nullable=False)
     info = db.Column(db.Text)
-
-
-class ContentType(db.Model):
-    __tablename__ = "content_type"
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(200), unique=True, nullable=False)
-    alias = db.Column(db.String(200), unique=True, nullable=False)
-    status = db.Column(db.Integer, nullable=False,
-                       default=1, doc="0:disable,1:enable")
-    description = db.Column(db.Text)
-    created_timestamp = db.Column(
-        db.DateTime, nullable=False, default=datetime.now)
-    updated_timestamp = db.Column(
-        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
+    lastaccess = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
 
 class BlockIP(db.Model):
-    __tablename__= "block_ip"
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    ip = db.Column(db.String(200), unique=True, nullable=False)
+    __tablename__ = "block_ip"
+    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
+    ip = db.Column(db.String(64), unique=True, nullable=False)
     status = db.Column(db.Integer, nullable=False,
                        default=1, doc="0:disable,1:enable")
     description = db.Column(db.Text)
@@ -276,3 +264,47 @@ class BlockIP(db.Model):
         db.DateTime, nullable=False, default=datetime.now)
     updated_timestamp = db.Column(
         db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
+
+
+class Menu(db.Model):
+    __tablename__ = "menus"
+    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    alias = db.Column(db.String(80), unique=True)
+    module = db.Column(db.String(200))
+    pid = db.Column(db.Integer,db.ForeignKey('menus.id'))
+    url = db.Column(db.String(500), unique=True, nullable=False)
+    icon = db.Column(db.String(50), unique=True)
+    status = db.Column(db.Integer, nullable=False,default=1, doc="0:disable,1:enable")
+    order = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.Text)
+    created_timestamp = db.Column(
+        db.DateTime, nullable=False, default=datetime.now)
+    updated_timestamp = db.Column(
+        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
+
+    permissions = db.relationship('Permission', secondary=menus_permissions, lazy='subquery',
+                                  backref=db.backref('menus', lazy=True))
+
+    def __repr__(self):
+        return '<Menu %r>' % self.name
+
+
+class DataPack(db.Model):
+    __tablename__ = "datapack"
+    id = db.Column(db.Integer, primary_key=True,  autoincrement=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    alias = db.Column(db.String(80), unique=True)
+    status = db.Column(db.Integer, nullable=False, doc="0:disable,1:enable")
+    filter = db.Column(db.Text)
+    description = db.Column(db.Text)
+    created_timestamp = db.Column(
+        db.DateTime, nullable=False, default=datetime.now)
+    updated_timestamp = db.Column(
+        db.DateTime, nullable=False,  onupdate=datetime.now, default=datetime.now)
+
+    permissions = db.relationship('Permission', secondary=datapack_permissions, lazy='subquery',
+                                  backref=db.backref('datapack', lazy=True))
+
+    def __repr__(self):
+        return '<DataPack %r>' % self.name
