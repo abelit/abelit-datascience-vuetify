@@ -58,6 +58,7 @@ export default {
       this.language = language;
       // 设置国际化语言信息
       this.$vuetify.lang.current = this.language;
+      this.$i18n.locale = this.language;
 
       // 通过异步方式调用store中setLanguage方法，保存语言信息
       this.$store.dispatch("setLanguage", this.language);

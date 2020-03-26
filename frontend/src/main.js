@@ -16,7 +16,8 @@ import "@mdi/font/css/materialdesignicons.css";
 import NProgress from "nprogress";
 import 'nprogress/nprogress.css'
 
-Vue.config.productionTip = false;
+// International
+import i18n from './locales';
 
 // import Echarts
 import echarts from "echarts";
@@ -25,6 +26,8 @@ Vue.prototype.$echarts = echarts;
 // 导入MD5
 import md5 from 'js-md5';
 Vue.prototype.$md5 = md5;
+
+Vue.config.productionTip = false;
 
 // router gards
 router.beforeEach((to, _from, next) => {
@@ -63,6 +66,7 @@ router.afterEach((_to, _from) => {
 new Vue({
   router,
   store,
+  i18n,
   vuetify,
   render: h => h(App)
 }).$mount("#app");

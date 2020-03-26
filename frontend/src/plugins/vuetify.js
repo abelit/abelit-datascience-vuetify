@@ -1,40 +1,19 @@
+import '@mdi/font/css/materialdesignicons.css';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
-import VueI18n from 'vue-i18n';
-import '@mdi/font/css/materialdesignicons.css';
 
 Vue.use(Vuetify);
-Vue.use(VueI18n)
 
-// 导入Vuetify lang(typescript)
-import vuetifyEnLocale from 'vuetify/src/locale/en.ts'
-import vuetifyZhLocale from 'vuetify/src/locale/zh-Hans.ts'
+// 导入Vuetify自带翻译文件(javascript)
+// import zh_cn from 'vuetify/es5/locale/zh-Hans';
+// import en_us from 'vuetify/es5/locale/en';
+// import ja from 'vuetify/es5/locale/ja';
 
 // 导入自定义翻译文件
-import zhLocale from '@/i18n/vuetify/zh_cn.ts';
-import enLocale from '@/i18n/vuetify/en_us.ts';
+import zh_cn from '@/locales/vuetify/zh_cn.ts';
+import en_us from '@/locales/vuetify/en_us.ts';
 
-// 整合vuetify lang和Vue-i18n
-const messages = {
-  en: {
-    ...enLocale,
-    ...vuetifyEnLocale
-  },
-  zh: {
-    ...zhLocale,
-    ...vuetifyZhLocale
-  },
-}
-
-// 设置语言
-const i18n = new VueI18n({
-  // set locale
-  // options: en | zh | es
-  locale: 'en',
-  // set locale messages
-  messages
-})
 
 export default new Vuetify({
   theme: {
@@ -73,6 +52,10 @@ export default new Vuetify({
 
   // 设置语言
   lang: {
-    t: (key, ...params) => i18n.t(key, params)
+    locales: {
+      zh_cn,
+      en_us
+    },
+    current: 'zh_cn'
   },
 });
