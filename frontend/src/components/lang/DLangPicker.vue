@@ -57,7 +57,9 @@ export default {
     setLanguage(language) {
       this.language = language;
       // 设置国际化语言信息
+      // vuetify自带国际化
       this.$vuetify.lang.current = this.language;
+      // vue-i18n国际化
       this.$i18n.locale = this.language;
 
       // 通过异步方式调用store中setLanguage方法，保存语言信息
