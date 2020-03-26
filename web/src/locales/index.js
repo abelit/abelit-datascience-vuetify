@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 
 // vuetify lang
-import zh_ch from 'vuetify/src/locale/zh_ch'
-import en from 'vuetify/src/locale/en'
+import elementEnLocale from 'element-ui/lib/locale/lang/en'
+import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'
 
 // vue-i18n lang
 import enLocale from './en'
